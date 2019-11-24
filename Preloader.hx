@@ -31,10 +31,7 @@ class Preloader extends FlxBasePreloader
 	
 	override private function create():Void 
 	{	
-		// this code only runs when its on the web
-		#if (flash || html5)
-			NGio.login(APIStuff.APIID, APIStuff.EncKey, APIStuff.Session);
-		#end
+		NGio.login(APIStuff.APIID, APIStuff.EncKey, APIStuff.Session);
 		
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
