@@ -73,8 +73,16 @@ class GallerySubstate extends FlxSubState
 		infoBox.cameras = [newCamera];
 		
 		
+		// offset because the safari search bar covers the game a bit i think
+		var safariOffset:Float = 0;
+		#if html5
+			if (Std.string(FlxG.html5.browser) == "SAFARI")
+			{
+				safariOffset = 60;
+			}
+		#end
 		
-		var text:FlxText = new FlxText(10, 10, 0, "Current Pic - Click here to exit", 16);
+		var text:FlxText = new FlxText(10, 10 + safariOffset, 0, "Current Pic - Click here to exit", 16);
 		
 		if (FlxG.onMobile)
 		{
@@ -83,7 +91,7 @@ class GallerySubstate extends FlxSubState
 		}
 		text.cameras = [newCamera];
 		
-		textBG = new FlxSpriteButton(5, 7, null, function(){
+		textBG = new FlxSpriteButton(5, 7 + safariOffset, null, function(){
 			FlxG.cameras.remove(newCamera);
 			close();
 		});
@@ -109,11 +117,29 @@ class GallerySubstate extends FlxSubState
 	
 	private function openImage(i:Int):Void
 	{
+		
 		curDay = i;
 		
 		curAnimPlaying = 0;
 		bigImage.visible = true;
-		bigPreview.loadGraphic(picsArray[i][0]);
+		
+		// regular artwork
+		if (i >= 0)
+		{
+			bigPreview.loadGraphic(picsArray[i][0]);
+			imageText.text = picsArray[i][1];
+		}
+		else
+		{
+			switch(i)
+			{
+				case -1:
+					bigPreview.loadGraphic(AssetPaths.tom__png);
+					imageText.text = "Tom Fulp, creator, founder, president, and CEO of Newgrounds.com";
+			}
+			
+		}
+		
 		
 		var isAnimated = false;
 		var horizSize:Int = Std.int(bigPreview.width);
@@ -126,7 +152,22 @@ class GallerySubstate extends FlxSubState
 			vertSize = Std.int(vertSize / picsArray[i][4]);
 		}
 		
-		bigPreview.loadGraphic(picsArray[i][0], isAnimated, horizSize, vertSize);
+		if (i >= 0)
+		{
+			if (picsArray[i][0] == "assets/images/artwork/tyler.png")
+			{
+				bigPreview.loadGraphic(picsArray[i][0], true, Std.int(1906 / 2));
+				bigPreview.animation.add("boil", [0, 1], 10);
+				bigPreview.animation.play("boil");
+			}
+			else
+			{
+				bigPreview.loadGraphic(picsArray[i][0], isAnimated, horizSize, vertSize);
+			}
+		}
+		
+		
+		
 		
 		// loads animation data
 		if (isAnimated && !isSpritesheet)
@@ -148,7 +189,7 @@ class GallerySubstate extends FlxSubState
 		bigPreview.updateHitbox();
 		bigPreview.screenCenter();
 		
-		imageText.text = picsArray[i][1];
+		
 		
 	}
 	
@@ -162,17 +203,43 @@ class GallerySubstate extends FlxSubState
 			keyboardControls();
 		#end
 		
-		imageText.text = picsArray[curDay][1] + "\nClick here to open " + picsArray[curDay][3] + "'s Newgrounds page";
+		if (curDay >= 0)
+		{
+			imageText.text = picsArray[curDay][1] + "\nClick here to open " + picsArray[curDay][3] + "'s Newgrounds page";
+		}
+		
 		
 		if (FlxG.onMobile)
 		{
-			imageText.text = picsArray[curDay][1] + "\nTap here to open " + picsArray[curDay][3] + "'s Newgrounds page";
+			if (curDay >= 0)
+			{
+				imageText.text = picsArray[curDay][1] + "\nTap here to open " + picsArray[curDay][3] + "'s Newgrounds page";
+			}
+			else
+			{
+				switch(curDay)
+				{
+					case -1:
+						// imageText.text = picsArray[curDay][1] + "\nTap here to open " + picsArray[curDay][3] + "'s Newgrounds page";
+				}
+			}
 			
 		}
 		
 		if (FlxG.keys.justPressed.ENTER)
 		{
-			FlxG.openURL("https://" + picsArray[curDay][3] + ".newgrounds.com");
+			if (curDay >= 0)
+			{
+				FlxG.openURL("https://" + picsArray[curDay][3] + ".newgrounds.com");
+			}
+			else
+			{
+				switch(curDay)
+				{
+					case -1:
+						FlxG.openURL("https://tomfulp.newgrounds.com");
+				}
+			}
 		}
 		
 		

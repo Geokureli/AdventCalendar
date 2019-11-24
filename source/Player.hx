@@ -16,13 +16,26 @@ class Player extends Character
 	
 	private var C:Float = 0;
 
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
+	// only used for the igloo lol
+	public static var daDayLol:Int = 0;
+
+	public function new(?X:Float = 0, ?Y:Float = 0, curDay:Int = 0 ) 
 	{
-		super(X, Y, SimpleGraphic);
+		super(X, Y);
+		
+		this.curDay = curDay;
 		
 		loadGraphic(AssetPaths.tankMan__png, true, 16, 16);
 		
 		resizeHitbox();
+	}
+	
+	override public function updateSprite(theDay:Int, isCabin:Bool = false):Void 
+	{
+		super.updateSprite(theDay);
+		
+		// changes the static variable
+		daDayLol = theDay;
 	}
 	
 	private var jumpBoost:Int = 0;
@@ -118,7 +131,7 @@ class Player extends Character
 		else
 			justStepped = false;
 		
-		offset.y = (C * 1.3) + 12;
+		offset.y = (C * 1.3) + actualOffsetLOL;
 		
 		C *= speed;
 	}
