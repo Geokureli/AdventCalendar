@@ -93,10 +93,6 @@ class PlayState extends BaseState
 			FlxG.sound.music.fadeIn(5, 0, 0.3);
 			
 			FlxG.save.bind("File1");
-			
-			#if (!flash && !html5)
-				var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey);
-			#end
 		}
 		
 		#if !mobile

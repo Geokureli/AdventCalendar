@@ -27,7 +27,7 @@ class NGio
 	public static var ngDataLoaded(default, null):FlxSignal = new FlxSignal();
 	public static var ngScoresLoaded(default, null):FlxSignal = new FlxSignal();
 	
-	public function new(api:String, encKey:String, ?sessionId:String) {
+	static public function login(api:String, encKey:String, ?sessionId:String) {
 		
 		trace("connecting to newgrounds");
 		
@@ -57,7 +57,7 @@ class NGio
 		}
 	}
 	
-	function onNGLogin():Void
+	static function onNGLogin():Void
 	{
 		trace ('logged in! user:${NG.core.user.name}');
 		isLoggedIn = true;
@@ -82,7 +82,7 @@ class NGio
 	}
 	
 	// --- MEDALS
-	function onNGMedalFetch():Void
+	static function onNGMedalFetch():Void
 	{
 		
 		/*
