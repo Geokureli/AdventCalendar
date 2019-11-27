@@ -41,6 +41,8 @@ import openfl.geom.ColorTransform;
  */
 class PlayState extends BaseState 
 {
+	inline public static var soundEXT:String = ".mp3";
+	
 	private var camFollow:FlxObject;
 	private var camOffset:Float = 70;
 
@@ -58,8 +60,6 @@ class PlayState extends BaseState
 	private var iglooEnter:FlxObject;
 	
 	private var camZoomPos:FlxPoint = new FlxPoint(288 - 36, 162 - 11);
-	
-	inline public static var soundEXT:String = ".mp3";
 	
 	private var enteringIgloo:Bool = false;
 	private var playingCutscene:Bool = false;
