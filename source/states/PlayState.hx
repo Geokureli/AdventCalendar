@@ -57,7 +57,7 @@ class PlayState extends BaseState
 	private var treeOGhitbox:FlxObject;
 	private var iglooEnter:FlxObject;
 	
-	private var camZoomPos:FlxPoint;
+	private var camZoomPos:FlxPoint = new FlxPoint(288 - 36, 162 - 11);
 	
 	inline public static var soundEXT:String = ".mp3";
 	
@@ -68,8 +68,6 @@ class PlayState extends BaseState
 	
 	override public function create():Void 
 	{
-		camZoomPos = new FlxPoint(288 - 36, 162 - 11);
-		
 		// shitty game first time run init basically
 		if (FlxG.sound.music == null)
 		{
@@ -99,7 +97,7 @@ class PlayState extends BaseState
 		initCameras();
 		trace("cameras intted");
 		
-		var sprSky:FlxSprite = new FlxSprite(camZoomPos.x, camZoomPos.y).loadGraphic(AssetPaths.AdventCalendarBG__png);
+		var sprSky:FlxSprite = new FlxSprite(288 - 36, 162 - 11).loadGraphic(AssetPaths.AdventCalendarBG__png);
 		sprSky.scrollFactor.set(0.05, 0.05);
 		add(sprSky);
 		
@@ -266,40 +264,7 @@ class PlayState extends BaseState
 	
 	private function initSnow():Void
 	{
-		var parralaxxx:Float = 5 * (snowLayer + 1);
-		var parralaxxxSnowSize:Float = 5 * (snowLayer + 1);
-			
-		var _emitterBG:FlxEmitter;
-		
-		_emitterBG = new FlxEmitter(camZoomPos.x - 10, camZoomPos.y - 200, 200);
-		_emitterBG.makeParticles(Math.ceil(5 / parralaxxxSnowSize), Math.ceil(5 / parralaxxx), FlxColor.WHITE, 200);
-		
-		add(_emitterBG);
-		_emitterBG.start(false, 0.3);
-		
-		FlxG.log.add("add emitter");
-		
-		_emitterBG.velocity.active = false;
-		_emitterBG.lifespan.set(20);
-		_emitterBG.acceleration.start.min.x = 2 / parralaxxx;
-		_emitterBG.acceleration.start.max.x = 10 / parralaxxx;
-		_emitterBG.acceleration.start.min.y = 25 / parralaxxx;
-		_emitterBG.acceleration.start.max.y = 40 / parralaxxx;
-		_emitterBG.acceleration.end.min.x = 1 / parralaxxx;
-		_emitterBG.acceleration.end.max.x = 30 / parralaxxx;
-		_emitterBG.acceleration.end.min.y = 25 / parralaxxx;
-		_emitterBG.acceleration.end.max.y = 40 / parralaxxx;
-		_emitterBG.width = 400;
-		
-		// _emitterBG.cameras = [uiCamera];
-		_emitterBG.forEach(function(p:FlxParticle)
-		{
-			// p.cameras = [uiCamera]; 
-			// p.scrollFactor.x = snowLayer / 2;
-		});
-		
-		
-		
+		add(new Snow(snowLayer + 1));
 		snowLayer -= 1;
 	}
 	
