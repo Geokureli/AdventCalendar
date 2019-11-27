@@ -1,7 +1,12 @@
-package;
+package states;
 
+import data.NGio;
 import data.Calendar;
 import data.BitArray;
+import sprites.*;
+import states.IglooSubstate;
+import states.GallerySubstate;
+
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;

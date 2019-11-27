@@ -1,4 +1,4 @@
-package;
+package sprites;
 
 import flixel.FlxG;
 import flixel.math.FlxAngle;
@@ -7,6 +7,7 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
+import states.PlayState;
 /**
  * ...
  * @author NInjaMuffin99

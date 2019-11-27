@@ -1,4 +1,4 @@
-package;
+package states;
 
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -7,6 +7,8 @@ import flixel.FlxSubState;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+
+import sprites.*;
 
 /**
  * ...

@@ -1,4 +1,4 @@
-package;
+package states;
 
 import data.Calendar;
 import flixel.FlxCamera;

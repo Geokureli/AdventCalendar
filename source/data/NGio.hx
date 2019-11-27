@@ -1,4 +1,4 @@
-package;
+package data;
 
 import flixel.util.FlxSignal;
 import io.newgrounds.NG;

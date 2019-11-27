@@ -2,7 +2,6 @@
 //https://gamepopper.co.uk/2014/08/26/haxeflixel-making-a-custom-preloader/
 package;
 
-import data.Calendar;
 import flixel.FlxG;
 import flixel.system.FlxBasePreloader;
 import flash.display.*;
@@ -15,6 +14,9 @@ import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFormat;
 
+import data.APIStuff;
+import data.Calendar;
+import data.NGio;
 
 @:font() class CustomFont extends Font {}
 @:bitmap("assets/images/tomloveschristmasthehorror.png") class LogoImage extends BitmapData { }

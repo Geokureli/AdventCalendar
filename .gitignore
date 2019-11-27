@@ -2,6 +2,6 @@ export/
 
 .vscode
 
-source/APIStuff.hx
+source/data/APIStuff.hx
 *.png~
 *.kra~

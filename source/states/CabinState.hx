@@ -1,4 +1,5 @@
-package;
+package states;
+
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -6,6 +7,8 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+
+import sprites.*;
 
 /**
  * ...

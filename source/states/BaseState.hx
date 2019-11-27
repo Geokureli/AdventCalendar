@@ -1,4 +1,4 @@
-package;
+package states;
 
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -9,6 +9,11 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
+
+import sprites.Evidence;
+import sprites.Player;
+import sprites.SpriteShit;
+import sprites.Thumbnail;
 
 /**
  * ...

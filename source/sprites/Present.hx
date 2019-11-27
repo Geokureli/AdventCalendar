@@ -1,4 +1,4 @@
-package;
+package sprites;
 
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;

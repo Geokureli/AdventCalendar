@@ -1,4 +1,4 @@
-package;
+package sprites;
 
 import flixel.system.FlxAssets.FlxGraphicAsset;
 

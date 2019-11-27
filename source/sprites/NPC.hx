@@ -1,4 +1,4 @@
-package;
+package sprites;
 
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -6,6 +6,7 @@ import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 import data.Calendar;
+import data.FSM;
 
 /**
  * ...

@@ -1,4 +1,4 @@
-package;
+package sprites;
 
 import data.Calendar;
 import flixel.FlxG;
