@@ -14,6 +14,9 @@ import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFormat;
 
+import data.APIStuff;
+import data.Calendar;
+import data.NGio;
 
 @:font() class CustomFont extends Font {}
 @:bitmap("assets/images/tomloveschristmasthehorror.png") class LogoImage extends BitmapData { }
@@ -31,10 +34,8 @@ class Preloader extends FlxBasePreloader
 	
 	override private function create():Void 
 	{	
-		// this code only runs when its on the web
-		#if (flash || html5)
-			var newgrounds:NGio = new NGio(APIStuff.APIID, APIStuff.EncKey, APIStuff.Session);
-		#end
+		NGio.login(APIStuff.APIID, APIStuff.EncKey, APIStuff.Session);
+		Calendar.init();
 		
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
