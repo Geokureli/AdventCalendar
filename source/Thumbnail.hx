@@ -1,5 +1,6 @@
 package;
 
+import data.Calendar;
 import flixel.FlxG;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.tweens.FlxEase;
@@ -33,13 +34,13 @@ class Thumbnail extends SpriteShit
 		
 		if (curThumb != newDay)
 		{
-			if (newDay > PlayState.grid.length - 1)
+			if (newDay > Calendar.data.length - 1)
 			{
 				loadGraphic(AssetPaths.thumbDefault__png);
 			}
 			else
 			{
-				loadGraphic(PlayState.grid[newDay][2]);
+				loadGraphic(Calendar.data[newDay].thumbnail);
 			}
 			
 			curThumb = newDay;

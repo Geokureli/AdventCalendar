@@ -1,5 +1,7 @@
 package;
 
+import data.Calendar;
+import data.BitArray;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -37,12 +39,7 @@ class PlayState extends BaseState
 	private var camFollow:FlxObject;
 	private var camOffset:Float = 70;
 
-	
 	private var snowStamp:FlxSprite;
-	
-
-
-	private var curDate:Date;
 	
 	private var sprSnow:FlxSprite;
 	private var snowStamps:FlxSprite;
@@ -57,7 +54,7 @@ class PlayState extends BaseState
 	
 	private var camZoomPos:FlxPoint;
 	
-	public static var soundEXT:String = "";
+	inline public static var soundEXT:String = ".mp3";
 	
 	private var enteringIgloo:Bool = false;
 	private var playingCutscene:Bool = false;
@@ -65,102 +62,37 @@ class PlayState extends BaseState
 	private var sprSnow2:FlxSprite;
 	
 	override public function create():Void 
-	{	
+	{
 		camZoomPos = new FlxPoint(288 - 36, 162 - 11);
-		
-		#if !flash
-			soundEXT = ".mp3";
-			
-			
-		#else
-			soundEXT = ".mp3";
-		#end
-		
-		curDate = Date.now();
 		
 		// shitty game first time run init basically
 		if (FlxG.sound.music == null)
 		{
 			//if its the 25 days leading up to christmas, play the christmas music
 			//else play ambient wind and shit
-			if (curDate.getDate() < 26 && curDate.getMonth() == 11)
-			{
+			if (Calendar.isAdvent)
 				FlxG.sound.playMusic("assets/music/song4" + soundEXT, 0);
-			}
 			else
 				FlxG.sound.playMusic(AssetPaths.ambience__mp3, 0);
 			
 			FlxG.sound.music.fadeIn(5, 0, 0.3);
 			
-			FlxG.save.bind("File1");
+			FlxG.save.bind("advent2019", "GeoKureli");
 		}
 		
 		#if !mobile
 			FlxG.mouse.visible = true;
 		#end
 		
-		
-		for (i in 0...24)
-		{
-			openedPres.push(false);
-		}
-		
-		if (FlxG.save.data.openedPres != null)
+		trace("pres: " + openedPres, FlxG.save.data.openedPres);
+		if (FlxG.save.data.openedPres != null && Std.is(FlxG.save.data.openedPres, Int))
 		{
 			openedPres = FlxG.save.data.openedPres;
-			trace("loaded savefile");
+			trace("loaded savefile: " + openedPres);
 		}
-		
-		for (thing in 0...grid.length)
-		{
-			whitelist.push(grid[thing][3]);
-		}
-		
-		// curDate is initialized as local time just incase the newgrounds api gunks up
-		
-		
-		
-		// this is run for if the preloader is workign (on web basically)
-		if (NGio.isLoggedIn)
-		{
-			curDate = NGio.NGDate;
-		}
-		else
-		{
-			curDate = Date.now();
-			FlxG.log.add("MADE DATE TIME CURRENT TIME");
-		}
-		
-		// and this adds a listener to the game that also updates the clock
-		NGio.ngDataLoaded.add(function()
-		{
-			
-			NG.core.calls.gateway.getDatetime().addDataHandler(
-			function(response:Response<GetDateTimeResult>):Void
-			{
-				if (response.success && response.result.success) 
-				{
-					var data:GetDateTimeResult = response.result.data;
-					FlxG.log.add("NEWGROUNDS TIME DATA");
-					FlxG.log.add(data.datetime);
-					var dateTimeFixed:String = data.datetime.substring(0, 10);
-					FlxG.log.add("Fixed string: " + dateTimeFixed);
-					FlxG.log.add("prev curdate: " + curDate.getDate());
-					curDate = Date.fromString(dateTimeFixed);
-					
-					FlxG.log.add("Current day of the month: " + curDate.getDate());
-					
-					initPresents();
-					initNPC();
-					player.updateSprite(curDate.getDate() - 1);
-				}
-				
-				
-			}).send();
-			
-		});
 		
 		initCameras();
+		trace("cameras intted");
 		
 		var sprSky:FlxSprite = new FlxSprite(camZoomPos.x, camZoomPos.y).loadGraphic(AssetPaths.AdventCalendarBG__png);
 		sprSky.scrollFactor.set(0.05, 0.05);
@@ -248,8 +180,6 @@ class PlayState extends BaseState
 		initCharacters();
 		initPresents();
 		
-		
-		
 		var tank:Prop = new Prop(590, 420, "assets/images/snowTank.png");
 		tank.width -= 25;
 		tank.immovable = true;
@@ -271,7 +201,7 @@ class PlayState extends BaseState
 		sign.immovable = true;
 		_grpCharacters.add(sign);
 		
-		tree = new Tree(0, 0, curDate.getDate() - 1);
+		tree = new Tree(0, 0, Calendar.day);
 		_grpCharacters.add(tree);
 		tree.setPosition(collisionBounds.x + 230, collisionBounds.y + 42);
 		
@@ -323,7 +253,6 @@ class PlayState extends BaseState
 			add(button);
 			
 		}
-		
 		
 		super.create();
 	}
@@ -413,8 +342,7 @@ class PlayState extends BaseState
 	{
 		initCharacterBases();
 		
-		player = new Player(315, collisionBounds.y + 65, curDate.getDate() - 1);
-		player.updateSprite(curDate.getDate() - 1);
+		player = new Player(315, collisionBounds.y + 65, Calendar.day);
 		_grpCharacters.add(player);
 		
 		playerHitbox = new FlxObject(0, 0, player.width + 6, player.height + 6);
@@ -434,33 +362,19 @@ class PlayState extends BaseState
 	private function initNPC():Void
 	{
 		FlxG.log.add("NPCS ADDED");
-		var days:Int = getProperDays();
-		
-		// uhh call it twice because for some reason it doesnt work??
-		var npcCount:Int = 0;
-		_grpCharacters.forEach(function(s:SpriteShit){
-			if (s.ID == 2)
-			{
-				npcCount += 1;
-			}
-		});
-		
+		var chars = Calendar.day;
 		// hopefulyl make it so that NPCs wind down as December ends
-		if (curDate.getDate() >= 25)
+		if (!Calendar.isAdvent)
 		{
-			days = FlxG.random.int(npcCount, 10);
+			chars = FlxG.random.int(0, 10);
 			FlxG.log.add("shrunkDays");
 		}
 		
 		// NPCS only show up if its december
-		if (curDate.getMonth() != 11)
-		{
-			days = 0;
-		}
+		if (!Calendar.isDecember)
+			chars = 0;
 		
-		FlxG.log.add("NPC STARTING POINT: " + npcCount);
-		
-		for (c in npcCount...days)
+		for (c in 0...chars)
 		{
 			FlxG.log.add("NPC ADDED" + FlxG.random.int(0, 100));
 			var npc:NPC = new NPC(450 + FlxG.random.float( -150, 150), FlxG.random.float(collisionBounds.y + 60, 500));
@@ -470,42 +384,17 @@ class PlayState extends BaseState
 		}
 	}
 	
-	private function getProperDays():Int
-	{
-		var days = curDate.getDate() - 1;
-		if (days > 24 || curDate.getMonth() != 11)
-			days = 24;
-		
-		// just a precaution while the game is being live updated
-		if (days > grid.length)
-		{
-			FlxG.log.add("over grid length, shortening the length to" + grid.length);
-			days = grid.length;
-		}
-		
-		FlxG.log.add(days);
-		return days;
-	}
-	
 	private function initPresents():Void
 	{
 		FlxG.log.add("GETTIN PRESENTS");
-		var days = getProperDays() + 1;
 		
-		var presCount:Int = 0;
-		_grpCharacters.forEach(function(s:SpriteShit){
-			if (s.ID == 1)
-			{
-				presCount += 1;
-			}
-		});
+		var presents = Calendar.day + 1;
+		FlxG.log.add("how many presents there should be: " + presents);
 		
-		FlxG.log.add("how many presents there should be: " + days);
-		
-		for (p in presCount...days)
+		for (p in 0...presents)
 		{
-			
-			var present:Present = new Present(presPositions[p][0], presPositions[p][1], p);
+			final pos = Calendar.data[p].pos;
+			var present:Present = new Present(pos.x, pos.y, p);
 			_grpCharacters.add(present);
 			if (openedPres[p])
 			{
@@ -698,7 +587,7 @@ class PlayState extends BaseState
 		{
 			if (NGio.isLoggedIn) 
 			{
-				var medal = NG.core.medals.get(medalNames[0]);
+				var medal = NG.core.medals.get(Calendar.data[0].medal);
 				if (!medal.unlocked)
 					medal.sendUnlock();
 			}
@@ -716,9 +605,9 @@ class PlayState extends BaseState
 			}
 		}
 		
-		if (s.curDay == curDate.getDate() - 1 || whitelistUnlock)
+		if ((NGio.isLoggedIn && s.curDay == Calendar.day) || whitelistUnlock)
 		{
-			var medal = NG.core.medals.get(medalNames[s.curDay]);
+			var medal = NG.core.medals.get(Calendar.data[Calendar.day].medal);
 			if (!medal.unlocked)
 				medal.sendUnlock();
 		}
@@ -727,7 +616,7 @@ class PlayState extends BaseState
 		openedPres[s.curDay] = true;
 		
 		var presCount:Int = 0;
-		for (i in 0...openedPres.length)
+		for (i in 0...openedPres.getLength())
 		{
 			if (openedPres[i])
 			{
@@ -739,14 +628,12 @@ class PlayState extends BaseState
 		{
 			triggerCutscene();
 			
-			for (i in 0...openedPres.length)
-			{
-				openedPres[i] = false;
-			}
+			openedPres.reset();
 		}
 		
 		
-		FlxG.save.data.openedPres = openedPres;
+		trace("saved: " + openedPres);
+		FlxG.save.data.openedPres = (openedPres:Int);
 		FlxG.save.flush();
 		
 		FlxG.sound.play("assets/sounds/presentOpen" + soundEXT, 1);
@@ -825,9 +712,9 @@ class PlayState extends BaseState
 		credArray.push(["Organizer", "ninjamuffin99"]);
 		credArray.push(["Pixel Art", "BrandyBuizel"]);
 		
-		for (i in 0...grid.length)
+		for (i in 0...Calendar.data.length)
 		{
-			credArray.push(["Day " + (i + 1), grid[i][3]]);
+			credArray.push(["Day " + (i + 1), Calendar.data[i].author]);
 		}
 		
 		credArray.push(["Music Days 1-5", "'Snowfall'", "LawnReality"]);
@@ -896,315 +783,12 @@ class PlayState extends BaseState
 	
 	private var canExitCutscene:Bool = false;
 	
-	// SYNTAX GUIDE
-	// link to image
-	// Info
-	public static var grid:Array<Dynamic> = 
-	[
-		[
-			"assets/images/artwork/superPhil.jpg",
-			"Art by SuperPhil",
-			"assets/images/thumbs/thumb-superPhil.png",
-			"SuperPhil64"
-		],
-		[
-			"assets/images/artwork/scepterD.png",
-			"Art by ScepterDPinoy",
-			"assets/images/thumbs/thumb-scepterD.png",
-			"ScepterDPinoy"
-		],
-		[
-			"assets/images/artwork/palkoark.png",
-			"Art by Palkoark",
-			"assets/images/thumbs/thumb-palkoark.png",
-			"Palkoark"
-		],
-		[
-			"assets/images/artwork/snackers.png",
-			"Art by Snackers",
-			"assets/images/thumbs/thumb-snackers.png",
-			"Snackers"
-		],
-		[
-			"assets/images/artwork/cymbourine.png",
-			"Art by Cymbourine",
-			"assets/images/thumbs/thumb-cymbourine.png",
-			"Cymbourine"
-		],
-		[
-			"assets/images/artwork/mattLopz.png",
-			"Art by MatthewLopz",
-			"assets/images/thumbs/thumb-mattLopz.png",
-			"MatthewLopz"
-		],
-		[
-			"assets/images/artwork/bianca.png",
-			"Art by Bianca-doodles",
-			"assets/images/thumbs/thumb-bianca.png",
-			"Bianca-doodles"
-		],
-		[
-			"assets/images/artwork/sevenSeize.jpg",
-			"Art by SevenSeize",
-			"assets/images/thumbs/thumb-sevenSeize.png",
-			"SevenSeize"
-		],
-		[
-			"assets/images/artwork/nickconter.png",
-			"Art by NickConter",
-			"assets/images/thumbs/thumb-nickconter.png",
-			"NickConter"
-		],
-		[
-			"assets/images/artwork/rgp.jpg",
-			"Art by RGPAnims",
-			"assets/images/thumbs/thumb-rgp.png",
-			"RGPAnims"
-		],
-		[
-			"assets/images/artwork/shiro.jpg",
-			"Art by ShiroGaia",
-			"assets/images/thumbs/thumb-shiro.png",
-			"ShiroGaia"
-		],
-		[
-			"assets/images/artwork/clatform.png",
-			"Art by Clatform",
-			"assets/images/thumbs/thumb-clatform.png",
-			"Clatform"
-		],
-		[
-			"assets/images/artwork/randy.png",
-			"Art by Randy-Artist",
-			"assets/images/thumbs/thumb-randy.png",
-			"randy-artist"
-		],
-		[
-			"assets/images/artwork/butzbo.jpg",
-			"Art by Butzbo",
-			"assets/images/thumbs/thumb-butzbo.png",
-			"Butzbo"
-		],
-		[
-			"assets/images/artwork/logan.png",
-			"Art by LoganPhresh",
-			"assets/images/thumbs/thumb-logan.png",
-			"LoganPhresh"
-		],
-		[
-			"assets/images/artwork/kera.png",
-			"Art by Kerakar",
-			"assets/images/thumbs/thumb-kera.png",
-			"Kerakar"
-		],
-		[
-			"assets/images/artwork/chobi.png",
-			"Art by Chobiluck",
-			"assets/images/thumbs/thumb-chobi.png",
-			"Chobiluck"
-		],
-		[
-			"assets/images/artwork/snailpirate.jpg",
-			"Art by snailpirate",
-			"assets/images/thumbs/thumb-snailpirate.png",
-			"snailpirate"
-		]
-		,
-		[
-			"assets/images/artwork/sunny.png",
-			"Art by Suncake",
-			"assets/images/thumbs/thumb-sunny.png",
-			"suncake"
-		],
-		[
-			"assets/images/artwork/lenward.jpg",
-			"Art by SirLenward",
-			"assets/images/thumbs/thumb-lenward.png",
-			"SirLenward"
-		],
-		[
-			"assets/images/artwork/tyler.png",
-			"Art by Tyler",
-			"assets/images/thumbs/thumb-tyler.png",
-			"Tyler"
-		],
-		[
-			"assets/images/artwork/dyingsun.png",
-			"Art by TheDyingSun",
-			"assets/images/thumbs/thumb-dyingsun.png",
-			"TheDyingSun"
-		],
-		[
-			"assets/images/artwork/brandy.png",
-			"Art by BrandyBuizel",
-			"assets/images/thumbs/thumb-brandy.png",
-			"BrandyBuizel"
-		],
-		[
-			"assets/images/artwork/fushark.png",
-			"Art by FuShark",
-			"assets/images/thumbs/thumb-fushark.png",
-			"FuShark"
-		],
-		[
-			"assets/images/artwork/blas.png",
-			"Art by blasphysics",
-			"assets/images/thumbs/thumb-blas.png",
-			"blasphysics"
-		]
-		
-		
-		
-	];
 	
 	// whitelist also gets filled with artist info from gridArray or whatever
 	private var whitelist:Array<String> =
 	[
-		"ninjamuffin99",
-		"supersavage",
-		"nickxa"
-		
+		"geokureli"
 	];
 	
-	private var presPositions:Array<Dynamic> = 
-	[
-		[
-			470,
-			390
-		],
-		[
-			430,
-			340
-		],
-		[
-			420,
-			370
-		],
-		[
-			530,
-			390
-		],
-		[
-			450,
-			430
-		],
-		[
-			385,
-			345
-		],
-		[
-			585,
-			350
-		],
-		[
-			575,
-			370
-		],
-		[
-			455,
-			360
-		],
-		[
-			495,
-			415
-		],
-		[
-			570,
-			400
-		],
-		[
-			540,
-			420
-		],
-		[
-			615,
-			375
-		],
-		[
-			370,
-			370
-		],
-		[
-			340,
-			400
-		],
-		[
-			405,
-			325
-		],
-		[
-			555,
-			340
-		],
-		[
-			615,
-			330
-		],
-		[
-			500,
-			460
-		],
-		[
-			415,
-			445
-		],
-		[
-			440,
-			480
-		],
-		[
-			550,
-			470
-		],
-		[
-			600, 
-			455
-		],
-		[
-			375, 
-			470
-		],
-		[
-			310, 
-			440
-		]
-		
-	];
-	
-	private var medalNames:Array<Int> = 
-	[
-		55976,
-		55977,
-		55978,
-		55979,
-		55980,
-		55981,
-		55982,
-		55983,
-		55984,
-		55985, // dec 10th
-		55986,
-		55987,
-		55988,
-		55989,
-		55990,
-		55991,
-		55992,
-		55993,
-		55994,
-		55995, // Dec 20th
-		55996,
-		55997,
-		55998,
-		55999,
-		56000
-		
-	];
-	
-	private var openedPres:Array<Bool> =
-	[
-	
-	];
-
-	
+	private var openedPres:BitArray = new BitArray();
 }

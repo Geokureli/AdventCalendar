@@ -28,6 +28,7 @@ class Player extends Character
 		loadGraphic(AssetPaths.tankMan__png, true, 16, 16);
 		
 		resizeHitbox();
+		updateSprite(curDay);
 	}
 	
 	override public function updateSprite(theDay:Int, isCabin:Bool = false):Void 

@@ -2,6 +2,7 @@
 //https://gamepopper.co.uk/2014/08/26/haxeflixel-making-a-custom-preloader/
 package;
 
+import data.Calendar;
 import flixel.FlxG;
 import flixel.system.FlxBasePreloader;
 import flash.display.*;
@@ -32,6 +33,7 @@ class Preloader extends FlxBasePreloader
 	override private function create():Void 
 	{	
 		NGio.login(APIStuff.APIID, APIStuff.EncKey, APIStuff.Session);
+		Calendar.init();
 		
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;

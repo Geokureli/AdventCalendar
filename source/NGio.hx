@@ -20,7 +20,7 @@ class NGio
 	
 	public static var isLoggedIn:Bool = false;
 	public static var scoreboardsLoaded:Bool = false;
-	public static var NGDate:Date;
+	public static var ngDate:Date;
 	
 	public static var scoreboardArray:Array<Score> = [];
 	
@@ -29,9 +29,13 @@ class NGio
 	
 	static public function login(api:String, encKey:String, ?sessionId:String) {
 		
+		if (isLoggedIn)
+		{
+			trace("already logged in");
+			return;
+		}
+		
 		trace("connecting to newgrounds");
-		
-		
 		NG.createAndCheckSession(api, sessionId);
 		
 		NG.core.verbose = true;
@@ -65,20 +69,20 @@ class NGio
 		NG.core.requestMedals(onNGMedalFetch);
 		
 		ngDataLoaded.dispatch();
-		
-		NG.core.calls.gateway.getDatetime().addDataHandler(
-		function(response:Response<GetDateTimeResult>):Void
-		{
-			if (response.success && response.result.success) 
+	}
+	
+	static public function checkNgDate(onComplete:Void->Void):Void
+	{
+		NG.core.calls.gateway.getDatetime()
+		.addDataHandler(
+			function(response)
 			{
-				var data:GetDateTimeResult = response.result.data;
-				var dateTimeFixed:String = data.datetime.substring(0, 10);	
-				NGDate = Date.fromString(dateTimeFixed);
+				if (response.success && response.result.success) 
+					ngDate = Date.fromString(response.result.data.dateTime.substring(0, 10));
 			}
-			
-			
-		}).send();
-		
+		).addSuccessHandler(onComplete)
+		.addErrorHandler((_)->onComplete())
+		.send();
 	}
 	
 	// --- MEDALS

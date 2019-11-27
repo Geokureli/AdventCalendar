@@ -1,5 +1,6 @@
 package;
 
+import data.Calendar;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -20,8 +21,6 @@ class GallerySubstate extends FlxSubState
 {
 	
 	private var picNum:Int;
-	private var picsArray:Array<Dynamic> = [];
-	private var isSpritesheet:Bool = false;
 	private var curAnimPlaying:Int = 0;
 	private var imageText:FlxText;
 	private var infoBox:FlxSpriteButton;
@@ -37,8 +36,6 @@ class GallerySubstate extends FlxSubState
 	public function new(picNum:Int) 
 	{
 		this.picNum = picNum;
-		
-		picsArray = PlayState.grid;
 		
 		super();
 		
@@ -65,7 +62,7 @@ class GallerySubstate extends FlxSubState
 		imageText.cameras = [newCamera];
 		
 		infoBox = new FlxSpriteButton(0, imageText.y - 4, null, function(){
-			FlxG.openURL("https://" + picsArray[curDay][3] + ".newgrounds.com");
+			FlxG.openURL(Calendar.data[curDay].profileLink);
 		});
 		infoBox.makeGraphic(Std.int(750), Std.int(imageText.height * 2.1), FlxColor.BLACK);
 		infoBox.alpha = 0.5;
@@ -115,23 +112,23 @@ class GallerySubstate extends FlxSubState
 	}
 	
 	
-	private function openImage(i:Int):Void
+	private function openImage(day:Int):Void
 	{
-		
-		curDay = i;
+		curDay = day;
+		var data = Calendar.data[day];
 		
 		curAnimPlaying = 0;
 		bigImage.visible = true;
 		
 		// regular artwork
-		if (i >= 0)
+		if (day >= 0)
 		{
-			bigPreview.loadGraphic(picsArray[i][0]);
-			imageText.text = picsArray[i][1];
+			bigPreview.loadGraphic(data.path);
+			imageText.text = "Art by " + data.credit;
 		}
 		else
 		{
-			switch(i)
+			switch(day)
 			{
 				case -1:
 					bigPreview.loadGraphic(AssetPaths.tom__png);
@@ -145,39 +142,14 @@ class GallerySubstate extends FlxSubState
 		var horizSize:Int = Std.int(bigPreview.width);
 		var vertSize:Int = Std.int(bigPreview.height);
 		// checks if animated
-		if (isAnimated && !isSpritesheet)
+		if (data.frames != null)
 		{
 			isAnimated = true;
-			horizSize = Std.int(horizSize / picsArray[i][3]);
-			vertSize = Std.int(vertSize / picsArray[i][4]);
+			horizSize = Std.int(horizSize / data.frames);
 		}
 		
-		if (i >= 0)
-		{
-			if (picsArray[i][0] == "assets/images/artwork/tyler.png")
-			{
-				bigPreview.loadGraphic(picsArray[i][0], true, Std.int(1906 / 2));
-				bigPreview.animation.add("boil", [0, 1], 10);
-				bigPreview.animation.play("boil");
-			}
-			else
-			{
-				bigPreview.loadGraphic(picsArray[i][0], isAnimated, horizSize, vertSize);
-			}
-		}
-		
-		
-		
-		
-		// loads animation data
-		if (isAnimated && !isSpritesheet)
-		{
-			for (a in 0...picsArray[i][5].length)
-			{
-				bigPreview.animation.add(picsArray[i][5][a][0], picsArray[i][5][a][1], picsArray[i][5][a][2]);
-				bigPreview.animation.play(picsArray[i][5][a][0]);
-			}
-		}
+		if (isAnimated)
+			bigPreview.loadGraphic(data.path, isAnimated, horizSize, vertSize);
 		
 		bigPreview.setGraphicSize(0, Std.int(FlxG.height));
 		bigPreview.updateHitbox();
@@ -188,9 +160,6 @@ class GallerySubstate extends FlxSubState
 		
 		bigPreview.updateHitbox();
 		bigPreview.screenCenter();
-		
-		
-		
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -202,50 +171,26 @@ class GallerySubstate extends FlxSubState
 		#if !mobile
 			keyboardControls();
 		#end
-		
+		var data = Calendar.data[curDay];
 		if (curDay >= 0)
 		{
-			imageText.text = picsArray[curDay][1] + "\nClick here to open " + picsArray[curDay][3] + "'s Newgrounds page";
-		}
-		
-		
-		if (FlxG.onMobile)
-		{
-			if (curDay >= 0)
-			{
-				imageText.text = picsArray[curDay][1] + "\nTap here to open " + picsArray[curDay][3] + "'s Newgrounds page";
-			}
-			else
-			{
-				switch(curDay)
-				{
-					case -1:
-						// imageText.text = picsArray[curDay][1] + "\nTap here to open " + picsArray[curDay][3] + "'s Newgrounds page";
-				}
-			}
-			
+			imageText.text
+				= "Art by " + data.credit
+				+ "\n" + (FlxG.onMobile ? "Tap" : "Click") + " here to open " + data.author + "'s Newgrounds page";
 		}
 		
 		if (FlxG.keys.justPressed.ENTER)
 		{
-			if (curDay >= 0)
+			switch(curDay)
 			{
-				FlxG.openURL("https://" + picsArray[curDay][3] + ".newgrounds.com");
-			}
-			else
-			{
-				switch(curDay)
-				{
-					case -1:
-						FlxG.openURL("https://tomfulp.newgrounds.com");
-				}
+				case -1:
+					FlxG.openURL("https://tomfulp.newgrounds.com");
+				case _:
+					FlxG.openURL("https://" + data.author + ".newgrounds.com");
 			}
 		}
 		
-		
 		dragControls();
-		
-
 	}
 	
 	

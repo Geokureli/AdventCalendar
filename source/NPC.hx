@@ -4,7 +4,8 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
-import haxe.io.StringInput;
+
+import data.Calendar;
 
 /**
  * ...
@@ -47,7 +48,7 @@ class NPC extends Character
 		{
 			if (theDay != 25)
 			{
-				nameShit = PlayState.grid[theDay][3];
+				nameShit = Calendar.data[theDay].author;
 			}
 			else
 				nameShit = "ninjamuffin99";
