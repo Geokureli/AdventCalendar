@@ -27,7 +27,7 @@ class NGio
 	public static var ngDataLoaded(default, null):FlxSignal = new FlxSignal();
 	public static var ngScoresLoaded(default, null):FlxSignal = new FlxSignal();
 	
-	static public function login(api:String, encKey:String, ?sessionId:String) {
+	static public function login(callback:Void->Void) {
 		
 		if (isLoggedIn)
 		{
@@ -35,12 +35,20 @@ class NGio
 			return;
 		}
 		
+		ngDataLoaded.addOnce(callback);
+		
 		trace("connecting to newgrounds");
-		NG.createAndCheckSession(api, sessionId);
+		NG.createAndCheckSession(APIStuff.APIID, true, #if debug APIStuff.DebugSession, #end
+			function(e)
+			{
+				ngDataLoaded.remove(callback);
+				callback();
+			}
+		);
 		
 		NG.core.verbose = true;
 		// Set the encryption cipher/format to RC4/Base64. AES128 and Hex are not implemented yet
-		NG.core.initEncryption(encKey);// Found in you NG project view
+		NG.core.initEncryption(APIStuff.EncKey);// Found in you NG project view
 		
 		trace(NG.core.attemptingLogin);
 		

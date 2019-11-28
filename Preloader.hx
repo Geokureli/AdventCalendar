@@ -2,82 +2,160 @@
 //https://gamepopper.co.uk/2014/08/26/haxeflixel-making-a-custom-preloader/
 package;
 
-import flixel.FlxG;
-import flixel.system.FlxBasePreloader;
-import flash.display.*;
-import flash.text.*;
 import flash.Lib;
-import flixel.text.FlxText;
-import openfl.display.Sprite;
+import flash.events.Event;
+import openfl.display.Bitmap;
 import openfl.display.BitmapData;
-import flash.text.Font;
-import flash.text.TextField;
-import flash.text.TextFormat;
+import openfl.display.Shape;
+import openfl.display.Sprite;
+import openfl.geom.Rectangle;
 
-import data.APIStuff;
-import data.Calendar;
-import data.NGio;
+@:bitmap("assets/images/preloader/cane.png") class Cane extends BitmapData { }
+@:bitmap("assets/images/preloader/caneMask.png") class CaneMask extends BitmapData { }
+@:bitmap("assets/images/preloader/stripes.png") class Stripes extends BitmapData { }
+@:bitmap("assets/images/preloader/loading.png") class Text extends BitmapData { }
+@:bitmap("assets/images/preloader/caneAnim.png") class CaneAnim extends BitmapData { }
 
-@:font() class CustomFont extends Font {}
-@:bitmap("assets/images/tomloveschristmasthehorror.png") class LogoImage extends BitmapData { }
-class Preloader extends FlxBasePreloader 
+class Preloader extends flixel.system.FlxBasePreloader
 {
-	override public function new(MinDisplayTime:Float=4, ?AllowedURLs:Array<String>) 
+	inline static var STRIPE_LOOP = 149;
+	inline static var CANE_THICKNESS = 75;
+	inline static var STRIPE_MAX = 326;
+	inline static var LOOP_TIME = 1.0;
+	
+	override public function new(MinDisplayTime:Float = 4.1, ?AllowedURLs:Array<String>) 
 	{
 		super(MinDisplayTime, AllowedURLs);
 	}
 	
-	private var logo:Sprite;
-	var text:TextField;
-	private var _buffer:Sprite;
-	private var _bmpBar:Bitmap;
+	var cane:Bitmap;
+	var caneAnim:SpriteSheet;
+	var stripes:Bitmap;
+	var maskShape:Shape;
+	var outroStarted:Bool = false;
 	
 	override private function create():Void 
-	{	
-		NGio.login(APIStuff.APIID, APIStuff.EncKey, APIStuff.Session);
-		Calendar.init();
-		
+	{
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
 		
 		var ratio:Float = this._width / 800; //This allows us to scale assets depending on the size of the screen.
 		
-		logo = new Sprite();
-		logo.scaleY = 0;
-		logo.addChild(new Bitmap(new LogoImage(0, 0))); //Sets the graphic of the sprite to a bitmap object, which uses our embedded bitmapData class
-		addChild(logo);
+		cane = new Bitmap(new Cane(0, 0));
+		var caneMask = new Bitmap(new CaneMask(0, 0));
+		addChild(cane);
+		addChild(stripes = new Bitmap(new Stripes(0, 0)));
+		addChild(caneMask);
+		cane.x = (this._width  - 400) / 2;
+		cane.y = (this._height - 150) / 2;
+		caneMask.transform.colorTransform.color = Lib.current.stage.color;
+		caneMask.x = cane.x;
+		caneMask.y = cane.y;
+		stripes.x = caneMask.x;
+		stripes.y = caneMask.y;
 		
-		_buffer = new Sprite();
-		//_buffer.scaleX = _buffer.scaleY = 2;
-		addChild(_buffer);
+		maskShape = new Shape();
+		maskShape.graphics.beginFill(0xFFFFFF);
+		maskShape.graphics.drawRect(0, 0, STRIPE_MAX, CANE_THICKNESS);
+		maskShape.graphics.endFill();
+		maskShape.x = cane.x;
+		maskShape.y = cane.y + 150 - CANE_THICKNESS;
+		stripes.mask = maskShape;
 		
-		_bmpBar = new Bitmap(new BitmapData(1, 14, false, 0x5f6aff));
-		_bmpBar.x = 4;
-		_bmpBar.y = _height - 17;
-		//_buffer.addChild(_bmpBar);
-		
+		var text = new Bitmap(new Text(0, 0));
+		text.x = cane.x + 30;
+		text.y = cane.y + 30;
+		addChild(text);
 		
 		super.create();
 	}
 	
 	override private function destroy():Void 
 	{
-		if (_buffer != null)	
-		{
-			removeChild(_buffer);
-		}
-		_buffer = null;
-		_bmpBar = null;
-		logo = null;
+		stripes = null;
+		mask = null;
 		
 		super.destroy();
 	}
 	
-	override public function update(Percent:Float):Void 
+	override function onEnterFrame(e:Event)
 	{
-		super.update(Percent);
+		var time = Date.now().getTime() - _startTime;
+		var min = minDisplayTime * 1000;
 		
-		logo.scaleY = Percent;
-		_bmpBar.scaleX = Percent * (_width - 8);
+		var readyToDestroy = false;
+		if (caneAnim != null)
+		{
+			readyToDestroy = caneAnim.finished;
+			caneAnim.update();
+		}
+		
+		if (_loaded && (min <= 0 || time / min >= 1) && !readyToDestroy)
+		{
+			_loaded = false;
+			outroStarted = true;
+		}
+		else if (readyToDestroy)
+			_loaded = true;
+		
+		super.onEnterFrame(e);
+		
+		if (stripes != null)
+		{
+			var oldX = stripes.x;
+			stripes.x = cane.x
+				+ Math.round(-STRIPE_LOOP * (time / 1000.0 / LOOP_TIME)) % STRIPE_LOOP;
+			
+			if (oldX < stripes.x && outroStarted)
+			{
+				stripes.x = cane.x;// - STRIPE_LOOP;
+				addChild(caneAnim = new SpriteSheet(new CaneAnim(0, 0), 168, 150, [0,0,0,0,1,2,3,4,5,6,7,7,7,7,7,7]));
+				caneAnim.x = cane.x + cane.width - caneAnim.width;
+				caneAnim.y = cane.y;
+				stripes = null;
+			}
+		}
+	}
+	
+	override public function update(percent:Float):Void 
+	{
+		super.update(percent);
+		
+		maskShape.width = STRIPE_MAX * percent;
+		if (caneAnim != null)
+			caneAnim.update();
+	}
+}
+
+class SpriteSheet extends Sprite
+{
+	public var finished(get, never):Bool;
+	inline function get_finished() return time > frames.length * frameTime;
+	
+	var frames:Array<Int>;
+	var frameTime = 0.0;
+	var time = 0.0;
+	
+	override function get_width():Float return scrollRect.width;
+	override function get_height():Float return scrollRect.height;
+	
+	public function new(bitmapData:BitmapData, width:Int, height:Int, frames:Array<Int>, frameRate = 15)
+	{
+		this.frameTime = 1 / frameRate;
+		this.frames = frames;
+		super();
+		addChild(new Bitmap(bitmapData));
+		scrollRect = new Rectangle(0, 0, width, height);
+	}
+	
+	inline public function update():Void
+	{
+		time += 1 / Lib.current.stage.frameRate;
+		var frame = Math.floor(time / frameTime);
+		if (frame >= frames.length)
+			frame = frames.length -1;
+		var rect = scrollRect;
+		rect.x = rect.width * frames[frame];
+		scrollRect = rect;
 	}
 }
