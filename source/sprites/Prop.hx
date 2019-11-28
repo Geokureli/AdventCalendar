@@ -6,18 +6,15 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * ...
  * @author NInjaMuffin99
  */
-class Prop extends SpriteShit 
+class Prop extends Sprite
 {
-
-	public function new(?X:Float=0, ?Y:Float=0, propPath:String) 
+	public function new(?x, ?y, ?graphic) 
 	{
-		super(X, Y);
+		super(x, y, graphic);
 		
-		loadGraphic(propPath);
 		drag.x = drag.y = 5000;
 		
 		offset.y = height - 8;
 		height -= offset.y;
 	}
-	
 }

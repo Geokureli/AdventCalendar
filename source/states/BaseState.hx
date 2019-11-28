@@ -12,7 +12,7 @@ import flixel.util.FlxSort;
 
 import sprites.Evidence;
 import sprites.Player;
-import sprites.SpriteShit;
+import sprites.Sprite;
 import sprites.Thumbnail;
 
 /**
@@ -31,7 +31,7 @@ class BaseState extends FlxState
 	private var presOverlaps:Int = 0;
 	
 	private var _grpEntites:FlxTypedGroup<FlxObject>;
-	private var _grpCharacters:FlxTypedSpriteGroup<SpriteShit>;
+	private var _grpCharacters:FlxTypedSpriteGroup<Sprite>;
 	private var _grpCollision:FlxGroup;
 	
 	private var _grpEvidence:FlxTypedGroup<Evidence>;
@@ -51,7 +51,7 @@ class BaseState extends FlxState
 		_grpEntites = new FlxTypedGroup<FlxObject>();
 		add(_grpEntites);
 		
-		_grpCharacters = new FlxTypedSpriteGroup<SpriteShit>();
+		_grpCharacters = new FlxTypedSpriteGroup<Sprite>();
 		_grpEntites.add(_grpCharacters);
 		
 		

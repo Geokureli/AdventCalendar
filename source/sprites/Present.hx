@@ -9,7 +9,7 @@ import flixel.util.FlxColor;
  * ...
  * @author NInjaMuffin99
  */
-class Present extends SpriteShit
+class Present extends Sprite
 {
 
 	public function new(?X:Float=0, ?Y:Float=0, curDay:Int) 

@@ -8,7 +8,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * ...
  * @author NInjaMuffin99
  */
-class Character extends SpriteShit 
+class Character extends Sprite 
 {
 	private var speed:Float = 95;
 	private var actualOffsetLOL:Float = 12;

@@ -11,7 +11,7 @@ import flixel.util.FlxColor;
  * ...
  * @author NInjaMuffin99
  */
-class Thumbnail extends SpriteShit 
+class Thumbnail extends Sprite
 {
 	
 	public var overlappin:Bool = false;

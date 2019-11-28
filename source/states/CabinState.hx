@@ -154,7 +154,7 @@ class CabinState extends BaseState
 		if (FlxG.overlap(player, carpet) && player.x > 212)
 			FlxG.switchState(new PlayState());
 		
-		_grpCharacters.forEach(function(spr:SpriteShit)
+		_grpCharacters.forEach(function(spr:Sprite)
 		{
 			if (spr.ID == 2)
 			{

@@ -195,8 +195,7 @@ class PlayState extends BaseState
 		fort.offset.x -= fort.width + 8;
 		fort.immovable = true;
 		
-		var sign:SpriteShit = new SpriteShit(266, 318);
-		sign.loadGraphic(AssetPaths.sign_1__png);
+		var sign:Sprite = new Sprite(266, 318, AssetPaths.sign_1__png);
 		sign.offset.y = sign.height - 4;
 		sign.height = 2;
 		sign.offset.x = 4;
@@ -212,29 +211,6 @@ class PlayState extends BaseState
 		treeLights.scrollFactor.set(_grpCharacters.scrollFactor.x, _grpCharacters.scrollFactor.y);
 		treeLights.cameras = [gameCamera];
 		add(treeLights);
-		
-		
-		var igloo:SpriteShit = new SpriteShit(410, 410);
-		igloo.loadGraphic("assets/images/igloo.png");
-		igloo.offset.y = igloo.height * 0.7;
-		igloo.height *= 0.28;
-		igloo.immovable = true;
-		_grpCharacters.add(igloo);
-		
-		var iggCollide:SpriteShit = new SpriteShit(igloo.x, 410);
-		iggCollide.makeGraphic(Std.int(igloo.width), 1, FlxColor.TRANSPARENT);
-		iggCollide.immovable = true;
-		
-		iggCollide.y -= iggCollide.height + player.height + 3;
-		_grpCharacters.add(iggCollide);
-		
-		var iggSideWall:SpriteShit = new SpriteShit(iggCollide.x + iggCollide.width - 9, iggCollide.y);
-		iggSideWall.makeGraphic(9, 10, FlxColor.TRANSPARENT);
-		iggSideWall.immovable = true;
-		_grpCharacters.add(iggSideWall);
-		
-		iglooEnter = new FlxObject(425, 403, 2, 6);
-		add(iglooEnter);
 		
 		treeOGhitbox = new FlxObject(tree.x, tree.y - tree.treeSize.height, tree.treeSize.width, tree.treeSize.height);
 		add(treeOGhitbox);
@@ -499,7 +475,7 @@ class PlayState extends BaseState
 			}
 		}
 		
-		_grpCharacters.forEach(function(s:SpriteShit)
+		_grpCharacters.forEach(function(s:Sprite)
 		{
 			// Present
 			if (s.ID == 1)
@@ -549,7 +525,7 @@ class PlayState extends BaseState
 		
 	}
 	
-	private function interactPres(s:SpriteShit):Void
+	private function interactPres(s:Sprite):Void
 	{
 		FlxG.log.add(s.curDay);
 		
