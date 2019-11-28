@@ -34,8 +34,6 @@ class BaseState extends FlxState
 	private var _grpCharacters:FlxTypedSpriteGroup<Sprite>;
 	private var _grpCollision:FlxGroup;
 	
-	private var _grpEvidence:FlxTypedGroup<Evidence>;
-	
 	private var thumbnail:Thumbnail;
 	
 
@@ -46,24 +44,11 @@ class BaseState extends FlxState
 	
 	private function initCharacterBases():Void
 	{
-		initEvidence();
-		
 		_grpEntites = new FlxTypedGroup<FlxObject>();
 		add(_grpEntites);
 		
 		_grpCharacters = new FlxTypedSpriteGroup<Sprite>();
 		_grpEntites.add(_grpCharacters);
-		
-		
-	}
-	
-	private function initEvidence():Void
-	{
-		
-		_grpEvidence = new FlxTypedGroup<Evidence>();
-		add(_grpEvidence);
-		
-		
 	}
 	
 	private function initCameras():Void
@@ -90,17 +75,6 @@ class BaseState extends FlxState
 		add(_grpCollision);
 	}
 	
-	private function checkEv():Void
-	{
-		_grpEvidence.forEach(function(evi:Evidence)
-		{
-			if (BulletinState.evAmount[evi.ID])
-			{
-				evi.kill();
-			}
-		});
-	}
-	
 	override public function update(elapsed:Float):Void 
 	{
 		FlxG.watch.addMouse();
@@ -109,16 +83,6 @@ class BaseState extends FlxState
 		FlxG.collide(_grpCharacters, _grpCollision);
 		
 		_grpCharacters.sort(FlxSort.byY);
-		
-		_grpEvidence.forEach(function(ev:Evidence)
-		{
-			if (FlxG.overlap(playerHitbox, ev))
-			{
-				BulletinState.evAmount[ev.ID] = true;
-				FlxG.sound.play("assets/sounds/presentOpen.mp3", 1);
-				ev.kill();
-			}
-		});
 		
 		super.update(elapsed);
 	}

@@ -119,17 +119,6 @@ class CabinState extends BaseState
 		super.create();
 	}
 	
-	override function initEvidence():Void 
-	{
-		super.initEvidence();
-		
-		var someEvLol:Evidence = new Evidence(10, 94);
-		someEvLol.ID = 6;
-		_grpEvidence.add(someEvLol);
-		
-		checkEv();
-	}
-	
 	override public function update(elapsed:Float):Void 
 	{
 		playerHitbox.setPosition(player.x - 3, player.y - 3);

@@ -4,8 +4,6 @@ import data.NGio;
 import data.Calendar;
 import data.BitArray;
 import sprites.*;
-import states.IglooSubstate;
-import states.GallerySubstate;
 
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -57,11 +55,7 @@ class PlayState extends BaseState
 	
 	private var collisionBounds:FlxObject;
 	private var treeOGhitbox:FlxObject;
-	private var iglooEnter:FlxObject;
 	
-	private var camZoomPos:FlxPoint = new FlxPoint(288 - 36, 162 - 11);
-	
-	private var enteringIgloo:Bool = false;
 	private var playingCutscene:Bool = false;
 	
 	private var sprSnow2:FlxSprite;
@@ -244,46 +238,6 @@ class PlayState extends BaseState
 		snowLayer -= 1;
 	}
 	
-	override function initEvidence():Void 
-	{
-		super.initEvidence();
-		
-		var evidence1:Evidence = new Evidence(620, 410);
-		evidence1.ID = 0;
-		_grpEvidence.add(evidence1);
-		
-		var evidence2:Evidence = new Evidence(590 - 15, 400);
-		evidence2.ID = 1;
-		_grpEvidence.add(evidence2);
-		
-		var treeEv:Evidence = new Evidence(503, 322);
-		treeEv.ID = 7;
-		_grpEvidence.add(treeEv);
-		
-		var fortEv:Evidence = new Evidence(644, 330);
-		fortEv.ID = 4;
-		_grpEvidence.add(fortEv);
-		
-		var evCorner:Evidence = new Evidence(256, 490);
-		evCorner.ID = 2;
-		_grpEvidence.add(evCorner);
-		
-		var evPhil:Evidence = new Evidence(473, 390);
-		evPhil.ID = 5;
-		_grpEvidence.add(evPhil);
-		
-		var evSign:Evidence = new Evidence(264, 311);
-		evSign.ID = 8;
-		_grpEvidence.add(evSign);
-		
-		var evTyler:Evidence = new Evidence(443, 478);
-		evTyler.ID = 9;
-		_grpEvidence.add(evTyler);
-		
-		checkEv();
-	}
-	
-	
 	private function initCharacters():Void
 	{
 		initCharacterBases();
@@ -302,7 +256,6 @@ class PlayState extends BaseState
 		add(camFollow);
 		
 		initNPC();
-		
 	}
 	
 	private function initNPC():Void
@@ -359,13 +312,6 @@ class PlayState extends BaseState
 			FlxG.switchState(new IglooSubstate());
 		}
 		
-		if (FlxG.overlap(playerHitbox, iglooEnter) && !enteringIgloo)
-		{
-			enteringIgloo = true;
-			
-			FlxG.camera.fade(FlxColor.BLACK, 1, false, function(){FlxG.switchState(new IglooSubstate()); });
-		}
-		
 		treeLights.alpha = tree.alpha;
 		
 		
@@ -406,11 +352,6 @@ class PlayState extends BaseState
 		
 		playerHitbox.setPosition(player.x - 3, player.y - 3);
 		presOverlaps = 0;
-		
-		if (FlxG.overlap(player, iglooEnter))
-		{
-			// blah blah blah enter the igloo here
-		}
 		
 		if (player.y < collisionBounds.y + 20)
 		{
@@ -480,11 +421,6 @@ class PlayState extends BaseState
 			// Present
 			if (s.ID == 1)
 			{
-				if (s.posDiff.x != 0 || s.posDiff.y != 0)
-				{
-					// sprSnow.stamp(snowStamp, Std.int(s.x), Std.int(s.y));
-				}
-				
 				if (presOverlaps < 1)
 				{
 					if (FlxG.overlap(playerHitbox, s))
