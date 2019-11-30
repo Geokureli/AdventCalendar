@@ -1,5 +1,5 @@
-# CHRISTMAS ADVENTURE 2018
-### An advent calendar art collab for Newgrounds.com
+# CHRISTMAS ADVENTURE 2019
+### An advent calendar art collab for Newgrounds.com mooching off code from the previous year
 
 Open presents everyday leading up to Christmas! https://www.newgrounds.com/portal/view/721061
 
