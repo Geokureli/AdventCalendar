@@ -38,6 +38,7 @@ class OutsideState extends BaseState
 	
 	override public function create():Void 
 	{
+		/*
 		// shitty game first time run init basically
 		if (FlxG.sound.music == null)
 		{
@@ -50,7 +51,7 @@ class OutsideState extends BaseState
 			}
 			
 			FlxG.save.bind("advent2019", "GeoKureli");
-		}
+		}*/
 		
 		#if !mobile
 			FlxG.mouse.visible = true;
