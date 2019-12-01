@@ -266,9 +266,12 @@ class CabinState extends BaseState
 		
 		if (NGio.isLoggedIn && s.curDay == Calendar.day)
 		{
+			trace("unlocking " + (MEDAL_0 + Calendar.day));
 			var medal = NG.core.medals.get(MEDAL_0 + Calendar.day);
 			if (!medal.unlocked)
 				medal.sendUnlock();
+			else
+				trace("already unlocked");
 		}
 		
 		s.animation.play("opened");

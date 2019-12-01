@@ -16,14 +16,7 @@ class Calendar
     
     static public function init(onComplete:Void->Void = null):Void
     {
-        Assets.loadText("assets/data/content.json").onComplete(onLoad.bind(_, onComplete));
-        if (DEBUG_DAY == null)
-            NGio.checkNgDate(()->{ onDateReceived(NGio.ngDate); });
-        else
-        {
-            day = DEBUG_DAY;
-            isAdvent = true;
-        }
+        Assets.loadText("assets/data/content.json").onComplete(onContentLoad.bind(_, onComplete));
     }
     
     static function onDateReceived(date:Date):Void
@@ -37,11 +30,23 @@ class Calendar
         }
     }
     
-    static function onLoad(fileData:String, callback:Void->Void = null):Void
+    static function onContentLoad(fileData:String, callback:Void->Void = null):Void
     {
         data = Json.parse(fileData);
-        if (callback != null)
-            callback();
+        
+        if (DEBUG_DAY == null)
+            NGio.checkNgDate(()->{
+                onDateReceived(NGio.ngDate);
+                if (callback != null)
+                    callback();
+            });
+        else
+        {
+            day = DEBUG_DAY;
+            isAdvent = true;
+            if (callback != null)
+                callback();
+        }
     }
     
     static public function getData(day:Int):Null<ContentData>
