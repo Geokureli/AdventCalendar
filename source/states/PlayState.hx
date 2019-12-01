@@ -214,7 +214,7 @@ class PlayState extends BaseState
 		var zoomOffset:Float = 250;
 		FlxG.camera.setScrollBounds(sprSnow.x, sprSnow.width + zoomOffset, sprSnow.y - 200, sprSnow.y + sprSnow.height);
 		FlxG.camera.focusOn(player.getPosition());
-		FlxG.camera.fade(FlxColor.BLACK, 2.5, true);
+		FlxG.camera.fade(FlxG.stage.color, 2.5, true);
 		
 		if (FlxG.onMobile)
 		{

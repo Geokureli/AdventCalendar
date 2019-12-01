@@ -10,16 +10,16 @@ import openfl.display.Shape;
 import openfl.display.Sprite;
 import openfl.geom.Rectangle;
 
-@:bitmap("assets/images/preloader/cane.png") class Cane extends BitmapData { }
+@:bitmap("assets/images/preloader/cane.png"    ) class Cane     extends BitmapData { }
 @:bitmap("assets/images/preloader/caneMask.png") class CaneMask extends BitmapData { }
-@:bitmap("assets/images/preloader/stripes.png") class Stripes extends BitmapData { }
-@:bitmap("assets/images/preloader/loading.png") class Text extends BitmapData { }
+@:bitmap("assets/images/preloader/stripes.png" ) class Stripes  extends BitmapData { }
+@:bitmap("assets/images/preloader/loading.png" ) class Text     extends BitmapData { }
 @:bitmap("assets/images/preloader/caneAnim.png") class CaneAnim extends BitmapData { }
 
 class Preloader extends flixel.system.FlxBasePreloader
 {
 	inline static var STRIPE_LOOP = 149;
-	inline static var CANE_THICKNESS = 75;
+	inline static var CANE_THICKNESS = 59;
 	inline static var STRIPE_MAX = 326;
 	inline static var LOOP_TIME = 1.0;
 	
@@ -50,7 +50,7 @@ class Preloader extends flixel.system.FlxBasePreloader
 		cane.y = (this._height - 150) / 2;
 		caneMask.transform.colorTransform.color = Lib.current.stage.color;
 		caneMask.x = cane.x;
-		caneMask.y = cane.y;
+		caneMask.y = cane.y + 150 - CANE_THICKNESS;
 		stripes.x = caneMask.x;
 		stripes.y = caneMask.y;
 		
@@ -58,8 +58,8 @@ class Preloader extends flixel.system.FlxBasePreloader
 		maskShape.graphics.beginFill(0xFFFFFF);
 		maskShape.graphics.drawRect(0, 0, STRIPE_MAX, CANE_THICKNESS);
 		maskShape.graphics.endFill();
-		maskShape.x = cane.x;
-		maskShape.y = cane.y + 150 - CANE_THICKNESS;
+		maskShape.x = caneMask.x;
+		maskShape.y = caneMask.y;
 		stripes.mask = maskShape;
 		
 		var text = new Bitmap(new Text(0, 0));
