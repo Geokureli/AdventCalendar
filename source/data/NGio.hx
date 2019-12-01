@@ -86,7 +86,7 @@ class NGio
 			function(response)
 			{
 				if (response.success && response.result.success) 
-					ngDate = Date.fromString(response.result.data.datetime.substring(0, 10));
+					ngDate = Date.fromString(response.result.data.dateTime.substring(0, 10));
 			}
 		).addSuccessHandler(onComplete)
 		.addErrorHandler((_)->onComplete())
