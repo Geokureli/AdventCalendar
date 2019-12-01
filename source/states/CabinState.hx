@@ -90,7 +90,7 @@ class CabinState extends BaseState
 		
 		var wind = new FlxSprite(floor.width, 78 + (floor.height - 78) / 2);
 		wind.loadGraphic("assets/images/props/cabin/snowWind.png", true, 100, 60);
-		wind.animation.add("anim", [for (i in 0...24) i]);
+		wind.animation.add("anim", [for (i in 0...24) i], 12);
 		wind.animation.play("anim");
 		wind.x -= wind.width;
 		wind.y -= wind.height / 2;
