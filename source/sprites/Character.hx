@@ -22,8 +22,6 @@ class Character extends Sprite
 		
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);
-		
-		
 	}
 	
 	
@@ -51,7 +49,6 @@ class Character extends Sprite
 			}
 		}
 		// if the day is the 9th, since the input is curDate.getDate() - 1 usually...
-		
 		
 	}
 	

@@ -17,7 +17,7 @@ class TvBubble extends FlxSpriteGroup
         for (i in 0...16)
             frames.push(msg.animation.frames - 1);
         trace(frames, frames.length);
-        msg.animation.add("anim", frames, 8, false);
+        msg.animation.add("anim", frames, 12, false);
         msg.animation.play("anim", msg.animation.frames - 1);
         visible = false;
         add(msg);

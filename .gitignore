@@ -1,6 +1,7 @@
 export/
 
 .vscode
+AdventCalender.hxproj
 
 source/data/APIStuff.hx
 *.png~
