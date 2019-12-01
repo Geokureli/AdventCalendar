@@ -38,7 +38,7 @@ class NGio
 		ngDataLoaded.addOnce(callback);
 		
 		trace("connecting to newgrounds");
-		NG.createAndCheckSession(APIStuff.APIID, true, APIStuff.DebugSession,
+		NG.createAndCheckSession(APIStuff.APIID, APIStuff.DebugSession,
 			function(e)
 			{
 				ngDataLoaded.remove(callback);

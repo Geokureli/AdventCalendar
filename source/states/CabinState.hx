@@ -169,10 +169,8 @@ class CabinState extends BaseState
 	
 	private function initPresents():Void
 	{
-		FlxG.log.add("GETTIN PRESENTS");
-		
 		var presents = Calendar.day + 1;
-		FlxG.log.add("how many presents there should be: " + presents);
+		trace("num presents: " + presents);
 		
 		for (p in 0...presents)
 		{
