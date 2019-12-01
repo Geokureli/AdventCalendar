@@ -203,10 +203,12 @@ class CabinState extends BaseState
 					if (FlxG.overlap(playerHitbox, s))
 					{
 						presOverlaps += 1;
-						thumbnail.overlappin = true;
-						thumbnail.setPosition(s.x - 20, s.y - thumbnail.height - 8);
-						thumbnail.newThumb(s.curDay);
-						
+						if (openedPres[s.curDay])
+						{
+							thumbnail.overlappin = true;
+							thumbnail.setPosition(s.x - 20, s.y - thumbnail.height - 8);
+							thumbnail.newThumb(s.curDay);
+						}
 						
 						if (FlxG.onMobile)
 						{
