@@ -35,11 +35,14 @@ class Calendar
         data = Json.parse(fileData);
         
         if (DEBUG_DAY == null)
+        {
             NGio.checkNgDate(()->{
                 onDateReceived(NGio.ngDate);
+                trace("day: " + day);
                 if (callback != null)
                     callback();
             });
+        }
         else
         {
             day = DEBUG_DAY;

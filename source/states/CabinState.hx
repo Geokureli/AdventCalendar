@@ -84,6 +84,18 @@ class CabinState extends BaseState
 		_grpCollision.add(new Wall(floor.width - 3, WALL_Y + rightThird * 2, 3          , rightThird  ));
 		_grpCollision.add(new Wall(0              , floor.height           , floor.width, 3           ));
 		
+		var snow = new Sprite(floor.width, 78 + (floor.height - 78) / 2, "assets/images/props/cabin/doorSnow.png");
+		snow.x -= snow.width;
+		add(snow);
+		
+		var wind = new FlxSprite(floor.width, 78 + (floor.height - 78) / 2);
+		wind.loadGraphic("assets/images/props/cabin/snowWind.png", true, 100, 60);
+		wind.animation.add("anim", [for (i in 0...24) i], 12);
+		wind.animation.play("anim");
+		wind.x -= wind.width;
+		wind.y -= wind.height / 2;
+		add(wind);
+		
 		initCharacters();
 		initPresents();
 		
@@ -100,7 +112,10 @@ class CabinState extends BaseState
 		tvBubble = new TvBubble();
 		add(tvBubble);
 		
-		var tv = new Sprite(50, 46, "assets/images/props/cabin/tv.png");
+		var tv = new FlxSprite(50, 46);
+		tv.loadGraphic("assets/images/props/cabin/tv.png", true, 26, 38);
+		tv.animation.add("anim", [0,1], 16);
+		tv.animation.play("anim");
 		tv.immovable = true;
 		_grpCollision.add(tv);
 		
@@ -135,6 +150,7 @@ class CabinState extends BaseState
 		thumbnail = new Thumbnail(0, 0, 0);
 		add(thumbnail);
 		FlxTween.tween(thumbnail.offset, {y: 5}, 1.2, {ease:FlxEase.quadInOut, type:FlxTweenType.PINGPONG});
+		thumbnail.alpha = 0;
 		
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -203,10 +219,12 @@ class CabinState extends BaseState
 					if (FlxG.overlap(playerHitbox, s))
 					{
 						presOverlaps += 1;
-						thumbnail.overlappin = true;
-						thumbnail.setPosition(s.x - 20, s.y - thumbnail.height - 8);
-						thumbnail.newThumb(s.curDay);
-						
+						if (openedPres[s.curDay])
+						{
+							thumbnail.overlappin = true;
+							thumbnail.setPosition(s.x - 20, s.y - thumbnail.height - 8);
+							thumbnail.newThumb(s.curDay);
+						}
 						
 						if (FlxG.onMobile)
 						{
