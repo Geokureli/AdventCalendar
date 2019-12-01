@@ -54,10 +54,9 @@ class Calendar
 
 typedef RawContentData =
 {
-    final path     :String;
-    final thumbnail:String;
 	final author   :String;
     final credit   :Null<String>;
+	final fileExt  :Null<String>;
     final medal    :Int;
 	final pos      :{ x:Int, y:Int }
 	final frames   :Null<Int>;
@@ -71,4 +70,20 @@ abstract ContentData(RawContentData) from RawContentData
     
     public var profileLink(get,never):String;
     inline function get_profileLink() return "https://" + this.author + ".newgrounds.com";
+    
+    inline public function getPath():String
+    {
+        return 'assets/images/artwork/${getFilename()}';
+    }
+    
+   inline public function getThumbPath():String
+    {
+        return 'assets/images/thumbs/thumb-${getFilename()}';
+    }
+    
+    inline public function getFilename():String
+    {
+        return this.author.toLowerCase() + "." + (this.fileExt == null ? "png" : this.fileExt);
+    }
+    
 }

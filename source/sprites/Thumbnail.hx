@@ -40,7 +40,7 @@ class Thumbnail extends Sprite
 			}
 			else
 			{
-				loadGraphic(Calendar.data[newDay].thumbnail);
+				loadGraphic(Calendar.data[newDay].getThumbPath());
 			}
 			
 			curThumb = newDay;

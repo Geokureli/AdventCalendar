@@ -1,10 +1,9 @@
 package states;
 
+import data.NGio;
 import data.Calendar;
 import data.BitArray;
 import sprites.*;
-import states.IglooSubstate;
-import states.GallerySubstate;
 
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -12,22 +11,26 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import flixel.ui.FlxButton;
-import flixel.util.FlxColor;
 
 /**
  * recreates the 2018 advent
  * @author George
  */
-class PlayState extends BaseState 
+class OutsideState extends BaseState 
 {
 	inline public static var soundEXT:String = ".mp3";
 	
 	private var camFollow:FlxObject;
 	private var camOffset:Float = 70;
+
+	private var snowStamp:FlxSprite;
 	
-	private var tree:Tree;
-	private var treeLights:FlxSprite;
+	private var sprSnow:FlxSprite;
+	private var snowStamps:FlxSprite;
+	
+	private var tree:OutsideTree;
 	private var gyrados:FlxSprite;
 	
 	private var collisionBounds:FlxObject;
@@ -35,13 +38,29 @@ class PlayState extends BaseState
 	
 	override public function create():Void 
 	{
+		// shitty game first time run init basically
+		if (FlxG.sound.music == null)
+		{
+			//if its the 25 days leading up to christmas, play the christmas music
+			//else play ambient wind and shit
+			if (Calendar.isAdvent)
+				FlxG.sound.playMusic("assets/music/advent001-30sec" + soundEXT, 0);
+			else
+				FlxG.sound.playMusic(AssetPaths.ambience__mp3, 0);
+			
+			FlxG.sound.music.fadeIn(5, 0, 0.3);
+			
+			FlxG.save.bind("advent2019", "GeoKureli");
+		}
+		
 		#if !mobile
 			FlxG.mouse.visible = true;
 		#end
 		
 		initCameras();
+		trace("cameras intted");
 		
-		var sprSky:FlxSprite = new FlxSprite(288 - 36, 162 - 11).loadGraphic(AssetPaths.AdventCalendarBG__png);
+		var sprSky:FlxSprite = new FlxSprite(288 - 36, 162 - 11).loadGraphic(AssetPaths.sky__png);
 		sprSky.scrollFactor.set(0.05, 0.05);
 		add(sprSky);
 		
@@ -63,12 +82,14 @@ class PlayState extends BaseState
 		add(sprSnow1);
 		sprSnow1.scrollFactor.set(0.4, 0.4);
 		
-		var sprGround:FlxSprite = new FlxSprite(sprSky.x, sprSky.y - 35).loadGraphic("assets/images/ground_6.png");
+		// initSnow();
+		
+		var sprGround:FlxSprite = new FlxSprite(sprSky.x, sprSky.y - 35).loadGraphic(AssetPaths.ground__png);
 		sprGround.scrollFactor.set(0.6, 0.6);
 		add(sprGround);
 		
 		gyrados = new FlxSprite(260, sprGround.y + 162);
-		gyrados.loadGraphic("assets/images/gyradosSheet.png", true, Std.int(74 / 3));
+		gyrados.loadGraphic(AssetPaths.gyradosSheet__png, true, Std.int(74 / 3));
 		gyrados.animation.add("play", [0, 1, 2], 2);
 		gyrados.animation.play("play");
 		gyrados.scrollFactor.set(0.6, 0.6);
@@ -97,6 +118,7 @@ class PlayState extends BaseState
 		sprSnow = new FlxSprite(288 - 36, 162 - 11).loadGraphic(AssetPaths.snow__png);
 		add(sprSnow);
 		
+		// initSnow();
 		initCollision();
 		
 		collisionBounds = new FlxObject(sprSnow.x, 306, sprSnow.width, 3);
@@ -120,24 +142,22 @@ class PlayState extends BaseState
 		collRight.immovable = true;
 		_grpCollision.add(collRight);
 		
-		add(new Snow(3));
+		initSnow();
 		initCharacters();
-		initPresents();
 		
-		var tank:Prop = new Prop(590, 420, "assets/images/snowTank.png");
+		var tank:Prop = new Prop(590, 420, AssetPaths.snowTank__png);
 		tank.width -= 25;
 		tank.immovable = true;
 		_grpCharacters.add(tank);
 		
-		var fort:Prop = new Prop(640, 340, "assets/images/snowFort.png");
+		var fort:Prop = new Prop(640, 340, AssetPaths.snowFort__png);
 		_grpCharacters.add(fort);
 		fort.offset.x += fort.width;
 		fort.width = 30;
 		fort.offset.x -= fort.width + 8;
 		fort.immovable = true;
 		
-		var sign:SpriteShit = new SpriteShit(266, 318);
-		sign.loadGraphic(AssetPaths.sign_1__png);
+		var sign:Sprite = new Sprite(266, 318, AssetPaths.sign__png);
 		sign.offset.y = sign.height - 4;
 		sign.height = 2;
 		sign.offset.x = 4;
@@ -145,16 +165,16 @@ class PlayState extends BaseState
 		sign.immovable = true;
 		_grpCharacters.add(sign);
 		
-		tree = new Tree(0, 0, 0);
+		tree = new OutsideTree();
 		_grpCharacters.add(tree);
 		tree.setPosition(collisionBounds.x + 230, collisionBounds.y + 42);
 		
-		treeLights = new FlxSprite(tree.x - tree.offset.x, tree.y - tree.offset.y).loadGraphic(AssetPaths.christmasTree_lights__png);
-		treeLights.scrollFactor.set(_grpCharacters.scrollFactor.x, _grpCharacters.scrollFactor.y);
-		treeLights.cameras = [gameCamera];
-		add(treeLights);
+		// treeLights = new FlxSprite(tree.x - tree.offset.x, tree.y - tree.offset.y).loadGraphic(AssetPaths.christmasTree_lights__png);
+		// treeLights.scrollFactor.set(_grpCharacters.scrollFactor.x, _grpCharacters.scrollFactor.y);
+		// treeLights.cameras = [gameCamera];
+		// add(treeLights);
 		
-		treeOGhitbox = new FlxObject(tree.x, tree.y - tree.treeSize.height, tree.treeSize.width, tree.treeSize.height);
+		treeOGhitbox = new FlxObject(tree.x, tree.y - tree.height, tree.width, tree.height);
 		add(treeOGhitbox);
 		
 		FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.03);
@@ -162,20 +182,17 @@ class PlayState extends BaseState
 		var zoomOffset:Float = 250;
 		FlxG.camera.setScrollBounds(sprSnow.x, sprSnow.width + zoomOffset, sprSnow.y - 200, sprSnow.y + sprSnow.height);
 		FlxG.camera.focusOn(player.getPosition());
-		FlxG.camera.fade(FlxColor.BLACK, 2.5, true);
-		
-		if (FlxG.onMobile)
-		{
-			FlxG.cameras.add(uiCamera);
-			
-			var button = new FlxButton(10, 10, "Fullscreen", function() FlxG.fullscreen = !FlxG.fullscreen);
-			button.cameras = [uiCamera];
-			button.scrollFactor.set();
-			add(button);
-			
-		}
+		FlxG.camera.fade(FlxG.stage.color, 2.5, true);
 		
 		super.create();
+	}
+	
+	private var snowLayer:Int = 2;
+	
+	private function initSnow():Void
+	{
+		add(new Snow(snowLayer + 1));
+		snowLayer -= 1;
 	}
 	
 	private function initCharacters():Void
@@ -194,45 +211,17 @@ class PlayState extends BaseState
 		
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
-		
-		initNPC();
-		
-	}
-	
-	private function initNPC():Void
-	{
-		FlxG.log.add("NPCS ADDED");
-		var chars = Calendar.day;
-		// hopefulyl make it so that NPCs wind down as December ends
-		if (!Calendar.isAdvent)
-		{
-			chars = FlxG.random.int(0, 10);
-			FlxG.log.add("shrunkDays");
-		}
-		
-		// NPCS only show up if its december
-		if (!Calendar.isDecember)
-			chars = 0;
-		
-		for (c in 0...chars)
-		{
-			FlxG.log.add("NPC ADDED" + FlxG.random.int(0, 100));
-			var npc:NPC = new NPC(450 + FlxG.random.float( -150, 150), FlxG.random.float(collisionBounds.y + 60, 500));
-			npc.updateSprite(c);
-			npc.ID = 2;
-			_grpCharacters.add(npc);
-		}
 	}
 	
 	private var gyradosTmr:Float = 0;
 	
 	override public function update(elapsed:Float):Void 
 	{
-		treeLights.alpha = tree.alpha;
+		camFollow.setPosition(player.x, player.y - camOffset);
 		
 		if (player.x < 250)
 		{
-			FlxG.switchState(new CabinState());
+			FlxG.switchState(new CabinState(true));
 		}
 		
 		playerHitbox.setPosition(player.x - 3, player.y - 3);
@@ -269,7 +258,7 @@ class PlayState extends BaseState
 			{
 				camOffset += 10 * FlxG.elapsed;
 			}
-			else if (!playingCutscene)
+			else
 			{
 				tree.alpha -= 0.3 * FlxG.elapsed;
 			}
@@ -303,4 +292,25 @@ class PlayState extends BaseState
 		super.update(elapsed);
 		
 	}
+}
+
+/**
+ * ...
+ * @author NInjaMuffin99
+ */
+ @:forward
+abstract OutsideTree(Sprite) to Sprite
+{
+	inline public function new() 
+	{
+		this = new Sprite("assets/images/props/outside/tree.png");
+		
+		this.offset.x = 54;
+		this.offset.y = this.height - 20;
+		this.width -= this.offset.x * 2;
+		this.height = 16;
+		
+		this.immovable = true;
+	}
+	
 }

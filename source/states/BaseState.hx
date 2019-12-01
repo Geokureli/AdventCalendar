@@ -7,6 +7,7 @@ import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
+import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 
@@ -53,20 +54,19 @@ class BaseState extends FlxState
 	
 	private function initCameras():Void
 	{
+		FlxG.camera.zoom = 2.5;
 		
-		gameCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
-		uiCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
-		
-		gameCamera.zoom = 2.5;
-		
-		
-		uiCamera.bgColor = FlxColor.TRANSPARENT;
-		
-		FlxG.cameras.reset(gameCamera);
-		// FlxG.cameras.add(uiCamera);
-		
-		FlxCamera.defaultCameras = [gameCamera];
-		
+		if (FlxG.onMobile)
+		{
+			uiCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
+			uiCamera.bgColor = FlxColor.TRANSPARENT;
+			FlxG.cameras.add(uiCamera);
+			
+			var button = new FlxButton(10, 10, "Fullscreen", function() FlxG.fullscreen = !FlxG.fullscreen);
+			button.cameras = [uiCamera];
+			button.scrollFactor.set();
+			add(button);
+		}
 	}
 	
 	private function initCollision():Void

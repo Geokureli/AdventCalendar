@@ -25,7 +25,7 @@ class IntroState extends FlxState
     function onConnectResult():Void
     {
         if (NGio.isLoggedIn)
-            FlxG.switchState(new PlayState());
+            FlxG.switchState(new CabinState());
         else
             showError();
     }

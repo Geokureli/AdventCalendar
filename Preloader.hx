@@ -23,7 +23,7 @@ class Preloader extends flixel.system.FlxBasePreloader
 	inline static var STRIPE_MAX = 326;
 	inline static var LOOP_TIME = 1.0;
 	
-	override public function new(MinDisplayTime:Float = 4.1, ?AllowedURLs:Array<String>) 
+	override public function new(MinDisplayTime:Float = 1, ?AllowedURLs:Array<String>) 
 	{
 		super(MinDisplayTime, AllowedURLs);
 	}

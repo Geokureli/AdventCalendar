@@ -123,7 +123,7 @@ class GallerySubstate extends FlxSubState
 		// regular artwork
 		if (day >= 0)
 		{
-			bigPreview.loadGraphic(data.path);
+			bigPreview.loadGraphic(data.getPath());
 			imageText.text = "Art by " + data.credit;
 		}
 		else
@@ -131,7 +131,7 @@ class GallerySubstate extends FlxSubState
 			switch(day)
 			{
 				case -1:
-					bigPreview.loadGraphic(AssetPaths.tom__png);
+					//bigPreview.loadGraphic(AssetPaths.tom__png);
 					imageText.text = "Tom Fulp, creator, founder, president, and CEO of Newgrounds.com";
 			}
 			
@@ -149,7 +149,7 @@ class GallerySubstate extends FlxSubState
 		}
 		
 		if (isAnimated)
-			bigPreview.loadGraphic(data.path, isAnimated, horizSize, vertSize);
+			bigPreview.loadGraphic(data.getPath(), isAnimated, horizSize, vertSize);
 		
 		bigPreview.setGraphicSize(0, Std.int(FlxG.height));
 		bigPreview.updateHitbox();
