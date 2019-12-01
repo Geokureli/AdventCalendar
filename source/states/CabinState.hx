@@ -150,6 +150,7 @@ class CabinState extends BaseState
 		thumbnail = new Thumbnail(0, 0, 0);
 		add(thumbnail);
 		FlxTween.tween(thumbnail.offset, {y: 5}, 1.2, {ease:FlxEase.quadInOut, type:FlxTweenType.PINGPONG});
+		thumbnail.alpha = 0;
 		
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
