@@ -9,17 +9,26 @@ import flixel.FlxG;
 import flixel.FlxState;
 
 class IntroState extends FlxState
-{   
-	override public function create():Void
-	{
-		super.create();
+{
+    override public function create():Void
+    {
+        super.create();
         
         FlxG.camera.bgColor = FlxG.stage.color;
+        var timer = new FlxTimer().start(20, showError);
         
-		NGio.login(onConnectResult);
-		Calendar.init();
+        var callbacks = 2;
+        function trigger() 
+        {
+            if (--callbacks == 0)
+            {
+                timer.cancel();
+                onConnectResult();
+            }
+        }
         
-        new FlxTimer().start(20, showError);
+        NGio.login(trigger);
+        Calendar.init(trigger);
     }
     
     function onConnectResult():Void
