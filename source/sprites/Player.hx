@@ -18,6 +18,7 @@ class Player extends Character
 
 	// only used for the igloo lol
 	public static var daDayLol:Int = 0;
+	public var stepSoundType:String;
 
 	public function new(?X:Float = 0, ?Y:Float = 0, curDay:Int = 0 ) 
 	{
@@ -123,7 +124,8 @@ class Player extends Character
 			if (!justStepped)
 			{
 				justStepped = true;
-				FlxG.sound.play("assets/sounds/walk" + FlxG.random.int(1, 3) + ".mp3", 0.2);
+				if (stepSoundType != null)
+					FlxG.sound.play("assets/sounds/walk_" + stepSoundType + FlxG.random.int(1, 3) + ".mp3", 0.2);
 			}
 			
 			jumpBoost += 4;

@@ -143,6 +143,7 @@ class OutsideState extends BaseState
 		
 		initSnow();
 		initCharacters();
+		player.stepSoundType = "snow";
 		
 		var tank:Prop = new Prop(590, 420, AssetPaths.snowTank__png);
 		tank.width -= 25;
