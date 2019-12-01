@@ -23,12 +23,16 @@ import flixel.tweens.FlxTween;
  */
 class CabinState extends BaseState 
 {
+	inline static var WALL_Y = 78;
+	inline static var MEDAL_0 = 58519;
 	
-	private var camFollow:FlxObject;
-	private var camOffset:Float = 70;
+	var camFollow:FlxObject;
+	var camOffset:Float = 70;
 	
-	private var tree:Tree;
-	private var fromOutside = false;
+	var tree:Tree;
+	var tvTouch:FlxObject;
+	var tvBubble:TvBubble;
+	var fromOutside = false;
 	
 	override public function new (fromOutside = false)
 	{
@@ -44,12 +48,10 @@ class CabinState extends BaseState
 			//if its the 25 days leading up to christmas, play the christmas music
 			//else play ambient wind and shit
 			if (Calendar.isAdvent)
-				FlxG.sound.playMusic("assets/music/advent001-30sec.mp3", 0);
-			else
-				FlxG.sound.playMusic(AssetPaths.ambience__mp3, 0);
-			
-			FlxG.sound.music.fadeIn(5, 0, 0.3);
-			
+			{
+				FlxG.sound.playMusic("assets/music/czyszy.mp3", 0);
+				FlxG.sound.music.fadeIn(5, 0, 0.3);
+			}
 			FlxG.save.bind("advent2019", "GeoKureli");
 		}
 		
@@ -67,28 +69,50 @@ class CabinState extends BaseState
 		initCameras();
 		trace("cameras intted");
 		
-		var floor = new FlxSprite("assets/images/props/cabin/cabin_floor.png");
+		var floor = new FlxSprite("assets/images/props/cabin/floor.png");
 		floor.updateHitbox();
 		add(floor);
 		
+		add(new Sprite(17, 98, "assets/images/props/cabin/rug.png"));
+		
 		initCollision();
 		// FlxG.debugger.drawDebug = true;
-		var rightThird = (floor.height - 78) / 3;
-		_grpCollision.add(new Wall(              0,                   0, floor.width, 78          ));
-		_grpCollision.add(new Wall(              0,                   0, 3          , floor.height));
-		_grpCollision.add(new Wall(floor.width - 3, 78                 , 3          , rightThird  ));
-		_grpCollision.add(new Wall(floor.width - 3, 78 + rightThird * 2, 3          , rightThird  ));
-		_grpCollision.add(new Wall(              0,        floor.height, floor.width, 3           ));
+		var rightThird = (floor.height - WALL_Y) / 3;
+		_grpCollision.add(new Wall(0              , 0                      , floor.width, WALL_Y      ));
+		_grpCollision.add(new Wall(0              , 0                      , 3          , floor.height));
+		_grpCollision.add(new Wall(floor.width - 3, WALL_Y                 , 3          , rightThird  ));
+		_grpCollision.add(new Wall(floor.width - 3, WALL_Y + rightThird * 2, 3          , rightThird  ));
+		_grpCollision.add(new Wall(0              , floor.height           , floor.width, 3           ));
 		
 		initCharacters();
 		initPresents();
 		
 		if (fromOutside)
+		{
 			player.x = floor.width - player.width;
+			player.y = 78 + (floor.height - 78) / 2;
+		}
 		
 		tree = new Tree(floor.width / 2, floor.height / 2 - 18);
 		tree.x -= tree.width / 2;
 		_grpCharacters.add(tree);
+		
+		tvBubble = new TvBubble();
+		add(tvBubble);
+		
+		var tv = new Sprite(50, 46, "assets/images/props/cabin/tv.png");
+		tv.immovable = true;
+		_grpCollision.add(tv);
+		
+		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 3, tv.height + 3);
+		
+		var couch = new Sprite(28, 144, "assets/images/props/cabin/couch.png");
+		couch.immovable = true;
+		_grpCollision.add(couch);
+		
+		var punchBowl = new Sprite(328, 66, "assets/images/props/cabin/punchBowl.png");
+		punchBowl.immovable = true;
+		_grpCollision.add(punchBowl);
 		
 		FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.03);
 		FlxG.camera.setScrollBounds(floor.x, floor.width, floor.y, floor.height);
@@ -212,6 +236,11 @@ class CabinState extends BaseState
 			}
 		});
 		
+		if (tvTouch.overlaps(playerHitbox) && FlxG.keys.justPressed.SPACE)
+		{
+			tvBubble.play();
+		}
+		
 		super.update(elapsed);
 		
 		if (player.x > FlxG.camera.maxScrollX)
@@ -224,17 +253,6 @@ class CabinState extends BaseState
 	{
 		FlxG.log.add(s.curDay);
 		
-		if (s.curDay == 0)
-		{
-			if (NGio.isLoggedIn) 
-			{
-				var medal = NG.core.medals.get(Calendar.data[0].medal);
-				if (!medal.unlocked)
-					medal.sendUnlock();
-			}
-			
-		}
-		
 		var whitelistUnlock:Bool = false;
 		
 		for (w in whitelist)
@@ -246,9 +264,9 @@ class CabinState extends BaseState
 			}
 		}
 		
-		if ((NGio.isLoggedIn && s.curDay == Calendar.day) || whitelistUnlock)
+		if (NGio.isLoggedIn && s.curDay == Calendar.day)
 		{
-			var medal = NG.core.medals.get(Calendar.data[Calendar.day].medal);
+			var medal = NG.core.medals.get(MEDAL_0 + Calendar.day);
 			if (!medal.unlocked)
 				medal.sendUnlock();
 		}

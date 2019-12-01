@@ -44,11 +44,10 @@ class OutsideState extends BaseState
 			//if its the 25 days leading up to christmas, play the christmas music
 			//else play ambient wind and shit
 			if (Calendar.isAdvent)
+			{
 				FlxG.sound.playMusic("assets/music/advent001-30sec" + soundEXT, 0);
-			else
-				FlxG.sound.playMusic(AssetPaths.ambience__mp3, 0);
-			
-			FlxG.sound.music.fadeIn(5, 0, 0.3);
+				FlxG.sound.music.fadeIn(5, 0, 0.3);
+			}
 			
 			FlxG.save.bind("advent2019", "GeoKureli");
 		}
@@ -169,10 +168,21 @@ class OutsideState extends BaseState
 		_grpCharacters.add(tree);
 		tree.setPosition(collisionBounds.x + 230, collisionBounds.y + 42);
 		
-		// treeLights = new FlxSprite(tree.x - tree.offset.x, tree.y - tree.offset.y).loadGraphic(AssetPaths.christmasTree_lights__png);
-		// treeLights.scrollFactor.set(_grpCharacters.scrollFactor.x, _grpCharacters.scrollFactor.y);
-		// treeLights.cameras = [gameCamera];
-		// add(treeLights);
+		var igloo = new Sprite(410, 410);
+		igloo.loadGraphic("assets/images/props/outside/igloo.png");
+		igloo.offset.y = igloo.height * 0.7;
+		igloo.height *= 0.28;
+		igloo.immovable = true;
+		_grpCharacters.add(igloo);
+		
+		var iggCollide:FlxObject = new FlxObject(igloo.x, 410, Std.int(igloo.width), 1);
+		iggCollide.immovable = true;
+		iggCollide.y -= iggCollide.height + player.height + 3;
+		_grpCollision.add(iggCollide);
+		
+		var iggSideWall:FlxObject = new FlxObject(iggCollide.x + iggCollide.width - 9, iggCollide.y, 9, 10);
+		iggSideWall.immovable = true;
+		_grpCollision.add(iggSideWall);
 		
 		treeOGhitbox = new FlxObject(tree.x, tree.y - tree.height, tree.width, tree.height);
 		add(treeOGhitbox);
@@ -199,7 +209,8 @@ class OutsideState extends BaseState
 	{
 		initCharacterBases();
 		
-		player = new Player(315, collisionBounds.y + 65, Calendar.day);
+		player = new Player(265, collisionBounds.y + 125, Calendar.day);
+		player.facing = FlxObject.RIGHT;
 		_grpCharacters.add(player);
 		
 		playerHitbox = new FlxObject(0, 0, player.width + 6, player.height + 6);
@@ -273,9 +284,11 @@ class OutsideState extends BaseState
 		
 		FlxG.collide(collisionBounds, _grpCharacters);
 		
-		
 		if (FlxG.overlap(player, treeOGhitbox))
 		{
+			if (FlxG.keys.justPressed.SPACE)
+				FlxG.openURL("https://www.newgrounds.com/portal/view/721061");
+			
 			if (tree.alpha > 0.55)
 			{
 				tree.alpha -= 0.025;

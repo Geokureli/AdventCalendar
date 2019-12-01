@@ -61,6 +61,7 @@ class BaseState extends FlxState
 			uiCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 			uiCamera.bgColor = FlxColor.TRANSPARENT;
 			FlxG.cameras.add(uiCamera);
+			FlxCamera.defaultCameras = [FlxG.camera];
 			
 			var button = new FlxButton(10, 10, "Fullscreen", function() FlxG.fullscreen = !FlxG.fullscreen);
 			button.cameras = [uiCamera];

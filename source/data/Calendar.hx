@@ -7,9 +7,9 @@ import openfl.utils.Assets;
 class Calendar
 {
     inline static var DEBUG_DAY:Null<Int>
-        = 0;
-        // = null;
-    static public var day(default, null) = 25;
+        // = 0;
+        = null;
+    static public var day(default, null) = 24;
     static public var isAdvent(default, null) = false;
     static public var isDecember(default, null) = false;
     static public var data(default, null):ReadOnlyArray<ContentData>;
