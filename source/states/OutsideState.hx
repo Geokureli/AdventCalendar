@@ -38,20 +38,6 @@ class OutsideState extends BaseState
 	
 	override public function create():Void 
 	{
-		// shitty game first time run init basically
-		if (FlxG.sound.music == null)
-		{
-			//if its the 25 days leading up to christmas, play the christmas music
-			//else play ambient wind and shit
-			if (Calendar.isAdvent)
-			{
-				FlxG.sound.playMusic("assets/music/advent001-30sec" + soundEXT, 0);
-				FlxG.sound.music.fadeIn(5, 0, 0.3);
-			}
-			
-			FlxG.save.bind("advent2019", "GeoKureli");
-		}
-		
 		#if !mobile
 			FlxG.mouse.visible = true;
 		#end
