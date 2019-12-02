@@ -19,7 +19,7 @@ import openfl.geom.Rectangle;
 class Preloader extends flixel.system.FlxBasePreloader
 {
 	inline static var STRIPE_LOOP = 149;
-	inline static var CANE_THICKNESS = 59;
+	inline static var CANE_THICKNESS = 60;
 	inline static var STRIPE_MAX = 326;
 	inline static var LOOP_TIME = 1.0;
 	
@@ -52,7 +52,7 @@ class Preloader extends flixel.system.FlxBasePreloader
 		caneMask.smoothing = false;
 		caneMask.transform.colorTransform.color = Lib.current.stage.color;
 		caneMask.x = cane.x;
-		caneMask.y = cane.y + 150 - CANE_THICKNESS;
+		caneMask.y = cane.y + 150 - CANE_THICKNESS + 2;
 		stripes.smoothing = false;
 		stripes.x = caneMask.x;
 		stripes.y = caneMask.y;
@@ -62,7 +62,7 @@ class Preloader extends flixel.system.FlxBasePreloader
 		maskShape.graphics.drawRect(0, 0, STRIPE_MAX, CANE_THICKNESS);
 		maskShape.graphics.endFill();
 		maskShape.x = caneMask.x;
-		maskShape.y = caneMask.y + 2;
+		maskShape.y = caneMask.y;
 		stripes.mask = maskShape;
 		
 		var text = new Bitmap(new Text(0, 0));
@@ -109,6 +109,7 @@ class Preloader extends flixel.system.FlxBasePreloader
 			var oldX = stripes.x;
 			stripes.x = cane.x
 				+ Math.round(-STRIPE_LOOP * (time / 1000.0 / LOOP_TIME)) % STRIPE_LOOP;
+			stripes.x = Math.floor(stripes.x / 4) * 4;
 			
 			if (oldX < stripes.x && outroStarted)
 			{
