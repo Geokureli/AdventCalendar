@@ -62,7 +62,7 @@ class Preloader extends flixel.system.FlxBasePreloader
 		maskShape.graphics.drawRect(0, 0, STRIPE_MAX, CANE_THICKNESS);
 		maskShape.graphics.endFill();
 		maskShape.x = caneMask.x;
-		maskShape.y = caneMask.y;
+		maskShape.y = caneMask.y + 2;
 		stripes.mask = maskShape;
 		
 		var text = new Bitmap(new Text(0, 0));

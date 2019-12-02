@@ -118,7 +118,7 @@ class CabinState extends BaseState
 		
 		var tv = new FlxSprite(50, 46);
 		tv.loadGraphic("assets/images/props/cabin/tv.png", true, 26, 38);
-		tv.animation.add("anim", [0,1], 16);
+		tv.animation.add("anim", [0,1], 12);
 		tv.animation.play("anim");
 		tv.immovable = true;
 		_grpCollision.add(tv);

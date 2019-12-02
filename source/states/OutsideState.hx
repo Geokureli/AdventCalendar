@@ -169,7 +169,7 @@ class OutsideState extends BaseState
 		
 		var iggSideWall:FlxObject = new FlxObject(iggCollide.x + iggCollide.width - 9, iggCollide.y, 9, 10);
 		iggSideWall.immovable = true;
-		_grpCollision.add(iggSideWall);
+		//_grpCollision.add(iggSideWall);
 		
 		treeOGhitbox = new FlxObject(tree.x, tree.y - tree.height, tree.width, tree.height);
 		add(treeOGhitbox);

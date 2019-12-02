@@ -2,12 +2,12 @@
     {
         "author":"Cymbourine",
         "pos"    :{ "x":470, "y":390 },
-        "tv"    :"UP NEXT: THE GRUNCH\nWHO SPENT CHRISTMAS\nON CRUNCH"
+		"tv"    :"UP NEXT: THE GRUNCH\nWHO SPENT CHRISTMAS\nON CRUNCH"
     },
     {
         "author":"GallowJolt",
         "pos"    :{ "x":530, "y":390 },
-        "tv"    :"DEBUG TEXT!!!"
+        "tv"    :"COMING UP: DOCTOR\nWHO KILLED SANTA\nCLAUS: XMAS SPECIAL"
     },
     {
         "author":"MrShmoods",
