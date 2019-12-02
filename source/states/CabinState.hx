@@ -105,7 +105,7 @@ class CabinState extends BaseState
 			player.y = 78 + (floor.height - 78) / 2;
 		}
 		
-		tree = new Tree(floor.width / 2, floor.height / 2 - 18);
+		tree = new Tree(Calendar.day, floor.width / 2, floor.height / 2 - 18);
 		tree.x -= tree.width / 2;
 		_grpCharacters.add(tree);
 		
@@ -337,9 +337,9 @@ class CabinState extends BaseState
 @:forward
 abstract Tree(Sprite) to Sprite
 {
-	inline public function new(x = 0.0, y = 0.0) 
+	inline public function new(day:Int, x = 0.0, y = 0.0) 
 	{
-		this = new Sprite(x, y, "assets/images/props/cabin/tree_1.png");
+		this = new Sprite(x, y, 'assets/images/props/cabin/tree_${day + 1}.png');
 		
 		this.width = 30;
 		this.height = 20;
