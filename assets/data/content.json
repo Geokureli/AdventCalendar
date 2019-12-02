@@ -5,9 +5,17 @@
 		"tv"    :"UP NEXT: THE GRUNCH\nWHO SPENT CHRISTMAS\nON CRUNCH"
     },
     {
-        "author":"GallowJolt",
-        "pos"    :{ "x":530, "y":390 },
+        "author":"MintyEggs",
+        "pos"   :{ "x":430, "y":340 },
         "tv"    :"COMING UP: DOCTOR\nWHO KILLED SANTA\nCLAUS: XMAS SPECIAL"
+    },
+    {
+        "author":"GallowJolt",
+        "pos"   :{ "x":420, "y":370 }
+    },
+    {
+        "author":"MalickJack",
+        "pos"   :{ "x":530, "y":390 }
     },
     {
         "author":"MrShmoods",
