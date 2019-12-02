@@ -1,102 +1,96 @@
 [
     {
-        "author"   :"Cymbourine",
-        "pos"      :{ "x":470, "y":390 }
+        "author":"Cymbourine",
+        "pos"    :{ "x":470, "y":390 },
+        "tv"    :"UP NEXT: THE GRUNCH\nWHO SPENT CHRISTMAS\nON CRUNCH"
     },
     {
-        "author"   :"MintyEggs",
-        "pos"      :{ "x":430, "y":340 }
+        "author":"GallowJolt",
+        "pos"    :{ "x":530, "y":390 },
+        "tv"    :"DEBUG TEXT!!!"
     },
     {
-        "author"   :"MalickJack",
-        "pos"      :{ "x":420, "y":370 }
+        "author":"MrShmoods",
+        "pos"   :{ "x":450, "y":430 }
     },
     {
-        "author"   :"GallowJolt",
-        "pos"      :{ "x":530, "y":390 }
+        "author":"DanFromBavaria",
+        "pos"   :{ "x":385, "y":345 }
     },
     {
-        "author"   :"MrShmoods",
-        "pos"      :{ "x":450, "y":430 }
+        "author":"MKMaffo",
+        "pos"   :{ "x":585, "y":350 }
     },
     {
-        "author"   :"DanFromBavaria",
-        "pos"      :{ "x":385, "y":345 }
+        "author":"Snackers",
+        "pos"   :{ "x":575, "y":370 }
     },
     {
-        "author"   :"MKMaffo",
-        "pos"      :{ "x":585, "y":350 }
+        "author":"Figburn",
+        "pos"   :{ "x":455, "y":360 }
     },
     {
-        "author"   :"Snackers",
-        "pos"      :{ "x":575, "y":370 }
+        "author":"Dogl",
+        "pos"   :{ "x":495, "y":415 }
     },
     {
-        "author"   :"Figburn",
-        "pos"      :{ "x":455, "y":360 }
+        "author":"HenryEYES",
+        "pos"   :{ "x":570, "y":400 }
     },
     {
-        "author"   :"Dogl",
-        "pos"      :{ "x":495, "y":415 }
+        "author":"Krinkels",
+        "pos"   :{ "x":540, "y":420 }
     },
     {
-        "author"   :"HenryEYES",
-        "pos"      :{ "x":570, "y":400 }
+        "author":"BrandyBuizel",
+        "pos"   :{ "x":615, "y":375 }
     },
     {
-        "author"   :"Krinkels",
-        "pos"      :{ "x":540, "y":420 }
+        "author":"MixMuffin",
+        "pos"   :{ "x":370, "y":370 }
     },
     {
-        "author"   :"BrandyBuizel",
-        "pos"      :{ "x":615, "y":375 }
+        "author":"ShiroGaia",
+        "pos"   :{ "x":340, "y":400 }
     },
     {
-        "author"   :"MixMuffin",
-        "pos"      :{ "x":370, "y":370 }
+        "author":"Boomnm",
+        "pos"   :{ "x":405, "y":325 }
     },
     {
-        "author"   :"ShiroGaia",
-        "pos"      :{ "x":340, "y":400 }
+        "author":"Chdonga",
+        "pos"   :{ "x":555, "y":340 }
     },
     {
-        "author"   :"Boomnm",
-        "pos"      :{ "x":405, "y":325 }
+        "author":"IVOanimations",
+        "pos"   :{ "x":615, "y":330 }
     },
     {
-        "author"   :"Chdonga",
-        "pos"      :{ "x":555, "y":340 }
+        "author":"Mimny",
+        "pos"   :{ "x":500, "y":460 }
     },
     {
-        "author"   :"IVOanimations",
-        "pos"      :{ "x":615, "y":330 }
+        "author":"RGPAnims",
+        "pos"   :{ "x":415, "y":445 }
     },
     {
-        "author"   :"Mimny",
-        "pos"      :{ "x":500, "y":460 }
+        "author":"Camuri",
+        "pos"   :{ "x":440, "y":480 }
     },
     {
-        "author"   :"RGPAnims",
-        "pos"      :{ "x":415, "y":445 }
+        "author":"Irri",
+        "pos"   :{ "x":550, "y":470 }
     },
     {
-        "author"   :"Camuri",
-        "pos"      :{ "x":440, "y":480 }
+        "author":"OniShaggy",
+        "pos"   :{ "x":600, "y":455 }
     },
     {
-        "author"   :"Irri",
-        "pos"      :{ "x":550, "y":470 }
+        "author":"Chobiluck",
+        "pos"   :{ "x":375, "y":470 }
     },
     {
-        "author"   :"OniShaggy",
-        "pos"      :{ "x":600, "y":455 }
-    },
-    {
-        "author"   :"Chobiluck",
-        "pos"      :{ "x":375, "y":470 }
-    },
-    {
-        "author"   :"TheDyingSun",
-        "pos"      :{ "x":310, "y":440 }
+        "author":"TheDyingSun",
+        "pos"   :{ "x":310, "y":440 }
     }
 ]

@@ -1,44 +1,48 @@
 package sprites;
 
+import flixel.tweens.FlxTween;
+import flixel.text.FlxText;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 
 class TvBubble extends FlxSpriteGroup
 {
-    public function new (msgWidth = 120)
+    inline static var APPEAR_TIME = 1.0;
+    inline static var HOLD_TIME = 0.75;
+    inline static var TOTAL_TIME = APPEAR_TIME + HOLD_TIME;
+    
+    var msg:String;
+    var text(get, never):FlxText;
+    inline function get_text():FlxText return cast members[1];
+    public function new (msg:String)
     {
         super(14, 26);
         
-        add(new Sprite(0, 0, "assets/images/props/cabin/tv_bubble.png"));
+        this.msg = msg;
+        var bubble = new Sprite(0, 0, "assets/images/props/cabin/tv_bubble.png");
+        add(bubble);
         
-        var msg = new FlxSprite(2, 2);
-        msg.loadGraphic("assets/images/props/cabin/tv_message_0.png", true, msgWidth);
-        var frames = [for (i in 0...msg.animation.frames) i];
-        for (i in 0...16)
-            frames.push(msg.animation.frames - 1);
-        trace(frames, frames.length);
-        msg.animation.add("anim", frames, 12, false);
-        msg.animation.play("anim", msg.animation.frames - 1);
+        var text = new FlxText(2, -2, bubble.width - 3, "");
+        @:privateAccess
+        text._defaultFormat.leading = -1;
+        text.color = 0xFFf02935;
         visible = false;
-        add(msg);
+        add(text);
     }
     
     public function play():Void
     {
-        var msg:FlxSprite = cast members[1];
-        if (msg.animation.finished)
+        if (visible == false)
         {
             visible = true;
-            msg.animation.play("anim");
+            text.text = "";
+            FlxTween.num(0, TOTAL_TIME / APPEAR_TIME, TOTAL_TIME, { onComplete: (_)->{ visible = false; } }, showPercent);
         }
     }
     
-    override function update(elapsed:Float)
+    public function showPercent(n:Float)
     {
-        super.update(elapsed);
         
-        var msg:FlxSprite = cast members[1];
-        if (msg.animation.finished)
-            visible = false;
+        text.text = msg.substr(0, Math.floor((n > 1 ? 1 : n) * msg.length));
     }
 }

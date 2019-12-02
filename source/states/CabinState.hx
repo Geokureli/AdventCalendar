@@ -109,8 +109,12 @@ class CabinState extends BaseState
 		tree.x -= tree.width / 2;
 		_grpCharacters.add(tree);
 		
-		tvBubble = new TvBubble();
-		add(tvBubble);
+		var tvMsg = Calendar.data[Calendar.day].tv;
+		if (tvMsg != null)
+		{
+			tvBubble = new TvBubble(tvMsg);
+			add(tvBubble);
+		}
 		
 		var tv = new FlxSprite(50, 46);
 		tv.loadGraphic("assets/images/props/cabin/tv.png", true, 26, 38);

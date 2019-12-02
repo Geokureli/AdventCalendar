@@ -68,6 +68,7 @@ typedef RawContentData =
     final medal    :Int;
 	final pos      :{ x:Int, y:Int }
 	final frames   :Null<Int>;
+	final tv       :Null<String>;
 }
 
 @:forward
