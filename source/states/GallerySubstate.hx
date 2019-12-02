@@ -50,6 +50,7 @@ class GallerySubstate extends FlxSubState
 		
 		bigImage = new FlxSpriteGroup();
 		bigPreview = new FlxSprite();
+		bigPreview.antialiasing = true;
 		bigImage.add(bigPreview);
 		
 		bigPreview.cameras = [newCamera];
