@@ -46,11 +46,14 @@ class Preloader extends flixel.system.FlxBasePreloader
 		addChild(cane);
 		addChild(stripes = new Bitmap(new Stripes(0, 0)));
 		addChild(caneMask);
+		cane.smoothing = false;
 		cane.x = (this._width  - 400) / 2;
 		cane.y = (this._height - 150) / 2;
+		caneMask.smoothing = false;
 		caneMask.transform.colorTransform.color = Lib.current.stage.color;
 		caneMask.x = cane.x;
 		caneMask.y = cane.y + 150 - CANE_THICKNESS;
+		stripes.smoothing = false;
 		stripes.x = caneMask.x;
 		stripes.y = caneMask.y;
 		
@@ -63,6 +66,7 @@ class Preloader extends flixel.system.FlxBasePreloader
 		stripes.mask = maskShape;
 		
 		var text = new Bitmap(new Text(0, 0));
+		text.smoothing = false;
 		text.x = cane.x + 30;
 		text.y = cane.y + 30;
 		addChild(text);
