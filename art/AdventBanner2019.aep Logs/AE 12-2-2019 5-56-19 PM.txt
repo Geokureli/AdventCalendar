@@ -1,0 +1,17 @@
+Adobe After Effects v14.2.1 Windows 64 render log for project “AdventBanner2019.aep”
+
+Rendering started on 12/2/2019 at 5:56:19 PM
+
+  12/2/2019 5:56:19 PM: Starting composition “AdventBanner2019”.
+
+  Output To: C:\Users\BrandyBuizel\Downloads\AdventBanner2019.mov  After Effects error: Can not run a script while a modal dialog is waiting for response.After Effects error: Can not run a script while a modal dialog is waiting for response.After Effects error: Can not run a script while a modal dialog is waiting for response.After Effects error: Can not run a script while a modal dialog is waiting for response.After Effects error: Can not run a script while a modal dialog is waiting for response.After Effects error: Can not run a script while a modal dialog is waiting for response.After Effects error: Can not run a script while a modal dialog is waiting for response.After Effects error: Can not run a script while a modal dialog is waiting for response.After Effects error: Can not run a script while a modal dialog is waiting for response.After Effects error: Can not run a script while a modal dialog is waiting for response.  12/2/2019 5:56:21 PM: Finished composition “AdventBanner2019”.
+
+
+  12/2/2019 5:56:21 PM: Starting composition “AdventBanner2019Thumb”.
+
+  Output To: C:\Users\BrandyBuizel\Downloads\AdventBanner2019_AdventBanner2019Thumb_2019-12-02_17.55.13_[###].png    12/2/2019 5:56:21 PM: Finished composition “AdventBanner2019Thumb”.
+
+
+  Total Time Elapsed: 2 Seconds
+Log closed on 12/2/2019 at 5:56:21 PM
+
