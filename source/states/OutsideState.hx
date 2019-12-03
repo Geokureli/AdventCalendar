@@ -60,9 +60,12 @@ class OutsideState extends BaseState
 		fire.scrollFactor.set(0.6, 0.6);
 		fire.animation.curAnim.frameRate = 2;
 		
-		// reshape tree
+		// reshape
 		tree = foreground.getByName("tree");
 		tree.setBottomHeight(20);
+		
+		var tank = foreground.getByName("snowTank");
+		tank.setBottomHeight(tank.height / 2);
 	}
 	
 	override function initCamera()
