@@ -11508,8 +11508,8 @@
       "gridCellsY": 408,
       "decals": [
         {"x": 225, "y": 148, "texture": "props/outside/sky.png"},
-        {"x": 225, "y": 160, "texture": "props/outside/clouds2.png"},
-        {"x": 225, "y": 167, "texture": "props/outside/clouds1.png"},
+        {"x": 225, "y": 150, "texture": "props/outside/clouds2.png"},
+        {"x": 225, "y": 150, "texture": "props/outside/clouds1.png"},
         {"x": 225, "y": 119, "texture": "props/outside/mountains.png"},
         {"x": 225, "y": 83, "texture": "props/outside/snow1.png"},
         {"x": 225, "y": 127, "texture": "props/outside/ground.png"},
