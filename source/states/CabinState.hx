@@ -146,7 +146,7 @@ class CabinState extends BaseState
 	
 	inline public function touchPresent(present:Present)
 	{
-		final day =- present.curDay;
+		final day = present.curDay;
 		
 		if (Calendar.openedPres[day])
 		{
