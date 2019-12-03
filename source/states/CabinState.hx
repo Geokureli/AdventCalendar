@@ -25,6 +25,7 @@ class CabinState extends BaseState
 	var fromOutside = false;
 	var presents = new FlxTypedGroup<Present>();
 	var thumbnail = new Thumbnail();
+	var stereo:FlxSprite;
 	
 	override public function new (fromOutside = false)
 	{
@@ -86,6 +87,8 @@ class CabinState extends BaseState
 		tvBubble = props.getByName("TvBubble");
 		tvBubble.msg = Calendar.today.tv;
 		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 3, tv.height + 3);
+		
+		stereo = foreground.getByName("stereo");
 	}
 	
 	override function initCamera()
@@ -130,6 +133,9 @@ class CabinState extends BaseState
 		
 		if (tvTouch.overlaps(playerHitbox) && FlxG.keys.justPressed.SPACE)
 			tvBubble.play();
+		
+		if (stereo != null && stereo.overlaps(playerHitbox) && FlxG.keys.justPressed.SPACE)
+			FlxG.openURL(Calendar.today.musicProfileLink);
 		
 		if (player.x > FlxG.camera.maxScrollX #if debug || FlxG.keys.justPressed.O #end)
 			FlxG.switchState(new OutsideState());

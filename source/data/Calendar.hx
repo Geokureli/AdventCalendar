@@ -92,13 +92,13 @@ class Calendar
 
 typedef RawContentData =
 {
-	final author   :String;
-    final credit   :Null<String>;
-	final fileExt  :Null<String>;
-    final medal    :Int;
-	final pos      :{ x:Int, y:Int }
-	final frames   :Null<Int>;
-	final tv       :Null<String>;
+	final author :String;
+    final credit :Null<String>;
+	final fileExt:Null<String>;
+	final pos    :{ x:Int, y:Int }
+	final frames :Null<Int>;
+	final tv     :Null<String>;
+    final song   : { artist:String, ?id:Int }
 }
 
 @:forward
@@ -109,6 +109,9 @@ abstract ContentData(RawContentData) from RawContentData
     
     public var profileLink(get,never):String;
     inline function get_profileLink() return "https://" + this.author + ".newgrounds.com";
+    
+    public var musicProfileLink(get,never):String;
+    inline function get_musicProfileLink() return "https://" + this.song.artist + ".newgrounds.com";
     
     inline public function getPath():String
     {
