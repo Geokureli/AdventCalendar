@@ -43,7 +43,7 @@ class CabinState extends BaseState
 	{
 		parseLevel(getLatestLevel("cabin"));
 		
-		FlxG.debugger.drawDebug = true;
+		// FlxG.debugger.drawDebug = true;
 	}
 	
 	override function initEntities()
