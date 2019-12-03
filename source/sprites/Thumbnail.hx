@@ -17,7 +17,7 @@ class Thumbnail extends Sprite
 	public var overlappin:Bool = false;
 	private var curThumb:Int = -1;
 
-	public function new(?X:Float=0, ?Y:Float=0, theDay:Int) 
+	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
 		antialiasing = true;

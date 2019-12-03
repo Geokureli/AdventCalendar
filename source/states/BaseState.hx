@@ -3,59 +3,64 @@ package states;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
-import flixel.FlxState;
+import flixel.FlxSprite;
 import flixel.group.FlxGroup;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
+import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
-import flixel.util.FlxSort;
 
-import sprites.Evidence;
+import data.Calendar;
+import states.OgmoState;
 import sprites.Player;
 import sprites.Sprite;
-import sprites.Thumbnail;
 
 /**
  * ...
  * @author NInjaMuffin99
  */
-class BaseState extends FlxState 
+class BaseState extends OgmoState 
 {
+	var camOffset = 0.0;
+	var camFollow = new FlxObject();
 	
-	private var player:Player;
-	private var playerHitbox:FlxObject;
-	private var gameCamera:FlxCamera;
-	private var uiCamera:FlxCamera;
+	var player:Player;
+	var playerHitbox:FlxObject;
+	var uiCamera:FlxCamera;
+	var geom:FlxTilemap;
 	
+	var colliders = new FlxGroup();
+	var characters = new FlxGroup();
 	
-	private var presOverlaps:Int = 0;
-	
-	private var _grpEntites:FlxTypedGroup<FlxObject>;
-	private var _grpCharacters:FlxTypedSpriteGroup<Sprite>;
-	private var _grpCollision:FlxGroup;
-	
-	private var thumbnail:Thumbnail;
-	
-
 	override public function create():Void 
 	{
 		super.create();
+		
+		FlxG.mouse.visible = !FlxG.onMobile;
+		
+		loadLevel();
+		initEntities();
+		initCamera();
 	}
 	
-	private function initCharacterBases():Void
+	function loadLevel() { }
+	
+	function initEntities()
 	{
-		_grpEntites = new FlxTypedGroup<FlxObject>();
-		add(_grpEntites);
+		var props:OgmoEntityLayer = getByName("Props");
+		// var fg:OgmoDecalLayer = getByName("Foreground");
+		// var bg:OgmoDecalLayer = getByName("Background");
+		geom = getByName("Geom");
+		colliders.add(geom);
 		
-		_grpCharacters = new FlxTypedSpriteGroup<Sprite>();
-		_grpEntites.add(_grpCharacters);
+		player = props.getByName("Player");
+		player.updateSprite(Calendar.day);
+		characters.add(player);
+		
+		add(playerHitbox = new FlxObject(0, 0, player.width + 6, player.height + 6));
 	}
 	
-	private function initCameras():Void
+	function initCamera()
 	{
-		FlxG.camera.zoom = 2.5;
-		
 		if (FlxG.onMobile)
 		{
 			uiCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
@@ -68,24 +73,19 @@ class BaseState extends FlxState
 			button.scrollFactor.set();
 			add(button);
 		}
-	}
-	
-	private function initCollision():Void
-	{
-		_grpCollision = new FlxGroup();
-		add(_grpCollision);
+		
+		FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.03);
+		FlxG.camera.fade(FlxG.stage.color, 2.5, true);
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
+		camFollow.setPosition(player.x, player.y - camOffset);
 		FlxG.watch.addMouse();
 		
-		FlxG.collide(_grpCharacters, _grpEntites);
-		FlxG.collide(_grpCharacters, _grpCollision);
-		
-		_grpCharacters.sort(FlxSort.byY);
+		FlxG.collide(characters, colliders);
+		playerHitbox.setPosition(player.x - 3, player.y - 3);
 		
 		super.update(elapsed);
 	}
-	
 }
