@@ -7,10 +7,11 @@ import states.OgmoState;
 class OutsideState extends BaseState
 {
 	inline static var TREE_FADE_TIME = 5.0;
+	inline static var GYRADOS_TIME = 2 * 60.0;
 	inline static var MAX_OFFSET = 50;
 	inline static var MIN_OFFSET = 0;
 	
-	var gyradosTmr:Float = 0;
+	var gyradosTimer = 0.0;
 	
 	override function loadLevel():Void
 	{
@@ -45,14 +46,17 @@ class OutsideState extends BaseState
 		ground.scrollFactor.set(0.6, 0.6);
 		shine.scrollFactor.x = ground.scrollFactor.x * 0.85;
 		shine.scrollFactor.y = ground.scrollFactor.y;
+		shine.animation.curAnim.frameRate = 1;
 		
 		var gyrados:FlxSprite = background.getByName("gyrados");
 		gyrados.scrollFactor.set(0.6, 0.6);
 		gyrados.alpha = 0;
+		gyrados.animation.curAnim.frameRate = 2;
 		
 		var fire:FlxSprite = background.getByName("fire");
 		fire.alpha = 1.0;
 		fire.scrollFactor.set(0.6, 0.6);
+		fire.animation.curAnim.frameRate = 2;
 		
 		// reshape tree
 		var tree:FlxSprite = foreground.getByName("tree");
@@ -70,7 +74,7 @@ class OutsideState extends BaseState
 	
 	override public function update(elapsed:Float):Void 
 	{
-		var gyrados:FlxSprite = (getByName("Background"):OgmoDecalLayer).getByName("gyrados");
+		var gyrados:FlxSprite = background.getByName("gyrados");
 		var tree:FlxSprite = foreground.getByName("tree");
 		
 		final top = tree.y - 20;
@@ -87,30 +91,13 @@ class OutsideState extends BaseState
 		else
 			tree.alpha += elapsed / TREE_FADE_TIME;
 		
-		//TODO: Gyrados
-		// if (player.y < tree.y - 20)
-		// {
-		// 	gyradosTmr += FlxG.elapsed;
-		// 	if (gyradosTmr >= 170)
-		// 	{
-		// 		gyrados.velocity.x = 2;
-				
-		// 		if (gyrados.x >= 280)
-		// 		{
-		// 			if (gyrados.alpha > 0)
-		// 			{
-		// 				gyrados.alpha -= 0.4 * FlxG.elapsed;
-		// 			}
-		// 			else
-		// 			{
-		// 				gyrados.kill();
-		// 			}
-		// 		}
-		// 		else if (gyrados.alpha < 1)
-		// 		{
-		// 			gyrados.alpha += 0.4 * FlxG.elapsed;
-		// 		}
-		// 	}
-		// }
+		if (tree.alpha < 1)
+		{
+			gyradosTimer += elapsed;
+			if (gyradosTimer > GYRADOS_TIME)
+				gyrados.alpha += elapsed;
+		}
+		else
+			gyrados.alpha -= elapsed;
 	}
 }
