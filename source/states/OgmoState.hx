@@ -87,14 +87,14 @@ class OgmoObjectLayer<T:FlxBasic> extends FlxTypedGroup<T>
 
 	var byName:Map<String, T> = new Map();
 
-	public function getByName<T>(name:String):Null<T>
+	public function getByName(name:String):Null<T>
 	{
 		return cast byName[name];
 	}
 }
 
 typedef IOgmoDecal = IOgmoObject<OgmoDecalData, OgmoDecalLayer>;
-class OgmoDecalLayer extends OgmoObjectLayer<FlxSprite>
+class OgmoDecalLayer extends OgmoObjectLayer<OgmoDecal>
 {
 	public function new (data:OgmoDecalLayerData, path:String = "")
 	{
@@ -103,7 +103,7 @@ class OgmoDecalLayer extends OgmoObjectLayer<FlxSprite>
 		for (decalData in data.decals)
 		{
 			final name = getName(decalData.texture);
-			final decal = create(decalData);
+			final decal = new OgmoDecal(decalData);
 			add(decal);
 			if (!byName.exists(name))
 				byName[name] = decal;
@@ -115,35 +115,6 @@ class OgmoDecalLayer extends OgmoObjectLayer<FlxSprite>
 			if (Std.is(members[i], IOgmoDecal))
 				(cast members[i]:IOgmoDecal).ogmoInit(data.decals[i], this);
 		}
-	}
-
-	function create(data:OgmoDecalData):FlxSprite
-	{
-		var path = "assets/images/" + data.texture;
-		var decal = switch(data.texture)
-		{
-			// case "props/cabin/tree.png": new Tree();
-			case _: new FlxSprite(path);
-		}
-		
-		decal.x = data.x;
-		decal.y = data.y;
-		if (path.indexOf("_ogmo.") != -1)
-		{
-			decal.loadGraphic
-				( path.split("_ogmo").join("")
-				, true
-				, decal.frameWidth
-				, decal.frameHeight
-				);
-			decal.animation.add("anim", [for (i in 0...decal.animation.frames) i], 12);
-			decal.animation.play("anim");
-		}
-		
-		decal.x -= decal.width / 2;
-		decal.y -= decal.height / 2;
-		
-		return decal;
 	}
 
 	inline static function getName(texture:String):String
@@ -263,6 +234,48 @@ typedef OgmoEntityData<T>
 	?flippedX:Bool,
 	?flippedY:Bool,
 	values  :T
+}
+
+@:forward
+abstract OgmoDecal(FlxSprite) to FlxSprite from FlxSprite
+{
+	inline public function new(data:OgmoDecalData):Void
+	{
+		var path = "assets/images/" + data.texture;
+		this = switch(data.texture)
+		{
+			// case "props/cabin/tree.png": new Tree();
+			case _: new FlxSprite(path);
+		}
+		
+		this.x = data.x;
+		this.y = data.y;
+		if (path.indexOf("_ogmo.") != -1)
+		{
+			this.loadGraphic
+				( path.split("_ogmo").join("")
+				, true
+				, this.frameWidth
+				, this.frameHeight
+				);
+			this.animation.add("anim", [for (i in 0...this.animation.frames) i], 12);
+			this.animation.play("anim");
+		}
+		
+		// convert from center pos
+		this.x -= this.width / 2;
+		this.y -= this.height / 2;
+		// allow player to go behind stuff
+		setBottomHeight(this.height / 2);
+	}
+	
+	public function setBottomHeight(value:Float)
+	{
+		var oldHeight = this.height;
+		this.height = value;
+		this.y += oldHeight - value;
+		this.offset.y += oldHeight - value;
+	}
 }
 
 typedef OgmoDecalData = OgmoObjectData & { texture:String }

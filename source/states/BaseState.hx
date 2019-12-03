@@ -74,7 +74,7 @@ class BaseState extends OgmoState
 		geom = getByName("Geom");
 		colliders.add(geom);
 		
-		player = props.getByName("Player");
+		player = cast props.getByName("Player");
 		for (child in props.members)
 			foreground.add(cast props.remove(child));
 		
