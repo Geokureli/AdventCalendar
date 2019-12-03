@@ -65,7 +65,7 @@ class OutsideState extends BaseState
 		tree.setBottomHeight(20);
 		
 		var tank = foreground.getByName("snowTank");
-		tank.setBottomHeight(tank.height / 2);
+		tank.setBottomHeight(Math.round(tank.height / 2));
 	}
 	
 	override function initCamera()

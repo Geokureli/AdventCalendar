@@ -263,13 +263,13 @@ abstract OgmoDecal(FlxSprite) to FlxSprite from FlxSprite
 		}
 		
 		// convert from center pos
-		this.x -= this.width / 2;
-		this.y -= this.height / 2;
+		this.x -= Math.round(this.width / 2);
+		this.y -= Math.round(this.height / 2);
 		// allow player to go behind stuff
-		setBottomHeight(this.height / 2);
+		setBottomHeight(Math.round(this.height / 2));
 	}
 	
-	public function setBottomHeight(value:Float)
+	public function setBottomHeight(value:Int)
 	{
 		var oldHeight = this.height;
 		this.height = value;
