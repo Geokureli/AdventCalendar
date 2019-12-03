@@ -7,9 +7,7 @@ import openfl.utils.Assets;
 
 class Calendar
 {
-    inline static var DEBUG_DAY:Null<Int>
-        // = 0;
-        = null;
+    inline static var DEBUG_DAY:Int = 0;// 0 to disable debug feature
     static public var day(default, null) = 24;
     static public var isAdvent(default, null) = false;
     static public var isDecember(default, null) = false;
@@ -53,7 +51,7 @@ class Calendar
                 callback();
         }
         
-        if (DEBUG_DAY == null)
+        if (DEBUG_DAY == 0)
         {
             NGio.checkNgDate(()->{
                 onDateReceived(NGio.ngDate);
@@ -62,7 +60,7 @@ class Calendar
         }
         else
         {
-            day = DEBUG_DAY;
+            day = DEBUG_DAY - 1;
             isAdvent = true;
             isDecember = true;
             initSaveAndEnd();
