@@ -11,12 +11,13 @@
     },
     {
         "author":"GallowJolt",
-        "pos"   :{ "x":420, "y":370 },
+        "pos"   :{ "x":360, "y":370 },
 		"tv"    :"TONIGHT: THE\nPOLARIZING EXPRESS\nFRIGHTENS CHILDREN"
     },
     {
         "author":"MalickJack",
-        "pos"   :{ "x":530, "y":390 }
+        "pos"   :{ "x":530, "y":390 },
+		"tv"    :"NEWS BULLETIN:\nMONSTER POPS UP AT\nTHE LAKE OF RAGE"
     },
     {
         "author":"MrShmoods",
