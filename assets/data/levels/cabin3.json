@@ -7135,7 +7135,7 @@
         {"x": 54, "y": 68, "texture": "props/cabin/tv_ogmo.png"},
         {"x": 345, "y": 76, "texture": "props/cabin/punchBowl.png"},
         {"x": 54, "y": 161, "texture": "props/cabin/stereo.png"},
-        {"x": 212, "y": 91, "texture": "props/cabin/tree_3.png"}
+        {"x": 212, "y": 96, "texture": "props/cabin/tree_3.png"}
       ]
     },
     {
@@ -7152,7 +7152,7 @@
         {"x": 408, "y": 176, "texture": "props/cabin/doorSnow.png"},
         {"x": 56, "y": 115, "texture": "props/cabin/rug.png"},
         {"x": 366, "y": 163, "texture": "props/cabin/snowWind_ogmo.png"},
-        {"x": 212, "y": 118, "texture": "props/cabin/rug_3.png"}
+        {"x": 212, "y": 124, "texture": "props/cabin/rug_3.png"}
       ]
     }
   ]
