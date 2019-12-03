@@ -35,14 +35,16 @@ class TvBubble extends FlxSpriteGroup
         if (visible == false)
         {
             visible = true;
-            text.text = "";
-            FlxTween.num(0, TOTAL_TIME / APPEAR_TIME, TOTAL_TIME, { onComplete: (_)->{ visible = false; } }, showPercent);
+            FlxTween.num(0, TOTAL_TIME / APPEAR_TIME, TOTAL_TIME,
+                { onComplete: (_)->
+                    {
+                        visible = false;
+                        text.text = " ";//"" doesn't work for some reason
+                    }
+                },
+                (n:Float)->
+                    text.text = msg.substr(0, Math.floor((n > 1 ? 1 : n) * msg.length))
+            );
         }
-    }
-    
-    public function showPercent(n:Float)
-    {
-        
-        text.text = msg.substr(0, Math.floor((n > 1 ? 1 : n) * msg.length));
     }
 }
