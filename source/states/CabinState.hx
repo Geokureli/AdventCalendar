@@ -70,18 +70,9 @@ class CabinState extends BaseState
 		
 		if (tree != null)
 		{
-			if (day < 3)
-			{
-				tree.height = 34;
-				tree.y += tree.frameHeight - tree.height - 16;
-				tree.offset.y += tree.frameHeight - tree.height - 16;
-			}
-			else
-			{
-				tree.height = 40;
-				tree.y += tree.frameHeight - tree.height - 10;
-				tree.offset.y += tree.frameHeight - tree.height - 10;
-			}
+			tree.height = day < 3 ? 8 : 10;
+			tree.y += tree.frameHeight - tree.height;
+			tree.offset.y += tree.frameHeight - tree.height;
 		}
 		
 		if (fromOutside)
