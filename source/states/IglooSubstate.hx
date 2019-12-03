@@ -41,8 +41,7 @@ class IglooSubstate extends BaseState
 		initCharacterBases();
 		
 		
-		player = new Player(45, 100, Player.daDayLol);
-		player.updateSprite(Player.daDayLol);
+		// player = new Player(45, 100, Player.daDayLol);
 		_grpCharacters.add(player);
 		
 		playerHitbox = new FlxObject(0, 0, player.width + 6, player.height + 6);
@@ -59,7 +58,7 @@ class IglooSubstate extends BaseState
 		add(camFollow);
 		FlxG.camera.focusOn(camFollow.getPosition());
 		
-		gameCamera.zoom += 0.5;
+		FlxG.camera.zoom += 0.5;
 		
 		FlxG.log.add("should be done lol");
 		

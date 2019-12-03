@@ -8,13 +8,13 @@ import flixel.group.FlxSpriteGroup;
 class TvBubble extends FlxSpriteGroup
 {
     inline static var APPEAR_TIME = 1.0;
-    inline static var HOLD_TIME = 0.75;
+    inline static var HOLD_TIME = 1.50;
     inline static var TOTAL_TIME = APPEAR_TIME + HOLD_TIME;
     
-    var msg:String;
+    public var msg:String;
     var text(get, never):FlxText;
     inline function get_text():FlxText return cast members[1];
-    public function new (msg:String)
+    public function new (msg:String = null)
     {
         super(14, 26);
         

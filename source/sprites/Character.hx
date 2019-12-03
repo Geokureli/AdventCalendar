@@ -29,7 +29,7 @@ class Character extends Sprite
 	{
 		if (isCabin)
 		{
-			loadGraphic(AssetPaths.spritesheetArtists__png, true, 16, 16);
+			// loadGraphic(AssetPaths.spritesheetArtists__png, true, 16, 16);
 			animation.frameIndex = theDay;
 			resizeHitbox();
 		}

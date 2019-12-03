@@ -1,5 +1,6 @@
 package data;
 
+import flixel.FlxG;
 import haxe.Json;
 import haxe.ds.ReadOnlyArray;
 import openfl.utils.Assets;
@@ -13,6 +14,10 @@ class Calendar
     static public var isAdvent(default, null) = false;
     static public var isDecember(default, null) = false;
     static public var data(default, null):ReadOnlyArray<ContentData>;
+    static public var today(get, never):ContentData;
+    static public var openedPres(default, null) = new BitArray();
+    
+    inline static function get_today() return data[day];
     
     static public function init(onComplete:Void->Void = null):Void
     {
@@ -34,21 +39,33 @@ class Calendar
     {
         data = Json.parse(fileData);
         
+        function initSaveAndEnd()
+        {
+            FlxG.save.bind("advent2019", "GeoKureli");
+            if (FlxG.save.data.openedPres != null && Std.is(FlxG.save.data.openedPres, Int))
+            {
+                openedPres = FlxG.save.data.openedPres;
+                trace("loaded savefile: " + openedPres);
+            }
+            
+            trace("day: " + day);
+            if (callback != null)
+                callback();
+        }
+        
         if (DEBUG_DAY == null)
         {
             NGio.checkNgDate(()->{
                 onDateReceived(NGio.ngDate);
-                trace("day: " + day);
-                if (callback != null)
-                    callback();
+                initSaveAndEnd();
             });
         }
         else
         {
             day = DEBUG_DAY;
             isAdvent = true;
-            if (callback != null)
-                callback();
+            isDecember = true;
+            initSaveAndEnd();
         }
     }
     
@@ -57,6 +74,20 @@ class Calendar
         if (isAdvent && data.length > day)
             return data[day];
         return null;
+    }
+    
+    static public function saveOpenPresent(day:Int)
+    {
+        trace("saved: " + openedPres);
+        FlxG.save.data.openedPres = (openedPres:Int);
+        FlxG.save.flush();
+    }
+    
+    static public function resetOpenedPresents()
+    {
+        openedPres.reset();
+        FlxG.save.data.openedPres = 0;
+        FlxG.save.flush();
     }
 }
 

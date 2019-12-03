@@ -34,7 +34,15 @@ class IntroState extends FlxState
     function onConnectResult():Void
     {
         if (NGio.isLoggedIn)
+        {
+            if (Calendar.isAdvent)
+            {
+                FlxG.sound.playMusic("assets/music/czyszy.mp3", 0);
+                FlxG.sound.music.fadeIn(5, 0, 0.3);
+            }
+            // FlxG.switchState(new OutsideOgmoState());
             FlxG.switchState(new CabinState());
+        }
         else
             showError();
     }
