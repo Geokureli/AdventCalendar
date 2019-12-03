@@ -57,43 +57,41 @@ class GallerySubstate extends FlxSubState
 		bigImage.cameras = [newCamera];
 		
 		
-		imageText = new FlxText(0, 490, FlxG.width - 6, "", 18);
+		imageText = new FlxText(0, FlxG.height - 16, FlxG.width - 6, "", 8);
+		imageText.scale.set(0.5, 0.5);
+		imageText.updateHitbox();
 		imageText.alignment = FlxTextAlign.CENTER;
 		imageText.screenCenter(X);
 		imageText.cameras = [newCamera];
 		
-		infoBox = new FlxSpriteButton(0, imageText.y - 4, null, function(){
+		infoBox = new FlxSpriteButton(imageText.x - 2, imageText.y + 2, null, function(){
 			FlxG.openURL(Calendar.data[curDay].profileLink);
 		});
-		infoBox.makeGraphic(Std.int(750), Std.int(imageText.height * 2.1), FlxColor.BLACK);
+		infoBox.makeGraphic(Std.int(imageText.width) + 4, Std.int(imageText.height) + 4, FlxColor.BLACK);
 		infoBox.alpha = 0.5;
 		infoBox.screenCenter(X);
 		infoBox.cameras = [newCamera];
 		
 		
 		// offset because the safari search bar covers the game a bit i think
-		var safariOffset:Float = 0;
+		var offset = 0;
 		#if html5
 			if (Std.string(FlxG.html5.browser) == "SAFARI")
-			{
-				safariOffset = 60;
-			}
+				offset = 60;
+
 		#end
 		
-		var text:FlxText = new FlxText(10, 10 + safariOffset, 0, "Current Pic - Click here to exit", 16);
-		
-		if (FlxG.onMobile)
-		{
-			
-			text.text = "Current Pic - Tap here to exit";
-		}
+		var msg = 'Current Pic - ${FlxG.onMobile ? "Tap" : "Click"} here to exit';
+		var text:FlxText = new FlxText(10, 10 + offset, 0, msg, 8);
+		text.scale.set(0.5, 0.5);
 		text.cameras = [newCamera];
+		text.updateHitbox();
 		
-		textBG = new FlxSpriteButton(5, 7 + safariOffset, null, function(){
+		textBG = new FlxSpriteButton(text.x - 2, text.y - 2, null, function(){
 			FlxG.cameras.remove(newCamera);
 			close();
 		});
-		textBG.makeGraphic(text.text.length * 10, 25, FlxColor.BLACK);
+		textBG.makeGraphic(Std.int(text.width) + 4, Std.int(text.height) + 5, FlxColor.BLACK);
 		textBG.alpha = 0.5;
 		textBG.cameras = [newCamera];
 		

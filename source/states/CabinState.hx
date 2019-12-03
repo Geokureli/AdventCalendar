@@ -57,12 +57,22 @@ class CabinState extends BaseState
 			tree = foreground.getByName('tree_$day');
 			day--;
 		}
+		day++; 
 		
 		if (tree != null)
 		{
-			tree.height = (day + 1 > 3 ? 54 : 34);// tree ring height changed on day 3
-			tree.y += tree.frameHeight - tree.height - 16;
-			tree.offset.y += tree.frameHeight - tree.height - 16;
+			if (day < 3)
+			{
+				tree.height = 34;
+				tree.y += tree.frameHeight - tree.height - 16;
+				tree.offset.y += tree.frameHeight - tree.height - 16;
+			}
+			else
+			{
+				tree.height = 40;
+				tree.y += tree.frameHeight - tree.height - 10;
+				tree.offset.y += tree.frameHeight - tree.height - 10;
+			}
 		}
 		
 		if (fromOutside)
@@ -98,9 +108,8 @@ class CabinState extends BaseState
 			
 			presents.add(present);
 			colliders.add(present);
+			foreground.add(present);
 		}
-		
-		add(presents);
 	}
 	
 	override function update(elapsed:Float)

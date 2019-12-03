@@ -11474,15 +11474,15 @@
       "gridCellsX": 448,
       "gridCellsY": 408,
       "decals": [
-        {"x": 264, "y": 97, "texture": "props\\outside\\tree.png"},
-        {"x": 16, "y": 220, "texture": "props\\outside\\sign.png"},
-        {"x": 145, "y": 314, "texture": "props\\outside\\igloo.png"},
-        {"x": 380, "y": 310, "texture": "props\\outside\\snowTank.png"},
-        {"x": 363, "y": 248, "texture": "props\\outside\\snowFort.png"},
+        {"x": 264, "y": 97, "texture": "props/outside/tree.png"},
+        {"x": 16, "y": 220, "texture": "props/outside/sign.png"},
+        {"x": 145, "y": 314, "texture": "props/outside/igloo.png"},
+        {"x": 380, "y": 310, "texture": "props/outside/snowTank.png"},
+        {"x": 363, "y": 248, "texture": "props/outside/snowFort.png"},
         {
           "x": 343,
           "y": 341,
-          "texture": "artistSprite\\sprite-snow-cymbourine.png"
+          "texture": "artistSprite/sprite-snow-cymbourine.png"
         }
       ]
     },
@@ -11496,16 +11496,16 @@
       "gridCellsX": 448,
       "gridCellsY": 408,
       "decals": [
-        {"x": 225, "y": 148, "texture": "props\\outside\\sky.png"},
-        {"x": 225, "y": 160, "texture": "props\\outside\\clouds2.png"},
-        {"x": 225, "y": 167, "texture": "props\\outside\\clouds1.png"},
-        {"x": 225, "y": 119, "texture": "props\\outside\\mountains.png"},
-        {"x": 225, "y": 83, "texture": "props\\outside\\snow1.png"},
-        {"x": 225, "y": 127, "texture": "props\\outside\\ground.png"},
-        {"x": 84, "y": 167, "texture": "props\\outside\\shine_ogmo.png"},
-        {"x": 126, "y": 151, "texture": "props\\outside\\gyrados_ogmo.png"},
-        {"x": 291, "y": 158, "texture": "props\\outside\\fire_ogmo.png"},
-        {"x": 224, "y": 233, "texture": "props\\outside\\snow.png"}
+        {"x": 225, "y": 148, "texture": "props/outside/sky.png"},
+        {"x": 225, "y": 160, "texture": "props/outside/clouds2.png"},
+        {"x": 225, "y": 167, "texture": "props/outside/clouds1.png"},
+        {"x": 225, "y": 119, "texture": "props/outside/mountains.png"},
+        {"x": 225, "y": 83, "texture": "props/outside/snow1.png"},
+        {"x": 225, "y": 127, "texture": "props/outside/ground.png"},
+        {"x": 84, "y": 167, "texture": "props/outside/shine_ogmo.png"},
+        {"x": 126, "y": 151, "texture": "props/outside/gyrados_ogmo.png"},
+        {"x": 291, "y": 158, "texture": "props/outside/fire_ogmo.png"},
+        {"x": 224, "y": 233, "texture": "props/outside/snow.png"}
       ]
     }
   ]

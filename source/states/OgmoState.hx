@@ -19,7 +19,9 @@ class OgmoState extends FlxState
 
 	function parseLevel(levelPath:String)
 	{
-		var data:OgmoLevelData = Json.parse(openfl.Assets.getText(levelPath));
+		var levelString = openfl.Assets.getText(levelPath)
+			.split("\\\\").join("/");
+		var data:OgmoLevelData = Json.parse(levelString);
 		
 		var bounds = FlxG.worldBounds.set(data.offsetX, data.offsetY, data.width, data.height);
 		FlxG.camera.setScrollBounds(bounds.left, bounds.right, bounds.top, bounds.bottom);
