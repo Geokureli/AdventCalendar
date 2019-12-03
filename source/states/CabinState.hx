@@ -56,6 +56,9 @@ class CabinState extends BaseState
 	{
 		super.initEntities();
 		
+		add(thumbnail);
+		thumbnail.alpha = 0;
+		
 		var tree:FlxSprite = null;
 		var day = Calendar.day + 1;
 		while(day > 0 && tree == null)
