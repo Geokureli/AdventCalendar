@@ -17,7 +17,7 @@ class OutsideState extends BaseState
 	{
 		parseLevel(getLatestLevel("outside"));
 		
-		FlxG.debugger.drawDebug = true;
+		// FlxG.debugger.drawDebug = true;
 	}
 	
 	override function initEntities()
