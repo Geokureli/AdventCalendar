@@ -130,10 +130,10 @@ class CabinState extends BaseState
 		
 		super.update(elapsed);
 		
-		if (tvTouch.overlaps(playerHitbox) && FlxG.keys.justPressed.SPACE)
+		if (tvTouch.overlaps(playerHitbox) && player.interacting)
 			tvBubble.play();
 		
-		if (stereo != null && stereo.overlaps(playerHitbox) && FlxG.keys.justPressed.SPACE)
+		if (stereo != null && stereo.overlaps(playerHitbox) && player.interacting)
 			FlxG.openURL(Calendar.today.musicProfileLink);
 		
 		if (player.x > FlxG.camera.maxScrollX #if debug || FlxG.keys.justPressed.O #end)
@@ -150,8 +150,9 @@ class CabinState extends BaseState
 			thumbnail.setPosition(present.x - 20, present.y - thumbnail.height - 8);
 			thumbnail.newThumb(day);
 		}
-		
-		if (FlxG.onMobile)
+		if (player.interacting)
+			openPresent(present);
+		else if (FlxG.onMobile)
 		{
 			for (touch in FlxG.touches.justStarted())
 			{
@@ -159,8 +160,6 @@ class CabinState extends BaseState
 					openPresent(present);
 			}
 		}
-		else if (FlxG.keys.justPressed.SPACE)
-			openPresent(present);
 	}
 	
 	function openPresent(present:Present):Void

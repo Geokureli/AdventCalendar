@@ -4,7 +4,9 @@ import flixel.FlxG;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
+import flixel.math.FlxVector;
 import flixel.math.FlxVelocity;
+import flixel.util.FlxColor;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**
@@ -16,6 +18,7 @@ class Player extends Character
 	
 	private var C:Float = 0;
 	public var stepSoundType:String;
+	public var interacting:Bool;
 
 	public function new(X = 0.0, Y = 0.0, ?curDay:Int = null ) 
 	{
@@ -52,10 +55,22 @@ class Player extends Character
 	
 	private function touchControls():Void
 	{
-		
+		interacting = false;
 		// basically means that the touchscreen is bein pressed right guys
 		for (touch in FlxG.touches.list)
 		{
+			if (touch.justPressed)
+			{
+				var pos:FlxVector = touch.getWorldPosition();
+				var maxDis = Math.max(Math.abs(pos.x - x), Math.abs(pos.y + 4 - y));
+				trace(maxDis);
+				interacting = maxDis < 24;
+			}
+			
+			#if debug
+			color = interacting ? FlxColor.BLACK : FlxColor.WHITE;
+			#end
+			
 			if (touch.pressed)
 			{
 				bobShit();
@@ -74,6 +89,7 @@ class Player extends Character
 	
 	private function keyboardControls():Void
 	{
+		interacting = FlxG.keys.justPressed.SPACE;
 		
 		if (FlxG.keys.anyPressed([A, S, D, W, "UP", "DOWN", "LEFT", "RIGHT"]))
 		{
