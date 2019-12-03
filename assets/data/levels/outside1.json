@@ -11475,7 +11475,7 @@
       "gridCellsY": 408,
       "decals": [
         {"x": 387, "y": 234, "texture": "artistSprite/sprite-snow-george.png"},
-        {"x": 264, "y": 97, "texture": "props/outside/tree.png"},
+        {"x": 265, "y": 97, "texture": "props/outside/tree.png"},
         {"x": 16, "y": 220, "texture": "props/outside/sign.png"},
         {"x": 145, "y": 314, "texture": "props/outside/igloo.png"},
         {"x": 380, "y": 310, "texture": "props/outside/snowTank.png"},
@@ -11508,14 +11508,15 @@
       "gridCellsY": 408,
       "decals": [
         {"x": 225, "y": 148, "texture": "props/outside/sky.png"},
-        {"x": 225, "y": 150, "texture": "props/outside/clouds2.png"},
-        {"x": 225, "y": 150, "texture": "props/outside/clouds1.png"},
-        {"x": 225, "y": 119, "texture": "props/outside/mountains.png"},
-        {"x": 225, "y": 83, "texture": "props/outside/snow1.png"},
-        {"x": 225, "y": 127, "texture": "props/outside/ground.png"},
+        {"x": 225, "y": 147, "texture": "props/outside/clouds2.png"},
+        {"x": 226, "y": 148, "texture": "props/outside/clouds1.png"},
+        {"x": 224, "y": 143, "texture": "props/outside/mountains.png"},
+        {"x": 227, "y": 104, "texture": "props/outside/snow1.png"},
+        {"x": 223, "y": 131, "texture": "props/outside/ground.png"},
         {"x": 84, "y": 167, "texture": "props/outside/shine_ogmo.png"},
-        {"x": 126, "y": 151, "texture": "props/outside/gyrados_ogmo.png"},
+        {"x": 34, "y": 149, "texture": "props/outside/gyrados_ogmo.png"},
         {"x": 291, "y": 158, "texture": "props/outside/fire_ogmo.png"},
+        {"x": 222, "y": 93, "texture": "props/outside/snow2.png"},
         {"x": 224, "y": 233, "texture": "props/outside/snow.png"}
       ]
     }
