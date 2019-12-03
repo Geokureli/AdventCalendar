@@ -85,7 +85,7 @@ class CabinState extends BaseState
 		var tv:FlxSprite = foreground.getByName("tv");
 		tvBubble = cast props.getByName("TvBubble");
 		tvBubble.msg = Calendar.today.tv;
-		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 3, tv.height + 3);
+		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 6, tv.height + 3);
 		
 		stereo = foreground.getByName("stereo");
 	}
