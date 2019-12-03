@@ -78,9 +78,8 @@ class CabinState extends BaseState
 		
 		if (fromOutside)
 		{
-			var floor:FlxSprite = background.getByName("floor");
-			player.x = floor.width - player.width;
-			player.y = 78 + (floor.height - 78) / 2;
+			player.x = FlxG.camera.maxScrollX - player.width - 20;
+			player.y = 78 + (FlxG.camera.maxScrollY - FlxG.camera.minScrollX - 78) / 2;
 		}
 		
 		var tv:FlxSprite = foreground.getByName("tv");
