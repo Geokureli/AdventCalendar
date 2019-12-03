@@ -14,7 +14,7 @@ class OutsideState extends BaseState
 	
 	override function loadLevel():Void
 	{
-		parseLevel("assets/data/levels/outside0.json");
+		parseLevel(getLatestLevel("outside"));
 		
 		FlxG.debugger.drawDebug = true;
 	}

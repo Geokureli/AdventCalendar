@@ -2564,7 +2564,7 @@
         -1,
         -1,
         -1,
-        -1,
+        0,
         -1,
         -1,
         -1,
@@ -2655,7 +2655,7 @@
         -1,
         -1,
         -1,
-        -1,
+        0,
         -1,
         -1,
         -1,
@@ -7131,10 +7131,11 @@
       "gridCellsX": 416,
       "gridCellsY": 272,
       "decals": [
-        {"x": 56, "y": 153, "texture": "props/cabin/couch.png"},
-        {"x": 54, "y": 67, "texture": "props/cabin/tv_ogmo.png"},
+        {"x": 56, "y": 152, "texture": "props/cabin/couch.png"},
+        {"x": 54, "y": 68, "texture": "props/cabin/tv_ogmo.png"},
         {"x": 345, "y": 76, "texture": "props/cabin/punchBowl.png"},
-        {"x": 208, "y": -32, "texture": "props/cabin/tree_1.png"}
+        {"x": 54, "y": 161, "texture": "props/cabin/stereo.png"},
+        {"x": 208, "y": -26, "texture": "props/cabin/tree_2.png"}
       ]
     },
     {
@@ -7147,7 +7148,7 @@
       "gridCellsX": 416,
       "gridCellsY": 272,
       "decals": [
-        {"x": 208, "y": 136, "texture": "props/cabin/floor.png"},
+        {"x": 208, "y": 137, "texture": "props/cabin/floor.png"},
         {"x": 408, "y": 176, "texture": "props/cabin/doorSnow.png"},
         {"x": 56, "y": 115, "texture": "props/cabin/rug.png"},
         {"x": 366, "y": 163, "texture": "props/cabin/snowWind_ogmo.png"}

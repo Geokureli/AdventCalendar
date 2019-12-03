@@ -50,6 +50,15 @@ class BaseState extends OgmoState
 	
 	function loadLevel() { }
 	
+	inline function getLatestLevel(prefix:String):String
+	{
+		var day = Calendar.day + 1;
+		while (day > 0 && openfl.Assets.getText('assets/data/levels/$prefix$day.json') == null)
+			day--;
+		trace('$prefix day $day'); 
+		return 'assets/data/levels/$prefix$day.json';
+	}
+	
 	function initEntities()
 	{
 		props = getByName("Props");

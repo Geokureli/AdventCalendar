@@ -41,7 +41,7 @@ class CabinState extends BaseState
 	
 	override function loadLevel():Void
 	{
-		parseLevel("assets/data/levels/cabin0.json");
+		parseLevel(getLatestLevel("cabin"));
 		
 		// FlxG.debugger.drawDebug = true;
 	}
