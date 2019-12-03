@@ -11479,11 +11479,7 @@
         {"x": 145, "y": 314, "texture": "props/outside/igloo.png"},
         {"x": 380, "y": 310, "texture": "props/outside/snowTank.png"},
         {"x": 363, "y": 248, "texture": "props/outside/snowFort.png"},
-        {
-          "x": 343,
-          "y": 341,
-          "texture": "artistSprite/sprite-snow-cymbourine.png"
-        }
+        {"x": 343, "y": 341, "texture": "artistSprite/sprite-snow-cymbourine.png"}
       ]
     },
     {
