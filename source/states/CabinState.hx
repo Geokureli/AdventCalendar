@@ -36,6 +36,12 @@ class CabinState extends BaseState
 	{
 		super.create();
 		
+		if (Calendar.isAdvent && FlxG.sound.music == null)
+		{
+			FlxG.sound.playMusic("assets/music/czyszy.mp3", 0);
+			FlxG.sound.music.fadeIn(5, 0, 0.3);
+		}
+		
 		initPresents();
 	}
 	
