@@ -50,18 +50,14 @@ class CabinState extends BaseState
 	{
 		super.initEntities();
 		
-		var props:OgmoEntityLayer = getByName("Props");
-		var fg:OgmoDecalLayer = getByName("Foreground");
-		var bg:OgmoDecalLayer = getByName("Background");
-		
 		if (fromOutside)
 		{
-			var floor:FlxSprite = bg.getByName("floor");
+			var floor:FlxSprite = background.getByName("floor");
 			player.x = floor.width - player.width;
 			player.y = 78 + (floor.height - 78) / 2;
 		}
 		
-		var tv:FlxSprite = fg.getByName("tv");
+		var tv:FlxSprite = foreground.getByName("tv");
 		tvBubble = props.getByName("TvBubble");
 		tvBubble.msg = Calendar.today.tv;
 		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 3, tv.height + 3);
@@ -112,7 +108,7 @@ class CabinState extends BaseState
 			tvBubble.play();
 		
 		if (player.x > FlxG.camera.maxScrollX #if debug || FlxG.keys.justPressed.O #end)
-			FlxG.switchState(new OutsideOgmoState());
+			FlxG.switchState(new OutsideState());
 	}
 	
 	inline public function touchPresent(present:Present)

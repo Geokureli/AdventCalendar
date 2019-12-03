@@ -1,5 +1,6 @@
 package states;
 
+import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -8,6 +9,7 @@ import flixel.group.FlxGroup;
 import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
+import flixel.util.FlxSort;
 
 import data.Calendar;
 import states.OgmoState;
@@ -26,10 +28,14 @@ class BaseState extends OgmoState
 	var player:Player;
 	var playerHitbox:FlxObject;
 	var uiCamera:FlxCamera;
-	var geom:FlxTilemap;
 	
 	var colliders = new FlxGroup();
 	var characters = new FlxGroup();
+	
+	var geom:FlxTilemap;
+	var props:OgmoEntityLayer;
+	var foreground:OgmoDecalLayer;
+	var background:OgmoDecalLayer;
 	
 	override public function create():Void 
 	{
@@ -46,13 +52,17 @@ class BaseState extends OgmoState
 	
 	function initEntities()
 	{
-		var props:OgmoEntityLayer = getByName("Props");
-		// var fg:OgmoDecalLayer = getByName("Foreground");
-		// var bg:OgmoDecalLayer = getByName("Background");
+		props = getByName("Props");
+		foreground = getByName("Foreground");
+		background = getByName("Background");
+		
 		geom = getByName("Geom");
 		colliders.add(geom);
 		
 		player = props.getByName("Player");
+		for (child in props.members)
+			foreground.add(cast props.remove(child));
+		
 		player.updateSprite(Calendar.day);
 		characters.add(player);
 		
@@ -85,6 +95,8 @@ class BaseState extends OgmoState
 		
 		FlxG.collide(characters, colliders);
 		playerHitbox.setPosition(player.x - 3, player.y - 3);
+		
+		foreground.sort(FlxSort.byY);
 		
 		super.update(elapsed);
 	}

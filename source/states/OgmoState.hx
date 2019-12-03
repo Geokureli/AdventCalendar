@@ -79,20 +79,20 @@ class OgmoTilemap extends FlxTilemap
 	}
 }
 
-class OgmoObjectLayer extends FlxGroup
+class OgmoObjectLayer<T:FlxBasic> extends FlxTypedGroup<T>
 {
 	public var name:String;
 
-	var byName:Map<String, FlxBasic> = new Map();
+	var byName:Map<String, T> = new Map();
 
-	public function getByName<T:FlxBasic>(name:String):Null<T>
+	public function getByName<T>(name:String):Null<T>
 	{
 		return cast byName[name];
 	}
 }
 
 typedef IOgmoDecal = IOgmoObject<OgmoDecalData, OgmoDecalLayer>;
-class OgmoDecalLayer extends OgmoObjectLayer
+class OgmoDecalLayer extends OgmoObjectLayer<FlxSprite>
 {
 	public function new (data:OgmoDecalLayerData, path:String = "")
 	{
@@ -152,7 +152,7 @@ class OgmoDecalLayer extends OgmoObjectLayer
 }
 
 typedef IOgmoEntity<T> = IOgmoObject<OgmoEntityData<T>, OgmoEntityLayer>;
-class OgmoEntityLayer extends OgmoObjectLayer
+class OgmoEntityLayer extends OgmoObjectLayer<FlxObject>
 {
 	public function new (data:OgmoEntityLayerData)
 	{
@@ -199,9 +199,9 @@ class OgmoEntityLayer extends OgmoObjectLayer
 		}
 	}
 
-	function create(data:OgmoEntityData<Dynamic>):FlxBasic
+	function create(data:OgmoEntityData<Dynamic>):FlxObject
 	{
-		var entity:FlxBasic = switch(data.name)
+		var entity:FlxObject = switch(data.name)
 		{
 			case "TvBubble": new TvBubble();
 			case "Player": new Player();
@@ -265,7 +265,7 @@ typedef OgmoEntityData<T>
 
 typedef OgmoDecalData = OgmoObjectData & { texture:String }
 
-interface IOgmoObject<Data:OgmoObjectData, Layer:OgmoObjectLayer>
+interface IOgmoObject<Data:OgmoObjectData, Layer>
 {
 	function ogmoInit(data:Data, parent:Layer):Void;
 }
