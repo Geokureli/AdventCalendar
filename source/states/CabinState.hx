@@ -43,12 +43,27 @@ class CabinState extends BaseState
 	{
 		parseLevel(getLatestLevel("cabin"));
 		
-		// FlxG.debugger.drawDebug = true;
+		FlxG.debugger.drawDebug = true;
 	}
 	
 	override function initEntities()
 	{
 		super.initEntities();
+		
+		var tree:FlxSprite = null;
+		var day = Calendar.day + 1;
+		while(day > 0 && tree == null)
+		{
+			tree = foreground.getByName('tree_$day');
+			day--;
+		}
+		
+		if (tree != null)
+		{
+			tree.height = (day + 1 > 3 ? 54 : 34);// tree ring height changed on day 3
+			tree.y += tree.frameHeight - tree.height - 16;
+			tree.offset.y += tree.frameHeight - tree.height - 16;
+		}
 		
 		if (fromOutside)
 		{
