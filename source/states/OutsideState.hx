@@ -1,25 +1,30 @@
 package states;
 
+import flixel.math.FlxMath;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import states.OgmoState;
 
 class OutsideState extends BaseState
 {
-	inline static var TREE_FADE_TIME = 5.0;
-	inline static var GYRADOS_TIME = 2 * 60.0;
-	inline static var MAX_OFFSET = 50;
-	inline static var MIN_OFFSET = 0;
+	inline static var CLOUD_BOB_DIS = 50;
+	inline static var CLOUD1_PERIOD = 10.0;
+	inline static var CLOUD2_PERIOD = 15.0;
 	
 	var tree:OgmoDecal;
 	var gyrados:OgmoDecal;
+	var cloud1:OgmoDecal;
+	var cloud2:OgmoDecal;
 	var gyradosTimer = 0.0;
+	var cloudTimer = 0.0;
+	var camLerp = 0.0;
+	var camSnap = 0.0;
 	
 	override function loadLevel():Void
 	{
 		parseLevel(getLatestLevel("outside"));
 		
-		// FlxG.debugger.drawDebug = true;
+		// #if debug FlxG.debugger.drawDebug = true; #end
 	}
 	
 	override function initEntities()
@@ -29,13 +34,13 @@ class OutsideState extends BaseState
 		var sky = background.getByName("sky");
 		sky.scrollFactor.set(0.05, 0.05);
 		
-		var clouds2 = background.getByName("clouds2");
-		clouds2.scrollFactor.set(0.1, 0);
-		clouds2.alpha = 0.5;
+		cloud2 = background.getByName("clouds2");
+		cloud2.scrollFactor.set(0.1, 0);
+		cloud2.alpha = 0.5;
 		
-		var clouds1 = background.getByName("clouds1");
-		clouds1.scrollFactor.set(0.2, 0);
-		clouds1.alpha = 0.5;
+		cloud1 = background.getByName("clouds1");
+		cloud1.scrollFactor.set(0.2, 0);
+		cloud1.alpha = 0.5;
 		
 		var mountains = background.getByName("mountains");
 		mountains.scrollFactor.set(0.3, 0.3);
@@ -60,6 +65,9 @@ class OutsideState extends BaseState
 		fire.scrollFactor.set(0.6, 0.6);
 		fire.animation.curAnim.frameRate = 2;
 		
+		var snow2 = background.getByName("snow2");
+		snow2.scrollFactor.set(0.8, 0.8);
+		
 		// reshape
 		tree = foreground.getByName("tree");
 		tree.setBottomHeight(20);
@@ -82,16 +90,36 @@ class OutsideState extends BaseState
 	{
 		super.initCamera();
 		
-		camera.focusOn(player.getPosition());
+		FlxG.camera.focusOn(player.getPosition());
+		FlxG.camera.bgColor = 0xFF15122d;
 	}
+	
+	inline static var TREE_FADE_TIME = 3.0;
+	inline static var GYRADOS_TIME = 2 * 60.0;
+	inline static var MAX_CAM_OFFSET = 80;
+	inline static var CAM_SNAP_OFFSET = 30;
+	inline static var CAM_SNAP_TIME = 3.0;
+	inline static var CAM_LERP_OFFSET = MAX_CAM_OFFSET - CAM_SNAP_OFFSET;
 	
 	override public function update(elapsed:Float):Void 
 	{
 		final top = tree.y - 35;
-		final height = FlxG.camera.maxScrollY - top;
-		camOffset = MIN_OFFSET + (height - (player.y - top)) / height * (MAX_OFFSET - MIN_OFFSET);
+		final height = 50;
+		final snapY = tree.y;
+		// snap camera when above threshold
+		if (player.y < snapY && camSnap < CAM_SNAP_OFFSET)
+			camSnap += elapsed / CAM_SNAP_TIME * CAM_SNAP_OFFSET;
+		else if (camOffset > 0)
+			camSnap -= elapsed / CAM_SNAP_TIME * CAM_SNAP_OFFSET;
+		// lerp camera in threshold
+		camLerp = (height - (player.y - top)) / height * CAM_LERP_OFFSET;
 		
+		camOffset = camSnap + FlxMath.bound(camLerp, 0, CAM_LERP_OFFSET);
 		super.update(elapsed);
+		
+		cloudTimer += elapsed;
+		cloud1.x = Math.round(FlxMath.fastCos(cloudTimer / CLOUD1_PERIOD * Math.PI) * CLOUD_BOB_DIS) - CLOUD_BOB_DIS;
+		cloud2.x = Math.round(FlxMath.fastCos(cloudTimer / CLOUD2_PERIOD * Math.PI) * -CLOUD_BOB_DIS) - CLOUD_BOB_DIS;
 		
 		if (player.x < FlxG.camera.minScrollX - 15 #if debug || FlxG.keys.justPressed.O #end)
 			FlxG.switchState(new CabinState(true));
@@ -103,6 +131,11 @@ class OutsideState extends BaseState
 		
 		if (tree.alpha < 1)
 		{
+			#if debug
+			if (FlxG.keys.justPressed.G)
+				gyradosTimer = GYRADOS_TIME;
+			#end
+			
 			gyradosTimer += elapsed;
 			if (gyradosTimer > GYRADOS_TIME)
 				gyrados.alpha += elapsed;
