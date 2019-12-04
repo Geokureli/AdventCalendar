@@ -40,7 +40,7 @@ class CabinState extends BaseState
 		
 		if (Calendar.isAdvent && FlxG.sound.music == null)
 		{
-			FlxG.sound.playMusic("assets/music/czyszy.mp3", 0);
+			FlxG.sound.playMusic(Calendar.today.getSongPath(), 0);
 			FlxG.sound.music.fadeIn(5, 0, 0.3);
 		}
 		
@@ -51,7 +51,7 @@ class CabinState extends BaseState
 	{
 		parseLevel(getLatestLevel("cabin"));
 		
-		// FlxG.debugger.drawDebug = true;
+		// #if debug FlxG.debugger.drawDebug = true; #end
 	}
 	
 	override function initEntities()

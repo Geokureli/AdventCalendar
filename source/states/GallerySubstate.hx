@@ -122,7 +122,7 @@ class GallerySubstate extends FlxSubState
 		// regular artwork
 		if (day >= 0)
 		{
-			bigPreview.loadGraphic(data.getPath());
+			bigPreview.loadGraphic(data.getArtPath());
 			imageText.text = "Art by " + data.credit;
 		}
 		else
@@ -148,7 +148,7 @@ class GallerySubstate extends FlxSubState
 		}
 		
 		if (isAnimated)
-			bigPreview.loadGraphic(data.getPath(), isAnimated, horizSize, vertSize);
+			bigPreview.loadGraphic(data.getArtPath(), isAnimated, horizSize, vertSize);
 		
 		bigPreview.setGraphicSize(0, Std.int(FlxG.height));
 		bigPreview.updateHitbox();

@@ -113,7 +113,7 @@ abstract ContentData(RawContentData) from RawContentData
     public var musicProfileLink(get,never):String;
     inline function get_musicProfileLink() return "https://" + this.song.artist + ".newgrounds.com";
     
-    inline public function getPath():String
+    inline public function getArtPath():String
     {
         return 'assets/images/artwork/${getFilename()}';
     }
@@ -121,6 +121,11 @@ abstract ContentData(RawContentData) from RawContentData
    inline public function getThumbPath():String
     {
         return 'assets/images/thumbs/thumb-${getFilename()}';
+    }
+    
+   inline public function getSongPath():String
+    {
+        return 'assets/music/${this.song.artist}.mp3';
     }
     
     inline public function getFilename():String
