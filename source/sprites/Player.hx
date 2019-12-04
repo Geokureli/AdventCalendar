@@ -8,6 +8,7 @@ import flixel.math.FlxVector;
 import flixel.math.FlxVelocity;
 import flixel.util.FlxColor;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.input.gamepad.FlxGamepad;
 
 /**
  * ...
@@ -15,11 +16,10 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends Character 
 {
-	
 	private var C:Float = 0;
 	public var stepSoundType:String;
 	public var interacting:Bool;
-
+	
 	public function new(X = 0.0, Y = 0.0, ?curDay:Int = null ) 
 	{
 		super(X, Y);
@@ -48,6 +48,12 @@ class Player extends Character
 		else
 		{
 			keyboardControls();
+			
+			var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+			if (gamepad != null)
+			{
+				gamepadControls(gamepad);
+			}
 		}
 		
 		super.update(elapsed);
@@ -77,7 +83,6 @@ class Player extends Character
 				
 				velocity.set(C);
 				velocity.rotate(FlxPoint.weak(), FlxAngle.angleBetweenTouch(this, FlxG.touches.list[0], true));
-				
 			}
 			else
 			{
@@ -118,9 +123,41 @@ class Player extends Character
 			jumpBoost = 0;
 	}
 	
+	private function gamepadControls(gamepad:FlxGamepad):Void
+	{
+		interacting = gamepad.anyPressed(["A"]);
+			
+		if (gamepad.anyPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN", "UP", "DPAD_UP", "LEFT_STICK_DIGITAL_UP", "LEFT", "DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT", "RIGHT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
+		{
+			bobShit();
+				
+			var vertSlow:Float = 0.9;
+				
+			if (gamepad.anyPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
+			{
+				velocity.y = C * vertSlow;
+			}
+			if (gamepad.anyPressed(["UP", "DPAD_UP", "LEFT_STICK_DIGITAL_UP"]))
+			{
+				velocity.y = -C * vertSlow;
+			}
+			if (gamepad.anyPressed(["LEFT", "DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT"]))
+			{
+				velocity.x = -C;
+			}
+			if (gamepad.anyPressed(["RIGHT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
+			{
+				velocity.x = C;
+			}
+		}
+		else
+		{
+				jumpBoost = 0;
+		}
+	}
+	
 	private function bobShit():Void
 	{
-		
 		jumpBoost++;
 		
 		
@@ -145,5 +182,4 @@ class Player extends Character
 		
 		C *= speed;
 	}
-	
 }

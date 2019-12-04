@@ -28,7 +28,9 @@
 	<!-- _____________________________ Path Settings ____________________________ -->
 	
 	<set name="BUILD_DIR" value="export" />
+	
 	<classpath name="source" />
+	
 	<assets path="assets/data"/>
 	<assets path="assets/images"/>
 	

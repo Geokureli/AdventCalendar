@@ -12,6 +12,7 @@ import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
+import flixel.input.gamepad.FlxGamepad;
 
 /**
  * ...
@@ -38,7 +39,6 @@ class GallerySubstate extends FlxSubState
 		this.picNum = picNum;
 		
 		super();
-		
 	}
 	
 	override public function create():Void 
@@ -132,8 +132,7 @@ class GallerySubstate extends FlxSubState
 				case -1:
 					//bigPreview.loadGraphic(AssetPaths.tom__png);
 					imageText.text = "Tom Fulp, creator, founder, president, and CEO of Newgrounds.com";
-			}
-			
+			}	
 		}
 		
 		
@@ -169,7 +168,14 @@ class GallerySubstate extends FlxSubState
 		
 		#if !mobile
 			keyboardControls();
+			
+			var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+			if (gamepad != null)
+			{
+				gamepadControls(gamepad);
+			}
 		#end
+		
 		var data = Calendar.data[curDay];
 		if (curDay >= 0)
 		{
@@ -211,25 +217,64 @@ class GallerySubstate extends FlxSubState
 		}
 		
 		// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
-		if (FlxG.keys.pressed.S)
+		if (FlxG.keys.pressed.D)
 		{
-			bigPreview.offset.y += 10;
+			bigPreview.offset.x += 5;
 		}
 		if (FlxG.keys.pressed.W)
 		{
-			bigPreview.offset.y -= 10;
-		}
-		
-		if (FlxG.keys.pressed.D)
-		{
-			bigPreview.offset.x += 10;
-		}
-		
+			bigPreview.offset.y -= 5;
+		}	
 		if (FlxG.keys.pressed.A)
 		{
-			bigPreview.offset.x -= 10;
+			bigPreview.offset.x -= 5;
+		}
+		if (FlxG.keys.pressed.S)
+		{
+			bigPreview.offset.y += 5;
+		}
+	}
+	
+	private function gamepadControls(gamepad:FlxGamepad):Void
+	{
+		//Close Substate
+		if (gamepad.anyPressed(["B"]))
+		{
+			FlxG.cameras.remove(newCamera);
+			close();
+			close();
 		}
 		
+		if (gamepad.anyPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
+		{
+			bigPreview.offset.y += 5;
+		}
+		if (gamepad.anyPressed(["UP", "DPAD_UP", "LEFT_STICK_DIGITAL_UP"]))
+		{
+			bigPreview.offset.y -= 5;
+		}	
+		if (gamepad.anyPressed(["LEFT", "DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT"]))
+		{
+			bigPreview.offset.x -= 5;
+		}
+		if (gamepad.anyPressed(["RIGHT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
+		{
+			bigPreview.offset.x += 5;
+		}
+		
+		//Zooms
+		if (gamepad.anyPressed(["RIGHT_TRIGGER", "RIGHT_STICK_DIGITAL_UP"]))
+		{
+			bigPreview.setGraphicSize(Std.int(bigPreview.width + 10));
+			bigPreview.updateHitbox();
+			bigPreview.screenCenter();
+		}
+		if (gamepad.anyPressed(["LEFT_TRIGGER", "RIGHT_STICK_DIGITAL_DOWN"]))
+		{
+			bigPreview.setGraphicSize(Std.int(bigPreview.width - 10));
+			bigPreview.updateHitbox();
+			bigPreview.screenCenter();
+		}
 	}
 	
 	private var dragPos:FlxPoint = new FlxPoint();
