@@ -36,7 +36,7 @@
       "exportID": "23953795",
       "folder": "../../images",
       "includeImageSequence": true,
-      "scaleable": false,
+      "scaleable": true,
       "rotatable": false,
       "values": []
     },
@@ -47,7 +47,7 @@
       "exportID": "23955745",
       "folder": "../../images",
       "includeImageSequence": true,
-      "scaleable": false,
+      "scaleable": true,
       "rotatable": false,
       "values": [
         {
@@ -95,7 +95,7 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "texture": "/Users/booboo/Documents/projects/haxe/AdventCalendar/assets/images/props/cabin/tv_bubble.png",
+      "texture": null,
       "values": []
     },
     {
@@ -132,7 +132,7 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "texture": "/Users/booboo/Documents/projects/haxe/AdventCalendar/assets/images/tankMan_ogmo.png",
+      "texture": null,
       "values": []
     }
   ],
