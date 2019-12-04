@@ -151,9 +151,7 @@ class Player extends Character
 			}
 		}
 		else
-		{
-				jumpBoost = 0;
-		}
+			jumpBoost = 0;
 	}
 	
 	private function bobShit():Void

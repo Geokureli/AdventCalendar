@@ -242,7 +242,6 @@ class GallerySubstate extends FlxSubState
 		{
 			FlxG.cameras.remove(newCamera);
 			close();
-			close();
 		}
 		
 		if (gamepad.anyPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
