@@ -11583,6 +11583,13 @@
           "scaleX": 1,
           "scaleY": 1,
           "texture": "snowSprite/MKMaffo.png"
+        },
+        {
+          "x": 316,
+          "y": 358,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/Krinkels.png"
         }
       ]
     },
