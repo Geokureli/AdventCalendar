@@ -69,9 +69,9 @@ class OutsideState extends BaseState
 		
 		for (child in foreground.members)
 		{
-			if (child.graphic != null && child.graphic.assetsKey.indexOf("artistSprite/sprite-snow-") != -1)
+			if (child.graphic != null && child.graphic.assetsKey.indexOf("snowSprite/") != -1)
 			{
-				var name = child.graphic.assetsKey.split("artistSprite/sprite-snow-").pop();
+				var name = child.graphic.assetsKey.split("snowSprite/").pop();
 				name = name.substr(0, name.length - 4);
 				addInfoBoxTo(child, name, FlxG.openURL.bind('https://$name.newgrounds.com'));
 			}
