@@ -26,7 +26,6 @@ class CabinState extends BaseState
 	var fromOutside = false;
 	var presents = new FlxTypedGroup<Present>();
 	var thumbnail = new Thumbnail();
-	var stereo:FlxSprite;
 	
 	override public function new (fromOutside = false)
 	{
@@ -51,7 +50,7 @@ class CabinState extends BaseState
 	{
 		parseLevel(getLatestLevel("cabin"));
 		
-		// #if debug FlxG.debugger.drawDebug = true; #end
+		#if debug FlxG.debugger.drawDebug = true; #end
 	}
 	
 	override function initEntities()
@@ -84,7 +83,11 @@ class CabinState extends BaseState
 		tvBubble.msg = Calendar.today.tv;
 		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 6, tv.height + 3);
 		
-		stereo = foreground.getByName("stereo");
+		addInfoBox
+			( "stereo"
+			, "Music by " + Calendar.today.song.artist
+			, FlxG.openURL.bind(Calendar.today.musicProfileLink)
+			);
 		
 		initNPC();
 	}
@@ -147,9 +150,6 @@ class CabinState extends BaseState
 		
 		if (tvTouch.overlaps(playerHitbox) && player.interacting)
 			tvBubble.play();
-		
-		if (stereo != null && stereo.overlaps(playerHitbox) && player.interacting)
-			FlxG.openURL(Calendar.today.musicProfileLink);
 		
 		if (player.x > FlxG.camera.maxScrollX #if debug || FlxG.keys.justPressed.O #end)
 			FlxG.switchState(new OutsideState());

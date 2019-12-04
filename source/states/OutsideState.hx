@@ -66,6 +66,16 @@ class OutsideState extends BaseState
 		
 		var tank = foreground.getByName("snowTank");
 		tank.setBottomHeight(Math.round(tank.height / 2));
+		
+		for (child in foreground.members)
+		{
+			if (child.graphic != null && child.graphic.assetsKey.indexOf("artistSprite/sprite-snow-") != -1)
+			{
+				var name = child.graphic.assetsKey.split("artistSprite/sprite-snow-").pop();
+				name = name.substr(0, name.length - 4);
+				addInfoBoxTo(child, name, FlxG.openURL.bind('https://$name.newgrounds.com'));
+			}
+		}
 	}
 	
 	override function initCamera()
@@ -80,7 +90,6 @@ class OutsideState extends BaseState
 		final top = tree.y - 35;
 		final height = FlxG.camera.maxScrollY - top;
 		camOffset = MIN_OFFSET + (height - (player.y - top)) / height * (MAX_OFFSET - MIN_OFFSET);
-		trace(player.y, top, top + height, camOffset);
 		
 		super.update(elapsed);
 		
