@@ -91,10 +91,18 @@ class CabinState extends BaseState
 			arcade.animation.curAnim.frameRate = 6;
 			addInfoBoxTo(arcade, FlxG.openURL.bind(ADVENT_LINK));
 		}
+		
 		var neon = foreground.getByName("neon");
 		if (neon != null)
 			neon.animation.curAnim.frameRate = 2;
 		
+		var fire = foreground.getByName("fire");
+		if (fire != null)
+		{
+			arcade.animation.curAnim.frameRate = 12;
+		}
+		
+		//Music Credit
 		safeAddInfoBox
 			( "stereo"
 			, "Music by " + Calendar.today.song.artist
