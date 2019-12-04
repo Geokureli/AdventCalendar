@@ -17,21 +17,24 @@ class InfoBox extends FlxSpriteGroup
     public var callback:Null<Void->Void>;
     public var timer = 0.0;
     
-    public function new (text:String, ?callback:Void->Void, x = 0.0, y = 0.0, border = 1)
+    public function new (?text:String, ?callback:Void->Void, x = 0.0, y = 0.0, border = 1)
     {
         super();
         this.callback = callback;
         
         this.x = x;
         this.y = y;
-        var info = new FlxBitmapText();
-        info.autoSize = true;
-        info.text = text;
-        info.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);
-        // info.scale.set(0.5, 0.5);
-        // info.updateHitbox();
-        info.x -= info.width / 2;
-        add(info);
+        if (text != null)
+        {
+            var info = new FlxBitmapText();
+            info.autoSize = true;
+            info.text = text;
+            info.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);
+            // info.scale.set(0.5, 0.5);
+            // info.updateHitbox();
+            info.x -= info.width / 2;
+            add(info);
+        }
         
         alpha = 0;
         alive = false;

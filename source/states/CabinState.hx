@@ -20,6 +20,7 @@ import sprites.Present;
 class CabinState extends BaseState
 {
 	inline static var MEDAL_0 = 58519;
+	static inline var ADVENT_LINK:String = "https://www.newgrounds.com/portal/view/721061";
 	
 	var tvTouch:FlxObject;
 	var tvBubble:TvBubble;
@@ -88,6 +89,7 @@ class CabinState extends BaseState
 			, "Music by " + Calendar.today.song.artist
 			, FlxG.openURL.bind(Calendar.today.musicProfileLink)
 			);
+		addInfoBox("arcade", FlxG.openURL.bind(ADVENT_LINK));
 		
 		initNPC();
 	}
@@ -148,6 +150,7 @@ class CabinState extends BaseState
 		
 		super.update(elapsed);
 		
+		//INTERACTABLES
 		if (tvTouch.overlaps(playerHitbox) && player.interacting)
 			tvBubble.play();
 		

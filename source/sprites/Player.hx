@@ -41,19 +41,22 @@ class Player extends Character
 	{
 		
 		if (FlxG.onMobile)
-		{
-			
+		{	
 			touchControls();
 		}
 		else
 		{
-			keyboardControls();
+			var moving = keyboardControls();
 			
-			var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-			if (gamepad != null)
+			if (!moving)
 			{
-				gamepadControls(gamepad);
+				var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+				if (gamepad != null)
+					moving = gamepadControls(gamepad);
 			}
+			
+			if (!moving)
+				jumpBoost = 0;
 		}
 		
 		super.update(elapsed);
@@ -92,7 +95,7 @@ class Player extends Character
 		
 	}
 	
-	private function keyboardControls():Void
+	private function keyboardControls():Bool
 	{
 		interacting = FlxG.keys.justPressed.SPACE;
 		
@@ -118,14 +121,14 @@ class Player extends Character
 			{
 				velocity.x = C;
 			}
+			return true;
 		}
-		else
-			jumpBoost = 0;
+		return false;
 	}
 	
-	private function gamepadControls(gamepad:FlxGamepad):Void
+	private function gamepadControls(gamepad:FlxGamepad):Bool
 	{
-		interacting = gamepad.anyPressed(["A"]);
+		interacting = gamepad.anyPressed(["A"]) || FlxG.keys.justPressed.SPACE;
 			
 		if (gamepad.anyPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN", "UP", "DPAD_UP", "LEFT_STICK_DIGITAL_UP", "LEFT", "DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT", "RIGHT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
 		{
@@ -149,11 +152,9 @@ class Player extends Character
 			{
 				velocity.x = C;
 			}
+			return true;
 		}
-		else
-		{
-				jumpBoost = 0;
-		}
+		return false;
 	}
 	
 	private function bobShit():Void

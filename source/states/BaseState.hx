@@ -87,7 +87,7 @@ class BaseState extends OgmoState
 		add(playerHitbox = new FlxObject(0, 0, player.width + 6, player.height + 6));
 	}
 	
-	function addInfoBox(target:String, text:String, ?callback:Void->Void, hoverDis = 20)
+	function addInfoBox(target:String, ?text:String, ?callback:Void->Void, hoverDis = 20)
 	{
 		var decal:FlxObject = foreground.getByName(target);
 		if (decal == null)
@@ -98,7 +98,7 @@ class BaseState extends OgmoState
 		addInfoBoxTo(decal, text, callback, hoverDis);
 	}
 	
-	function safeAddInfoBox(target:String, text:String, ?callback:Void->Void, hoverDis = 20)
+	function safeAddInfoBox(target:String, ?text:String, ?callback:Void->Void, hoverDis = 20)
 	{
 		var decal:FlxObject = foreground.getByName(target);
 		if (decal == null)
@@ -107,7 +107,7 @@ class BaseState extends OgmoState
 			addInfoBoxTo(decal, text, callback, hoverDis);
 	}
 	
-	function addInfoBoxTo(target:FlxObject, text:String, ?callback:Void->Void, hoverDis = 20)
+	function addInfoBoxTo(target:FlxObject, ?text:String, ?callback:Void->Void, hoverDis = 20)
 	{
 		touchable.add(target);
 		add(infoBoxes[target] = new InfoBox(text, callback, target.x + target.width / 2, target.y - hoverDis));
