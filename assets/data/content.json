@@ -19,6 +19,7 @@
     },
     {
         "author":"MalickJack",
+        "credit":"MalickJack(PieSaus)",
         "pos"   :{ "x":530, "y":390 },
 		"tv"    :"NEWS BULLETIN:\nMONSTER POPS UP AT\nTHE LAKE OF RAGE",
         "song"  :{ "artist":"CzySzy", "id":895653 }
