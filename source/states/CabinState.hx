@@ -84,12 +84,12 @@ class CabinState extends BaseState
 		tvBubble.msg = Calendar.today.tv;
 		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 6, tv.height + 3);
 		
-		addInfoBox
+		safeAddInfoBox
 			( "stereo"
 			, "Music by " + Calendar.today.song.artist
 			, FlxG.openURL.bind(Calendar.today.musicProfileLink)
 			);
-		addInfoBox("arcade", FlxG.openURL.bind(ADVENT_LINK));
+		safeAddInfoBox("arcade", FlxG.openURL.bind(ADVENT_LINK));
 		
 		initNPC();
 	}
