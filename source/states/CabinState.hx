@@ -80,16 +80,26 @@ class CabinState extends BaseState
 		}
 		
 		var tv:FlxSprite = foreground.getByName("tv");
+		tv.animation.curAnim.frameRate = 6;
 		tvBubble = cast props.getByName("TvBubble");
 		tvBubble.msg = Calendar.today.tv;
 		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 6, tv.height + 3);
+		
+		var arcade = foreground.getByName("arcade");
+		if (arcade != null)
+		{
+			arcade.animation.curAnim.frameRate = 6;
+			addInfoBoxTo(arcade, FlxG.openURL.bind(ADVENT_LINK));
+		}
+		var neon = foreground.getByName("neon");
+		if (neon != null)
+			neon.animation.curAnim.frameRate = 2;
 		
 		safeAddInfoBox
 			( "stereo"
 			, "Music by " + Calendar.today.song.artist
 			, FlxG.openURL.bind(Calendar.today.musicProfileLink)
 			);
-		safeAddInfoBox("arcade", FlxG.openURL.bind(ADVENT_LINK));
 		
 		initNPC();
 	}
