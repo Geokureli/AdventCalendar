@@ -125,7 +125,7 @@ abstract ContentData(RawContentData) from RawContentData
     
    inline public function getSongPath():String
     {
-        return 'assets/music/${this.song.artist}.mp3';
+        return 'assets/music/${this.song.artist.toLowerCase()}.mp3';
     }
     
     inline public function getFilename():String
