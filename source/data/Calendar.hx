@@ -7,7 +7,7 @@ import openfl.utils.Assets;
 
 class Calendar
 {
-    inline static var DEBUG_DAY:Int = 5;// 0 to disable debug feature
+    inline static var DEBUG_DAY:Int = 0;// 0 to disable debug feature
     static public var day(default, null) = 24;
     static public var isAdvent(default, null) = false;
     static public var isDecember(default, null) = false;
