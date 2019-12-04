@@ -11590,6 +11590,13 @@
           "scaleX": 1,
           "scaleY": 1,
           "texture": "snowSprite/Krinkels.png"
+        },
+        {
+          "x": 368,
+          "y": 366,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/Snackers.png"
         }
       ]
     },
