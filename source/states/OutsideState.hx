@@ -88,6 +88,8 @@ class OutsideState extends BaseState
 				addInfoBoxTo(child, name, FlxG.openURL.bind('https://$name.newgrounds.com'));
 			}
 		}
+		
+		add(new Snow());
 	}
 	
 	override function initCamera()
