@@ -11,9 +11,10 @@ import sprites.Snow;
 
 class OutsideState extends BaseState
 {
+	inline static var WIND = 1.8;
 	inline static var CLOUD_BOB_DIS = 50;
-	inline static var CLOUD1_PERIOD = 10.0;
-	inline static var CLOUD2_PERIOD = 15.0;
+	inline static var CLOUD1_PERIOD = 10.0 * WIND;
+	inline static var CLOUD2_PERIOD = 15.0 * WIND;
 	
 	var sculptures = 
 	[ "geokureli"    // organizer/programmer
@@ -78,8 +79,9 @@ class OutsideState extends BaseState
 		var ground = background.getByName("ground");
 		var shine = background.getByName("shine");
 		ground.scrollFactor.set(0.6, 0.6);
-		shine.scrollFactor.x = ground.scrollFactor.x * 0.6;
-		shine.scrollFactor.y = ground.scrollFactor.y * 0.85;
+		shine.scrollFactor.set(0.6, 0.6);
+		shine.scrollFactor.x = ground.scrollFactor.x * 0.8;
+		//shine.scrollFactor.y = ground.scrollFactor.y * 0.85;
 		shine.animation.curAnim.frameRate = 1;
 		
 		gyrados = background.getByName("gyrados");
@@ -115,6 +117,7 @@ class OutsideState extends BaseState
 				{
 					colliders.add(child);
 					child.immovable = true;
+					child.setBottomHeight(Math.round(child.height / 2));
 					addInfoBoxTo(child, name, FlxG.openURL.bind('https://$name.newgrounds.com'));
 				}
 			}
