@@ -7118,6 +7118,18 @@
           "y": 88,
           "originX": 0,
           "originY": 0
+        },
+        {
+          "name": "Teleport",
+          "id": 2,
+          "_eid": "48541537",
+          "x": 404,
+          "y": 154,
+          "width": 12,
+          "height": 36,
+          "originX": 0,
+          "originY": 0,
+          "values": {"id": "toOutside"}
         }
       ]
     },

@@ -79,7 +79,7 @@
           {"x": 1, "y": 1}
         ]
       },
-      "color": "#ff0000ff",
+      "color": "#00ff00ff",
       "tileX": false,
       "tileY": false,
       "tileSize": {"x": 123, "y": 39},
@@ -95,7 +95,7 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "texture": null,
+      "texture": "/Users/booboo/Documents/projects/haxe/AdventCalendar/assets/images/props/cabin/tv_bubble.png",
       "values": []
     },
     {
@@ -132,8 +132,53 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "texture": null,
+      "texture": "/Users/booboo/Documents/projects/haxe/AdventCalendar/assets/images/tankMan_ogmo.png",
       "values": []
+    },
+    {
+      "exportID": "48541537",
+      "name": "Teleport",
+      "limit": -1,
+      "size": {"x": 4, "y": 4},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff0000ff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 4, "y": 4},
+      "resizeableX": true,
+      "resizeableY": true,
+      "rotatable": false,
+      "rotationDegrees": 360,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": [],
+      "texture": null,
+      "values": [
+        {
+          "name": "id",
+          "definition": "String",
+          "defaults": "teleport",
+          "maxLength": 0,
+          "trimWhitespace": true
+        }
+      ]
     }
   ],
   "tilesets": [

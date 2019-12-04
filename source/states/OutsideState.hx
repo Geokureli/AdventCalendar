@@ -1,8 +1,10 @@
 package states;
 
-import flixel.math.FlxMath;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.math.FlxMath;
+
 import states.OgmoState;
 
 class OutsideState extends BaseState
@@ -19,6 +21,7 @@ class OutsideState extends BaseState
 	var cloudTimer = 0.0;
 	var camLerp = 0.0;
 	var camSnap = 0.0;
+	var toCabin:FlxObject;
 	
 	override function loadLevel():Void
 	{
@@ -68,6 +71,7 @@ class OutsideState extends BaseState
 		var snow2 = background.getByName("snow2");
 		snow2.scrollFactor.set(0.8, 0.8);
 		
+		toCabin = props.getByName("toCabin");
 		//Reshape
 		tree = foreground.getByName("tree");
 		tree.setBottomHeight(20);
@@ -121,7 +125,7 @@ class OutsideState extends BaseState
 		cloud1.x = Math.round(FlxMath.fastCos(cloudTimer / CLOUD1_PERIOD * Math.PI) * CLOUD_BOB_DIS) - CLOUD_BOB_DIS;
 		cloud2.x = Math.round(FlxMath.fastCos(cloudTimer / CLOUD2_PERIOD * Math.PI) * -CLOUD_BOB_DIS) - CLOUD_BOB_DIS;
 		
-		if (player.x < FlxG.camera.minScrollX - 15 #if debug || FlxG.keys.justPressed.O #end)
+		if (player.overlaps(toCabin) #if debug || FlxG.keys.justPressed.O #end)
 			FlxG.switchState(new CabinState(true));
 		
 		if (player.y < top)

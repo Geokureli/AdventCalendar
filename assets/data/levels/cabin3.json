@@ -7118,6 +7118,18 @@
           "y": 88,
           "originX": 0,
           "originY": 0
+        },
+        {
+          "name": "Teleport",
+          "id": 2,
+          "_eid": "48541537",
+          "x": 404,
+          "y": 154,
+          "width": 12,
+          "height": 36,
+          "originX": 0,
+          "originY": 0,
+          "values": {"id": "toOutside"}
         }
       ]
     },
@@ -7136,35 +7148,35 @@
           "y": 152,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\couch.png"
+          "texture": "props/cabin/couch.png"
         },
         {
           "x": 54,
           "y": 68,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\tv_ogmo.png"
+          "texture": "props/cabin/tv_ogmo.png"
         },
         {
           "x": 345,
           "y": 76,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\punchBowl.png"
+          "texture": "props/cabin/punchBowl.png"
         },
         {
           "x": 54,
           "y": 161,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\stereo.png"
+          "texture": "props/cabin/stereo.png"
         },
         {
           "x": 212,
           "y": 96,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\tree_3.png"
+          "texture": "props/cabin/tree_3.png"
         }
       ]
     },
@@ -7183,35 +7195,35 @@
           "y": 137,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\floor.png"
+          "texture": "props/cabin/floor.png"
         },
         {
           "x": 408,
           "y": 176,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\doorSnow.png"
+          "texture": "props/cabin/doorSnow.png"
         },
         {
           "x": 56,
           "y": 115,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\rug.png"
+          "texture": "props/cabin/rug.png"
         },
         {
           "x": 366,
           "y": 163,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\snowWind_ogmo.png"
+          "texture": "props/cabin/snowWind_ogmo.png"
         },
         {
           "x": 212,
           "y": 124,
           "scaleX": 1,
           "scaleY": 1,
-          "texture": "props\\cabin\\rug_3.png"
+          "texture": "props/cabin/rug_3.png"
         }
       ]
     }

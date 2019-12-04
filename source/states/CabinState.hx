@@ -27,6 +27,7 @@ class CabinState extends BaseState
 	var fromOutside = false;
 	var presents = new FlxTypedGroup<Present>();
 	var thumbnail = new Thumbnail();
+	var toOutside:FlxObject;
 	
 	override public function new (fromOutside = false)
 	{
@@ -51,7 +52,7 @@ class CabinState extends BaseState
 	{
 		parseLevel(getLatestLevel("cabin"));
 		
-		// #if debug FlxG.debugger.drawDebug = true; #end
+		#if debug FlxG.debugger.drawDebug = true; #end
 	}
 	
 	override function initEntities()
@@ -73,10 +74,11 @@ class CabinState extends BaseState
 		if (tree != null)
 			tree.setBottomHeight(day < 3 ? 8 : 10);
 		
+		toOutside = props.getByName("toOutside");
 		if (fromOutside)
 		{
-			player.x = FlxG.camera.maxScrollX - player.width - 20;
-			player.y = 78 + (FlxG.camera.maxScrollY - FlxG.camera.minScrollX - 78) / 2;
+			player.x = toOutside.x - player.width - 5;
+			player.y = toOutside.y + toOutside.height / 2;
 		}
 		
 		var tv:FlxSprite = foreground.getByName("tv");
@@ -173,7 +175,7 @@ class CabinState extends BaseState
 		if (tvTouch.overlaps(playerHitbox) && player.interacting)
 			tvBubble.play();
 		
-		if (player.x > FlxG.camera.maxScrollX #if debug || FlxG.keys.justPressed.O #end)
+		if (player.overlaps(toOutside) #if debug || FlxG.keys.justPressed.O #end)
 			FlxG.switchState(new OutsideState());
 	}
 	

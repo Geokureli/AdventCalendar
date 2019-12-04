@@ -160,6 +160,12 @@ class OgmoEntityLayer extends OgmoObjectLayer<FlxObject>
 				if (entityData.rotation != null)
 					entity.angle = entityData.rotation;
 				
+				if (entityData.width != null)
+					entity.width = entityData.width;
+				
+				if (entityData.height != null)
+					entity.height = entityData.height;
+				
 				if (Std.is(entity, FlxSprite))
 				{
 					final entity:FlxSprite = cast entity;
@@ -178,6 +184,7 @@ class OgmoEntityLayer extends OgmoObjectLayer<FlxObject>
 		{
 			case "TvBubble": new TvBubble();
 			case "Player": new Player();
+			case "Teleport": new FlxObject();
 			case name: throw 'unhandled entity name: $name';
 		}
 		
@@ -226,14 +233,16 @@ typedef OgmoObjectData = { x:Int, y:Int }
 
 typedef OgmoEntityData<T>
 = OgmoObjectData & {
-	name    :String,
-	id      :Int,
-	rotation:Float,
-	originX :Int,
-	originY :Int,
+	name     :String,
+	id       :Int,
+	rotation :Float,
+	originX  :Int,
+	originY  :Int,
+	?width   :Int,
+	?height  :Int,
 	?flippedX:Bool,
 	?flippedY:Bool,
-	values  :T
+	values   :T
 }
 
 @:forward
