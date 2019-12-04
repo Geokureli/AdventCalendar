@@ -18,7 +18,8 @@ class Player extends Character
 {
 	private var C:Float = 0;
 	public var stepSoundType:String;
-	public var interacting:Bool;
+	public var interacting = false;
+	public var wasInteracting = false;
 	
 	public function new(X = 0.0, Y = 0.0, ?curDay:Int = null ) 
 	{
@@ -39,6 +40,7 @@ class Player extends Character
 	
 	override public function update(elapsed:Float):Void 
 	{
+		interacting = false;
 		
 		if (FlxG.onMobile)
 		{	
@@ -59,12 +61,17 @@ class Player extends Character
 				jumpBoost = 0;
 		}
 		
+		// prevents a bug on gamepads
+		if (wasInteracting && interacting)
+			interacting = false;
+		else
+			wasInteracting = interacting;
+		
 		super.update(elapsed);
 	}
 	
 	private function touchControls():Void
 	{
-		interacting = false;
 		// basically means that the touchscreen is bein pressed right guys
 		for (touch in FlxG.touches.list)
 		{
@@ -128,7 +135,7 @@ class Player extends Character
 	
 	private function gamepadControls(gamepad:FlxGamepad):Bool
 	{
-		interacting = gamepad.anyPressed(["A"]) || FlxG.keys.justPressed.SPACE;
+		interacting = gamepad.anyJustPressed(["A"]) || FlxG.keys.justPressed.SPACE;
 			
 		if (gamepad.anyPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN", "UP", "DPAD_UP", "LEFT_STICK_DIGITAL_UP", "LEFT", "DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT", "RIGHT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
 		{
