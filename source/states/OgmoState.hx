@@ -266,7 +266,7 @@ abstract OgmoDecal(FlxSprite) to FlxSprite from FlxSprite
 		this.x -= Math.round(this.width / 2);
 		this.y -= Math.round(this.height / 2);
 		// allow player to go behind stuff
-		setBottomHeight(Math.round(this.height / 2));
+		setBottomHeight(Math.round(this.height / 3));
 	}
 	
 	public function setBottomHeight(value:Int)

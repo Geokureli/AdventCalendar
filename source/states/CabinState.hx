@@ -61,7 +61,7 @@ class CabinState extends BaseState
 		add(thumbnail);
 		thumbnail.alpha = 0;
 		
-		var tree:FlxSprite = null;
+		var tree:OgmoDecal = null;
 		var day = Calendar.day + 1;
 		while(day > 0 && tree == null)
 		{
@@ -71,11 +71,7 @@ class CabinState extends BaseState
 		day++; 
 		
 		if (tree != null)
-		{
-			tree.height = day < 3 ? 8 : 10;
-			tree.y += tree.frameHeight - tree.height;
-			tree.offset.y += tree.frameHeight - tree.height;
-		}
+			tree.setBottomHeight(day < 3 ? 8 : 10);
 		
 		if (fromOutside)
 		{
