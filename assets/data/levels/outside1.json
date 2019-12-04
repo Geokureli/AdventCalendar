@@ -1,6 +1,6 @@
 {
   "width": 448,
-  "height": 408,
+  "height": 405,
   "offsetX": 0,
   "offsetY": 0,
   "layers": [
@@ -12,7 +12,7 @@
       "gridCellWidth": 4,
       "gridCellHeight": 4,
       "gridCellsX": 112,
-      "gridCellsY": 102,
+      "gridCellsY": 103,
       "tileset": "Walls",
       "data": [
         -1,
@@ -11451,7 +11451,7 @@
       "gridCellWidth": 8,
       "gridCellHeight": 8,
       "gridCellsX": 56,
-      "gridCellsY": 51,
+      "gridCellsY": 52,
       "entities": [
         {
           "name": "Player",
@@ -11484,7 +11484,7 @@
       "gridCellWidth": 1,
       "gridCellHeight": 1,
       "gridCellsX": 448,
-      "gridCellsY": 408,
+      "gridCellsY": 405,
       "decals": [
         {
           "x": 387,
@@ -11608,7 +11608,7 @@
       "gridCellWidth": 1,
       "gridCellHeight": 1,
       "gridCellsX": 448,
-      "gridCellsY": 408,
+      "gridCellsY": 405,
       "decals": [
         {
           "x": 200,
