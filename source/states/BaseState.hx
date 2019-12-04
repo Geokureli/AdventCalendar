@@ -129,7 +129,9 @@ class BaseState extends OgmoState
 			add(button);
 		}
 		
+		camFollow.setPosition(player.x, player.y - camOffset);
 		FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.03);
+		FlxG.camera.focusOn(camFollow.getPosition());
 		FlxG.camera.fade(FlxG.stage.color, 2.5, true);
 	}
 	

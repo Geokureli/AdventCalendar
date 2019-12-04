@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.math.FlxMath;
 
 import states.OgmoState;
+import sprites.Snow;
 
 class OutsideState extends BaseState
 {
@@ -96,7 +97,6 @@ class OutsideState extends BaseState
 	{
 		super.initCamera();
 		
-		FlxG.camera.focusOn(player.getPosition());
 		FlxG.camera.bgColor = 0xFF15122d;
 	}
 	

@@ -130,13 +130,6 @@ class CabinState extends BaseState
 		}
 	}
 	
-	override function initCamera()
-	{
-		super.initCamera();
-		
-		camera.focusOn(player.getPosition());
-	}
-	
 	function initPresents():Void
 	{
 		trace("num presents: " + Calendar.day + 1);
