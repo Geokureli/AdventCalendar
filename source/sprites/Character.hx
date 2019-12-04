@@ -25,28 +25,19 @@ class Character extends Sprite
 	}
 	
 	
-	public function updateSprite(theDay:Int, isCabin:Bool = false):Void
+	public function updateSprite(theDay:Int):Void
 	{
-		if (isCabin)
+		if (theDay == 8)
 		{
-			// loadGraphic(AssetPaths.spritesheetArtists__png, true, 16, 16);
-			animation.frameIndex = theDay;
+			loadGraphic(AssetPaths.Daddy__png, false, 24, 24);
+			actualOffsetLOL = 20;
+			
 			resizeHitbox();
 		}
 		else
 		{
-			if (theDay == 8)
-			{
-				loadGraphic(AssetPaths.Daddy__png, false, 24, 24);
-				actualOffsetLOL = 20;
-				
-				resizeHitbox();
-			}
-			else
-			{
-				// already should have loaded the sprite data i think
-				animation.frameIndex = theDay;
-			}
+			// already should have loaded the sprite data i think
+			animation.frameIndex = theDay;
 		}
 		// if the day is the 9th, since the input is curDate.getDate() - 1 usually...
 		
@@ -66,7 +57,6 @@ class Character extends Sprite
 			facing = FlxObject.LEFT;
 			offset.x = 8;
 		}
-		
 	}
 	
 	public function resizeHitbox():Void

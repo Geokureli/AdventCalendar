@@ -14,6 +14,7 @@ import data.NGio;
 import states.OgmoState;
 import sprites.Thumbnail;
 import sprites.TvBubble;
+import sprites.NPC;
 import sprites.Present;
 
 class CabinState extends BaseState
@@ -88,6 +89,24 @@ class CabinState extends BaseState
 		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 6, tv.height + 3);
 		
 		stereo = foreground.getByName("stereo");
+		
+		initNPC();
+	}
+	
+	private function initNPC():Void
+	{
+		var cam = FlxG.camera;
+		for (c in 0...Calendar.day)
+		{
+			var npc:NPC = new NPC
+				( FlxG.random.float(cam.minScrollX + 20, cam.maxScrollX - 20)
+				, FlxG.random.float(100, cam.maxScrollY - 20)
+				);
+			npc.updateSprite(c);
+			foreground.add(npc);
+			colliders.add(npc);
+			characters.add(npc);
+		}
 	}
 	
 	override function initCamera()

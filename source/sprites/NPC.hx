@@ -41,20 +41,11 @@ class NPC extends Character
 	}
 	
 	
-	override public function updateSprite(theDay:Int, isCabin:Bool = false):Void 
+	override public function updateSprite(day:Int):Void 
 	{
-		super.updateSprite(theDay, isCabin);
+		super.updateSprite(day);
 		
-		if (isCabin)
-		{
-			if (theDay != 25)
-			{
-				nameShit = Calendar.data[theDay].author;
-			}
-			else
-				nameShit = "ninjamuffin99";
-			
-		}
+		// nameShit = Calendar.data[day].author;
 	}
 	
 	public function idle():Void
