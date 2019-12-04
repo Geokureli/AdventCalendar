@@ -15,7 +15,6 @@ class Snow extends FlxTypedGroup<FlxSprite>
 		final camera = FlxG.camera;
 		
 		var num = Math.floor(camera.width * camera.height * density);
-		trace(camera.scroll);
 		trace(num + " snow flakes");
 		while(num-- > 0)
 		{
@@ -35,7 +34,6 @@ class Snow extends FlxTypedGroup<FlxSprite>
 		super.update(elapsed);
 		
 		final camera = FlxG.camera;
-		trace(camera.scroll);
 		
 		for (flake in members)
 		{
