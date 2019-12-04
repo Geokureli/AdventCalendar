@@ -149,7 +149,7 @@ class BaseState extends OgmoState
 				infoBoxes[child].alive = false;
 		}
 		
-		FlxG.overlap(player, touchable,
+		FlxG.overlap(playerHitbox, touchable,
 			(_, touched)->
 			{
 				if (infoBoxes.exists(touched))
