@@ -79,7 +79,7 @@
           {"x": 1, "y": 1}
         ]
       },
-      "color": "#00ff00ff",
+      "color": "#ff0000ff",
       "tileX": false,
       "tileY": false,
       "tileSize": {"x": 123, "y": 39},
@@ -153,7 +153,7 @@
           {"x": 1, "y": 1}
         ]
       },
-      "color": "#ff0000ff",
+      "color": "#00ff00ff",
       "tileX": false,
       "tileY": false,
       "tileSize": {"x": 4, "y": 4},
