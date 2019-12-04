@@ -60,15 +60,15 @@ class OutsideState extends BaseState
 		gyrados.alpha = 0;
 		gyrados.animation.curAnim.frameRate = 2;
 		
-		var fire = background.getByName("fire");
-		fire.alpha = 1.0;
-		fire.scrollFactor.set(0.6, 0.6);
-		fire.animation.curAnim.frameRate = 2;
+		var campfire = background.getByName("campfire");
+		campfire.alpha = 1.0;
+		campfire.scrollFactor.set(0.6, 0.6);
+		campfire.animation.curAnim.frameRate = 2;
 		
 		var snow2 = background.getByName("snow2");
 		snow2.scrollFactor.set(0.8, 0.8);
 		
-		// reshape
+		//Reshape
 		tree = foreground.getByName("tree");
 		tree.setBottomHeight(20);
 		
