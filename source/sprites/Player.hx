@@ -46,13 +46,17 @@ class Player extends Character
 		}
 		else
 		{
-			keyboardControls();
+			var moving = keyboardControls();
 			
-			var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-			if (gamepad != null)
+			if (!moving)
 			{
-				gamepadControls(gamepad);
+				var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+				if (gamepad != null)
+					moving = gamepadControls(gamepad);
 			}
+			
+			if (!moving)
+				jumpBoost = 0;
 		}
 		
 		super.update(elapsed);
@@ -91,7 +95,7 @@ class Player extends Character
 		
 	}
 	
-	private function keyboardControls():Void
+	private function keyboardControls():Bool
 	{
 		interacting = FlxG.keys.justPressed.SPACE;
 		
@@ -117,12 +121,12 @@ class Player extends Character
 			{
 				velocity.x = C;
 			}
+			return true;
 		}
-		else
-			jumpBoost = 0;
+		return false;
 	}
 	
-	private function gamepadControls(gamepad:FlxGamepad):Void
+	private function gamepadControls(gamepad:FlxGamepad):Bool
 	{
 		interacting = gamepad.anyPressed(["A"]) || FlxG.keys.justPressed.SPACE;
 			
@@ -148,9 +152,9 @@ class Player extends Character
 			{
 				velocity.x = C;
 			}
+			return true;
 		}
-		else
-			jumpBoost = 0;
+		return false;
 	}
 	
 	private function bobShit():Void
