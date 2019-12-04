@@ -140,6 +140,7 @@ class CabinState extends BaseState
 			
 			presents.add(present);
 			colliders.add(present);
+			characters.add(present);
 			foreground.add(present);
 		}
 	}
