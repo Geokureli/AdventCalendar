@@ -54,8 +54,8 @@ class OutsideState extends BaseState
 		var ground = background.getByName("ground");
 		var shine = background.getByName("shine");
 		ground.scrollFactor.set(0.6, 0.6);
-		shine.scrollFactor.x = ground.scrollFactor.x * 0.85;
-		shine.scrollFactor.y = ground.scrollFactor.y;
+		shine.scrollFactor.x = ground.scrollFactor.x * 0.6;
+		shine.scrollFactor.y = ground.scrollFactor.y * 0.85;
 		shine.animation.curAnim.frameRate = 1;
 		
 		gyrados = background.getByName("gyrados");

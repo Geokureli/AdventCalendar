@@ -11604,8 +11604,8 @@
           "texture": "props/outside/ground.png"
         },
         {
-          "x": 90,
-          "y": 162,
+          "x": 88,
+          "y": 161,
           "scaleX": 1,
           "scaleY": 1,
           "texture": "props/outside/shine_ogmo.png"
