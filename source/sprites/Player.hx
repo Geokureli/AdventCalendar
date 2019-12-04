@@ -41,8 +41,7 @@ class Player extends Character
 	{
 		
 		if (FlxG.onMobile)
-		{
-			
+		{	
 			touchControls();
 		}
 		else
@@ -125,7 +124,7 @@ class Player extends Character
 	
 	private function gamepadControls(gamepad:FlxGamepad):Void
 	{
-		interacting = gamepad.anyPressed(["A"]);
+		interacting = gamepad.anyPressed(["A"]) || FlxG.keys.justPressed.SPACE;
 			
 		if (gamepad.anyPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN", "UP", "DPAD_UP", "LEFT_STICK_DIGITAL_UP", "LEFT", "DPAD_LEFT", "LEFT_STICK_DIGITAL_LEFT", "RIGHT", "DPAD_RIGHT", "LEFT_STICK_DIGITAL_RIGHT"]))
 		{
