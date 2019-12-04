@@ -28,6 +28,7 @@ class CabinState extends BaseState
 	var thumbnail = new Thumbnail();
 	var stereo:FlxSprite;
 	var arcade:FlxSprite;
+	var neon:FlxSprite;
 	
 	private var adventLink:String = "https://www.newgrounds.com/portal/view/721061";
 	//FlxG.openURL(adventLink);
@@ -90,6 +91,12 @@ class CabinState extends BaseState
 		
 		stereo = foreground.getByName("stereo");
 		arcade = foreground.getByName("arcade");
+		neon = foreground.getByName("neon");
+		
+		//FPS Override
+		arcade.animation.curAnim.frameRate = 6;
+		tv.animation.curAnim.frameRate = 6;
+		neon.animation.curAnim.frameRate = 2;
 		
 		initNPC();
 	}
