@@ -20,18 +20,13 @@ import sprites.Present;
 class CabinState extends BaseState
 {
 	inline static var MEDAL_0 = 58519;
+	static inline var ADVENT_LINK:String = "https://www.newgrounds.com/portal/view/721061";
 	
 	var tvTouch:FlxObject;
 	var tvBubble:TvBubble;
 	var fromOutside = false;
 	var presents = new FlxTypedGroup<Present>();
 	var thumbnail = new Thumbnail();
-	var stereo:FlxSprite;
-	var arcade:FlxSprite;
-	var neon:FlxSprite;
-	
-	private var adventLink:String = "https://www.newgrounds.com/portal/view/721061";
-	//FlxG.openURL(adventLink);
 	
 	override public function new (fromOutside = false)
 	{
@@ -85,18 +80,26 @@ class CabinState extends BaseState
 		}
 		
 		var tv:FlxSprite = foreground.getByName("tv");
+		tv.animation.curAnim.frameRate = 6;
 		tvBubble = cast props.getByName("TvBubble");
 		tvBubble.msg = Calendar.today.tv;
 		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 6, tv.height + 3);
 		
-		stereo = foreground.getByName("stereo");
-		arcade = foreground.getByName("arcade");
-		neon = foreground.getByName("neon");
+		var arcade = foreground.getByName("arcade");
+		if (arcade != null)
+		{
+			arcade.animation.curAnim.frameRate = 6;
+			addInfoBoxTo(arcade, FlxG.openURL.bind(ADVENT_LINK));
+		}
+		var neon = foreground.getByName("neon");
+		if (neon != null)
+			neon.animation.curAnim.frameRate = 2;
 		
-		//FPS Override
-		arcade.animation.curAnim.frameRate = 6;
-		tv.animation.curAnim.frameRate = 6;
-		neon.animation.curAnim.frameRate = 2;
+		safeAddInfoBox
+			( "stereo"
+			, "Music by " + Calendar.today.song.artist
+			, FlxG.openURL.bind(Calendar.today.musicProfileLink)
+			);
 		
 		initNPC();
 	}
@@ -160,12 +163,6 @@ class CabinState extends BaseState
 		//INTERACTABLES
 		if (tvTouch.overlaps(playerHitbox) && player.interacting)
 			tvBubble.play();
-		
-		if (stereo != null && stereo.overlaps(playerHitbox) && player.interacting)
-			FlxG.openURL(Calendar.today.musicProfileLink);
-			
-		if (arcade != null && arcade.overlaps(playerHitbox) && player.interacting)
-			FlxG.openURL(adventLink);
 		
 		if (player.x > FlxG.camera.maxScrollX #if debug || FlxG.keys.justPressed.O #end)
 			FlxG.switchState(new OutsideState());

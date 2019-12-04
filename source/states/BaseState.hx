@@ -13,6 +13,7 @@ import flixel.util.FlxSort;
 
 import data.Calendar;
 import states.OgmoState;
+import sprites.InfoBox;
 import sprites.Player;
 import sprites.Sprite;
 
@@ -31,6 +32,8 @@ class BaseState extends OgmoState
 	
 	var colliders = new FlxGroup();
 	var characters = new FlxGroup();
+	var touchable = new FlxTypedGroup<FlxObject>();
+	var infoBoxes = new Map<FlxObject, InfoBox>();
 	
 	var geom:FlxTilemap;
 	var props:OgmoEntityLayer;
@@ -84,6 +87,33 @@ class BaseState extends OgmoState
 		add(playerHitbox = new FlxObject(0, 0, player.width + 6, player.height + 6));
 	}
 	
+	function addInfoBox(target:String, ?text:String, ?callback:Void->Void, hoverDis = 20)
+	{
+		var decal:FlxObject = foreground.getByName(target);
+		if (decal == null)
+			decal = cast props.getByName(target);
+		if (decal == null)
+			throw 'can\'t find $target in foreground or props';
+		
+		addInfoBoxTo(decal, text, callback, hoverDis);
+	}
+	
+	function safeAddInfoBox(target:String, ?text:String, ?callback:Void->Void, hoverDis = 20)
+	{
+		var decal:FlxObject = foreground.getByName(target);
+		if (decal == null)
+			decal = cast props.getByName(target);
+		if (decal != null)
+			addInfoBoxTo(decal, text, callback, hoverDis);
+	}
+	
+	function addInfoBoxTo(target:FlxObject, ?text:String, ?callback:Void->Void, hoverDis = 20)
+	{
+		touchable.add(target);
+		add(infoBoxes[target] = new InfoBox(text, callback, target.x + target.width / 2, target.y - hoverDis));
+	}
+	
+	
 	function initCamera()
 	{
 		if (FlxG.onMobile)
@@ -110,6 +140,24 @@ class BaseState extends OgmoState
 		
 		FlxG.collide(characters, colliders);
 		playerHitbox.setPosition(player.x - 3, player.y - 3);
+		
+		for (child in touchable.members)
+		{
+			if (infoBoxes.exists(child))
+				infoBoxes[child].alive = false;
+		}
+		
+		FlxG.overlap(player, touchable,
+			(_, touched)->
+			{
+				if (infoBoxes.exists(touched))
+				{
+					infoBoxes[touched].alive = true;
+					if (player.interacting)
+						infoBoxes[touched].interact();
+				}
+			}
+		);
 		
 		foreground.sort(FlxSort.byY);
 		
