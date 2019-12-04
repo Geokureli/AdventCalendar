@@ -27,6 +27,10 @@ class CabinState extends BaseState
 	var presents = new FlxTypedGroup<Present>();
 	var thumbnail = new Thumbnail();
 	var stereo:FlxSprite;
+	var arcade:FlxSprite;
+	
+	private var adventLink:String = "https://www.newgrounds.com/portal/view/721061";
+	//FlxG.openURL(adventLink);
 	
 	override public function new (fromOutside = false)
 	{
@@ -85,6 +89,7 @@ class CabinState extends BaseState
 		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 6, tv.height + 3);
 		
 		stereo = foreground.getByName("stereo");
+		arcade = foreground.getByName("arcade");
 		
 		initNPC();
 	}
@@ -145,11 +150,15 @@ class CabinState extends BaseState
 		
 		super.update(elapsed);
 		
+		//INTERACTABLES
 		if (tvTouch.overlaps(playerHitbox) && player.interacting)
 			tvBubble.play();
 		
 		if (stereo != null && stereo.overlaps(playerHitbox) && player.interacting)
 			FlxG.openURL(Calendar.today.musicProfileLink);
+			
+		if (arcade != null && arcade.overlaps(playerHitbox) && player.interacting)
+			FlxG.openURL(adventLink);
 		
 		if (player.x > FlxG.camera.maxScrollX #if debug || FlxG.keys.justPressed.O #end)
 			FlxG.switchState(new OutsideState());
