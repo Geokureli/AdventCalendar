@@ -92,7 +92,7 @@ class CabinState extends BaseState
 		if (arcade != null)
 		{
 			arcade.animation.curAnim.frameRate = 6;
-			addInfoBoxTo(arcade, FlxG.openURL.bind(ADVENT_LINK));
+			addInfoBoxTo(arcade, "2018 Advent", FlxG.openURL.bind(ADVENT_LINK));
 		}
 		
 		var neon = foreground.getByName("neon");
