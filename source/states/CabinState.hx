@@ -101,9 +101,7 @@ class CabinState extends BaseState
 		
 		var fire = foreground.getByName("fire");
 		if (fire != null)
-		{
 			arcade.animation.curAnim.frameRate = 12;
-		}
 		
 		//Music Credit
 		safeAddInfoBox
