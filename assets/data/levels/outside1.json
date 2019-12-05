@@ -11494,6 +11494,13 @@
           "texture": "snowSprite/GeoKureli.png"
         },
         {
+          "x": 293,
+          "y": 251,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/ColeBob.png"
+        },
+        {
           "x": 265,
           "y": 97,
           "scaleX": 1,
@@ -11604,6 +11611,20 @@
           "scaleX": 1,
           "scaleY": 1,
           "texture": "snowSprite/MrShmoods.png"
+        },
+        {
+          "x": 42,
+          "y": 220,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/Czyszy.png"
+        },
+        {
+          "x": 188,
+          "y": 262,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/Carmet.png"
         }
       ]
     },
