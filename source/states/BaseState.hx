@@ -13,6 +13,7 @@ import flixel.util.FlxSort;
 
 import data.Calendar;
 import states.OgmoState;
+import sprites.Button;
 import sprites.InfoBox;
 import sprites.Player;
 import sprites.Sprite;
@@ -123,7 +124,7 @@ class BaseState extends OgmoState
 			FlxG.cameras.add(uiCamera);
 			FlxCamera.defaultCameras = [FlxG.camera];
 			
-			var button = new FlxButton(10, 10, "Fullscreen", function() FlxG.fullscreen = !FlxG.fullscreen);
+			var button = new FullscreenButton(10, 10);
 			button.cameras = [uiCamera];
 			button.scrollFactor.set();
 			add(button);

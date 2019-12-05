@@ -6,28 +6,33 @@ import io.newgrounds.objects.Medal;
 import io.newgrounds.objects.Score;
 import io.newgrounds.objects.ScoreBoard;
 import io.newgrounds.components.ScoreBoardComponent.Period;
+import io.newgrounds.objects.Error;
 import io.newgrounds.objects.events.Response;
 import io.newgrounds.objects.events.Result.GetDateTimeResult;
+
 import openfl.display.Stage;
 
 import flixel.FlxG;
 
-/**
- * MADE BY GEOKURELI THE LEGENED GOD HERO MVP
- */
 class NGio
 {
+	static var naughty = 
+	[ "raritynyasha"
+	, "brandybuizel"
+	];
 	
 	public static var isLoggedIn:Bool = false;
 	public static var scoreboardsLoaded:Bool = false;
 	public static var ngDate:Date;
+	public static var isNaughty(default, null) = false;
+	public static var wouldBeNaughty(default, null) = false;
 	
 	public static var scoreboardArray:Array<Score> = [];
 	
 	public static var ngDataLoaded(default, null):FlxSignal = new FlxSignal();
 	public static var ngScoresLoaded(default, null):FlxSignal = new FlxSignal();
 	
-	static public function login(callback:Void->Void) {
+	static public function attemptAutoLogin(callback:Void->Void) {
 		
 		if (isLoggedIn)
 		{
@@ -37,42 +42,52 @@ class NGio
 		
 		ngDataLoaded.addOnce(callback);
 		
+		function onSessionFail(e)
+		{
+			ngDataLoaded.remove(callback);
+			callback();
+		}
+		
 		trace("connecting to newgrounds");
-		NG.createAndCheckSession(APIStuff.APIID, APIStuff.DebugSession,
-			function(e)
-			{
-				ngDataLoaded.remove(callback);
-				callback();
-			}
-		);
-		
+		NG.createAndCheckSession(APIStuff.APIID, APIStuff.DebugSession, onSessionFail);
+		NG.core.initEncryption(APIStuff.EncKey);
+		NG.core.onLogin.add(onNGLogin);
 		NG.core.verbose = true;
-		// Set the encryption cipher/format to RC4/Base64. AES128 and Hex are not implemented yet
-		NG.core.initEncryption(APIStuff.EncKey);// Found in you NG project view
 		
-		trace(NG.core.attemptingLogin);
+		if (!NG.core.attemptingLogin)
+			callback();
+	}
+	
+	static public function startManualSession(callback:ConnectResult->Void, onPending:((Bool)->Void)->Void):Void
+	{
+		if (NG.core == null)
+			throw "call NGio.attemptLogin first";
 		
-		if (NG.core.attemptingLogin)
+		function onClickDecide(connect:Bool):Void
 		{
-			/* a session_id was found in the loadervars, this means the user is playing on newgrounds.com
-			 * and we should login shortly. lets wait for that to happen
-			 */
-			trace("attempting login");
-			NG.core.onLogin.add(onNGLogin);
+			if (connect)
+				NG.core.openPassportUrl();
+			else
+			{
+				NG.core.cancelLoginRequest();
+				callback(Cancelled);
+			}
 		}
-		else
-		{
-			/* They are NOT playing on newgrounds.com, no session id was found. We must start one manually, if we want to.
-			 * Note: This will cause a new browser window to pop up where they can log in to newgrounds
-			 */
-			NG.core.requestLogin(onNGLogin);
-		}
+		
+		NG.core.requestLogin(
+			callback.bind(Succeeded),
+			onPending.bind(onClickDecide),
+			(error)->callback(Failed(error)),
+			callback.bind(Cancelled)
+		);
 	}
 	
 	static function onNGLogin():Void
 	{
-		trace ('logged in! user:${NG.core.user.name}');
 		isLoggedIn = true;
+		wouldBeNaughty = isNaughty
+			= naughty.indexOf(NG.core.user.name.toLowerCase()) != -1;
+		trace ('logged in! user:${NG.core.user.name}, naughty:$isNaughty');
 		// Load medals then call onNGMedalFetch()
 		NG.core.requestMedals(onNGMedalFetch);
 		
@@ -87,6 +102,9 @@ class NGio
 			{
 				if (response.success && response.result.success) 
 					ngDate = Date.fromString(response.result.data.dateTime.substring(0, 10));
+				
+				if (isNaughty && ngDate.getDate() == 25 && ngDate.getMonth() == 11)
+					isNaughty = false;// no one is naughty on christmas
 			}
 		).addSuccessHandler(onComplete)
 		.addErrorHandler((_)->onComplete())
@@ -111,4 +129,11 @@ class NGio
 			unlockingMedal.sendUnlock();
 		*/
 	}
+}
+
+enum ConnectResult
+{
+	Succeeded;
+	Failed(error:Error);
+	Cancelled;
 }

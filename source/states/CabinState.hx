@@ -101,9 +101,7 @@ class CabinState extends BaseState
 		
 		var fire = foreground.getByName("fire");
 		if (fire != null)
-		{
 			arcade.animation.curAnim.frameRate = 12;
-		}
 		
 		//Music Credit
 		safeAddInfoBox
@@ -199,7 +197,7 @@ class CabinState extends BaseState
 	{
 		trace('opened: ' + present.curDay);
 		
-		if (NGio.isLoggedIn && present.curDay == Calendar.day)
+		if (NGio.isLoggedIn && present.curDay == Calendar.day && !NGio.isNaughty)
 		{
 			trace("unlocking " + (MEDAL_0 + Calendar.day));
 			var medal = NG.core.medals.get(MEDAL_0 + Calendar.day);

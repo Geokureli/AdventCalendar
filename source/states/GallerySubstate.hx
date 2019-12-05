@@ -1,6 +1,8 @@
 package states;
 
 import data.Calendar;
+import data.NGio;
+
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -122,7 +124,10 @@ class GallerySubstate extends FlxSubState
 		// regular artwork
 		if (day >= 0)
 		{
-			bigPreview.loadGraphic(data.getArtPath());
+			if (NGio.isNaughty)
+				bigPreview.loadGraphic('assets/images/artwork/naughty.jpg');
+			else
+				bigPreview.loadGraphic(data.getArtPath());
 			imageText.text = "Art by " + data.credit;
 		}
 		else
