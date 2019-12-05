@@ -11494,6 +11494,13 @@
           "texture": "snowSprite/GeoKureli.png"
         },
         {
+          "x": 293,
+          "y": 251,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/ColeBob.png"
+        },
+        {
           "x": 265,
           "y": 97,
           "scaleX": 1,
