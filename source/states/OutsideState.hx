@@ -60,7 +60,7 @@ class OutsideState extends BaseState
 		super.initEntities();
 		
 		var sky = background.getByName("sky");
-		sky.scrollFactor.set(0.05, 0.05);
+		sky.scrollFactor.set(0.05, 0.08);
 		
 		cloud2 = background.getByName("clouds2");
 		cloud2.scrollFactor.set(0.1, 0);
