@@ -11604,6 +11604,20 @@
           "scaleX": 1,
           "scaleY": 1,
           "texture": "snowSprite/MrShmoods.png"
+        },
+        {
+          "x": 42,
+          "y": 220,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/Czyszy.png"
+        },
+        {
+          "x": 188,
+          "y": 262,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/Carmet.png"
         }
       ]
     },
