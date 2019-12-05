@@ -18,7 +18,8 @@ class NGio
 {
 	static var naughty = 
 	[ "raritynyasha"
-	, "brandybuizel"
+	// , "brandybuizel"
+	// , "geokureli"
 	];
 	
 	public static var isLoggedIn:Bool = false;
