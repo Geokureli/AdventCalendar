@@ -11597,6 +11597,13 @@
           "scaleX": 1,
           "scaleY": 1,
           "texture": "snowSprite/Snackers.png"
+        },
+        {
+          "x": 69,
+          "y": 210,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/MrShmoods.png"
         }
       ]
     },
