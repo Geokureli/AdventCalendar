@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.tweens.FlxEase;
 import flixel.math.FlxMath;
 import flixel.FlxG;
 import flixel.util.FlxColor;
@@ -13,9 +14,11 @@ class InfoBox extends FlxSpriteGroup
     inline static var BUFFER = 2;
     inline static var BOB_DIS = 4;
     inline static var BOB_PERIOD = 2.0;
+    inline static var INTRO_TIME = 0.5;
     
     public var callback:Null<Void->Void>;
     public var timer = 0.0;
+    public var introTime = 0.0;
     
     public function new (?text:String, ?callback:Void->Void, x = 0.0, y = 0.0, border = 1)
     {
@@ -27,16 +30,14 @@ class InfoBox extends FlxSpriteGroup
         if (text != null)
         {
             var info = new FlxBitmapText();
+            info.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);
             info.autoSize = true;
             info.text = text;
-            info.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);
-            // info.scale.set(0.5, 0.5);
-            // info.updateHitbox();
             info.x -= info.width / 2;
             add(info);
         }
         
-        alpha = 0;
+        scale.y = 0;
         alive = false;
     }
     
@@ -47,10 +48,13 @@ class InfoBox extends FlxSpriteGroup
         offset.y = Math.round(FlxMath.fastCos(timer / BOB_PERIOD * Math.PI) * BOB_DIS);
         timer += elapsed;
         
-        if (alive && alpha < 1)
-            alpha += elapsed;
-        else if (!alive && alpha > 0)
-            alpha -= elapsed;
+        if (alive && introTime < 1)
+            introTime += elapsed / INTRO_TIME;
+        else if (!alive && introTime > 0)
+            introTime -= elapsed / INTRO_TIME;
+        
+        scale.y = FlxEase.backOut(introTime);
+        visible = scale.y > 0;
     }
     
     public function interact():Void
