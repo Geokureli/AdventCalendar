@@ -4433,7 +4433,7 @@
         -1,
         -1,
         -1,
-        -1,
+        0,
         -1,
         -1,
         -1,
@@ -7252,6 +7252,13 @@
           "scaleX": 1,
           "scaleY": 1,
           "texture": "props/cabin/rug_3.png"
+        },
+        {
+          "x": 244,
+          "y": 132,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "props/cabin/bag.png"
         }
       ]
     }
