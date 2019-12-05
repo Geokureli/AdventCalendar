@@ -79,6 +79,7 @@ class CabinState extends BaseState
 		{
 			player.x = toOutside.x - player.width - 5;
 			player.y = toOutside.y + toOutside.height / 2;
+			player.facing = FlxObject.LEFT;
 		}
 		
 		var tv:FlxSprite = foreground.getByName("tv");

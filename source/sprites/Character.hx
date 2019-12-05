@@ -12,35 +12,48 @@ class Character extends Sprite
 {
 	private var speed:Float = 95;
 	private var actualOffsetLOL:Float = 12;
-
+	
+	override function set_facing(direction:Int):Int
+	{
+		if (facing != direction)
+			offset.x = direction == FlxObject.RIGHT ? 4 : 8;
+		
+		return super.set_facing(direction);
+	}
+	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
 		
-		drag.x = drag.y = 2500;
-		makeGraphic(16, 16);
+		
+		loadGraphic(AssetPaths.tankMan__png, true, 16, 16);
+		animation.frameIndex = 0;
 		
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);
+		
+		drag.x = drag.y = 2500;
+		// offsets to the bottom, then shrinks the sprite
+		offset.y = height - 4;
+		width = 4;
+		height = 4;
+		offset.x = 4;
+		facing = FlxObject.RIGHT;
 	}
 	
 	
-	public function updateSprite(theDay:Int):Void
+	public function updateSprite(day:Int):Void
 	{
-		if (theDay == 8)
+		if (day == 8)
 		{
 			loadGraphic(AssetPaths.Daddy__png, false, 24, 24);
 			actualOffsetLOL = 20;
-			
-			resizeHitbox();
 		}
 		else
 		{
 			// already should have loaded the sprite data i think
-			animation.frameIndex = theDay;
+			animation.frameIndex = day;
 		}
-		// if the day is the 9th, since the input is curDate.getDate() - 1 usually...
-		
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -48,25 +61,8 @@ class Character extends Sprite
 		super.update(elapsed);
 		
 		if (velocity.x > 0)
-		{
 			facing = FlxObject.RIGHT;
-			offset.x = 4;
-		}
 		else if (velocity.x < 0)
-		{
 			facing = FlxObject.LEFT;
-			offset.x = 8;
-		}
 	}
-	
-	public function resizeHitbox():Void
-	{
-		// offsets to the bottom, then shrinks the sprite
-		offset.y = height - 4;
-		height = 4;
-		// this code kinda only applies to the normal sprites, not exactly dad but whatever
-		offset.x = width / 2;
-		width = offset.x / 2;
-	}
-	
 }

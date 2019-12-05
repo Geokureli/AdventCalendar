@@ -169,10 +169,12 @@ class OgmoEntityLayer extends OgmoObjectLayer<FlxObject>
 				if (Std.is(entity, FlxSprite))
 				{
 					final entity:FlxSprite = cast entity;
-					entity.offset.x = entityData.originX;
-					entity.offset.x = entityData.originY;
-					entity.flipX = entityData.flippedX == true;
-					entity.flipY = entityData.flippedY == true;
+					if (entityData.originX != 0)
+						entity.offset.x = entityData.originX;
+					if (entityData.originY != 0)
+						entity.offset.y = entityData.originY;
+					// entity.flipX = entityData.flippedX == true;
+					// entity.flipY = entityData.flippedY == true;
 				}
 			}
 		}

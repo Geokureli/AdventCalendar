@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.FlxObject;
 import flixel.FlxG;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
@@ -7,7 +8,6 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxVector;
 import flixel.math.FlxVelocity;
 import flixel.util.FlxColor;
-import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.input.gamepad.FlxGamepad;
 
 /**
@@ -16,21 +16,17 @@ import flixel.input.gamepad.FlxGamepad;
  */
 class Player extends Character 
 {
-	private var C:Float = 0;
 	public var stepSoundType:String;
 	public var interacting = false;
 	public var wasInteracting = false;
+	
+	var C:Float = 0;
 	
 	public function new(X = 0.0, Y = 0.0, ?curDay:Int = null ) 
 	{
 		super(X, Y);
 		
 		this.curDay = curDay;
-		
-		loadGraphic(AssetPaths.tankMan__png, true, 16, 16);
-		
-		resizeHitbox();
-		
 		if (curDay != null)
 			updateSprite(curDay);
 	}

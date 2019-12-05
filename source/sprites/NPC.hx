@@ -25,12 +25,7 @@ class NPC extends Character
 		
 		_brain = new FSM(idle);
 		
-		loadGraphic(AssetPaths.tankMan__png, true, 16, 16);
-		
-
-		drag.x = drag.y = drag.x * 0.07;
-		
-		resizeHitbox();
+		drag.scale(0.07);
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -38,14 +33,6 @@ class NPC extends Character
 		super.update(elapsed);
 		
 		_brain.update();
-	}
-	
-	
-	override public function updateSprite(day:Int):Void 
-	{
-		super.updateSprite(day);
-		
-		// nameShit = Calendar.data[day].author;
 	}
 	
 	public function idle():Void
