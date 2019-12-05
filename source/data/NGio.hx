@@ -16,10 +16,16 @@ import flixel.FlxG;
 
 class NGio
 {
+	static var naughty = 
+	[ "raritynyasha"
+	, "brandybuizel"
+	];
 	
 	public static var isLoggedIn:Bool = false;
 	public static var scoreboardsLoaded:Bool = false;
 	public static var ngDate:Date;
+	public static var isNaughty(default, null) = false;
+	public static var wouldBeNaughty(default, null) = false;
 	
 	public static var scoreboardArray:Array<Score> = [];
 	
@@ -78,8 +84,10 @@ class NGio
 	
 	static function onNGLogin():Void
 	{
-		trace ('logged in! user:${NG.core.user.name}');
 		isLoggedIn = true;
+		wouldBeNaughty = isNaughty
+			= naughty.indexOf(NG.core.user.name.toLowerCase()) != -1;
+		trace ('logged in! user:${NG.core.user.name}, naughty:$isNaughty');
 		// Load medals then call onNGMedalFetch()
 		NG.core.requestMedals(onNGMedalFetch);
 		
@@ -94,6 +102,9 @@ class NGio
 			{
 				if (response.success && response.result.success) 
 					ngDate = Date.fromString(response.result.data.dateTime.substring(0, 10));
+				
+				if (isNaughty && ngDate.getDate() == 25 && ngDate.getMonth() == 11)
+					isNaughty = false;// no one is naughty on christmas
 			}
 		).addSuccessHandler(onComplete)
 		.addErrorHandler((_)->onComplete())

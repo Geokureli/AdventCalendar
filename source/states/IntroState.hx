@@ -76,7 +76,12 @@ class IntroState extends FlxState
     
     function onLogin()
     {
-        beginGame();
+        if (NGio.isNaughty)
+            showMsgAndBegin("You've been naughty!");
+        else if (NGio.wouldBeNaughty)
+            showMsgAndBegin("You've been naughty!\n You're lucky it's Christmas");
+        else
+            beginGame();
     }
     
     function beginGame():Void
