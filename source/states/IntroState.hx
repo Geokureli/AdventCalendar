@@ -1,17 +1,16 @@
 package states;
 
-import flixel.FlxSprite;
 import flixel.FlxG;
-import flixel.FlxState;
 import flixel.ui.FlxButton;
 import flixel.util.FlxTimer;
 import flixel.text.FlxBitmapText;
 
 import data.Calendar;
 import data.NGio;
+import sprites.Button;
 import sprites.Font;
 
-class IntroState extends FlxState
+class IntroState extends flixel.FlxState
 {
     inline static var MSG_TIME = 1.5;
     var msg:FlxBitmapText;
@@ -60,8 +59,8 @@ class IntroState extends FlxState
             callback(isYes);
         }
         
-        add(yes = new Button( 30, msg.y + msg.height + 5, onDecide.bind(true ), "assets/images/ui/button_yes.png"));
-        add(no  = new Button(120, msg.y + msg.height + 5, onDecide.bind(false), "assets/images/ui/button_no.png" ));
+        add(yes = new Button( 100, msg.y + msg.height + 5, onDecide.bind(true ), "assets/images/ui/button_yes.png"));
+        add(no  = new Button(190, msg.y + msg.height + 5, onDecide.bind(false), "assets/images/ui/button_no.png" ));
     }
     
     function onManualConnectResult(result:ConnectResult):Void
@@ -99,16 +98,5 @@ class IntroState extends FlxState
         msg.text = message;
         msg.screenCenter(XY);
         new FlxTimer().start(MSG_TIME, (_)->beginGame());
-    }
-}
-
-abstract Button (FlxTypedButton<FlxSprite>) to FlxTypedButton<FlxSprite>
-{
-    public function new(x:Float, y:Float, onClick:Void->Void, graphic)
-    {
-        this = new FlxTypedButton<FlxSprite>(x, y, onClick);
-        
-        this.loadGraphic(graphic);
-        this.loadGraphic(graphic, true, Std.int(this.width / 2), Std.int(this.height));
     }
 }
