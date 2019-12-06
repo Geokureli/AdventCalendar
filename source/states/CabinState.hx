@@ -1,13 +1,18 @@
 package states;
 
-import io.newgrounds.NG;
+import haxe.Json;
+import openfl.utils.Assets;
+
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
+import flixel.math.FlxPoint;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
+
+import io.newgrounds.NG;
 
 import data.Calendar;
 import data.NGio;
@@ -21,6 +26,8 @@ class CabinState extends BaseState
 {
 	inline static var MEDAL_0 = 58519;
 	static inline var ADVENT_LINK:String = "https://www.newgrounds.com/portal/view/721061";
+	
+	static var presentPositions:Array<FlxPoint> = null;
 	
 	var tvTouch:FlxObject;
 	var tvBubble:TvBubble;
@@ -133,11 +140,39 @@ class CabinState extends BaseState
 	{
 		trace("num presents: " + Calendar.day + 1);
 		
-		for (p in 0...Calendar.day + 1)
+		// Load present positions from presents.json OGMO level
+		if(presentPositions == null)
 		{
-			final pos = Calendar.data[p].pos;
-			var present:Present = new Present(pos.x / 2, pos.y / 2, p);
-			if (Calendar.openedPres[p])
+			presentPositions = [];
+			
+			var presentData:OgmoLevelData = cast Json.parse(Assets.getText("assets/data/levels/presents.json"));
+			if (presentData == null)
+				throw "missing presents.json";
+			
+			var props:OgmoEntityLayerData = null;
+			for (layer in presentData.layers)
+			{
+				if (layer.name == "Props")
+				{
+					props = cast layer;
+					break;
+				}
+			}
+			if (props == null)
+				throw "missing Props layer in present.json";
+			
+			for (entity in (cast props.entities:Array<OgmoEntityData<{id:String}>>))
+			{
+				if (entity.name == "Present" && entity.values.id == "")
+					presentPositions.push(new FlxPoint(entity.x, entity.y));
+			}
+		}
+		
+		// put out a present for eadh day so far
+		for (i in 0...Calendar.day + 1)
+		{
+			var present:Present = new Present(presentPositions[i].x, presentPositions[i].y, i);
+			if (Calendar.openedPres[i])
 				present.animation.play("opened");
 			
 			presents.add(present);

@@ -2,129 +2,104 @@
     {
         "day":1,
         "author":"Cymbourine",
-        "pos"   :{ "x":470, "y":390 },
         "tv"    :"UP NEXT: THE GRUNCH\nWHO SPENT CHRISTMAS\nON CRUNCH",
         "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
     },
     {
         "day":2,
         "author":"MintyEggs",
-        "pos"   :{ "x":430, "y":340 },
         "tv"    :"COMING UP: DOCTOR\nWHO KILLED SANTA\nCLAUS: XMAS SPECIAL",
         "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
     },
     {
         "day":3,
         "author":"GallowJolt",
-        "pos"   :{ "x":360, "y":370 },
-		"tv"    :"TONIGHT: THE\nPOLARIZING EXPRESS\nFRIGHTENS CHILDREN",
+        "tv"    :"TONIGHT: THE\nPOLARIZING EXPRESS\nFRIGHTENS CHILDREN",
         "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
     },
     {
         "day":4,
         "author":"MalikJack",
         "credit":"MalikJack(PieSaus)",
-        "pos"   :{ "x":530, "y":390 },
-		"tv"    :"NEWS BULLETIN:\nMONSTER SHOWS UP AT\nTHE LAKE OF RAGE",
+        "tv"    :"NEWS BULLETIN:\nMONSTER SHOWS UP AT\nTHE LAKE OF RAGE",
         "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
     },
     {
         "day":5,
         "author":"MrShmoods",
-        "pos"   :{ "x":580, "y":280 },
-		"tv"    :"THIS JUST IN:\nTHE WEATHER OUTSIDE\nIS FRIGHTFUL",
+        "tv"    :"THIS JUST IN:\nTHE WEATHER OUTSIDE\nIS FRIGHTFUL",
         "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
     },
     {
         "day":6,
         "author":"DanFromBavaria",
-        "pos"   :{ "x":385, "y":345 },
-		"tv"    :"BREAKING NEWS:\nREPORTS OF COAL FOR\nNAUGHTY CHILDREN",
+        "tv"    :"BREAKING NEWS:\nREPORTS OF COAL FOR\nNAUGHTY CHILDREN",
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {
         "day":7,
         "author":"MKMaffo",
-        "pos"   :{ "x":585, "y":350 },
         "tv"    :"PEOPLE EVERYWHERE\nENJOY PARTING GIFT\nFROM CYZSZY",
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {
         "day":8,
         "author":"Snackers",
-        "pos"   :{ "x":575, "y":370 },
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {
         "day":9,
         "author":"Figburn",
-        "pos"   :{ "x":455, "y":360 },
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {
         "day":10,
         "author":"Dogl",
-        "pos"   :{ "x":495, "y":415 },
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {
-        "author":"HenryEYES",
-        "pos"   :{ "x":570, "y":400 }
+        "author":"HenryEYES"
     },
     {
-        "author":"Krinkels",
-        "pos"   :{ "x":540, "y":420 }
+        "author":"Krinkels"
     },
     {
-        "author":"BrandyBuizel",
-        "pos"   :{ "x":615, "y":375 }
+        "author":"BrandyBuizel"
     },
     {
-        "author":"MixMuffin",
-        "pos"   :{ "x":370, "y":370 }
+        "author":"MixMuffin"
     },
     {
-        "author":"ShiroGaia",
-        "pos"   :{ "x":340, "y":400 }
+        "author":"ShiroGaia"
     },
     {
-        "author":"Boomnm",
-        "pos"   :{ "x":405, "y":325 }
+        "author":"Boomnm"
     },
     {
-        "author":"Chdonga",
-        "pos"   :{ "x":555, "y":340 }
+        "author":"Chdonga"
     },
     {
-        "author":"IVOanimations",
-        "pos"   :{ "x":615, "y":330 }
+        "author":"IVOanimations"
     },
     {
-        "author":"Mimny",
-        "pos"   :{ "x":500, "y":460 }
+        "author":"Mimny"
     },
     {
-        "author":"RGPAnims",
-        "pos"   :{ "x":415, "y":445 }
+        "author":"RGPAnims"
     },
     {
-        "author":"Camuri",
-        "pos"   :{ "x":440, "y":480 }
+        "author":"Camuri"
     },
     {
-        "author":"Irri",
-        "pos"   :{ "x":550, "y":470 }
+        "author":"Irri"
     },
     {
-        "author":"OniShaggy",
-        "pos"   :{ "x":600, "y":455 }
+        "author":"OniShaggy"
     },
     {
-        "author":"Chobiluck",
-        "pos"   :{ "x":375, "y":470 }
+        "author":"Chobiluck"
     },
     {
-        "author":"TheDyingSun",
-        "pos"   :{ "x":310, "y":440 }
+        "author":"TheDyingSun"
     }
 ]
