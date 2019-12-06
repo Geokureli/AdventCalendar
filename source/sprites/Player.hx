@@ -1,5 +1,7 @@
 package sprites;
 
+import data.Calendar;
+import flixel.input.keyboard.FlxKey;
 import flixel.FlxObject;
 import flixel.FlxG;
 import flixel.math.FlxAngle;
@@ -16,6 +18,9 @@ import flixel.input.gamepad.FlxGamepad;
  */
 class Player extends Character 
 {
+	static var musicKeys:Array<Array<FlxKey>> = [[E], [R], [T], [Y], [U], [I], [O], [P]];
+	
+<<<<<<< Updated upstream
 	public var stepSoundType:String;
 	public var interacting = false;
 	public var wasInteracting = false;
@@ -23,6 +28,15 @@ class Player extends Character
 	var C:Float = 0;
 	
 	public function new(X = 0.0, Y = 0.0, ?curDay:Int = null ) 
+=======
+	private var C:Float = 0;
+
+	// only used for the igloo lol
+	public static var daDayLol:Int = 0;
+	public var stepSoundType:String;
+
+	public function new(?X:Float = 0, ?Y:Float = 0, curDay:Int = 0 ) 
+>>>>>>> Stashed changes
 	{
 		super(X, Y);
 		
@@ -64,6 +78,15 @@ class Player extends Character
 			wasInteracting = interacting;
 		
 		super.update(elapsed);
+		
+		if (Calendar.hasGlock)
+		{
+			for (i in 0...musicKeys.length)
+			{
+				if (FlxG.keys.anyJustPressed(musicKeys[i]))
+					FlxG.sound.play('assets/sounds/eMaj/glock$i.mp3');
+			}
+		}
 	}
 	
 	private function touchControls():Void

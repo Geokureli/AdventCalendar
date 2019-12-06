@@ -1,5 +1,7 @@
 package states;
 
+import io.newgrounds.NG;
+
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -11,6 +13,8 @@ import sprites.Snow;
 
 class OutsideState extends BaseState
 {
+	inline static var GLOCK_MEDAL = 58544;
+	
 	inline static var WIND = 1.8;
 	inline static var CLOUD_BOB_DIS = 50;
 	inline static var CLOUD1_PERIOD = 10.0 * WIND;
@@ -35,6 +39,7 @@ class OutsideState extends BaseState
 	
 	override function create()
 	{
+<<<<<<< Updated upstream
 		for (day in 0...Calendar.day + 1)
 		{
 			var artist = Calendar.data[day].author.toLowerCase();
@@ -51,6 +56,14 @@ class OutsideState extends BaseState
 	override function loadLevel():Void
 	{
 		parseLevel(getLatestLevel("outside"));
+=======
+		#if !mobile
+			FlxG.mouse.visible = true;
+		#end
+		
+		initCameras();
+		trace("cameras intted");
+>>>>>>> Stashed changes
 		
 		// #if debug FlxG.debugger.drawDebug = true; #end
 	}
@@ -105,6 +118,38 @@ class OutsideState extends BaseState
 		var tank = foreground.getByName("snowTank");
 		tank.setBottomHeight(Math.round(tank.height / 2));
 		
+<<<<<<< Updated upstream
+		initSculptures();
+=======
+		initSnow();
+		initCharacters();
+		player.stepSoundType = "snow";
+>>>>>>> Stashed changes
+		
+		var glockPresent = foreground.getByName("present_czyszy");
+		if (glockPresent != null)
+		{
+			glockPresent.animation.add("unopened", [0], false);
+			glockPresent.animation.add("opened", [1], false);
+			glockPresent.immovable = true;
+			colliders.add(glockPresent);
+			if (Calendar.hasGlock)
+			{
+				glockPresent.animation.play("opened");
+				var glockenspiel = addGlock(glockPresent);
+			}
+			else
+			{
+				glockPresent.animation.play("unopened");
+				addInfoBoxTo(glockPresent, onGlockPresentOpen.bind(glockPresent));
+			}
+		}
+		
+		add(new Snow());
+	}
+	
+	function initSculptures():Void
+	{
 		for (child in foreground.members)
 		{
 			if (child.graphic != null && child.graphic.assetsKey.indexOf("snowSprite/") != -1)
@@ -122,8 +167,6 @@ class OutsideState extends BaseState
 				}
 			}
 		}
-		
-		add(new Snow());
 	}
 	
 	override function initCamera()
@@ -160,7 +203,7 @@ class OutsideState extends BaseState
 		cloud1.x = Math.round(FlxMath.fastCos(cloudTimer / CLOUD1_PERIOD * Math.PI) * CLOUD_BOB_DIS) - CLOUD_BOB_DIS;
 		cloud2.x = Math.round(FlxMath.fastCos(cloudTimer / CLOUD2_PERIOD * Math.PI) * -CLOUD_BOB_DIS) - CLOUD_BOB_DIS;
 		
-		if (player.overlaps(toCabin) #if debug || FlxG.keys.justPressed.O #end)
+		if (player.overlaps(toCabin) #if debug || FlxG.keys.justPressed.C #end)
 			FlxG.switchState(new CabinState(true));
 		
 		if (player.y < top)
@@ -181,5 +224,32 @@ class OutsideState extends BaseState
 		}
 		else
 			gyrados.alpha -= elapsed;
+	}
+	
+	function onGlockPresentOpen(present:OgmoDecal):Void
+	{
+		Calendar.saveOpenGlock();
+		present.animation.play("opened");
+		
+		trace("unlocking " + GLOCK_MEDAL);
+		var medal = NG.core.medals.get(GLOCK_MEDAL);
+		if (!medal.unlocked)
+			medal.sendUnlock();
+		else
+			trace("already unlocked");
+		
+		addGlock(present);
+	}
+	
+	function addGlock(present:OgmoDecal):FlxSprite
+	{
+		var glockenspiel = new FlxSprite
+			( present.x + present.width / 2
+			, present.y + present.height
+			, "assets/images/props/outside/glockenspiel.png"
+			);
+		background.add(glockenspiel);
+		addInfoBoxTo(glockenspiel, "ERTYUIOP");
+		return glockenspiel;
 	}
 }

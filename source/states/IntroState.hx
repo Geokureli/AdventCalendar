@@ -40,6 +40,7 @@ class IntroState extends flixel.FlxState
     {
         timeout.cancel();
         if (NGio.isLoggedIn)
+<<<<<<< Updated upstream
             onLogin();
         else
             NGio.startManualSession(onManualConnectResult, onManualConnectPending);
@@ -79,6 +80,13 @@ class IntroState extends flixel.FlxState
             showMsgAndBegin("You've been naughty!");
         else if (NGio.wouldBeNaughty)
             showMsgAndBegin("You've been naughty!\n You're lucky it's Christmas");
+=======
+        {
+            if (Calendar.day > 5)
+                throw("wtf");
+            FlxG.switchState(new CabinState());
+        }
+>>>>>>> Stashed changes
         else
             beginGame();
     }

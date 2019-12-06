@@ -155,8 +155,42 @@ class CabinState extends BaseState
 			{
 				if (touchingPresent == null)
 				{
+<<<<<<< Updated upstream
 					touchingPresent = present;
 					touchPresent(present);
+=======
+					if (FlxG.overlap(playerHitbox, s))
+					{
+						presOverlaps += 1;
+						if (openedPres[s.curDay])
+						{
+							thumbnail.overlappin = true;
+							thumbnail.setPosition(s.x - 20, s.y - thumbnail.height - 8);
+							thumbnail.newThumb(s.curDay);
+						}
+						
+						if (FlxG.onMobile)
+						{
+							for (touch in FlxG.touches.list)
+							{
+								if (touch.justPressed)
+								{
+									if (touch.overlaps(s) || touch.overlaps(thumbnail))
+									{
+										interactPres(s);
+									}
+								}
+								
+							}
+						}
+						
+						
+						if (FlxG.keys.justPressed.SPACE)
+						{
+							interactPres(s);
+						}
+					}
+>>>>>>> Stashed changes
 				}
 			}
 		);
@@ -167,7 +201,7 @@ class CabinState extends BaseState
 		if (tvTouch.overlaps(playerHitbox) && player.interacting)
 			tvBubble.play();
 		
-		if (player.overlaps(toOutside) #if debug || FlxG.keys.justPressed.O #end)
+		if (player.overlaps(toOutside) #if debug || FlxG.keys.justPressed.C #end)
 			FlxG.switchState(new OutsideState());
 	}
 	

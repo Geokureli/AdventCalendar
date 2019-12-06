@@ -7,13 +7,20 @@ import openfl.utils.Assets;
 
 class Calendar
 {
+<<<<<<< Updated upstream
     inline static var DEBUG_DAY:Int = 0;// 0 to disable debug feature
+=======
+    inline static var DEBUG_DAY:Null<Int>
+        = 1;
+        // = null;
+>>>>>>> Stashed changes
     static public var day(default, null) = 24;
     static public var isAdvent(default, null) = false;
     static public var isDecember(default, null) = false;
     static public var data(default, null):ReadOnlyArray<ContentData>;
     static public var today(get, never):ContentData;
     static public var openedPres(default, null) = new BitArray();
+    static public var hasGlock(default, null) = false;
     
     inline static function get_today() return data[day];
     
@@ -43,6 +50,7 @@ class Calendar
             if (FlxG.save.data.openedPres != null && Std.is(FlxG.save.data.openedPres, Int))
             {
                 openedPres = FlxG.save.data.openedPres;
+                hasGlock = FlxG.save.data.hasGlock;
                 trace("loaded savefile: " + openedPres);
             }
             
@@ -86,6 +94,14 @@ class Calendar
     {
         openedPres.reset();
         FlxG.save.data.openedPres = 0;
+        FlxG.save.flush();
+    }
+    
+    static public function saveOpenGlock()
+    {
+        trace("pew pew");
+        hasGlock = true;
+        FlxG.save.data.hasGlock = hasGlock;
         FlxG.save.flush();
     }
 }

@@ -11501,6 +11501,13 @@
           "texture": "props/outside/tree.png"
         },
         {
+          "x": 93,
+          "y": 237,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/ColeBob.png"
+        },
+        {
           "x": 16,
           "y": 220,
           "scaleX": 1,
@@ -11639,6 +11646,13 @@
           "scaleX": 1,
           "scaleY": 1,
           "texture": "snowSprite/Figburn.png"
+        },
+        {
+          "x": 42,
+          "y": 240,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "presents/present_czyszy_ogmo.png"
         }
       ]
     },
