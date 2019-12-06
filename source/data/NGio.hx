@@ -20,6 +20,7 @@ class NGio
 	[ "raritynyasha"
 	// , "brandybuizel"
 	// , "geokureli"
+	 , "malcolmsith"
 	];
 	
 	public static var isLoggedIn:Bool = false;
