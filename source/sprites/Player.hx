@@ -1,6 +1,7 @@
 package sprites;
 
 import data.Calendar;
+import data.Instrument;
 import flixel.input.keyboard.FlxKey;
 import flixel.FlxObject;
 import flixel.FlxG;
@@ -18,7 +19,9 @@ import flixel.input.gamepad.FlxGamepad;
  */
 class Player extends Character 
 {
-	static var musicKeys:Array<Array<FlxKey>> = [[E], [R], [T], [Y], [U], [I], [O], [P]];
+	static var musicKeys:Array<Array<FlxKey>>
+		//  whole        whole        half whole         whole         whole        half
+		= [[E], [FOUR], [R], [FIVE], [T], [Y], [SEVEN], [U], [EIGHT], [I], [NINE], [O], [P]];
 	
 	public var stepSoundType:String;
 	public var interacting = false;
@@ -74,7 +77,7 @@ class Player extends Character
 			for (i in 0...musicKeys.length)
 			{
 				if (FlxG.keys.anyJustPressed(musicKeys[i]))
-					FlxG.sound.play('assets/sounds/eMaj/glock$i.mp3');
+					Instrument.play(i);
 			}
 		}
 	}

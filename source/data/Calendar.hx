@@ -30,6 +30,7 @@ class Calendar
             {
                 openedPres = FlxG.save.data.openedPres;
                 hasGlock = FlxG.save.data.hasGlock;
+                Instrument.setInititial();
                 trace("loaded savefile: " + openedPres);
             }
             
@@ -104,7 +105,7 @@ typedef RawContentData =
 	final fileExt:Null<String>;
 	final frames :Null<Int>;
 	final tv     :Null<String>;
-    final song   : { artist:String, ?id:Int }
+    final song   : { artist:String, key:String, ?id:Int }
 }
 
 @:forward

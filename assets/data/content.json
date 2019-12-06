@@ -58,19 +58,24 @@
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {
-        "author":"HenryEYES"
+        "author":"HenryEYES",
+        "song"  :{ "artist":"Carmet", "key":"gMaj" }
     },
     {
-        "author":"Krinkels"
+        "author":"Krinkels",
+        "song"  :{ "artist":"Carmet", "key":"gMaj" }
     },
     {
-        "author":"BrandyBuizel"
+        "author":"BrandyBuizel",
+        "song"  :{ "artist":"Carmet", "key":"gMaj" }
     },
     {
-        "author":"MixMuffin"
+        "author":"MixMuffin",
+        "song"  :{ "artist":"Carmet", "key":"gMaj" }
     },
     {
-        "author":"ShiroGaia"
+        "author":"ShiroGaia",
+        "song"  :{ "artist":"Carmet", "key":"gMaj" }
     },
     {
         "author":"Boomnm"
