@@ -59,7 +59,7 @@ abstract XmasFont(FlxBitmapFont) to FlxBitmapFont
     {
         if (instance == null)
         {
-            final chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.:";
+            final chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789,.:'!?";
             final widths = [];
             var bmd = openfl.Assets.getBitmapData('assets/images/ui/XmasFont24.png');
             var curWidth = 0;
