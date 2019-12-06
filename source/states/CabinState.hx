@@ -232,7 +232,9 @@ class CabinState extends BaseState
 	{
 		trace('opened: ' + present.curDay);
 		
-		if (NGio.isLoggedIn && present.curDay == Calendar.day && !NGio.isNaughty)
+		if (NGio.isLoggedIn
+		&& (present.curDay == Calendar.day || Calendar.isChristmas)
+		&& !NGio.isNaughty)
 		{
 			trace("unlocking " + (MEDAL_0 + Calendar.day));
 			var medal = NG.core.medals.get(MEDAL_0 + Calendar.day);

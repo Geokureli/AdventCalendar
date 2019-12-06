@@ -11,6 +11,7 @@ class Calendar
     static public var day(default, null) = 24;
     static public var isAdvent(default, null) = false;
     static public var isDecember(default, null) = false;
+    static public var isChristmas(default, null) = false;
     static public var data(default, null):ReadOnlyArray<ContentData>;
     static public var today(get, never):ContentData;
     static public var openedPres(default, null) = new BitArray();
@@ -18,25 +19,9 @@ class Calendar
     
     inline static function get_today() return data[day];
     
-    static public function init(onComplete:Void->Void = null):Void
+    static public function init(callback:Void->Void = null):Void
     {
-        Assets.loadText("assets/data/content.json").onComplete(onContentLoad.bind(_, onComplete));
-    }
-    
-    static function onDateReceived(date:Date):Void
-    {
-        isDecember = date.getMonth() == 11;
-        
-        if (date.getDate() < 26 && isDecember && date.getFullYear() == 2019)
-        {
-            isAdvent = true;
-            day = date.getDate() - 1;
-        }
-    }
-    
-    static function onContentLoad(fileData:String, callback:Void->Void = null):Void
-    {
-        data = Json.parse(fileData);
+        data = Json.parse(Assets.getText("assets/data/content.json"));
         
         function initSaveAndEnd()
         {
@@ -66,6 +51,18 @@ class Calendar
             isAdvent = true;
             isDecember = true;
             initSaveAndEnd();
+        }
+    }
+    
+    static function onDateReceived(date:Date):Void
+    {
+        isDecember = date.getMonth() == 11;
+        isChristmas = date.getDate() == 25;
+        
+        if (date.getDate() < 26 && isDecember && date.getFullYear() == 2019)
+        {
+            isAdvent = true;
+            day = date.getDate() - 1;
         }
     }
     
@@ -105,7 +102,6 @@ typedef RawContentData =
 	final author :String;
     final credit :Null<String>;
 	final fileExt:Null<String>;
-	final pos    :{ x:Int, y:Int }
 	final frames :Null<Int>;
 	final tv     :Null<String>;
     final song   : { artist:String, ?id:Int }

@@ -105,7 +105,7 @@ class NGio
 				if (response.success && response.result.success) 
 					ngDate = Date.fromString(response.result.data.dateTime.substring(0, 10));
 				
-				if (isNaughty && ngDate.getDate() == 25 && ngDate.getMonth() == 11)
+				if (isNaughty && Calendar.isChristmas)
 					isNaughty = false;// no one is naughty on christmas
 			}
 		).addSuccessHandler(onComplete)
