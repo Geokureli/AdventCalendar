@@ -17,6 +17,7 @@ import sprites.Button;
 import sprites.InfoBox;
 import sprites.Player;
 import sprites.Sprite;
+import sprites.TvBubble;
 
 /**
  * ...
@@ -80,7 +81,18 @@ class BaseState extends OgmoState
 		
 		player = cast props.getByName("Player");
 		for (child in props.members)
-			foreground.add(cast props.remove(child));
+		{
+			var sorting = Sorting.Y;
+			if (Std.is(child, ISortable))
+				sorting = (cast child:ISortable).sorting;
+			
+			switch(sorting)
+			{
+				case Sorting.Top, Sorting.None:
+				case Sorting.Y: foreground.add(cast props.remove(child));
+				case Sorting.Bottom: background.add(cast props.remove(child));
+			}
+		}
 		
 		player.updateSprite(Calendar.day);
 		characters.add(player);
@@ -113,7 +125,6 @@ class BaseState extends OgmoState
 		touchable.add(target);
 		add(infoBoxes[target] = new InfoBox(text, callback, target.x + target.width / 2, target.y - hoverDis));
 	}
-	
 	
 	function initCamera()
 	{

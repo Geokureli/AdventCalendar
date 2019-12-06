@@ -7108,7 +7108,8 @@
           "x": 8,
           "y": 32,
           "originX": 0,
-          "originY": 0
+          "originY": 0,
+          "values": {"sorting": "None"}
         },
         {
           "name": "Player",

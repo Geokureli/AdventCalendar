@@ -96,7 +96,14 @@
       "nodeGhost": true,
       "tags": [],
       "texture": "/Users/booboo/Documents/projects/haxe/AdventCalendar/assets/images/props/cabin/tv_bubble.png",
-      "values": []
+      "values": [
+        {
+          "name": "sorting",
+          "definition": "Enum",
+          "choices": ["Top", "Y", "Bottom", "None"],
+          "defaults": 0
+        }
+      ]
     },
     {
       "exportID": "31201496",

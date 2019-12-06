@@ -216,6 +216,8 @@ class OutsideState extends BaseState
 	{
 		Calendar.saveOpenGlock();
 		present.animation.play("opened");
+		remove(infoBoxes[present]);
+		infoBoxes.remove(present);
 		
 		if(!NGio.isNaughty)
 		{

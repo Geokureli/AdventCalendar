@@ -9,9 +9,20 @@ import flixel.math.FlxRect;
 import flixel.text.FlxBitmapText;
 import flixel.tweens.FlxTween;
 
+import states.OgmoState;
 import sprites.Font;
 
+@:noCompletion
+typedef OgmoValues =
+{
+    sorting:Sorting
+}
+
+interface ISortable { var sorting:Sorting; }
+
 class TvBubble extends FlxSpriteGroup
+    implements IOgmoEntity<OgmoValues>
+    implements ISortable
 {
     inline static var APPEAR_TIME = 1.0;
     inline static var HOLD_TIME = 2.0;
@@ -20,6 +31,8 @@ class TvBubble extends FlxSpriteGroup
     public var msg:String;
     var text(get, never):FlxBitmapText;
     inline function get_text():FlxBitmapText return cast members[1];
+    public var sorting:Sorting;
+    
     public function new (msg:String = null)
     {
         super(14, 26);
@@ -36,6 +49,13 @@ class TvBubble extends FlxSpriteGroup
         text.color = 0xFFf02935;
         visible = false;
         add(text);
+    }
+    
+    public function ogmoInit(data:OgmoEntityData<OgmoValues>, parent:OgmoEntityLayer)
+    {
+        x = data.x;
+        y = data.y;
+        sorting = data.values.sorting;
     }
     
     public function play():Void
@@ -55,4 +75,12 @@ class TvBubble extends FlxSpriteGroup
             );
         }
     }
+}
+
+enum abstract Sorting(String)
+{
+    var Top;
+    var Y;
+    var Bottom;
+    var None;
 }
