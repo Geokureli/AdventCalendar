@@ -39,12 +39,14 @@
         "day":6,
         "author":"DanFromBavaria",
         "pos"   :{ "x":385, "y":345 },
+		"tv"    :"BREAKING NEWS:\nREPORTS OF COAL FOR\nNAUGHTY CHILDREN",
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {
         "day":7,
         "author":"MKMaffo",
         "pos"   :{ "x":585, "y":350 },
+        "tv"    :"PEOPLE EVERYWHERE\nENJOY PARTING GIFT\nFROM CYZSZY",
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {

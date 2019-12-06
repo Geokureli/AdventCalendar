@@ -155,42 +155,8 @@ class CabinState extends BaseState
 			{
 				if (touchingPresent == null)
 				{
-<<<<<<< Updated upstream
 					touchingPresent = present;
 					touchPresent(present);
-=======
-					if (FlxG.overlap(playerHitbox, s))
-					{
-						presOverlaps += 1;
-						if (openedPres[s.curDay])
-						{
-							thumbnail.overlappin = true;
-							thumbnail.setPosition(s.x - 20, s.y - thumbnail.height - 8);
-							thumbnail.newThumb(s.curDay);
-						}
-						
-						if (FlxG.onMobile)
-						{
-							for (touch in FlxG.touches.list)
-							{
-								if (touch.justPressed)
-								{
-									if (touch.overlaps(s) || touch.overlaps(thumbnail))
-									{
-										interactPres(s);
-									}
-								}
-								
-							}
-						}
-						
-						
-						if (FlxG.keys.justPressed.SPACE)
-						{
-							interactPres(s);
-						}
-					}
->>>>>>> Stashed changes
 				}
 			}
 		);

@@ -8,6 +8,7 @@ import flixel.FlxSprite;
 import flixel.math.FlxMath;
 
 import data.Calendar;
+import data.NGio;
 import states.OgmoState;
 import sprites.Snow;
 
@@ -39,7 +40,6 @@ class OutsideState extends BaseState
 	
 	override function create()
 	{
-<<<<<<< Updated upstream
 		for (day in 0...Calendar.day + 1)
 		{
 			var artist = Calendar.data[day].author.toLowerCase();
@@ -56,14 +56,6 @@ class OutsideState extends BaseState
 	override function loadLevel():Void
 	{
 		parseLevel(getLatestLevel("outside"));
-=======
-		#if !mobile
-			FlxG.mouse.visible = true;
-		#end
-		
-		initCameras();
-		trace("cameras intted");
->>>>>>> Stashed changes
 		
 		// #if debug FlxG.debugger.drawDebug = true; #end
 	}
@@ -118,13 +110,7 @@ class OutsideState extends BaseState
 		var tank = foreground.getByName("snowTank");
 		tank.setBottomHeight(Math.round(tank.height / 2));
 		
-<<<<<<< Updated upstream
 		initSculptures();
-=======
-		initSnow();
-		initCharacters();
-		player.stepSoundType = "snow";
->>>>>>> Stashed changes
 		
 		var glockPresent = foreground.getByName("present_czyszy");
 		if (glockPresent != null)
@@ -231,12 +217,15 @@ class OutsideState extends BaseState
 		Calendar.saveOpenGlock();
 		present.animation.play("opened");
 		
-		trace("unlocking " + GLOCK_MEDAL);
-		var medal = NG.core.medals.get(GLOCK_MEDAL);
-		if (!medal.unlocked)
-			medal.sendUnlock();
-		else
-			trace("already unlocked");
+		if(!NGio.isNaughty)
+		{
+			trace("unlocking " + GLOCK_MEDAL);
+			var medal = NG.core.medals.get(GLOCK_MEDAL);
+			if (!medal.unlocked)
+				medal.sendUnlock();
+			else
+				trace("already unlocked");
+		}
 		
 		addGlock(present);
 	}
