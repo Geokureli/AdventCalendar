@@ -34,10 +34,10 @@ class Calendar
     {
         data = Json.parse(Assets.getText("assets/data/content.json"));
         
-        parseWhitelist();
-        
         function initSaveAndEnd()
         {
+            parseWhitelist();
+            
             FlxG.save.bind("advent2019", "GeoKureli");
             if (FlxG.save.data.openedPres != null && Std.is(FlxG.save.data.openedPres, Int))
             {
