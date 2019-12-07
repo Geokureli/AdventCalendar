@@ -13,8 +13,10 @@ import openfl.geom.Rectangle;
 @:bitmap("assets/images/preloader/cane.png"    ) class Cane     extends BitmapData { }
 @:bitmap("assets/images/preloader/caneMask.png") class CaneMask extends BitmapData { }
 @:bitmap("assets/images/preloader/stripes.png" ) class Stripes  extends BitmapData { }
-@:bitmap("assets/images/preloader/loading.png" ) class Text     extends BitmapData { }
+@:bitmap("assets/images/preloader/loading.png" ) class Loading  extends BitmapData { }
+@:bitmap("assets/images/preloader/start.png"   ) class Start    extends BitmapData { }
 @:bitmap("assets/images/preloader/caneAnim.png") class CaneAnim extends BitmapData { }
+@:bitmap("assets/images/preloader/xmasTank.png") class XmasTank extends BitmapData { }
 
 class Preloader extends flixel.system.FlxBasePreloader
 {
@@ -33,22 +35,29 @@ class Preloader extends flixel.system.FlxBasePreloader
 	var stripes:Bitmap;
 	var maskShape:Shape;
 	var outroStarted:Bool = false;
+	var loadingText:Loading;
+	var startText:Start;
 	
 	override private function create():Void 
 	{
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
 		
-		var ratio:Float = this._width / 800; //This allows us to scale assets depending on the size of the screen.
+		var tank = new Bitmap(new XmasTank(106, 106));
+		tank.scaleX *= 3;
+		tank.scaleY *= 3;
+		tank.x = (this._width - 106 * tank.scaleX) / 2;
+		tank.y = 25;
+		addChild(tank);
 		
-		cane = new Bitmap(new Cane(0, 0));
+		cane = new Bitmap(new Cane(400, 150));
 		var caneMask = new Bitmap(new CaneMask(0, 0));
 		addChild(cane);
 		addChild(stripes = new Bitmap(new Stripes(0, 0)));
 		addChild(caneMask);
 		cane.smoothing = false;
 		cane.x = (this._width  - 400) / 2;
-		cane.y = (this._height - 150) / 2;
+		cane.y = (this._height - 150) / 2 + 175;
 		caneMask.smoothing = false;
 		caneMask.transform.colorTransform.color = Lib.current.stage.color;
 		caneMask.x = cane.x;
@@ -65,11 +74,16 @@ class Preloader extends flixel.system.FlxBasePreloader
 		maskShape.y = caneMask.y;
 		stripes.mask = maskShape;
 		
-		var text = new Bitmap(new Text(0, 0));
-		text.smoothing = false;
-		text.x = cane.x + 30;
-		text.y = cane.y + 30;
-		addChild(text);
+		var loadingText = new Bitmap(new Loading(0, 0));
+		loadingText.smoothing = false;
+		loadingText.x = cane.x + 30;
+		loadingText.y = cane.y + 30;
+		addChild(loadingText);
+		
+		var startText = new Bitmap(new Loading(0, 0));
+		startText.smoothing = false;
+		startText.x = loadingText.x + 30;
+		startText.y = loadingText.y + 30;
 		
 		super.create();
 	}
