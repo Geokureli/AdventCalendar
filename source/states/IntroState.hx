@@ -93,15 +93,19 @@ class IntroState extends flixel.FlxState
         (
             ()->
             {
-                if (debugFutureEnabled && NGio.isWhitelisted)
-                {
-                    Calendar.showDebugNextDay();
-                    msg.text += "\nTime travel activated";
-                    waitTime = 0.5;
-                }
                 complete = true;
+                if (debugFutureEnabled && NGio.isWhitelisted)
+                    enableTimeTravel();
             }
         );
+    }
+    
+    function enableTimeTravel():Void
+    {
+        Calendar.showDebugNextDay();
+        msg.text += "\nTime travel activated";
+        if (waitTime < 0.5)
+            waitTime = 0.5;
     }
     
     inline function showErrorAndBegin(_ = null)
@@ -114,7 +118,6 @@ class IntroState extends flixel.FlxState
         msg.text = message;
         msg.screenCenter(XY);
         waitTime = MSG_TIME;
-        beginGame();
     }
     
     override function update(elapsed:Float):Void
@@ -122,8 +125,12 @@ class IntroState extends flixel.FlxState
         super.update(elapsed);
         waitTime -= elapsed;
         
-        if (FlxG.keys.pressed.SPACE)
+        if (FlxG.keys.pressed.SPACE && !debugFutureEnabled)
+        {
             debugFutureEnabled = true;
+            if (complete)
+                enableTimeTravel();
+        }
         
         if (waitTime <= 0 && complete)
             FlxG.switchState(new CabinState());
