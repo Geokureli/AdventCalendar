@@ -16,6 +16,8 @@ class IntroState extends flixel.FlxState
     inline static var MSG_TIME = 1.5;
     var msg:FlxBitmapText;
     var timeout:FlxTimer;
+    var complete = false;
+    var waitTime = MSG_TIME;
     
     var debugFutureEnabled = false;
     
@@ -34,14 +36,8 @@ class IntroState extends flixel.FlxState
         msg.alignment = CENTER;
         msg.screenCenter(XY);
         
-        new FlxTimer().start(MSG_TIME,
-            function(_)
-            {
-                timeout = new FlxTimer().start(20, showErrorAndBegin);
-                
-                NGio.attemptAutoLogin(onAutoConnectResult);
-            }
-        );
+        timeout = new FlxTimer().start(20, showErrorAndBegin);
+        NGio.attemptAutoLogin(onAutoConnectResult);
     }
     
     function onAutoConnectResult():Void
@@ -101,10 +97,9 @@ class IntroState extends flixel.FlxState
                 {
                     Calendar.showDebugNextDay();
                     msg.text += "\nTime travel activated";
-                    new FlxTimer().start(0.5, (_)->FlxG.switchState(new CabinState()));
+                    waitTime = 0.5;
                 }
-                else
-                    FlxG.switchState(new CabinState());
+                complete = true;
             }
         );
     }
@@ -118,14 +113,20 @@ class IntroState extends flixel.FlxState
     {
         msg.text = message;
         msg.screenCenter(XY);
-        new FlxTimer().start(MSG_TIME, (_)->beginGame());
+        waitTime = MSG_TIME;
+        beginGame();
     }
     
     override function update(elapsed:Float):Void
     {
         super.update(elapsed);
+        waitTime -= elapsed;
         
         if (FlxG.keys.pressed.SPACE)
             debugFutureEnabled = true;
+        
+        if (waitTime <= 0 && complete)
+            FlxG.switchState(new CabinState());
+        
     }
 }
