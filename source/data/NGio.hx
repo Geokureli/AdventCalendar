@@ -27,6 +27,7 @@ class NGio
 	public static var scoreboardsLoaded:Bool = false;
 	public static var ngDate:Date;
 	public static var isNaughty(default, null) = false;
+	public static var isWhitelisted(default, null) = false;
 	public static var wouldBeNaughty(default, null) = false;
 	
 	public static var scoreboardArray:Array<Score> = [];
@@ -112,10 +113,16 @@ class NGio
 		.send();
 	}
 	
+	static public function checkWhitelist():Void
+	{
+		if (isLoggedIn)
+			isWhitelisted = Calendar.checkWhitelisted(NG.core.user.name);
+	}
+	
 	// --- MEDALS
 	static public function unlockMedal(id:Int):Void
 	{
-		if(!NGio.isNaughty && NGio.isLoggedIn)
+		if(!isNaughty && isLoggedIn && !Calendar.isDebugDay)
 		{
 			trace("unlocking " + id);
 			var medal = NG.core.medals.get(id);
@@ -124,6 +131,8 @@ class NGio
 			else
 				trace("already unlocked");
 		}
+		else
+			trace('no medal unlocked, naughty:$isNaughty loggedIn:$isLoggedIn debugDay:${Calendar.isDebugDay}');
 	}
 }
 

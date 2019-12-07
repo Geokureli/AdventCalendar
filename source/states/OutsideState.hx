@@ -20,13 +20,6 @@ class OutsideState extends BaseState
 	inline static var CLOUD1_PERIOD = 10.0 * WIND;
 	inline static var CLOUD2_PERIOD = 15.0 * WIND;
 	
-	var sculptures = 
-	[ "geokureli"    // organizer/programmer
-	, "brandybuizel" // artist
-	, "thedyingsun"  // artist, tree
-	, "nickconter"   // artist, sculptures
-	];// populated automatically from contents artists based on the day
-	
 	var tree:OgmoDecal;
 	var gyrados:OgmoDecal;
 	var cloud1:OgmoDecal;
@@ -36,21 +29,6 @@ class OutsideState extends BaseState
 	var camLerp = 0.0;
 	var camSnap = 0.0;
 	var toCabin:FlxObject;
-	
-	override function create()
-	{
-		for (day in 0...Calendar.day + 1)
-		{
-			var artist = Calendar.data[day].author.toLowerCase();
-			if (sculptures.indexOf(artist) == -1)
-				sculptures.push(artist);
-			artist = Calendar.data[day].song.artist.toLowerCase();
-			if (sculptures.indexOf(artist) == -1)
-				sculptures.push(artist);
-		}
-		
-		super.create();
-	}
 	
 	override function loadLevel():Void
 	{
@@ -141,15 +119,15 @@ class OutsideState extends BaseState
 			{
 				var name = child.graphic.assetsKey.split("snowSprite/").pop();
 				name = name.substr(0, name.length - 4);
-				if (sculptures.indexOf(name.toLowerCase()) == -1)
-					child.kill();
-				else
+				if (Calendar.checkUnveiledArtist(name))
 				{
 					colliders.add(child);
 					child.immovable = true;
 					child.setBottomHeight(Math.round(child.height / 2));
 					addInfoBoxTo(child, name, FlxG.openURL.bind('https://$name.newgrounds.com'));
 				}
+				else
+					child.kill();
 			}
 		}
 	}

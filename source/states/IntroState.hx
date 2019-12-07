@@ -17,6 +17,8 @@ class IntroState extends flixel.FlxState
     var msg:FlxBitmapText;
     var timeout:FlxTimer;
     
+    var debugFutureEnabled = false;
+    
     override public function create():Void
     {
         super.create();
@@ -26,7 +28,7 @@ class IntroState extends flixel.FlxState
         msg.text = "Checking naughty list...";
         if (APIStuff.DebugSession != null)
             msg.text += "\n Debug Session";
-        if (Calendar.IS_DEBUG_DAY)
+        if (Calendar.isDebugDay)
             msg.text += "\n Debug Day";
         
         msg.alignment = CENTER;
@@ -91,7 +93,20 @@ class IntroState extends flixel.FlxState
     
     function beginGame():Void
     {
-        Calendar.init(FlxG.switchState.bind(new CabinState()));
+        Calendar.init
+        (
+            ()->
+            {
+                if (debugFutureEnabled && NGio.isWhitelisted)
+                {
+                    Calendar.showDebugNextDay();
+                    msg.text += "\nTime travel activated";
+                    new FlxTimer().start(0.5, (_)->FlxG.switchState(new CabinState()));
+                }
+                else
+                    FlxG.switchState(new CabinState());
+            }
+        );
     }
     
     inline function showErrorAndBegin(_ = null)
@@ -104,5 +119,13 @@ class IntroState extends flixel.FlxState
         msg.text = message;
         msg.screenCenter(XY);
         new FlxTimer().start(MSG_TIME, (_)->beginGame());
+    }
+    
+    override function update(elapsed:Float):Void
+    {
+        super.update(elapsed);
+        
+        if (FlxG.keys.pressed.SPACE)
+            debugFutureEnabled = true;
     }
 }

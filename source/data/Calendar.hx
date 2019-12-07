@@ -8,7 +8,7 @@ import openfl.utils.Assets;
 class Calendar
 {
     inline static var DEBUG_DAY:Int = 0;// 0 to disable debug feature
-    inline static public var IS_DEBUG_DAY = DEBUG_DAY > 0;
+    static public var isDebugDay = DEBUG_DAY > 0;
     static public var day(default, null) = 24;
     static public var isAdvent(default, null) = false;
     static public var isDecember(default, null) = false;
@@ -18,11 +18,23 @@ class Calendar
     static public var openedPres(default, null) = new BitArray();
     static public var hasGlock(default, null) = false;
     
+    static var unveiledArtists(default, null) =
+	[ "geokureli"    // organizer/programmer
+	, "brandybuizel" // artist
+	, "thedyingsun"  // artist, tree
+	, "nickconter"   // artist, sculptures
+	];// populated automatically from contents artists based on the day
+    
+    // Can preview the next day
+    static var whitelist = unveiledArtists.copy();
+    
     inline static function get_today() return data[day];
     
     static public function init(callback:Void->Void = null):Void
     {
         data = Json.parse(Assets.getText("assets/data/content.json"));
+        
+        parseWhitelist();
         
         function initSaveAndEnd()
         {
@@ -56,6 +68,30 @@ class Calendar
         }
     }
     
+    static function parseWhitelist():Void
+    {
+        for (i in 0...data.length)
+        {
+            var artist = data[i].author.toLowerCase();
+            if (whitelist.indexOf(artist) == -1)
+            {
+                whitelist.push(artist);
+                if (i <= day)
+                    unveiledArtists.push(artist);
+            }
+            
+            artist = data[i].song.artist.toLowerCase();
+            if (whitelist.indexOf(artist) == -1)
+            {
+                whitelist.push(artist);
+                if (i <= day)
+                    unveiledArtists.push(artist);
+            }
+        }
+        
+        NGio.checkWhitelist();
+    }
+    
     static function onDateReceived(date:Date):Void
     {
         isDecember = date.getMonth() == 11;
@@ -73,6 +109,16 @@ class Calendar
         if (isAdvent && data.length > day)
             return data[day];
         return null;
+    }
+    
+    static public function checkWhitelisted(user:String):Bool
+    {
+        return whitelist.indexOf(user.toLowerCase()) != -1;
+    }
+    
+    static public function checkUnveiledArtist(user:String):Bool
+    {
+        return unveiledArtists.indexOf(user.toLowerCase()) != -1;
     }
     
     static public function saveOpenPresent(day:Int)
@@ -96,6 +142,12 @@ class Calendar
         hasGlock = true;
         FlxG.save.data.hasGlock = hasGlock;
         FlxG.save.flush();
+    }
+    
+    static public function showDebugNextDay():Void
+    {
+        day++;
+        isDebugDay = true;
     }
 }
 
