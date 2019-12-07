@@ -5,6 +5,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxTimer;
 import flixel.text.FlxBitmapText;
 
+import data.APIStuff;
 import data.Calendar;
 import data.NGio;
 import sprites.Button;
@@ -23,6 +24,11 @@ class IntroState extends flixel.FlxState
         
         add(msg = new FlxBitmapText(new XmasFont()));
         msg.text = "Checking naughty list...";
+        if (APIStuff.DebugSession != null)
+            msg.text += "\n Debug Session";
+        if (Calendar.IS_DEBUG_DAY)
+            msg.text += "\n Debug Day";
+        
         msg.alignment = CENTER;
         msg.screenCenter(XY);
         
