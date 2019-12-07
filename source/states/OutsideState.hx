@@ -1,7 +1,5 @@
 package states;
 
-import io.newgrounds.NG;
-
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -219,15 +217,7 @@ class OutsideState extends BaseState
 		remove(infoBoxes[present]);
 		infoBoxes.remove(present);
 		
-		if(!NGio.isNaughty)
-		{
-			trace("unlocking " + GLOCK_MEDAL);
-			var medal = NG.core.medals.get(GLOCK_MEDAL);
-			if (!medal.unlocked)
-				medal.sendUnlock();
-			else
-				trace("already unlocked");
-		}
+		NGio.unlockMedal(GLOCK_MEDAL);
 		
 		addGlock(present);
 	}

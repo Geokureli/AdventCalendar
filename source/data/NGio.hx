@@ -90,8 +90,7 @@ class NGio
 		wouldBeNaughty = isNaughty
 			= naughty.indexOf(NG.core.user.name.toLowerCase()) != -1;
 		trace ('logged in! user:${NG.core.user.name}, naughty:$isNaughty');
-		// Load medals then call onNGMedalFetch()
-		NG.core.requestMedals(onNGMedalFetch);
+		NG.core.requestMedals();
 		
 		ngDataLoaded.dispatch();
 	}
@@ -114,22 +113,17 @@ class NGio
 	}
 	
 	// --- MEDALS
-	static function onNGMedalFetch():Void
+	static public function unlockMedal(id:Int):Void
 	{
-		
-		/*
-		// Reading medal info
-		for (id in NG.core.medals.keys())
+		if(!NGio.isNaughty && NGio.isLoggedIn)
 		{
+			trace("unlocking " + id);
 			var medal = NG.core.medals.get(id);
-			trace('loaded medal id:$id, name:${medal.name}, description:${medal.description}');
+			if (!medal.unlocked)
+				medal.sendUnlock();
+			else
+				trace("already unlocked");
 		}
-		
-		// Unlocking medals
-		var unlockingMedal = NG.core.medals.get(54352);// medal ids are listed in your NG project viewer 
-		if (!unlockingMedal.unlocked)
-			unlockingMedal.sendUnlock();
-		*/
 	}
 }
 

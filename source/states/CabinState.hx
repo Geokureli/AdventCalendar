@@ -12,8 +12,6 @@ import flixel.math.FlxPoint;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 
-import io.newgrounds.NG;
-
 import data.Calendar;
 import data.NGio;
 import states.OgmoState;
@@ -232,17 +230,8 @@ class CabinState extends BaseState
 	{
 		trace('opened: ' + present.curDay);
 		
-		if (NGio.isLoggedIn
-		&& (present.curDay == Calendar.day || Calendar.isChristmas)
-		&& !NGio.isNaughty)
-		{
-			trace("unlocking " + (MEDAL_0 + Calendar.day));
-			var medal = NG.core.medals.get(MEDAL_0 + Calendar.day);
-			if (!medal.unlocked)
-				medal.sendUnlock();
-			else
-				trace("already unlocked");
-		}
+		if (present.curDay == Calendar.day || Calendar.isChristmas)
+			NGio.unlockMedal(MEDAL_0 + Calendar.day);
 		
 		present.animation.play("opened");
 		Calendar.saveOpenPresent(present.curDay);
