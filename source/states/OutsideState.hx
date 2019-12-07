@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.math.FlxMath;
 
 import data.Calendar;
+import data.Instrument;
 import data.NGio;
 import states.OgmoState;
 import sprites.Snow;
@@ -214,9 +215,9 @@ class OutsideState extends BaseState
 	{
 		Calendar.saveOpenGlock();
 		present.animation.play("opened");
-		remove(infoBoxes[present]);
-		infoBoxes.remove(present);
+		infoBoxes[present].visible = false;
 		
+		Instrument.type = Glockenspiel;
 		NGio.unlockMedal(GLOCK_MEDAL);
 		
 		addGlock(present);
