@@ -20,7 +20,7 @@ class Thumbnail extends Sprite
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
-		antialiasing = true;
+		// antialiasing = true;
 	}
 	
 	public function newThumb(newDay:Int):Void
