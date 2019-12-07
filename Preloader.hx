@@ -2,13 +2,16 @@
 //https://gamepopper.co.uk/2014/08/26/haxeflixel-making-a-custom-preloader/
 package;
 
-import flash.Lib;
-import flash.events.Event;
+import openfl.Lib;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.display.Shape;
 import openfl.display.Sprite;
+import openfl.events.Event;
+import openfl.events.MouseEvent;
 import openfl.geom.Rectangle;
+
+import flixel.tweens.FlxEase;
 
 @:bitmap("assets/images/preloader/cane.png"    ) class Cane     extends BitmapData { }
 @:bitmap("assets/images/preloader/caneMask.png") class CaneMask extends BitmapData { }
@@ -24,6 +27,8 @@ class Preloader extends flixel.system.FlxBasePreloader
 	inline static var CANE_THICKNESS = 60;
 	inline static var STRIPE_MAX = 326;
 	inline static var LOOP_TIME = 1.0;
+	inline static var TEXT_CHANGE_TIME = 1.0;
+	inline static var TEXT_WIPE_TIME = TEXT_CHANGE_TIME / 3;
 	
 	override public function new(MinDisplayTime:Float = 1, ?AllowedURLs:Array<String>) 
 	{
@@ -34,19 +39,23 @@ class Preloader extends flixel.system.FlxBasePreloader
 	var caneAnim:SpriteSheet;
 	var stripes:Bitmap;
 	var maskShape:Shape;
-	var outroStarted:Bool = false;
-	var loadingText:Loading;
-	var startText:Start;
+	var outroStarted = false;
+	var outroStartTime:Float = 0;
+	var outroCompleted = false;
+	var loadingText:Bitmap;
+	var startText:Bitmap;
+	var clicked = false;
 	
 	override private function create():Void 
 	{
 		this._width = Lib.current.stage.stageWidth;
 		this._height = Lib.current.stage.stageHeight;
 		
-		var tank = new Bitmap(new XmasTank(106, 106));
-		tank.scaleX *= 3;
-		tank.scaleY *= 3;
-		tank.x = (this._width - 106 * tank.scaleX) / 2;
+		var tank = new Bitmap(new XmasTank(318, 318));
+		tank.smoothing = false;
+		// tank.scaleX *= 3;
+		// tank.scaleY *= 3;
+		tank.x = (this._width - 318 * tank.scaleX) / 2;
 		tank.y = 25;
 		addChild(tank);
 		
@@ -74,24 +83,40 @@ class Preloader extends flixel.system.FlxBasePreloader
 		maskShape.y = caneMask.y;
 		stripes.mask = maskShape;
 		
-		var loadingText = new Bitmap(new Loading(0, 0));
+		loadingText = new Bitmap(new Loading(0, 0));
 		loadingText.smoothing = false;
 		loadingText.x = cane.x + 30;
 		loadingText.y = cane.y + 30;
+		loadingText.scrollRect = new Rectangle(0, 0, 194, 48);
 		addChild(loadingText);
 		
-		var startText = new Bitmap(new Loading(0, 0));
+		startText = new Bitmap(new Start(0, 0));
 		startText.smoothing = false;
-		startText.x = loadingText.x + 30;
-		startText.y = loadingText.y + 30;
+		startText.x = loadingText.x;
+		startText.y = loadingText.y - 16;
+		startText.scrollRect = new Rectangle(0, 0, 0, 63);
+		addChild(startText);
+		
+		stage.addEventListener(MouseEvent.CLICK, onClick);
 		
 		super.create();
+	}
+	
+	function onClick(e:MouseEvent)
+	{
+		if (outroCompleted)
+		{
+			stage.removeEventListener(MouseEvent.CLICK, onClick);
+			clicked = true;
+		}
 	}
 	
 	override private function destroy():Void 
 	{
 		stripes = null;
 		mask = null;
+		loadingText = null;
+		startText = null;
 		
 		super.destroy();
 	}
@@ -101,19 +126,50 @@ class Preloader extends flixel.system.FlxBasePreloader
 		var time = Date.now().getTime() - _startTime;
 		var min = minDisplayTime * 1000;
 		
-		var readyToDestroy = false;
+		var textOutroComplete = false;
+		if (outroStarted)
+		{
+			var outroTime = (time - outroStartTime) / 1000;
+			//trace(outroTime);
+			if (outroTime < TEXT_WIPE_TIME)
+			{
+				final rect = loadingText.scrollRect;
+				final t = outroTime / TEXT_WIPE_TIME;
+				rect.width = FlxEase.circIn(1 - t) * loadingText.width;
+				loadingText.scrollRect = rect;
+			}
+			else if (outroTime > TEXT_CHANGE_TIME)
+			{
+				startText.scrollRect = null;
+			}
+			else if (outroTime > TEXT_CHANGE_TIME - TEXT_WIPE_TIME)
+			{
+				final rect = startText.scrollRect;
+				final t = (TEXT_CHANGE_TIME - TEXT_WIPE_TIME - outroTime) / TEXT_WIPE_TIME;
+				rect.width = FlxEase.circIn(t) * startText.width;
+				startText.scrollRect = rect;
+			}
+			else if (outroTime > TEXT_WIPE_TIME)
+			{
+				loadingText.visible = false;
+				loadingText.scrollRect = null;
+			}
+			textOutroComplete = outroTime > TEXT_CHANGE_TIME;
+		}
+		
 		if (caneAnim != null)
 		{
-			readyToDestroy = caneAnim.finished;
+			outroCompleted = caneAnim.finished && textOutroComplete;
 			caneAnim.update();
 		}
 		
-		if (_loaded && (min <= 0 || time / min >= 1) && !readyToDestroy)
+		if (_loaded && (min <= 0 || time / min >= 1) && !outroCompleted)
 		{
 			_loaded = false;
 			outroStarted = true;
+			outroStartTime = time;
 		}
-		else if (readyToDestroy)
+		else if (outroCompleted && clicked)
 			_loaded = true;
 		
 		super.onEnterFrame(e);
