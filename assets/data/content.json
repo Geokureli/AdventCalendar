@@ -45,11 +45,13 @@
     {
         "day":8,
         "author":"Snackers",
+        "tv"    :"EMERGENCY: RECALLING\nMANURE TAINTED WITH\nRADIOACTIVE WASTE",
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {
         "day":9,
         "author":"Figburn",
+        "tv":"WEATHER UPDATE:\nLOOK OUTSIDE AND\nTAKE A WILD GUESS",
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {
