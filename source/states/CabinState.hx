@@ -211,9 +211,11 @@ class CabinState extends BaseState
 		if (Calendar.openedPres[day])
 		{
 			thumbnail.overlappin = true;
-			thumbnail.setPosition(present.x - 20, present.y - thumbnail.height - 8);
 			thumbnail.newThumb(day);
+			thumbnail.x = present.x + (present.width - thumbnail.width) / 2;
+			thumbnail.y = present.y - thumbnail.height - 8;
 		}
+		
 		if (player.interacting)
 			openPresent(present);
 		else if (FlxG.onMobile)
