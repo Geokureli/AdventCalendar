@@ -51,7 +51,7 @@
     {
         "day":9,
         "author":"Figburn",
-        "tv":"WEATHER UPDATE:\nLOOK OUTSIDE AND\nTAKE A WILD GUESS",
+        "tv"    :"WEATHER UPDATE: LOOK\nOUTSIDE AND TAKE A\nWILD GUESS, WOULD YOU?",
         "song"  :{ "artist":"ColeBob", "key":"eMaj" }
     },
     {

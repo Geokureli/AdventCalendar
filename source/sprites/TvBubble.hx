@@ -42,7 +42,7 @@ class TvBubble extends FlxSpriteGroup
         add(bubble);
         
         var text = new FlxBitmapText(new NokiaFont());
-        text.x = 2;
+        text.x = 1;
         text.y = 2;
         text.width = bubble.width - 3;
         text.text = "";
