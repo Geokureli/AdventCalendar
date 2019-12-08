@@ -13,14 +13,16 @@ import flixel.util.FlxColor;
  */
 class Thumbnail extends Sprite
 {
-	
+	inline static var INTRO_TIME = 0.25;
 	public var overlappin:Bool = false;
-	private var curThumb:Int = -1;
+	public var time = 0.0;
+	
+	var curThumb:Int = -1;
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
-		// antialiasing = true;
+		visible = false;
 	}
 	
 	public function newThumb(newDay:Int):Void
@@ -35,13 +37,9 @@ class Thumbnail extends Sprite
 		if (curThumb != newDay)
 		{
 			if (newDay > Calendar.data.length - 1)
-			{
 				loadGraphic(AssetPaths.thumbDefault__png);
-			}
 			else
-			{
 				loadGraphic(Calendar.data[newDay].getThumbPath());
-			}
 			
 			curThumb = newDay;
 		}
@@ -56,28 +54,27 @@ class Thumbnail extends Sprite
 		
 		if (overlappin)
 		{
-			if (alpha < 1)
+			if (time < 1)
 			{
-				alpha += 0.025;
+				time += elapsed / INTRO_TIME;
+				if (time > 1)
+					time = 1;
 			}
 		}
 		else
 		{
-			
-			if (alpha > 0)
+			if (time > 0)
 			{
-				alpha -= 0.5 * FlxG.elapsed;
-			}
-			else
-			{
-				alpha = 0;
+				time -= elapsed / INTRO_TIME;
+				if (time < 0)
+					time = 0;
 			}
 		}
 		
+		scale.y = FlxEase.backOut(time);
+		visible = time > 0;
+		
 		overlappin = false;
-		
-		
-		
 	}
 	
 }

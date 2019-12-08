@@ -65,7 +65,6 @@ class CabinState extends BaseState
 		super.initEntities();
 		
 		add(thumbnail);
-		thumbnail.alpha = 0;
 		
 		var tree:OgmoDecal = null;
 		var day = Calendar.day + 1;
