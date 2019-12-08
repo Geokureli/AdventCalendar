@@ -175,12 +175,12 @@ abstract ContentData(RawContentData) from RawContentData
     
     inline public function getArtPath():String
     {
-        return 'assets/images/artwork/${getFilename()}';
+        return 'assets/images/artwork/${getFilename("jpg")}';
     }
     
    inline public function getThumbPath():String
     {
-        return 'assets/images/thumbs/thumb-${getFilename()}';
+        return 'assets/images/thumbs/thumb-${getFilename("png")}';
     }
     
    inline public function getSongPath():String
@@ -188,9 +188,8 @@ abstract ContentData(RawContentData) from RawContentData
         return 'assets/music/${this.song.artist.toLowerCase()}.mp3';
     }
     
-    inline public function getFilename():String
+    inline public function getFilename(ext = "jgp"):String
     {
-        return this.author.toLowerCase() + "." + (this.fileExt == null ? "png" : this.fileExt);
+        return this.author.toLowerCase() + "." + (this.fileExt == null ? ext : this.fileExt);
     }
-    
 }
