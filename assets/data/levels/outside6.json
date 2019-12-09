@@ -11641,8 +11641,8 @@
           "texture": "snowSprite/DanFromBavaria.png"
         },
         {
-          "x": 13,
-          "y": 273,
+          "x": 24,
+          "y": 274,
           "scaleX": 1,
           "scaleY": 1,
           "texture": "snowSprite/Figburn.png"
