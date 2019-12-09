@@ -109,8 +109,9 @@ class Key extends FlxBitmapTextButton
 	, onClick
 	)
 	{
-		super(x, y, char, onClick);
+		super(x, y, char);
 		loadGraphic(graphic, true, width, height);
+		onDown.callback = onClick;
 		
 		statusAnimations = ["normal", "normal", "pressed"];
 		label.font = new NokiaFont();
@@ -138,7 +139,7 @@ class Key extends FlxBitmapTextButton
 		}
 		
 		if (FlxG.keys.anyJustPressed(key))
-			this.onUp.fire();
+			this.onDown.fire();
 		
 		if (FlxG.keys.anyPressed(key))
 			this.animation.play("pressed");
