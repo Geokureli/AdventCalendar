@@ -1,5 +1,6 @@
 package sprites;
 
+import openfl.Lib;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import openfl.display.BitmapData;
@@ -16,6 +17,7 @@ import flixel.FlxSprite;
 
 class MedalPopup extends flixel.group.FlxSpriteGroup
 {
+    inline static var MEDAL_0 = 58519;
     inline static var TEST_MEDAL = OutsideState.GLOCK_MEDAL;
     inline static var BOX_PATH = "assets/images/ui/medalAnim.png";
     inline static var MEDAL_PATH = "assets/images/ui/medalSlide.png";
@@ -23,8 +25,9 @@ class MedalPopup extends flixel.group.FlxSpriteGroup
     static var instance(default, null):MedalPopup;
     
     var animQueue = new Array<Medal>();
-    var medalsRects = new Array<Rectangle>();
+    var medalRects = new Array<Rectangle>();
     var box:FlxSprite;
+    var medalGuide:FlxSprite;
     var medal:FlxSprite;
     
     function new()
@@ -35,9 +38,11 @@ class MedalPopup extends flixel.group.FlxSpriteGroup
         y = FlxG.height - 79;
         visible = false;
         
-        add(medal = new FlxSprite(0, 0).loadGraphic(MEDAL_PATH, true, 97, 79));
-        medal.animation.add("anim", [0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,3,4,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,8,9], 10);
-        var medalBmd = medal.graphic.bitmap;
+        add(medalGuide = new FlxSprite(0, 0).loadGraphic(MEDAL_PATH, true, 97, 79));
+        medalGuide.animation.add("anim", [0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,3,4,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,8,9,0], 10, false);
+        medalGuide.animation.play("anim");
+        medalGuide.animation.finish();
+        var medalBmd = medalGuide.graphic.bitmap;
         var frameBmd = new BitmapData(97, 79);
         final numFrames = Std.int(medalBmd.width/frameBmd.width);
         var sourceRect = new Rectangle(0, 0, frameBmd.width, frameBmd.height);
@@ -47,14 +52,16 @@ class MedalPopup extends flixel.group.FlxSpriteGroup
             frameBmd.fillRect(frameBmd.rect, 0);
             frameBmd.copyPixels(medalBmd, sourceRect, point);
             final rect = frameBmd.getColorBoundsRect(0xFF000000, 0x0, false);
-            medalsRects.push(rect);
-            trace(rect);
+            medalRects.push(rect);
             sourceRect.x += sourceRect.width;
         }
         
-        add(box = new FlxSprite(0, 0).loadGraphic(BOX_PATH, true, 65, 79));
+        add(medal = new FlxSprite()).visible = false;
+        
+        add(box = new FlxSprite().loadGraphic(BOX_PATH, true, 65, 79));
         box.animation.add("anim", [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,16,16,17,18,19,20,21,22,23,24], 10, false);
-
+        box.animation.play("anim");
+        box.animation.finish();
         
         scrollFactor.set(); 
         if (NGio.isLoggedIn)
@@ -104,66 +111,65 @@ class MedalPopup extends flixel.group.FlxSpriteGroup
         if (animQueue.length == 0)
             return;
         
-        var medal = animQueue.shift();
+        var medalData = animQueue.shift();
+        
+        var medalNum = medalData.id - MEDAL_0 + 1;
+        medal.loadGraphic('assets/images/presents/medal$medalNum.png');
         
         visible = true;
         box.visible = true;
         box.animation.play("anim", true);
         box.animation.finishCallback = (_)->box.visible = false;
         
-        // _iconFrame.loadGraphic(Prize.getIconPath(medal.id));
-        // var right = _points.x + _points.width;
-        // _points.text = Std.string(medal.value);
-        // _points.x = right - _points.width;// because alignment.right doesn't work
-        // _name.text = medal.name.toUpperCase();
-        // _name.x = _nameX + _nameRect.width;
-        // _nameRect.x = -_nameRect.width;
-        // _name.clipRect = new FlxRect();
-        // _name.clipRect.copyFrom(_nameRect);
-        // _name.visible = false;
-        
-        // FlxTween.tween(this, { y:0 }, 0.5, { ease:FlxEase.backOut, onComplete:onInComplete } );
+        medal.visible = medalGuide.visible = false;
+        medalGuide.animation.play("anim", true);
+        medalGuide.animation.finishCallback = (_)->onAnimComplete();
     }
     
     function onAnimComplete():Void {
         
         visible = false;
+        medal.visible = false;
         playNextAnim();
     }
     
-    #if debug
     override function update(elapsed:Float)
     {
-        super.update(elapsed);
+        final anim = medalGuide.animation.curAnim;
+        var prevMedalFrame = anim.frames[anim.curFrame];
         
+        super.update(elapsed);
+        if (visible)
+        {
+            final frame = anim.frames[anim.curFrame];
+            medal.visible = medalGuide.visible = frame > 0;
+            if (prevMedalFrame != frame)
+            {
+                final rect = medalRects[frame];
+                medal.x = x + rect.x;
+                medal.y = y + rect.y;
+                medal.scale.x = rect.width / medal.frameWidth;
+                medal.scale.y = rect.height / medal.frameHeight;
+                medal.updateHitbox();
+                trace(Lib.getTimer() + ' frame:${anim.curFrame} visible:${medal.visible}');
+            }
+        }
+        
+        #if debug
         if (FlxG.keys.justPressed.ENTER)
             playDebugAnim();
+        #end
     }
-    #end
     
-    function resetForNewState():Void
+    override function destroy()
     {
-        var finished = box.animation.finished;
-        var frame = box.animation.curAnim.curFrame;
-        box.loadGraphic(BOX_PATH, true, 65, 79);
-        box.animation.add("anim", [for (i in 0...animation.frames) i], 10, false);
-        if (!finished)
-            box.animation.play("anim", true, false, frame);
-        
-        finished = medal.animation.finished;
-        frame = medal.animation.curAnim.curFrame;
-        medal.loadGraphic(MEDAL_PATH, true, 97, 79);
-        medal.animation.add("anim", [0,1,1,1,2,3,4,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,8,9], 10);
-        if (!finished)
-            medal.animation.play("anim", true, false, frame);
+        // super.destroy();
     }
     
     static public function getInstance()
     {
         if (instance == null)
             instance = new MedalPopup();
-        else
-            instance.resetForNewState();
         return instance;
     }
 }

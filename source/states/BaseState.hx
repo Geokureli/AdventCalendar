@@ -55,7 +55,7 @@ class BaseState extends OgmoState
 		initEntities();
 		initCamera();
 		
-		// add(medalAnim = MedalPopup.getInstance());
+		add(medalAnim = MedalPopup.getInstance());
 	}
 	
 	function loadLevel() { }
