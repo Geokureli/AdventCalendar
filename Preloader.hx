@@ -149,7 +149,8 @@ class Preloader extends flixel.system.FlxBasePreloader
 				rect.width = FlxEase.circIn(t) * startText.width;
 				startText.scrollRect = rect;
 			}
-			else if (outroTime > TEXT_WIPE_TIME)
+			
+			if (outroTime > TEXT_WIPE_TIME)
 			{
 				loadingText.visible = false;
 				loadingText.scrollRect = null;
