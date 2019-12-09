@@ -11653,6 +11653,13 @@
           "scaleX": 1,
           "scaleY": 1,
           "texture": "presents/present_czyszy_ogmo.png"
+        },
+        {
+          "x": 72,
+          "y": 365,
+          "scaleX": 1,
+          "scaleY": 1,
+          "texture": "snowSprite/Chdonga.png"
         }
       ]
     },
