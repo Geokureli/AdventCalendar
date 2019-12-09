@@ -20,6 +20,15 @@ class Button extends FlxTypedButton<FlxSprite>
     }
 }
 
+@:forward
+abstract BackButton(Button) to Button
+{
+    public function new(x, y, onClick)
+    {
+        this = new Button(x, y, onClick, "assets/images/ui/back.png");
+    }
+}
+
 class FullscreenButton extends Button
 {
     public function new(x, y)

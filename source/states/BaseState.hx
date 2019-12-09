@@ -12,6 +12,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 
 import data.Calendar;
+import data.Instrument;
 import states.OgmoState;
 import sprites.Button;
 import sprites.InfoBox;
@@ -31,7 +32,6 @@ class BaseState extends OgmoState
 	
 	var player:Player;
 	var playerHitbox:FlxObject;
-	var uiCamera:FlxCamera;
 	
 	var colliders = new FlxGroup();
 	var characters = new FlxGroup();
@@ -43,6 +43,7 @@ class BaseState extends OgmoState
 	var foreground:OgmoDecalLayer;
 	var background:OgmoDecalLayer;
 	var medalAnim:MedalPopup;
+	var instrument:FlxButton;
 	
 	override public function create():Void 
 	{
@@ -54,6 +55,11 @@ class BaseState extends OgmoState
 		loadLevel();
 		initEntities();
 		initCamera();
+		
+		add(instrument = new FlxButton(FlxG.width, 0, onInstrumentClick));
+		instrument.scrollFactor.set();
+		Instrument.onTypeChange.add(updateInstrument);
+		updateInstrument(Instrument.type);
 		
 		add(medalAnim = MedalPopup.getInstance());
 	}
@@ -135,13 +141,7 @@ class BaseState extends OgmoState
 	{
 		if (FlxG.onMobile)
 		{
-			uiCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
-			uiCamera.bgColor = FlxColor.TRANSPARENT;
-			FlxG.cameras.add(uiCamera);
-			FlxCamera.defaultCameras = [FlxG.camera];
-			
 			var button = new FullscreenButton(10, 10);
-			button.cameras = [uiCamera];
 			button.scrollFactor.set();
 			add(button);
 		}
@@ -181,7 +181,33 @@ class BaseState extends OgmoState
 		foreground.sort(FlxSort.byY);
 		
 		super.update(elapsed);
+	}
+	
+	function updateInstrument(type:InstrumentType):Void
+	{
+		instrument.visible = true;
+		switch(type)
+		{
+			case null: instrument.visible = false;
+			case Glockenspiel: instrument.loadGraphic("assets/images/props/outside/glockenspiel.png");
+		}
 		
-		// trace(medalAnim.x, medalAnim.y, medalAnim.visible);//, medalAnim.animation.curAnim.curFrame);
+		if (instrument.visible)
+		{
+			instrument.x = FlxG.width - instrument.width - 2;
+			instrument.y = instrument.height + 2;
+		}
+	}
+	
+	function onInstrumentClick():Void
+	{
+		openSubState(new PianoSubstate());
+	}
+	
+	override function destroy()
+	{
+		super.destroy();
+		
+		Instrument.onTypeChange.remove(updateInstrument);
 	}
 }

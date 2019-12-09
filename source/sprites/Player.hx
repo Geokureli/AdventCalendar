@@ -91,7 +91,6 @@ class Player extends Character
 			{
 				var pos:FlxVector = touch.getWorldPosition();
 				var maxDis = Math.max(Math.abs(pos.x - x), Math.abs(pos.y + 4 - y));
-				trace(maxDis);
 				interacting = maxDis < 24;
 			}
 			

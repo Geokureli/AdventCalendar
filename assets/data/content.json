@@ -51,19 +51,20 @@
     {
         "day":9,
         "author":"Figburn",
-        "tv"    :"WEATHER UPDATE: LOOK\nOUTSIDE AND TAKE A\nWILD GUESS, WOULD YOU?",
+        "tv"    :"SPECIAL UPDATE: NICK\nOUR LOCAL HORSE\nCELEBRATES BIRTHDAY!",
         "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
     },
     {
         "day":10,
         "author" :"Chdonga",
         "fileExt":"png",
-        "tv"     :"SOURCES SAY:",
+        "tv"     :"WEATHER UPDATE: LOOK\nOUTSIDE AND TAKE A\nWILD GUESS, WOULD YOU?",
         "song"   :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
     },
     {
         "day":11,
         "author":"HenryEYES",
+        "tv"     :"SOURCES SAY:",
         "song"  :{ "artist":"Carmet", "key":"gMaj" }
     },
     {

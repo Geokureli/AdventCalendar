@@ -1,6 +1,7 @@
 package data;
 
 import flixel.FlxG;
+import flixel.util.FlxSignal;
 
 class Instrument
 {
@@ -14,23 +15,31 @@ class Instrument
     ];
     static public var type(default, set):Null<InstrumentType> = null;
     static public var key(default, set):Key;
+    static public var onTypeChange = new FlxTypedSignal<(Null<InstrumentType>)->Void>();
     static var soundPath:String;
     static var root:Int;
     static var scale:Array<Int>;
     
     static public function play(note:Int):Void
     {
-        FlxG.sound.play(soundPath + '${notes[root + note]}.mp3');
+        FlxG.sound.play(soundPath + '${notes[root + note]}.mp3', 0.5);
     }
     
-    inline static function set_type(value:InstrumentType)
+    inline static function set_type(value:Null<InstrumentType>)
     {
         soundPath = switch (value)
         {
             case null:"";
             case Glockenspiel: PATH + "glockenspiel/";
         }
-        return Instrument.type = value;
+        
+        if (Instrument.type != value)
+        {
+            Instrument.type = value;
+            onTypeChange.dispatch(value);
+        }
+        
+        return value;
     }
     
     inline static function set_key(value:Key):Key
