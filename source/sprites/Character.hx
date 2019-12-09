@@ -48,6 +48,9 @@ class Character extends Sprite
 		{
 			loadGraphic(AssetPaths.Daddy__png, false, 24, 24);
 			actualOffsetLOL = 20;
+			width = 8;
+			height = 8;
+			offset.y += 9;
 		}
 		else
 		{
