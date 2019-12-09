@@ -34,31 +34,31 @@
         "day":6,
         "author":"DanFromBavaria",
         "tv"    :"BREAKING NEWS:\nREPORTS OF COAL FOR\nNAUGHTY CHILDREN",
-        "song"  :{ "artist":"ColeBob", "key":"eMaj" }
+        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
     },
     {
         "day":7,
         "author":"MKMaffo",
         "tv"    :"PEOPLE EVERYWHERE\nENJOY PARTING GIFT\nFROM CYZSZY, OUTSIDE",
-        "song"  :{ "artist":"ColeBob", "key":"eMaj" }
+        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
     },
     {
         "day":8,
         "author":"Snackers",
         "tv"    :"EMERGENCY: RECALLING\nMANURE TAINTED WITH\nRADIOACTIVE WASTE",
-        "song"  :{ "artist":"ColeBob", "key":"eMaj" }
+        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
     },
     {
         "day":9,
         "author":"Figburn",
         "tv"    :"WEATHER UPDATE: LOOK\nOUTSIDE AND TAKE A\nWILD GUESS, WOULD YOU?",
-        "song"  :{ "artist":"ColeBob", "key":"eMaj" }
+        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
     },
     {
         "day":10,
         "author":"Chdonga",
         "tv"    :"SOURCES SAY:",
-        "song"  :{ "artist":"ColeBob", "key":"eMaj" }
+        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
     },
     {
         "day":11,
