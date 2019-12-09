@@ -15,6 +15,7 @@ import data.Calendar;
 import states.OgmoState;
 import sprites.Button;
 import sprites.InfoBox;
+import sprites.MedalPopup;
 import sprites.Player;
 import sprites.Sprite;
 import sprites.TvBubble;
@@ -41,16 +42,20 @@ class BaseState extends OgmoState
 	var props:OgmoEntityLayer;
 	var foreground:OgmoDecalLayer;
 	var background:OgmoDecalLayer;
+	var medalAnim:MedalPopup;
 	
 	override public function create():Void 
 	{
 		super.create();
 		
 		FlxG.mouse.visible = !FlxG.onMobile;
+		// #if debug FlxG.debugger.drawDebug = true; #end
 		
 		loadLevel();
 		initEntities();
 		initCamera();
+		
+		// add(medalAnim = MedalPopup.getInstance());
 	}
 	
 	function loadLevel() { }
@@ -176,5 +181,7 @@ class BaseState extends OgmoState
 		foreground.sort(FlxSort.byY);
 		
 		super.update(elapsed);
+		
+		// trace(medalAnim.x, medalAnim.y, medalAnim.visible);//, medalAnim.animation.curAnim.curFrame);
 	}
 }

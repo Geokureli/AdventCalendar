@@ -13,7 +13,7 @@ import sprites.Snow;
 
 class OutsideState extends BaseState
 {
-	inline static var GLOCK_MEDAL = 58544;
+	inline static public var GLOCK_MEDAL = 58544;
 	
 	inline static var WIND = 1.8;
 	inline static var CLOUD_BOB_DIS = 50;
