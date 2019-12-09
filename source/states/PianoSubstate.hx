@@ -49,12 +49,11 @@ abstract BlackKey(Key) to Key
 	{
 		final label = CHARS.charAt(index);
 		this = new Key
-			( (index < GAP ? LEFT_1 : LEFT_2) + WIDTH * index
+			( (index < GAP ? LEFT_1 : LEFT_2) + (WIDTH + 1) * index
 			, TOP
 			, WIDTH
 			, HEIGHT
-			, 0xFF222034
-			, FlxColor.WHITE
+			, "assets/images/ui/blacKey.png"
 			, label
 			, onClick.bind(label)
 			);
@@ -79,12 +78,11 @@ abstract WhiteKey(Key) to Key
 	{
 		final label = CHARS.charAt(index);
 		this = new Key
-			( LEFT + WIDTH * index
+			( LEFT + (WIDTH + 1) * index
 			, TOP
 			, WIDTH
 			, HEIGHT
-			, FlxColor.WHITE
-			, 0xFF222034
+			, "assets/images/ui/whitekey.png"
 			, label
 			, onClick.bind(label)
 			);
@@ -106,23 +104,13 @@ class Key extends FlxBitmapTextButton
 	, y     :Float
 	, width :Int
 	, height:Int
-	, fill  :FlxColor
-	, line  :FlxColor
+	, graphic
 	, char  :String
 	, onClick
 	)
 	{
 		super(x, y, char, onClick);
-		final key = '${width}x${height}_${line}';
-		var firstDraw = FlxG.bitmap.get(key) == null;
-		if (firstDraw)
-		{
-			makeGraphic(width * 2, height, line, key);
-			graphic.bitmap.fillRect(new Rectangle(1, 1, width - 2, height - 2), fill);        // fill up
-			graphic.bitmap.fillRect(new Rectangle(width, 0, width, height), fill);            // line down
-			graphic.bitmap.fillRect(new Rectangle(width + 1, 1, width - 2, height - 2), line);// fill down
-		}
-		loadGraphic(FlxG.bitmap.get(key), true, width, height, key);
+		loadGraphic(graphic, true, width, height);
 		
 		statusAnimations = ["normal", "normal", "pressed"];
 		label.font = new NokiaFont();
