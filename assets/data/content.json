@@ -56,9 +56,10 @@
     },
     {
         "day":10,
-        "author":"Chdonga",
-        "tv"    :"SOURCES SAY:",
-        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
+        "author" :"Chdonga",
+        "fileExt":"png",
+        "tv"     :"SOURCES SAY:",
+        "song"   :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
     },
     {
         "day":11,
