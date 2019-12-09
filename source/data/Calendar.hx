@@ -33,10 +33,11 @@ class Calendar
     static public function init(callback:Void->Void = null):Void
     {
         data = Json.parse(Assets.getText("assets/data/content.json"));
+        parseWhitelist();
         
         function initSaveAndEnd()
         {
-            parseWhitelist();
+            parseUnveiledArtists();
             
             FlxG.save.bind("advent2019", "GeoKureli");
             if (FlxG.save.data.openedPres != null && Std.is(FlxG.save.data.openedPres, Int))
@@ -74,19 +75,27 @@ class Calendar
         {
             var artist = data[i].author.toLowerCase();
             if (whitelist.indexOf(artist) == -1)
-            {
                 whitelist.push(artist);
-                if (i <= day)
-                    unveiledArtists.push(artist);
-            }
             
             artist = data[i].song.artist.toLowerCase();
             if (whitelist.indexOf(artist) == -1)
-            {
                 whitelist.push(artist);
-                if (i <= day)
-                    unveiledArtists.push(artist);
-            }
+        }
+        
+        NGio.checkWhitelist();
+    }
+    
+    static function parseUnveiledArtists():Void
+    {
+        for (i in 0...day + 1)
+        {
+            var artist = data[i].author.toLowerCase();
+            if (unveiledArtists.indexOf(artist) == -1)
+                unveiledArtists.push(artist);
+            
+            artist = data[i].song.artist.toLowerCase();
+            if (unveiledArtists.indexOf(artist) == -1)
+                unveiledArtists.push(artist);
         }
         
         NGio.checkWhitelist();
@@ -148,6 +157,7 @@ class Calendar
     {
         day++;
         isDebugDay = true;
+        parseUnveiledArtists();
     }
 }
 
