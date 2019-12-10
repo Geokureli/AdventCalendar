@@ -35,13 +35,13 @@ abstract NokiaFont(FlxBitmapFont) to FlxBitmapFont
     {
         if (instance == null)
         {
-            final chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&*()-_+=[]',.|:?";
+            final chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&*()-_+=[]',.|:?/";
             final widths = 
             [
                 6,6,6,6,6,6,6,6,3,5,7,5,8,7,7,6,7,6,5,7,6,7,8,7,7,6,	//UPPERCASE
                 6,6,5,6,6,4,6,6,3,4,6,3,9,6,6,6,6,5,5,4,6,6,8,6,6,6,	//LOWERCASE
                 6,4,6,6,6,6,6,6,6,6,									//DIGITS
-                3,6,6,7,7,6,4,4,5,6,6,5,4,4,2,3,3,3,3,6					//SYMBOLS
+                3,6,6,7,7,6,4,4,5,6,6,5,4,4,2,3,3,3,3,6,4				//SYMBOLS
             ];
             
             @:privateAccess
