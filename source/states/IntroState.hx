@@ -63,8 +63,8 @@ class IntroState extends flixel.FlxState
             callback(isYes);
         }
         
-        add(yes = new Button( 100, msg.y + msg.height + 5, onDecide.bind(true ), "assets/images/ui/button_yes.png"));
-        add(no  = new Button(190, msg.y + msg.height + 5, onDecide.bind(false), "assets/images/ui/button_no.png" ));
+        add(yes = new YesButton(100, msg.y + msg.height + 5, onDecide.bind(true )));
+        add(no  = new NoButton (190, msg.y + msg.height + 5, onDecide.bind(false)));
     }
     
     function onManualConnectResult(result:ConnectResult):Void
@@ -118,6 +118,7 @@ class IntroState extends flixel.FlxState
         msg.text = message;
         msg.screenCenter(XY);
         waitTime = MSG_TIME;
+        beginGame();
     }
     
     override function update(elapsed:Float):Void
@@ -134,6 +135,5 @@ class IntroState extends flixel.FlxState
         
         if (waitTime <= 0 && complete)
             FlxG.switchState(new CabinState());
-        
     }
 }
