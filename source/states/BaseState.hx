@@ -209,5 +209,6 @@ class BaseState extends OgmoState
 		super.destroy();
 		
 		Instrument.onTypeChange.remove(updateInstrument);
+		infoBoxes.clear();
 	}
 }
