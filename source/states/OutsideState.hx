@@ -141,7 +141,7 @@ class OutsideState extends BaseState
 	
 	inline static var TREE_FADE_TIME = 3.0;
 	inline static var GYRADOS_TIME = 2 * 60.0;
-	inline static var MAX_CAM_OFFSET = 80;
+	inline static var MAX_CAM_OFFSET = 75;
 	inline static var CAM_SNAP_OFFSET = 30;
 	inline static var CAM_SNAP_TIME = 3.0;
 	inline static var CAM_LERP_OFFSET = MAX_CAM_OFFSET - CAM_SNAP_OFFSET;
