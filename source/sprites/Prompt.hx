@@ -135,6 +135,29 @@ class Prompt extends flixel.group.FlxGroup {
 			onChoose();
 	}
 	
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+		
+		var goBack = false;
+		if (FlxG.keys.anyPressed([X, ESCAPE]))
+			goBack = true;
+		
+		if (!goBack && FlxG.gamepads.lastActive != null)
+			goBack = FlxG.gamepads.lastActive.anyPressed([B, BACK]);
+		
+		if (goBack)
+			cancel();
+	}
+	
+	function cancel():Void
+	{
+		if (forceMouse)
+			noMouse.onUp.fire();
+		// else
+		//	
+	}
+	
 	/**
 	 * Shows a single-button prompt and enables/disables the specified button group
 	 * @param text    the dialog messsage.
