@@ -103,7 +103,9 @@ class CabinState extends BaseState
 		if (arcade2 != null)
 		{
 			arcade2.animation.curAnim.frameRate = 6;
+			#if debug//disable for releases
 			addInfoBoxTo(arcade2, "Hominid Helpers", ()->openSubState(new AlienSubstate()));
+			#end
 		}
 		
 		var neon = foreground.getByName("neon");
