@@ -169,12 +169,12 @@ class OutsideState extends BaseState
 		if (player.overlaps(toCabin) #if debug || FlxG.keys.justPressed.C #end)
 			FlxG.switchState(new CabinState(true));
 		
-		if (player.y < top)
+		if (player.y < top || isBehindTree(player))
 			tree.alpha -= elapsed / TREE_FADE_TIME;
 		else
 			tree.alpha += elapsed / TREE_FADE_TIME;
 		
-		if (tree.alpha < 1)
+		if (player.y < top)
 		{
 			#if debug
 			if (FlxG.keys.justPressed.G)
@@ -187,6 +187,12 @@ class OutsideState extends BaseState
 		}
 		else
 			gyrados.alpha -= elapsed;
+	}
+	
+	function isBehindTree(obj:FlxObject)
+	{
+		return (obj.y < tree.y - 15 && obj.x > tree.x && obj.x + obj.width < tree.x + tree.width)
+			|| (obj.y < tree.y && obj.x > tree.x + 45 && obj.x + obj.width < tree.x + tree.width - 45);
 	}
 	
 	function onGlockPresentOpen(present:OgmoDecal):Void
