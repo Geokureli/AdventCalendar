@@ -99,6 +99,13 @@ class CabinState extends BaseState
 			addInfoBoxTo(arcade, "2018 Advent", FlxG.openURL.bind(ADVENT_LINK));
 		}
 		
+		var arcade2 = foreground.getByName("arcade2");
+		if (arcade2 != null)
+		{
+			arcade2.animation.curAnim.frameRate = 6;
+			addInfoBoxTo(arcade2, "Hominid Helpers", openSubState(new AlienSubstate()));
+		}
+		
 		var neon = foreground.getByName("neon");
 		if (neon != null)
 			neon.animation.curAnim.frameRate = 2;
