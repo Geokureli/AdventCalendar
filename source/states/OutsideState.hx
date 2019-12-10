@@ -124,7 +124,7 @@ class OutsideState extends BaseState
 					colliders.add(child);
 					child.immovable = true;
 					child.setBottomHeight(Math.round(child.height / 2));
-					addInfoBoxTo(child, name, FlxG.openURL.bind('https://$name.newgrounds.com'));
+					addInfoBoxTo(child, name, openUrl.bind('https://$name.newgrounds.com'));
 				}
 				else
 					child.kill();

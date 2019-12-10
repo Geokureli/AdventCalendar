@@ -1,5 +1,6 @@
 package states;
 
+import sprites.Prompt;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -202,6 +203,21 @@ class BaseState extends OgmoState
 	function onInstrumentClick():Void
 	{
 		openSubState(new PianoSubstate());
+	}
+	
+	function openUrl(url:String):Void
+	{
+		var prompt = new Prompt();
+		add(prompt);
+		var prettyUrl = url;
+		if (prettyUrl.indexOf("://") != -1)
+			prettyUrl = url.split("://").pop();
+		prompt.setup
+			( 'Open external page?\n$prettyUrl'
+			, FlxG.openURL.bind(url)
+			, null
+			, remove.bind(prompt)
+			);
 	}
 	
 	override function destroy()

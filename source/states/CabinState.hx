@@ -96,14 +96,14 @@ class CabinState extends BaseState
 		if (arcade != null)
 		{
 			arcade.animation.curAnim.frameRate = 6;
-			addInfoBoxTo(arcade, "2018 Advent", FlxG.openURL.bind(ADVENT_LINK));
+			addInfoBoxTo(arcade, "2018 Advent", openUrl.bind(ADVENT_LINK));
 		}
 		
 		var arcade2 = foreground.getByName("arcade2");
 		if (arcade2 != null)
 		{
 			arcade2.animation.curAnim.frameRate = 6;
-			addInfoBoxTo(arcade2, "Hominid Helpers", openSubState(new AlienSubstate()));
+			addInfoBoxTo(arcade2, "Hominid Helpers", ()->openSubState(new AlienSubstate()));
 		}
 		
 		var neon = foreground.getByName("neon");
@@ -118,7 +118,7 @@ class CabinState extends BaseState
 		safeAddInfoBox
 			( "stereo"
 			, "Music by " + Calendar.today.song.artist
-			, FlxG.openURL.bind(Calendar.today.musicProfileLink)
+			, openUrl.bind(Calendar.today.musicProfileLink)
 			);
 		
 		initNPC();
