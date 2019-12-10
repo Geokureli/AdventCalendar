@@ -31,8 +31,6 @@ class GallerySubstate extends FlxSubState
 	private var bigImage:FlxSpriteGroup;
 	private var textBG:FlxSpriteButton;
 	
-	private var newCamera:FlxCamera;
-	
 	private var curDay:Int = 0;
 	
 	// GET TOUCH CONTROLS FOR EXITING GOING HERE
@@ -45,26 +43,21 @@ class GallerySubstate extends FlxSubState
 	
 	override public function create():Void 
 	{
-		
-		newCamera = new FlxCamera(0, 0, FlxG.width, FlxG.height);
-		FlxG.cameras.add(newCamera);
-		newCamera.bgColor = FlxColor.TRANSPARENT;
+		FlxG.camera.bgColor = FlxColor.TRANSPARENT;
 		
 		bigImage = new FlxSpriteGroup();
 		bigPreview = new FlxSprite();
 		bigPreview.antialiasing = true;
 		bigImage.add(bigPreview);
-		
-		bigPreview.cameras = [newCamera];
-		bigImage.cameras = [newCamera];
+		bigImage.scrollFactor.set();
 		
 		
 		imageText = new FlxText(0, FlxG.height - 16, FlxG.width - 6, "", 8);
 		imageText.scale.set(0.5, 0.5);
 		imageText.updateHitbox();
 		imageText.alignment = FlxTextAlign.CENTER;
+		imageText.scrollFactor.set();
 		imageText.screenCenter(X);
-		imageText.cameras = [newCamera];
 		
 		infoBox = new FlxSpriteButton(imageText.x - 2, imageText.y + 2, null, function(){
 			FlxG.openURL(Calendar.data[curDay].profileLink);
@@ -72,7 +65,6 @@ class GallerySubstate extends FlxSubState
 		infoBox.makeGraphic(Std.int(imageText.width) + 4, Std.int(imageText.height) + 4, FlxColor.BLACK);
 		infoBox.alpha = 0.5;
 		infoBox.screenCenter(X);
-		infoBox.cameras = [newCamera];
 		
 		
 		// offset because the safari search bar covers the game a bit i think
@@ -86,17 +78,13 @@ class GallerySubstate extends FlxSubState
 		var msg = 'Current Pic - ${FlxG.onMobile ? "Tap" : "Click"} here to exit';
 		var text:FlxText = new FlxText(10, 10 + offset, 0, msg, 8);
 		text.scale.set(0.5, 0.5);
-		text.cameras = [newCamera];
 		text.updateHitbox();
+		text.scrollFactor.set();
 		
-		textBG = new FlxSpriteButton(text.x - 2, text.y - 2, null, function(){
-			FlxG.cameras.remove(newCamera);
-			close();
-		});
+		textBG = new FlxSpriteButton(text.x - 2, text.y - 2, null, close);
 		textBG.makeGraphic(Std.int(text.width) + 4, Std.int(text.height) + 5, FlxColor.BLACK);
 		textBG.alpha = 0.5;
-		textBG.cameras = [newCamera];
-		
+		textBG.scrollFactor.set();
 		
 		add(bigImage);
 		
@@ -216,10 +204,7 @@ class GallerySubstate extends FlxSubState
 		#end
 		
 		if (FlxG.keys.anyJustPressed(["ESCAPE", "SPACE"]))
-		{
-			FlxG.cameras.remove(newCamera);
 			close();
-		}
 		
 		// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
 		if (FlxG.keys.pressed.D)
@@ -244,10 +229,7 @@ class GallerySubstate extends FlxSubState
 	{
 		//Close Substate
 		if (gamepad.anyPressed(["B"]))
-		{
-			FlxG.cameras.remove(newCamera);
 			close();
-		}
 		
 		if (gamepad.anyPressed(["DOWN", "DPAD_DOWN", "LEFT_STICK_DIGITAL_DOWN"]))
 		{

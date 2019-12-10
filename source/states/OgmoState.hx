@@ -287,6 +287,14 @@ abstract OgmoDecal(FlxSprite) to FlxSprite from FlxSprite
 		this.y += oldHeight - value;
 		this.offset.y += oldHeight - value;
 	}
+	
+	public function setMiddleWidth(value:Int)
+	{
+		var oldWidth = this.width;
+		this.width = value;
+		this.x += (oldWidth - value) / 2;
+		this.offset.x += (oldWidth - value) / 2;
+	}
 }
 
 typedef OgmoDecalData = OgmoObjectData & { texture:String }
