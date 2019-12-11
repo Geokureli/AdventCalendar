@@ -41,9 +41,15 @@ class PianoSubstate extends flixel.FlxSubState
 	function onChange(char:String, isPress:Bool):Void
 	{
 		if (isPress)
+		{
+			trace('press $char');
 			Instrument.press(musicKeys.indexOf(char));
+		}
 		else
+		{
+			trace('release $char');
 			Instrument.release(musicKeys.indexOf(char));
+		}
 	}
 }
 
@@ -125,6 +131,7 @@ class Key extends FlxBitmapTextButton
 		loadGraphic(graphic, true, width, height);
 		onDown.callback = onClick.bind(true);
 		onUp.callback = onClick.bind(false);
+		onOut.callback = onClick.bind(false);
 		
 		statusAnimations = ["normal", "normal", "pressed"];
 		label.font = new NokiaFont();
