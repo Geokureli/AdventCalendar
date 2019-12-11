@@ -1,7 +1,7 @@
 package data;
 
-import flixel.system.FlxSound;
 import flixel.FlxG;
+import flixel.system.FlxSound;
 import flixel.util.FlxSignal;
 
 class Instrument
