@@ -18,7 +18,7 @@ import flixel.FlxSprite;
 class MedalPopup extends flixel.group.FlxSpriteGroup
 {
     inline static var MEDAL_0 = 58519;
-    inline static var TEST_MEDAL = OutsideState.GLOCK_MEDAL;
+    inline static var TEST_MEDAL = OutsideState.MUSIC_MEDAL;
     inline static var BOX_PATH = "assets/images/ui/medalAnim.png";
     inline static var MEDAL_PATH = "assets/images/ui/medalSlide.png";
     

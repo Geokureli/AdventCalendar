@@ -1,5 +1,6 @@
 package states;
 
+import data.BitArray;
 import flixel.input.keyboard.FlxKey;
 import sprites.Button;
 import data.Instrument;
@@ -17,6 +18,7 @@ import flixel.ui.FlxButton;
 class PianoSubstate extends flixel.FlxSubState
 {
 	static var musicKeys = "E4R5TY7U8I9OP";
+	var down:BitArray = new BitArray();
 	override public function create():Void 
 	{
 		super.create();
@@ -25,13 +27,23 @@ class PianoSubstate extends flixel.FlxSubState
 		back.x -= back.width;
 		add(back);
 		
-		BlackKey.createAll(this, onPress);
-		WhiteKey.createAll(this, onPress);
+		BlackKey.createAll(this, onChange);
+		WhiteKey.createAll(this, onChange);
 	}
 	
-	function onPress(char:String):Void
+	override function update(elapsed:Float)
 	{
-		Instrument.press(musicKeys.indexOf(char));
+		super.update(elapsed);
+		
+		Instrument.update(elapsed);
+	}
+	
+	function onChange(char:String, isPress:Bool):Void
+	{
+		if (isPress)
+			Instrument.press(musicKeys.indexOf(char));
+		else
+			Instrument.release(musicKeys.indexOf(char));
 	}
 }
 
@@ -45,7 +57,7 @@ abstract BlackKey(Key) to Key
 	inline static public var LEFT_1 = 24;
 	inline static public var LEFT_2 = 137 - WIDTH * GAP;
 	
-	public function new (index:Int, onClick:(String)->Void)
+	public function new (index:Int, onClick:(String, Bool)->Void)
 	{
 		final label = CHARS.charAt(index);
 		this = new Key
@@ -55,11 +67,11 @@ abstract BlackKey(Key) to Key
 			, HEIGHT
 			, "assets/images/ui/blacKey.png"
 			, label
-			, onClick.bind(label)
+			, onClick.bind(label, _)
 			);
 	}
 	
-	public static function createAll(parent:FlxGroup, onClick:(String)->Void):Void
+	public static function createAll(parent:FlxGroup, onClick:(String, Bool)->Void):Void
 	{
 		for (i in 0...CHARS.length)
 			parent.add(new BlackKey(i, onClick));
@@ -74,7 +86,7 @@ abstract WhiteKey(Key) to Key
 	inline static public var WIDTH = 37;
 	inline static public var HEIGHT = 87;
 	
-	public function new (index:Int, onClick:(String)->Void)
+	public function new (index:Int, onClick:(String, Bool)->Void)
 	{
 		final label = CHARS.charAt(index);
 		this = new Key
@@ -84,11 +96,11 @@ abstract WhiteKey(Key) to Key
 			, HEIGHT
 			, "assets/images/ui/whitekey.png"
 			, label
-			, onClick.bind(label)
+			, onClick.bind(label, _)
 			);
 	}
 	
-	public static function createAll(parent:FlxGroup, onClick:(String)->Void):Void
+	public static function createAll(parent:FlxGroup, onClick:(String, Bool)->Void):Void
 	{
 		for (i in 0...CHARS.length)
 			parent.add(new WhiteKey(i, onClick));
@@ -100,18 +112,19 @@ class Key extends FlxBitmapTextButton
 	inline static var LETTER_BUFFER = 8;
 	
 	public function new 
-	( x     :Float
-	, y     :Float
-	, width :Int
-	, height:Int
+	( x      :Float
+	, y      :Float
+	, width  :Int
+	, height :Int
 	, graphic
-	, char  :String
-	, onClick
+	, char   :String
+	, onClick:(Bool)->Void
 	)
 	{
 		super(x, y, char);
 		loadGraphic(graphic, true, width, height);
-		onDown.callback = onClick;
+		onDown.callback = onClick.bind(true);
+		onUp.callback = onClick.bind(false);
 		
 		statusAnimations = ["normal", "normal", "pressed"];
 		label.font = new NokiaFont();
@@ -130,21 +143,24 @@ class Key extends FlxBitmapTextButton
 		
 		var key:Array<FlxKey> = switch(label.text)
 		{
-			case "4": ["FOUR"];
-			case "5": ["FIVE"];
-			case "7": ["SEVEN"];
-			case "8": ["EIGHT"];
-			case "9": ["NINE"];
+			case "4": [FOUR];
+			case "5": [FIVE];
+			case "7": [SEVEN];
+			case "8": [EIGHT];
+			case "9": [NINE];
 			case char: [char];
 		}
 		
 		if (FlxG.keys.anyJustPressed(key))
-			this.onDown.fire();
+			onDown.fire();
 		
 		if (FlxG.keys.anyPressed(key))
-			this.animation.play("pressed");
+			animation.play("pressed");
 		
 		if (FlxG.keys.anyJustReleased(key))
-			this.animation.play("normal");
+		{
+			onUp.fire();
+			animation.play("normal");
+		}
 	}
 }

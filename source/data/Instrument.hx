@@ -17,13 +17,14 @@ class Instrument
     static public var type(default, set):Null<InstrumentType> = null;
     static public var key(default, set):Key;
     static public var onTypeChange = new FlxTypedSignal<(Null<InstrumentType>)->Void>();
+    static var owned:Array<InstrumentType> = [];
     static var soundPath:String;
     static var root:Int;
     static var scale:Array<Int>;
-    static var sustain:Float;
+    static var sustainMode:Bool;
     static var singleNoteMode:Bool;
-    static var activeNote:Null<FlxSound> = null;
-    static var owned:Array<InstrumentType> = [];
+    static var currentNote:Null<Int> = null;
+    static var activeNotes:Array<FlxSound> = [];
     
     static public function setInitial():Void
     {
@@ -43,25 +44,42 @@ class Instrument
     
     static public function press(note:Int):Void
     {
-        if (singleNoteMode)
-            release(note);
+        if (singleNoteMode && currentNote != note && activeNotes[currentNote] != null)
+        {
+            var sound = activeNotes[currentNote];
+            sound.fadeOut(0.1, 0, (_)->sound.kill());
+        }
         
-        var sound = FlxG.sound.play(soundPath + '${notes[root + note]}.mp3', 0.5);
-        if (sustain >= 0)
-            sound.fadeOut(sustain);
-        if (singleNoteMode)
-            activeNote = sound;
+        currentNote = note;
+        
+        activeNotes[note] = FlxG.sound.play(soundPath + '${notes[root + note]}.mp3', 0.5);
     }
     
-    static function release(note:Int):Void
+    static public function release(note:Int):Void
     {
-        if (activeNote != null)
-            activeNote.fadeOut(0.01);
+        final sound = activeNotes[note];
+        activeNotes[note] = null;
+        
+        if (singleNoteMode && note == currentNote)
+        {
+            currentNote = null;
+            
+            for (i in 0...activeNotes.length)
+            {
+                if (activeNotes[i] != null)
+                {
+                    press(i);
+                    break;
+                }
+            }
+        }
+        
+        if (sustainMode && sound != null)
+            sound.fadeOut(0.1, 0, (_)->sound.kill());
     }
     
     static public function update(elapsed):Void
     {
-        trace("update");
     }
     
     inline static function set_type(value:Null<InstrumentType>)
@@ -71,11 +89,11 @@ class Instrument
             case null:"";
             case Glockenspiel: 
                 soundPath = PATH + "glockenspiel/";
-                sustain = -1;
+                sustainMode = false;
                 singleNoteMode = false;
             case Flute:
                 soundPath = PATH + "flute/";
-                sustain = 1.0;
+                sustainMode = true;
                 singleNoteMode = true;
         }
         

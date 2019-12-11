@@ -13,7 +13,7 @@ import sprites.Snow;
 
 class OutsideState extends BaseState
 {
-	inline static public var GLOCK_MEDAL = 58544;
+	inline static public var MUSIC_MEDAL = 58544;
 	
 	inline static var WIND = 1.8;
 	inline static var CLOUD_BOB_DIS = 50;
@@ -221,7 +221,7 @@ class OutsideState extends BaseState
 		infoBoxes.remove(present);
 		
 		Instrument.addGlockenspiel();
-		NGio.unlockMedal(GLOCK_MEDAL);
+		NGio.unlockMedal(MUSIC_MEDAL);
 		
 		addGlock(present);
 	}
@@ -233,6 +233,7 @@ class OutsideState extends BaseState
 		infoBoxes.remove(present);
 		
 		Instrument.addFlute();
+		NGio.unlockMedal(MUSIC_MEDAL);
 		
 		addFlute(present);
 	}

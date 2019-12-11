@@ -74,10 +74,12 @@ class Player extends Character
 		
 		if (Instrument.type != null)
 		{
+			Instrument.update(elapsed);
+			
 			for (i in 0...musicKeys.length)
 			{
-				// if (FlxG.keys.anyJustReleased(musicKeys[i]))
-				// 	Instrument.release(i);
+				if (FlxG.keys.anyJustReleased(musicKeys[i]))
+					Instrument.release(i);
 				
 				if (FlxG.keys.anyJustPressed(musicKeys[i]))
 					Instrument.press(i);
