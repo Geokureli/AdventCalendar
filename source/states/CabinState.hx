@@ -99,7 +99,7 @@ class CabinState extends BaseState
 		if (arcade != null)
 		{
 			arcade.animation.curAnim.frameRate = 6;
-			addInfoBoxTo(arcade, "2018 Advent", openUrl.bind(ADVENT_LINK));
+			addHoverTextTo(arcade, "2018 Advent", openUrl.bind(ADVENT_LINK));
 		}
 		
 		var arcade2 = foreground.getByName("arcade2");
@@ -107,7 +107,7 @@ class CabinState extends BaseState
 		{
 			arcade2.animation.curAnim.frameRate = 6;
 			#if debug//disable for releases
-			addInfoBoxTo(arcade2, "Hominid Helpers", ()->openSubState(new AlienSubstate()));
+			addHoverTextTo(arcade2, "Hominid Helpers", ()->openSubState(new AlienSubstate()));
 			#end
 		}
 		
@@ -120,7 +120,7 @@ class CabinState extends BaseState
 			arcade.animation.curAnim.frameRate = 12;
 		
 		//Music Credit
-		safeAddInfoBox
+		safeAddHoverText
 			( "stereo"
 			, "Music by " + Calendar.today.song.artist
 			, openUrl.bind(Calendar.today.musicProfileLink)

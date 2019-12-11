@@ -9,7 +9,9 @@ import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxBitmapText;
 import flixel.text.FlxText;
 
-class InfoBox extends FlxSpriteGroup
+typedef InfoBox = TypedInfoBox<FlxSprite>;
+
+class TypedInfoBox<T:FlxSprite> extends FlxSpriteGroup
 {
     inline static var BUFFER = 2;
     inline static var BOB_DIS = 4;
@@ -20,22 +22,15 @@ class InfoBox extends FlxSpriteGroup
     public var timer = 0.0;
     public var introTime = 0.0;
     
-    public function new (?text:String, ?callback:Void->Void, x = 0.0, y = 0.0, border = 1)
+    public function new (?sprite:T, ?callback:Void->Void, x = 0.0, y = 0.0)
     {
         super();
         this.callback = callback;
         
         this.x = x;
         this.y = y;
-        if (text != null)
-        {
-            var info = new FlxBitmapText();
-            info.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);
-            info.autoSize = true;
-            info.text = text;
-            info.x -= info.width / 2;
-            add(info);
-        }
+        if (sprite != null)
+            add(sprite);
         
         scale.y = 0;
         alive = false;
@@ -61,5 +56,23 @@ class InfoBox extends FlxSpriteGroup
     {
         if (callback != null)
             callback();
+    }
+}
+
+class InfoTextBox extends TypedInfoBox<FlxBitmapText>
+{
+    public function new (text:String, ?callback:Void->Void, x = 0.0, y = 0.0, border = 1)
+    {
+        var info:FlxBitmapText = null;
+        if (text != null)
+        {
+            info = new FlxBitmapText();
+            info.setBorderStyle(OUTLINE, FlxColor.BLACK, 1);
+            info.autoSize = true;
+            info.text = text;
+            info.x -= info.width / 2;
+        }
+        
+        super(info, callback, x, y);
     }
 }

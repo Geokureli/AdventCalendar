@@ -104,7 +104,7 @@ class OutsideState extends BaseState
 			else
 			{
 				glockPresent.animation.play("unopened");
-				addInfoBoxTo(glockPresent, onGlockPresentOpen.bind(glockPresent));
+				addHoverTextTo(glockPresent, onGlockPresentOpen.bind(glockPresent));
 			}
 		}
 		
@@ -123,7 +123,7 @@ class OutsideState extends BaseState
 			else
 			{
 				flutePresent.animation.play("unopened");
-				addInfoBoxTo(flutePresent, onFlutePresentOpen.bind(flutePresent));
+				addHoverTextTo(flutePresent, onFlutePresentOpen.bind(flutePresent));
 			}
 		}
 		
@@ -143,7 +143,7 @@ class OutsideState extends BaseState
 					colliders.add(child);
 					child.immovable = true;
 					child.setBottomHeight(Math.round(child.height / 2));
-					addInfoBoxTo(child, name, openUrl.bind('https://$name.newgrounds.com'));
+					addHoverTextTo(child, name, openUrl.bind('https://$name.newgrounds.com'));
 				}
 				else
 					child.kill();
@@ -217,7 +217,8 @@ class OutsideState extends BaseState
 	function onGlockPresentOpen(present:OgmoDecal):Void
 	{
 		present.animation.play("opened");
-		infoBoxes[present].visible = false;
+		remove(infoBoxes[present]);
+		infoBoxes.remove(present);
 		
 		Instrument.addGlockenspiel();
 		NGio.unlockMedal(GLOCK_MEDAL);
@@ -228,7 +229,8 @@ class OutsideState extends BaseState
 	function onFlutePresentOpen(present:OgmoDecal):Void
 	{
 		present.animation.play("opened");
-		infoBoxes[present].visible = false;
+		remove(infoBoxes[present]);
+		infoBoxes.remove(present);
 		
 		Instrument.addFlute();
 		
@@ -243,7 +245,7 @@ class OutsideState extends BaseState
 			, "assets/images/props/outside/glockenspiel.png"
 			);
 		background.add(glockenspiel);
-		addInfoBoxTo(glockenspiel, "Glockenspiel", selectInstrument.bind(Glockenspiel));
+		addHoverTextTo(glockenspiel, "Glockenspiel", selectInstrument.bind(Glockenspiel));
 		return glockenspiel;
 	}
 	
@@ -255,7 +257,7 @@ class OutsideState extends BaseState
 			, "assets/images/props/outside/flute.png"
 			);
 		background.add(flute);
-		addInfoBoxTo(flute, "Flute", selectInstrument.bind(Flute));
+		addHoverTextTo(flute, "Flute", selectInstrument.bind(Flute));
 		return flute;
 	}
 	

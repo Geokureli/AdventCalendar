@@ -112,7 +112,7 @@ class BaseState extends OgmoState
 		add(playerHitbox = new FlxObject(0, 0, player.width + 6, player.height + 6));
 	}
 	
-	function addInfoBox(target:String, ?text:String, ?callback:Void->Void, hoverDis = 20)
+	function addHoverText(target:String, ?text:String, ?callback:Void->Void, hoverDis = 20)
 	{
 		var decal:FlxObject = foreground.getByName(target);
 		if (decal == null)
@@ -120,22 +120,22 @@ class BaseState extends OgmoState
 		if (decal == null)
 			throw 'can\'t find $target in foreground or props';
 		
-		addInfoBoxTo(decal, text, callback, hoverDis);
+		addHoverTextTo(decal, text, callback, hoverDis);
 	}
 	
-	function safeAddInfoBox(target:String, ?text:String, ?callback:Void->Void, hoverDis = 20)
+	function safeAddHoverText(target:String, ?text:String, ?callback:Void->Void, hoverDis = 20)
 	{
 		var decal:FlxObject = foreground.getByName(target);
 		if (decal == null)
 			decal = cast props.getByName(target);
 		if (decal != null)
-			addInfoBoxTo(decal, text, callback, hoverDis);
+			addHoverTextTo(decal, text, callback, hoverDis);
 	}
 	
-	function addInfoBoxTo(target:FlxObject, ?text:String, ?callback:Void->Void, hoverDis = 20)
+	function addHoverTextTo(target:FlxObject, ?text:String, ?callback:Void->Void, hoverDis = 20)
 	{
 		touchable.add(target);
-		add(infoBoxes[target] = new InfoBox(text, callback, target.x + target.width / 2, target.y - hoverDis));
+		add(infoBoxes[target] = cast new InfoTextBox(text, callback, target.x + target.width / 2, target.y - hoverDis));
 	}
 	
 	function initCamera()
