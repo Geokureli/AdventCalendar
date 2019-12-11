@@ -69,17 +69,10 @@ class CabinState extends BaseState
 		
 		add(thumbnail);
 		
-		var tree:OgmoDecal = null;
-		var day = Calendar.day + 1;
-		while(day > 0 && tree == null)
-		{
-			tree = foreground.getByName('tree_$day');
-			day--;
-		}
-		day++; 
-		
+		var treeDay = foreground.getObjectNameIndex("tree_", Calendar.day + 1);
+		var tree:OgmoDecal = foreground.getByName("tree_" + treeDay);
 		if (tree != null)
-			tree.setBottomHeight(day < 3 ? 8 : 10);
+			tree.setBottomHeight(treeDay < 3 ? 8 : 10);
 		
 		toOutside = props.getByName("toOutside");
 		if (fromOutside)

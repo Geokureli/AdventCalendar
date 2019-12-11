@@ -91,6 +91,24 @@ class OgmoObjectLayer<T:FlxBasic> extends FlxTypedGroup<T>
 	{
 		return cast byName[name];
 	}
+	
+	public function getObjectNameIndex(suffix:String, maxValue:Int):Null<Int>
+	{
+		var value = maxValue;
+		while(value >= 0)
+		{
+			if (byName.exists(suffix + value))
+				return value;
+			
+			value--;
+		}
+		return null;
+	}
+	
+	public function getIndexNamedObject(suffix:String, maxValue:Int):Null<T>
+	{
+		return getByName(suffix + getObjectNameIndex(suffix, maxValue));
+	}
 }
 
 typedef IOgmoDecal = IOgmoObject<OgmoDecalData, OgmoDecalLayer>;

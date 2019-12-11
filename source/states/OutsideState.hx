@@ -58,7 +58,7 @@ class OutsideState extends BaseState
 		var snow1 = background.getByName("snow1");
 		snow1.scrollFactor.set(0.4, 0.4);
 		
-		var ground = background.getByName("ground");
+		var ground = background.getIndexNamedObject("ground", Calendar.day + 1);
 		var shine = background.getByName("shine");
 		ground.scrollFactor.set(0.6, 0.6);
 		shine.scrollFactor.set(0.6, 0.6);
