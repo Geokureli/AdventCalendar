@@ -1,5 +1,6 @@
 package data;
 
+import flixel.system.FlxSound;
 import flixel.FlxG;
 import flixel.util.FlxSignal;
 
@@ -19,22 +20,56 @@ class Instrument
     static var soundPath:String;
     static var root:Int;
     static var scale:Array<Int>;
+    static var sustain:Float;
+    static var singleNoteMode:Bool;
+    static var activeNote:Null<FlxSound> = null;
+    static var owned:Array<InstrumentType> = [];
     
-    static public function play(note:Int):Void
+    static public function press(note:Int):Void
     {
-        FlxG.sound.play(soundPath + '${notes[root + note]}.mp3', 0.5);
+        if (singleNoteMode)
+            release(note);
+        
+        var sound = FlxG.sound.play(soundPath + '${notes[root + note]}.mp3', 0.5);
+        if (sustain >= 0)
+            sound.fadeOut(sustain);
+        if (singleNoteMode)
+            activeNote = sound;
+    }
+    
+    static function release(note:Int):Void
+    {
+        if (activeNote != null)
+            activeNote.fadeOut(0.01);
+    }
+    
+    static public function update(elapsed):Void
+    {
+        trace("update");
     }
     
     inline static function set_type(value:Null<InstrumentType>)
     {
-        soundPath = switch (value)
+        switch (value)
         {
             case null:"";
-            case Glockenspiel: PATH + "glockenspiel/";
+            case Glockenspiel: 
+                soundPath = PATH + "glockenspiel/";
+                sustain = -1;
+                singleNoteMode = false;
+            case Flute:
+                soundPath = PATH + "flute/";
+                sustain = 1.0;
+                singleNoteMode = true;
         }
         
         if (Instrument.type != value)
         {
+            if (FlxG.save.data.instrument != value.getIndex())
+            {
+                FlxG.save.data.instrument = value.getIndex();
+                FlxG.save.flush();
+            }
             Instrument.type = value;
             onTypeChange.dispatch(value);
         }
@@ -94,12 +129,41 @@ class Instrument
         }
     }
     
-    static public function setInititial():Void
+    static public function setInitial():Void
     {
-        if (Calendar.hasGlock)
+        if (FlxG.save.data.hasGlock)
+            owned.push(Glockenspiel);
+        
+        if (FlxG.save.data.hasFlute)
+            owned.push(Flute);
+        
+        if (FlxG.save.data.instrument != null)
+            type = InstrumentType.createByIndex(FlxG.save.data.instrument);
+        else if (FlxG.save.data.hasGlock)
             type = Glockenspiel;
         
         setKeyFromString(Calendar.today.song.key);
+    }
+    
+    static public function addGlockenspiel()
+    {
+        owned.push(Glockenspiel);
+        FlxG.save.data.hasGlock = true;
+        FlxG.save.flush();
+        type = Glockenspiel;
+    }
+    
+    static public function addFlute()
+    {
+        owned.push(Flute);
+        FlxG.save.data.hasFlute = true;
+        FlxG.save.flush();
+        type = Flute;
+    }
+    
+    static public function owns(type:InstrumentType)
+    {
+        return owned.indexOf(type) != -1;
     }
 }
 
@@ -112,4 +176,5 @@ enum Key
 enum InstrumentType
 {
     Glockenspiel;
+    Flute;
 }

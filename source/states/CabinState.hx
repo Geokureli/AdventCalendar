@@ -13,6 +13,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 
 import data.Calendar;
+import data.Instrument;
 import data.NGio;
 import states.OgmoState;
 import sprites.Thumbnail;
@@ -47,7 +48,9 @@ class CabinState extends BaseState
 		if (Calendar.isAdvent && FlxG.sound.music == null)
 		{
 			FlxG.sound.playMusic(Calendar.today.getSongPath(), 0);
-			FlxG.sound.music.fadeIn(5, 0, 0.3);
+			var volume = Calendar.today.song.volume;
+			FlxG.sound.music.fadeIn(5, 0, volume == null ? 0.3 : volume);
+			Instrument.setInitial();
 		}
 		
 		initPresents();

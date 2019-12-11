@@ -96,7 +96,7 @@ class OutsideState extends BaseState
 			glockPresent.animation.add("opened", [1], false);
 			glockPresent.immovable = true;
 			colliders.add(glockPresent);
-			if (Calendar.hasGlock)
+			if (Instrument.owns(Glockenspiel))
 			{
 				glockPresent.animation.play("opened");
 				var glockenspiel = addGlock(glockPresent);
@@ -105,6 +105,25 @@ class OutsideState extends BaseState
 			{
 				glockPresent.animation.play("unopened");
 				addInfoBoxTo(glockPresent, onGlockPresentOpen.bind(glockPresent));
+			}
+		}
+		
+		var flutePresent = foreground.getByName("present_colebob");
+		if (flutePresent != null)
+		{
+			flutePresent.animation.add("unopened", [0], false);
+			flutePresent.animation.add("opened", [1], false);
+			flutePresent.immovable = true;
+			colliders.add(flutePresent);
+			if (Instrument.owns(Flute))
+			{
+				flutePresent.animation.play("opened");
+				var flute = addFlute(flutePresent);
+			}
+			else
+			{
+				flutePresent.animation.play("unopened");
+				addInfoBoxTo(flutePresent, onFlutePresentOpen.bind(flutePresent));
 			}
 		}
 		
@@ -197,14 +216,23 @@ class OutsideState extends BaseState
 	
 	function onGlockPresentOpen(present:OgmoDecal):Void
 	{
-		Calendar.saveOpenGlock();
 		present.animation.play("opened");
 		infoBoxes[present].visible = false;
 		
-		Instrument.type = Glockenspiel;
+		Instrument.addGlockenspiel();
 		NGio.unlockMedal(GLOCK_MEDAL);
 		
 		addGlock(present);
+	}
+	
+	function onFlutePresentOpen(present:OgmoDecal):Void
+	{
+		present.animation.play("opened");
+		infoBoxes[present].visible = false;
+		
+		Instrument.addFlute();
+		
+		addFlute(present);
 	}
 	
 	function addGlock(present:OgmoDecal):FlxSprite
@@ -215,7 +243,25 @@ class OutsideState extends BaseState
 			, "assets/images/props/outside/glockenspiel.png"
 			);
 		background.add(glockenspiel);
-		addInfoBoxTo(glockenspiel, "ERTYUIOP");
+		addInfoBoxTo(glockenspiel, "Glockenspiel", selectInstrument.bind(Glockenspiel));
 		return glockenspiel;
+	}
+	
+	function addFlute(present:OgmoDecal):FlxSprite
+	{
+		var flute = new FlxSprite
+			( present.x + present.width / 2
+			, present.y + present.height
+			, "assets/images/props/outside/flute.png"
+			);
+		background.add(flute);
+		addInfoBoxTo(flute, "Flute", selectInstrument.bind(Flute));
+		return flute;
+	}
+	
+	function selectInstrument(type:InstrumentType):Void
+	{
+		if (Instrument.type != type)
+			Instrument.type = type;
 	}
 }

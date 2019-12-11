@@ -16,7 +16,6 @@ class Calendar
     static public var data(default, null):ReadOnlyArray<ContentData>;
     static public var today(get, never):ContentData;
     static public var openedPres(default, null) = new BitArray();
-    static public var hasGlock(default, null) = false;
     
     static var unveiledArtists(default, null) =
 	[ "geokureli"    // organizer/programmer
@@ -43,8 +42,6 @@ class Calendar
             if (FlxG.save.data.openedPres != null && Std.is(FlxG.save.data.openedPres, Int))
             {
                 openedPres = FlxG.save.data.openedPres;
-                hasGlock = FlxG.save.data.hasGlock;
-                Instrument.setInititial();
                 trace("loaded savefile: " + openedPres);
             }
             
@@ -145,14 +142,6 @@ class Calendar
         FlxG.save.flush();
     }
     
-    static public function saveOpenGlock()
-    {
-        trace("pew pew");
-        hasGlock = true;
-        FlxG.save.data.hasGlock = hasGlock;
-        FlxG.save.flush();
-    }
-    
     static public function showDebugNextDay():Void
     {
         day++;
@@ -168,7 +157,7 @@ typedef RawContentData =
 	final fileExt:Null<String>;
 	final frames :Null<Int>;
 	final tv     :Null<String>;
-    final song   : { artist:String, key:String, ?id:Int }
+    final song   : { artist:String, key:String, ?id:Int, ?volume:Float }
 }
 
 @:forward

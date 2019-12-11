@@ -72,12 +72,15 @@ class Player extends Character
 		
 		super.update(elapsed);
 		
-		if (Calendar.hasGlock)
+		if (Instrument.type != null)
 		{
 			for (i in 0...musicKeys.length)
 			{
+				// if (FlxG.keys.anyJustReleased(musicKeys[i]))
+				// 	Instrument.release(i);
+				
 				if (FlxG.keys.anyJustPressed(musicKeys[i]))
-					Instrument.play(i);
+					Instrument.press(i);
 			}
 		}
 	}

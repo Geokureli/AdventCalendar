@@ -189,8 +189,12 @@ class BaseState extends OgmoState
 		instrument.visible = true;
 		switch(type)
 		{
-			case null: instrument.visible = false;
-			case Glockenspiel: instrument.loadGraphic("assets/images/props/outside/glockenspiel.png");
+			case null:
+				instrument.visible = false;
+			case Glockenspiel:
+				instrument.loadGraphic("assets/images/props/outside/glockenspiel.png");
+			case Flute:
+				instrument.loadGraphic("assets/images/props/outside/flute.png");
 		}
 		
 		if (instrument.visible)

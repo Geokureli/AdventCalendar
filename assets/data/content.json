@@ -65,27 +65,27 @@
         "day":11,
         "author":"HenryEYES",
         "tv"     :"SOURCES SAY:",
-        "song"  :{ "artist":"Carmet", "key":"gMaj" }
+        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
         "day":12,
         "author":"Krinkels",
-        "song"  :{ "artist":"Carmet", "key":"gMaj" }
+        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
         "day":13,
         "author":"BrandyBuizel",
-        "song"  :{ "artist":"Carmet", "key":"gMaj" }
+        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
         "day":14,
         "author":"MixMuffin",
-        "song"  :{ "artist":"Carmet", "key":"gMaj" }
+        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
         "day":15,
         "author":"ShiroGaia",
-        "song"  :{ "artist":"Carmet", "key":"gMaj" }
+        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
         "day":16,

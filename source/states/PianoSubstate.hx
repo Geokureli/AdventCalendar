@@ -31,7 +31,7 @@ class PianoSubstate extends flixel.FlxSubState
 	
 	function onPress(char:String):Void
 	{
-		Instrument.play(musicKeys.indexOf(char));
+		Instrument.press(musicKeys.indexOf(char));
 	}
 }
 
