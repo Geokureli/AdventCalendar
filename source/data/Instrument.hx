@@ -25,6 +25,22 @@ class Instrument
     static var activeNote:Null<FlxSound> = null;
     static var owned:Array<InstrumentType> = [];
     
+    static public function setInitial():Void
+    {
+        if (FlxG.save.data.hasGlock)
+            owned.push(Glockenspiel);
+        
+        if (FlxG.save.data.hasFlute)
+            owned.push(Flute);
+        
+        if (FlxG.save.data.instrument != null)
+            type = InstrumentType.createByIndex(FlxG.save.data.instrument);
+        else if (FlxG.save.data.hasGlock)
+            type = Glockenspiel;
+        
+        setKeyFromString(Calendar.today.song.key);
+    }
+    
     static public function press(note:Int):Void
     {
         if (singleNoteMode)
@@ -127,22 +143,6 @@ class Instrument
             case Major(note): note + "Maj";
             case Minor(note): note + "Min";
         }
-    }
-    
-    static public function setInitial():Void
-    {
-        if (FlxG.save.data.hasGlock)
-            owned.push(Glockenspiel);
-        
-        if (FlxG.save.data.hasFlute)
-            owned.push(Flute);
-        
-        if (FlxG.save.data.instrument != null)
-            type = InstrumentType.createByIndex(FlxG.save.data.instrument);
-        else if (FlxG.save.data.hasGlock)
-            type = Glockenspiel;
-        
-        setKeyFromString(Calendar.today.song.key);
     }
     
     static public function addGlockenspiel()
