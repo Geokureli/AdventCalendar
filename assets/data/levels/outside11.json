@@ -80,7 +80,9 @@
         {"x": 42, "y": 240, "texture": "presents/present_czyszy_ogmo.png"},
         {"x": 72, "y": 365, "texture": "snowSprite/Chdonga.png"},
         {"x": 94, "y": 255, "texture": "presents/present_colebob_ogmo.png"},
-        {"x": 139, "y": 377, "texture": "snowSprite/HenryEYES.png"}
+        {"x": 139, "y": 377, "texture": "snowSprite/HenryEYES.png"},
+        {"x": 113, "y": 345, "texture": "snowSprite/MixMuffin.png"},
+        {"x": 248, "y": 361, "texture": "snowSprite/ShiroGaia.png"}
       ]
     },
     {
