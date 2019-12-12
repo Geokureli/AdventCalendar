@@ -1,15 +1,18 @@
 {
   "name": "Advent Calendar",
+  "ogmoVersion": "3.2.1",
   "levelPaths": ["."],
   "backgroundColor": "#282c34ff",
   "gridColor": "#3c4049cc",
   "anglesRadians": false,
   "directoryDepth": 5,
+  "layerGridDefaultSize": {"x": 8, "y": 8},
   "levelDefaultSize": {"x": 320, "y": 240},
   "levelMinSize": {"x": 128, "y": 128},
   "levelMaxSize": {"x": 4096, "y": 4096},
   "levelValues": [],
   "defaultExportMode": ".json",
+  "compactExport": false,
   "entityTags": [],
   "layers": [
     {
@@ -36,7 +39,7 @@
       "exportID": "23953795",
       "folder": "../../images",
       "includeImageSequence": true,
-      "scaleable": true,
+      "scaleable": false,
       "rotatable": false,
       "values": []
     },
@@ -47,17 +50,9 @@
       "exportID": "23955745",
       "folder": "../../images",
       "includeImageSequence": true,
-      "scaleable": true,
+      "scaleable": false,
       "rotatable": false,
-      "values": [
-        {
-          "name": "camBoundsTarget",
-          "definition": "String",
-          "defaults": "floor",
-          "maxLength": 0,
-          "trimWhitespace": true
-        }
-      ]
+      "values": []
     }
   ],
   "entities": [
@@ -95,7 +90,6 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "texture": "/Users/booboo/Documents/projects/haxe/AdventCalendar/assets/images/props/cabin/tv_bubble.png",
       "values": [
         {
           "name": "sorting",
@@ -103,7 +97,9 @@
           "choices": ["Top", "Y", "Bottom", "None"],
           "defaults": 0
         }
-      ]
+      ],
+      "texture": "../../images/props/cabin/tv_bubble.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAAAnCAYAAAAilUe0AAAAAXNSR0IArs4c6QAAAMtJREFUeJzt28sKgzAUANGb4P//8u1KyKJtaLQmYeaA4EJBGPNwYcnMiIgMUZQaBqfJOvsJ9DyjAxkdyOhARgcyOpDRgYwOZHQgowMZHcjoQEYHMjqQ0YGMDmR0IKMDGR3I6EBGBzI6kNGBjA5kdKAaEWX2Q+hR5ThPfrip9xuUL9Hi7p7eDb4B13SgkejfRrN/wG5gdKQbfmNXpvde+PPQYq6u6aU5PjH8Yu7cyLlz34S7d6B/fKe/m+6d4hdy9C8Z1oZvN3UuA5O9AFN1EFRrwCelAAAAAElFTkSuQmCC"
     },
     {
       "exportID": "31201496",
@@ -139,8 +135,9 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "texture": "/Users/booboo/Documents/projects/haxe/AdventCalendar/assets/images/tankMan_ogmo.png",
-      "values": []
+      "values": [],
+      "texture": "../../images/tankMan_ogmo.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAHlJREFUOI21kbsOgCAMRYsx1BH//yN1FBecNKX0FY13o0lPbw4JWDKWxmd3zronPusG1rIGeR4ZS6vHpi7isoqQybsohTYNA7R2rxrQdA6iS9TB8C0URmtrEkWA1Ur9Rg3gtfgs0QXQq1LmyBULYjoAGEVyif878HIB5sktV3bTqjEAAAAASUVORK5CYII="
     },
     {
       "exportID": "48541537",
@@ -176,15 +173,8 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "texture": null,
       "values": [
-        {
-          "name": "id",
-          "definition": "String",
-          "defaults": "teleport",
-          "maxLength": 0,
-          "trimWhitespace": true
-        }
+        {"name": "id", "definition": "String", "defaults": "teleport", "maxLength": 0, "trimWhitespace": true}
       ]
     },
     {
@@ -221,19 +211,14 @@
       "nodeDisplay": 0,
       "nodeGhost": true,
       "tags": [],
-      "texture": "/Users/booboo/Documents/projects/haxe/AdventCalendar/assets/images/presents/present_czyszy_ogmo.png",
-      "values": [{"name": "id", "definition": "Text", "defaults": ""}]
+      "values": [
+        {"name": "id", "definition": "Text", "defaults": ""}
+      ],
+      "texture": "../../images/presents/present_czyszy_ogmo.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAAAXNSR0IArs4c6QAAAbZJREFUOI2Fk71qFFEUx393GV/A7Aw3C2ohEQJZdpGp3GKzECKisbK1WJIXsNllnmCLiA8QFX0AsZdbhBQrBK5hhhGs0oZhRgsN2l6LzL3cyTp4qv85938+7vkQAK8OX+JLUZVGhhGvj45Yl+s8ebpHUZUAQoaR4z3/ktBRSgEYwBRVaQAjw4jpwT69tS4PH4zoDwfUjsbnHt5+QZCnmekPB8RxjNYaoIGtDtD3dK01SinT+Z8zsBLM6kmSIDY37pneWpc22R1vt769//gBoZQybWU/e/SY3fE293cmrVV28jT7p3Ob7uM8zQiKquTdm7eOPD3Yb+1BnmYopexEKKqSQIYRRVU642KxcPjix3c+fV5yo3vTcXy+DCM6gDNex5d/fvPr8ueK3ccBIJbHJwaALRpZrFzPfv71GzVfCIDZbGZkGLE8Pmn8/TQ7Q4Yhd3q3GvbRZOxWO/BLGk3GjYyn2RkAd7c2G43zfQIbNUkS1+1pHDcmI8OI/nDg3rTW5GkGcNXEoipX5mwdAIf9HfCbCFxtpH+q9oB8vT4g+x0BEBhjmM/nAKKoSkgzA1CfORbbkh2vlr80kvwLK1BO+QAAAABJRU5ErkJggg=="
     }
   ],
   "tilesets": [
-    {
-      "label": "Walls",
-      "path": "../../images/props/cabin/wall_ogmo.png",
-      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAAXNSR0IArs4c6QAAABlJREFUCJljZEADa4yM/iPzmdAVoAPKFQAA674CF3jsQBoAAAAASUVORK5CYII=",
-      "tileWidth": 4,
-      "tileHeight": 4,
-      "tileSeparationX": 0,
-      "tileSeparationY": 0
-    }
+    {"label": "Walls", "path": "../../images/props/cabin/wall_ogmo.png", "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAAXNSR0IArs4c6QAAABlJREFUCJljZEADa4yM/iPzmdAVoAPKFQAA674CF3jsQBoAAAAASUVORK5CYII=", "tileWidth": 4, "tileHeight": 4, "tileSeparationX": 0, "tileSeparationY": 0}
   ]
 }
