@@ -191,8 +191,8 @@ class OgmoEntityLayer extends OgmoObjectLayer<FlxObject>
 						entity.offset.x = entityData.originX;
 					if (entityData.originY != 0)
 						entity.offset.y = entityData.originY;
-					// entity.flipX = entityData.flippedX == true;
-					// entity.flipY = entityData.flippedY == true;
+					if (entityData.flippedX == true)
+						entity.facing = (entity.facing == FlxObject.LEFT) ? FlxObject.RIGHT : FlxObject.LEFT;
 				}
 			}
 		}

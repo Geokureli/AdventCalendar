@@ -38,7 +38,7 @@ class Character extends Sprite
 		width = 4;
 		height = 4;
 		offset.x = 4;
-		facing = FlxObject.RIGHT;
+		facing = FlxObject.LEFT;
 	}
 	
 	

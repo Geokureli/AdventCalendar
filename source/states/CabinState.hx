@@ -151,10 +151,10 @@ class CabinState extends BaseState
 			if (presentData == null)
 				throw "missing presents.json";
 			
-			var props:OgmoEntityLayerData = null;
+			var props:OgmoDecalLayerData = null;
 			for (layer in presentData.layers)
 			{
-				if (layer.name == "Props")
+				if (layer.name == "Foreground")
 				{
 					props = cast layer;
 					break;
@@ -163,10 +163,15 @@ class CabinState extends BaseState
 			if (props == null)
 				throw "missing Props layer in present.json";
 			
-			for (entity in (cast props.entities:Array<OgmoEntityData<{id:String}>>))
+			presentPositions.resize(props.decals.length);
+			
+			for (decal in props.decals)
 			{
-				if (entity.name == "Present" && entity.values.id == "")
-					presentPositions.push(new FlxPoint(entity.x, entity.y));
+				if (decal.texture.indexOf("medal") != -1)
+				{
+					final medalNum = Std.parseInt(decal.texture.split("medal").pop().split(".").shift());
+					presentPositions[medalNum - 1] = new FlxPoint(decal.x, decal.y);
+				}
 			}
 		}
 		

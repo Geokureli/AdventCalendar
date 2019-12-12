@@ -28,258 +28,7 @@
       "gridCellHeight": 8,
       "gridCellsX": 16,
       "gridCellsY": 16,
-      "entities": [
-        {
-          "name": "Present",
-          "id": 0,
-          "_eid": "65061048",
-          "x": 224,
-          "y": 184,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 1,
-          "_eid": "65061048",
-          "x": 160,
-          "y": 160,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 2,
-          "_eid": "65061048",
-          "x": 224,
-          "y": 152,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 3,
-          "_eid": "65061048",
-          "x": 272,
-          "y": 208,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 4,
-          "_eid": "65061048",
-          "x": 176,
-          "y": 224,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 5,
-          "_eid": "65061048",
-          "x": 288,
-          "y": 144,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 6,
-          "_eid": "65061048",
-          "x": 120,
-          "y": 192,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 7,
-          "_eid": "65061048",
-          "x": 104,
-          "y": 136,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 8,
-          "_eid": "65061048",
-          "x": 232,
-          "y": 224,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 9,
-          "_eid": "65061048",
-          "x": 96,
-          "y": 224,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 10,
-          "_eid": "65061048",
-          "x": 312,
-          "y": 176,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 11,
-          "_eid": "65061048",
-          "x": 264,
-          "y": 168,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 12,
-          "_eid": "65061048",
-          "x": 184,
-          "y": 192,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 13,
-          "_eid": "65061048",
-          "x": 304,
-          "y": 232,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 14,
-          "_eid": "65061048",
-          "x": 136,
-          "y": 208,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 15,
-          "_eid": "65061048",
-          "x": 200,
-          "y": 208,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 16,
-          "_eid": "65061048",
-          "x": 152,
-          "y": 184,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 17,
-          "_eid": "65061048",
-          "x": 192,
-          "y": 152,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 18,
-          "_eid": "65061048",
-          "x": 128,
-          "y": 152,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 19,
-          "_eid": "65061048",
-          "x": 296,
-          "y": 200,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 20,
-          "_eid": "65061048",
-          "x": 248,
-          "y": 200,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 21,
-          "_eid": "65061048",
-          "x": 288,
-          "y": 176,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 22,
-          "_eid": "65061048",
-          "x": 256,
-          "y": 144,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 23,
-          "_eid": "65061048",
-          "x": 200,
-          "y": 176,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        },
-        {
-          "name": "Present",
-          "id": 24,
-          "_eid": "65061048",
-          "x": 152,
-          "y": 136,
-          "originX": 0,
-          "originY": 0,
-          "values": {"id": ""}
-        }
-      ]
+      "entities": []
     },
     {
       "name": "Foreground",
@@ -290,7 +39,136 @@
       "gridCellHeight": 1,
       "gridCellsX": 128,
       "gridCellsY": 128,
-      "decals": []
+      "decals": [
+        {
+          "x": 224,
+          "y": 184,
+          "texture": "presents/medal1.png"
+        },
+        {
+          "x": 160,
+          "y": 160,
+          "texture": "presents/medal2.png"
+        },
+        {
+          "x": 224,
+          "y": 152,
+          "texture": "presents/medal3.png"
+        },
+        {
+          "x": 272,
+          "y": 208,
+          "texture": "presents/medal4.png"
+        },
+        {
+          "x": 176,
+          "y": 224,
+          "texture": "presents/medal5.png"
+        },
+        {
+          "x": 288,
+          "y": 144,
+          "texture": "presents/medal6.png"
+        },
+        {
+          "x": 120,
+          "y": 192,
+          "texture": "presents/medal7.png"
+        },
+        {
+          "x": 104,
+          "y": 136,
+          "texture": "presents/medal8.png"
+        },
+        {
+          "name": "Present",
+          "id": 8,
+          "_eid": "65061048",
+          "x": 232,
+          "y": 224,
+          "texture": "presents/medal9.png"
+        },
+        {
+          "x": 96,
+          "y": 224,
+          "texture": "presents/medal10.png"
+        },
+        {
+          "x": 312,
+          "y": 176,
+          "texture": "presents/medal11.png"
+        },
+        {
+          "x": 264,
+          "y": 168,
+          "texture": "presents/medal12.png"
+        },
+        {
+          "x": 184,
+          "y": 192,
+          "texture": "presents/medal13.png"
+        },
+        {
+          "x": 304,
+          "y": 232,
+          "texture": "presents/medal14.png"
+        },
+        {
+          "x": 136,
+          "y": 208,
+          "texture": "presents/medal15.png"
+        },
+        {
+          "x": 200,
+          "y": 208,
+          "texture": "presents/medal16.png"
+        },
+        {
+          "x": 152,
+          "y": 184,
+          "texture": "presents/medal17.png"
+        },
+        {
+          "x": 192,
+          "y": 152,
+          "texture": "presents/medal18.png"
+        },
+        {
+          "x": 128,
+          "y": 152,
+          "texture": "presents/medal19.png"
+        },
+        {
+          "x": 296,
+          "y": 200,
+          "texture": "presents/medal20.png"
+        },
+        {
+          "x": 248,
+          "y": 200,
+          "texture": "presents/medal21.png"
+        },
+        {
+          "x": 288,
+          "y": 176,
+          "texture": "presents/medal22.png"
+        },
+        {
+          "x": 256,
+          "y": 144,
+          "texture": "presents/medal23.png"
+        },
+        {
+          "x": 200,
+          "y": 176,
+          "texture": "presents/medal24.png"
+        },
+        {
+          "x": 152,
+          "y": 136,
+          "texture": "presents/medal25.png"
+        }
+      ]
     },
     {
       "name": "Background",

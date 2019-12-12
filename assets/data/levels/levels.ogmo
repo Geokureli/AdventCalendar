@@ -127,7 +127,7 @@
       "resizeableY": false,
       "rotatable": false,
       "rotationDegrees": 360,
-      "canFlipX": false,
+      "canFlipX": true,
       "canFlipY": false,
       "canSetColor": false,
       "hasNodes": false,
@@ -176,46 +176,6 @@
       "values": [
         {"name": "id", "definition": "String", "defaults": "teleport", "maxLength": 0, "trimWhitespace": true}
       ]
-    },
-    {
-      "exportID": "65061048",
-      "name": "Present",
-      "limit": -1,
-      "size": {"x": 16, "y": 16},
-      "origin": {"x": 0, "y": 0},
-      "originAnchored": true,
-      "shape": {
-        "label": "Rectangle",
-        "points": [
-          {"x": -1, "y": -1},
-          {"x": 1, "y": -1},
-          {"x": -1, "y": 1},
-          {"x": 1, "y": -1},
-          {"x": -1, "y": 1},
-          {"x": 1, "y": 1}
-        ]
-      },
-      "color": "#0000ffff",
-      "tileX": false,
-      "tileY": false,
-      "tileSize": {"x": 16, "y": 16},
-      "resizeableX": false,
-      "resizeableY": false,
-      "rotatable": false,
-      "rotationDegrees": 360,
-      "canFlipX": false,
-      "canFlipY": false,
-      "canSetColor": false,
-      "hasNodes": false,
-      "nodeLimit": 0,
-      "nodeDisplay": 0,
-      "nodeGhost": true,
-      "tags": [],
-      "values": [
-        {"name": "id", "definition": "Text", "defaults": ""}
-      ],
-      "texture": "../../images/presents/present_czyszy_ogmo.png",
-      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAAAXNSR0IArs4c6QAAAbZJREFUOI2Fk71qFFEUx393GV/A7Aw3C2ohEQJZdpGp3GKzECKisbK1WJIXsNllnmCLiA8QFX0AsZdbhBQrBK5hhhGs0oZhRgsN2l6LzL3cyTp4qv85938+7vkQAK8OX+JLUZVGhhGvj45Yl+s8ebpHUZUAQoaR4z3/ktBRSgEYwBRVaQAjw4jpwT69tS4PH4zoDwfUjsbnHt5+QZCnmekPB8RxjNYaoIGtDtD3dK01SinT+Z8zsBLM6kmSIDY37pneWpc22R1vt769//gBoZQybWU/e/SY3fE293cmrVV28jT7p3Ob7uM8zQiKquTdm7eOPD3Yb+1BnmYopexEKKqSQIYRRVU642KxcPjix3c+fV5yo3vTcXy+DCM6gDNex5d/fvPr8ueK3ccBIJbHJwaALRpZrFzPfv71GzVfCIDZbGZkGLE8Pmn8/TQ7Q4Yhd3q3GvbRZOxWO/BLGk3GjYyn2RkAd7c2G43zfQIbNUkS1+1pHDcmI8OI/nDg3rTW5GkGcNXEoipX5mwdAIf9HfCbCFxtpH+q9oB8vT4g+x0BEBhjmM/nAKKoSkgzA1CfORbbkh2vlr80kvwLK1BO+QAAAABJRU5ErkJggg=="
     }
   ],
   "tilesets": [
