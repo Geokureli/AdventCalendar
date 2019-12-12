@@ -69,6 +69,7 @@
         {"x": 412, "y": 280, "texture": "snowSprite/MalikJack.png"},
         {"x": 337, "y": 239, "texture": "snowSprite/NickConter.png"},
         {"x": 161, "y": 331, "texture": "snowSprite/MKMaffo.png"},
+        {"x": 171, "y": 247, "texture": "snowSprite/Dogl.png"},
         {"x": 309, "y": 358, "texture": "snowSprite/Krinkels.png"},
         {"x": 412, "y": 366, "texture": "snowSprite/Snackers.png"},
         {"x": 69, "y": 210, "texture": "snowSprite/MrShmoods.png"},
@@ -82,7 +83,8 @@
         {"x": 94, "y": 255, "texture": "presents/present_colebob_ogmo.png"},
         {"x": 139, "y": 377, "texture": "snowSprite/HenryEYES.png"},
         {"x": 113, "y": 345, "texture": "snowSprite/MixMuffin.png"},
-        {"x": 248, "y": 361, "texture": "snowSprite/ShiroGaia.png"}
+        {"x": 248, "y": 361, "texture": "snowSprite/ShiroGaia.png"},
+        {"x": 222, "y": 366, "texture": "snowSprite/Boomnm.png"}
       ]
     },
     {
