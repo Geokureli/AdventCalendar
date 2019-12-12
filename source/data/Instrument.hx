@@ -63,19 +63,24 @@ class Instrument
         if (singleNoteMode && note == currentNote)
         {
             currentNote = null;
-            
-            for (i in 0...activeNotes.length)
-            {
-                if (activeNotes[i] != null)
-                {
-                    press(i);
-                    break;
-                }
-            }
+            var lastPressed = getLastPressed();
+            if (lastPressed != -1)
+                press(lastPressed);
         }
         
         if (sustainMode && sound != null)
             sound.fadeOut(0.1, 0, (_)->sound.kill());
+    }
+    
+    inline static function getLastPressed():Int
+    {
+        var lastPressed = -1;
+        for (i in 0...activeNotes.length)
+        {
+            if (activeNotes[i] != null && (lastPressed == -1 || activeNotes[i].time < activeNotes[lastPressed].time))
+                lastPressed = i;
+        }
+        return lastPressed;
     }
     
     static public function update(elapsed):Void
