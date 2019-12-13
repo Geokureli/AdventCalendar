@@ -288,9 +288,9 @@ class OutsideState extends BaseState
 	function onKill():Void
 	{
 		var data:CrimeData = cast Json.parse(openfl.Assets.getText("assets/data/crimeData.json"));
-		openSubState(new DialogSubstate(data.victory));
 		NGio.unlockMedal(KILLER_MEDAL);
 		Calendar.saveSolvedMurder();
 		foreground.getByName("killer").animation.play("bleed");
+		openSubState(new DialogSubstate(data.victory));
 	}
 }

@@ -1,6 +1,5 @@
 package data;
 
-import flixel.util.FlxSignal;
 import io.newgrounds.NG;
 import io.newgrounds.objects.Medal;
 import io.newgrounds.objects.Score;
@@ -13,6 +12,9 @@ import io.newgrounds.objects.events.Result.GetDateTimeResult;
 import openfl.display.Stage;
 
 import flixel.FlxG;
+import flixel.util.FlxSignal;
+
+import states.OutsideState;
 
 class NGio
 {
@@ -91,7 +93,7 @@ class NGio
 		wouldBeNaughty = isNaughty
 			= naughty.indexOf(NG.core.user.name.toLowerCase()) != -1;
 		trace ('logged in! user:${NG.core.user.name}, naughty:$isNaughty');
-		NG.core.requestMedals();
+		NG.core.requestMedals(onMedalsRequested);
 		
 		ngDataLoaded.dispatch();
 	}
@@ -120,6 +122,14 @@ class NGio
 	}
 	
 	// --- MEDALS
+	static function onMedalsRequested():Void
+	{
+		if (FlxG.save.data.solvedMurder == true)
+			NGio.unlockMedal(OutsideState.KILLER_MEDAL);
+		if (FlxG.save.data.instrument != null)
+			NGio.unlockMedal(OutsideState.MUSIC_MEDAL);
+	}
+	
 	static public function unlockMedal(id:Int):Void
 	{
 		if(!isNaughty && isLoggedIn && !Calendar.isDebugDay)

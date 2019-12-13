@@ -53,10 +53,7 @@ class Calendar
             
             seenMurder = FlxG.save.data.seenMurder == true;
             hasKnife = FlxG.save.data.hasKnife == true;
-            
             solvedMurder = FlxG.save.data.solvedMurder == true;
-            if (solvedMurder)
-                NGio.unlockMedal(OutsideState.KILLER_MEDAL);
             
             if (Std.is(FlxG.save.data.interrogated, Int))
                 interrogated = FlxG.save.data.interrogated;
