@@ -118,7 +118,11 @@ class DialogSubstate extends flixel.FlxSubState
 	{
 		super.update(elapsed);
 		
-		if (canExit && FlxG.keys.pressed.ANY)
+		var exit = FlxG.keys.pressed.ANY
+			|| FlxG.gamepads.anyJustPressed(ANY)
+			|| FlxG.mouse.justPressed;
+		
+		if (canExit && exit)
 		{
 			close();
 			if (onComplete != null)
