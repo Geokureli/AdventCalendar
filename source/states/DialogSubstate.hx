@@ -18,6 +18,7 @@ class DialogSubstate extends flixel.FlxSubState
 	inline static var BUFFER = 20;
 	
 	var canExit = false;
+	var canSkip = false;
 	var onComplete:()->Void = null;
 	var msg:Message;
 	var bg:FlxSliceSprite;
@@ -26,7 +27,7 @@ class DialogSubstate extends flixel.FlxSubState
 	{
 		this.msg = msg;
 		this.onComplete = onComplete;
-		canExit = canSkip;
+		this.canSkip = canSkip;
 		
 		super();
 	}
@@ -61,6 +62,9 @@ class DialogSubstate extends flixel.FlxSubState
 	{
 		if (bg == null)
 			return;
+		
+		//Don't let them skip before this so they don't accidentally exit.
+		canExit = canSkip;
 		
 		var body:AppearingText = null;
 		body = new AppearingText(msg.body);

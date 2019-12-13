@@ -235,6 +235,7 @@ class Player extends Character
 		knife = new FlxSprite();
 		knife.loadGraphic("assets/images/knifeAnim.png", true, 15, 2);
 		knife.animation.add("stab", [0,1,2,3], 20, false);
+		knife.visible = false;
 		return knife;
 	}
 }

@@ -51,6 +51,7 @@ class CabinState extends BaseState
 	var toOutside:FlxObject;
 	var crimeState:Null<CrimeState> = null;
 	var crimeData:CrimeData;
+	var justOpenPresent = false;
 	
 	override public function new (fromOutside = false)
 	{
@@ -249,20 +250,27 @@ class CabinState extends BaseState
 			thumbnail.y = present.y - thumbnail.height - 8;
 		}
 		
-		if (player.interacting)
-			openPresent(present);
-		else if (FlxG.onMobile)
+		// prevent double open since multiple inputs can trigger
+		if (!justOpenPresent)
 		{
-			for (touch in FlxG.touches.justStarted())
+			if (player.interacting)
+				openPresent(present);
+			else if (FlxG.onMobile)
 			{
-				if (touch.overlaps(present) || touch.overlaps(thumbnail))
-					openPresent(present);
+				for (touch in FlxG.touches.justStarted())
+				{
+					if (touch.overlaps(present) || touch.overlaps(thumbnail))
+						openPresent(present);
+				}
 			}
 		}
+		else
+			justOpenPresent = false;
 	}
 	
 	function openPresent(present:Present):Void
 	{
+		justOpenPresent = true;
 		trace('opened: ' + present.curDay);
 		
 		if (present.curDay == Calendar.day || Calendar.isChristmas)
@@ -325,6 +333,8 @@ class CabinState extends BaseState
 					openSubState(new DialogSubstate(crimeData.instructions));
 				crimeState = Interrogation;
 			}
+			
+			giveNpcCrimeDialog();
 		}
 		else
 		{
@@ -461,8 +471,7 @@ class CabinState extends BaseState
 					foreground.active = true;
 					cutsceneActive = false;
 					thumbnail.alpha = 1;
-					for (i in 0...npcs.members.length)
-						addHoverTextTo(npcs.members[i], "talk", talkTo.bind(i));
+					giveNpcCrimeDialog();
 				}
 				
 				if (Calendar.interrogatedAll)
@@ -480,6 +489,12 @@ class CabinState extends BaseState
 		}
 		if (crimeState != oldState)
 			cutsceneTimer = 0;
+	}
+	
+	function giveNpcCrimeDialog():Void
+	{
+		for (i in 0...npcs.members.length)
+			addHoverTextTo(npcs.members[i], "talk", talkTo.bind(i));
 	}
 	
 	function talkTo(npcIndex:Int)
