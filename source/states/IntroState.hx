@@ -139,12 +139,12 @@ class IntroState extends flixel.FlxState
             var allowPlay = true;
             
             var missing = [];
-            if (Calendar.today.tv == null)                    missing.push("tv");
-            if (Assets.exists(Calendar.today.getArtPath()))   missing.push("art");
-            if (Assets.exists(Calendar.today.getThumbPath())) missing.push("thumb");
-            if (Assets.exists(Calendar.today.getSongPath()))  missing.push("song");
-            if (!Assets.exists(Calendar.getPresentPath()))    missing.push("present");
-            if (!Assets.exists(Calendar.getMedalPath()))      missing.push("medal");
+            if (Calendar.today.tv == null)                     missing.push("tv");
+            if (!Assets.exists(Calendar.today.getArtPath()))   missing.push("art");
+            if (!Assets.exists(Calendar.today.getThumbPath())) missing.push("thumb");
+            if (!Assets.exists(Calendar.today.getSongPath()))  missing.push("song");
+            if (!Assets.exists(Calendar.getPresentPath()))     missing.push("present");
+            if (!Assets.exists(Calendar.getMedalPath()))       missing.push("medal");
             
             if (Calendar.today.notReady == true || missing.length > 0)
             {
