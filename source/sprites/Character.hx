@@ -2,7 +2,8 @@ package sprites;
 
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 
 /**
  * ...
@@ -21,10 +22,9 @@ class Character extends Sprite
 		return super.set_facing(direction);
 	}
 	
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
+	public function new(?X:Float=0, ?Y:Float=0) 
 	{
-		super(X, Y, SimpleGraphic);
-		
+		super(X, Y);
 		
 		loadGraphic(AssetPaths.tankMan__png, true, 16, 16);
 		animation.frameIndex = 0;
@@ -68,4 +68,24 @@ class Character extends Sprite
 		else if (velocity.x < 0)
 			facing = FlxObject.LEFT;
 	}
+	
+	public function setEmotion(emotion:Emotion):FlxSprite
+	{
+		var emotionSprite = new FlxSprite().loadGraphic(cast emotion);
+		
+		emotionSprite.x = x;
+		emotionSprite.y = y;
+		FlxTween.tween(emotionSprite, { y: y - frameHeight - 10}, 0.25, { ease:FlxEase.backOut });
+		FlxTween.tween(emotionSprite, { y: y - 10 }, 0.25,
+			{ ease:FlxEase.backIn, startDelay:1.25, onComplete:(_)->emotionSprite.kill() }
+		);
+		
+		return emotionSprite;
+	}
+}
+
+enum abstract Emotion(String) to String
+{
+	var Alerted = "assets/images/alerted.png";
+	var Puzzled = "assets/images/puzzled.png";
 }

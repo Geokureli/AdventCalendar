@@ -30,14 +30,15 @@ class GallerySubstate extends FlxSubState
 	private var bigPreview:FlxSprite;
 	private var bigImage:FlxSpriteGroup;
 	private var textBG:FlxSpriteButton;
+	private var onClose:Null<()->Void>;
 	
 	private var curDay:Int = 0;
 	
 	// GET TOUCH CONTROLS FOR EXITING GOING HERE
-	public function new(picNum:Int) 
+	public function new(picNum:Int, ?onClose:()->Void) 
 	{
 		this.picNum = picNum;
-		
+		this.onClose = onClose;
 		super();
 	}
 	
@@ -382,5 +383,15 @@ class GallerySubstate extends FlxSubState
 		}
 	}
 	
+	override function close()
+	{
+		super.close();
+		
+		if (onClose != null)
+		{
+			onClose();
+			onClose = null;
+		}
+	}
 	
 }

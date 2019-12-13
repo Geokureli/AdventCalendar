@@ -3,7 +3,6 @@ package sprites;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
-import flixel.system.FlxAssets.FlxGraphicAsset;
 
 import data.Calendar;
 import data.FSM;
@@ -19,9 +18,9 @@ class NPC extends Character
 	private var _idleTmr:Float = 0;
 	private var _moveDir:Float;
 
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
+	public function new(?X:Float=0, ?Y:Float=0) 
 	{
-		super(X, Y, SimpleGraphic);
+		super(X, Y);
 		
 		_brain = new FSM(idle);
 		

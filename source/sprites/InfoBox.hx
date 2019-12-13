@@ -1,10 +1,11 @@
 package sprites;
 
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.FlxObject;
 import flixel.tweens.FlxEase;
 import flixel.math.FlxMath;
-import flixel.FlxG;
 import flixel.util.FlxColor;
-import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxBitmapText;
 import flixel.text.FlxText;
@@ -21,6 +22,7 @@ class TypedInfoBox<T:FlxSprite> extends FlxSpriteGroup
     public var callback:Null<Void->Void>;
     public var timer = 0.0;
     public var introTime = 0.0;
+    public var hoverDis = 20;
     
     public function new (?sprite:T, ?callback:Void->Void, x = 0.0, y = 0.0)
     {
@@ -56,6 +58,12 @@ class TypedInfoBox<T:FlxSprite> extends FlxSpriteGroup
     {
         if (callback != null)
             callback();
+    }
+    
+    public function updateFollow(target:FlxObject):Void
+    {
+        x = target.x + target.width / 2;
+        y = target.y - hoverDis;
     }
 }
 

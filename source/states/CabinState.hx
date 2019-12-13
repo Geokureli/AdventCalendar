@@ -9,8 +9,11 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 import data.Calendar;
 import data.Instrument;
@@ -20,6 +23,9 @@ import sprites.Thumbnail;
 import sprites.TvBubble;
 import sprites.NPC;
 import sprites.Present;
+
+typedef Message = { ?title:String, body:String }
+typedef CrimeData = { instructions:Message, messages:Array<Message> }
 
 class CabinState extends BaseState
 {
@@ -34,6 +40,8 @@ class CabinState extends BaseState
 	var presents = new FlxTypedGroup<Present>();
 	var thumbnail = new Thumbnail();
 	var toOutside:FlxObject;
+	var crimeState:Null<CrimeState> = null;
+	var crimeData:CrimeData;
 	
 	override public function new (fromOutside = false)
 	{
@@ -119,10 +127,13 @@ class CabinState extends BaseState
 			, openUrl.bind(Calendar.today.musicProfileLink)
 			);
 		
-		initNPC();
+		initNPCs();
+		
+		if (Calendar.day == 12) // Murder Mystery
+			initCrime();
 	}
 	
-	private function initNPC():Void
+	private function initNPCs():Void
 	{
 		var cam = FlxG.camera;
 		for (c in 0...Calendar.day)
@@ -132,6 +143,7 @@ class CabinState extends BaseState
 				, FlxG.random.float(100, cam.maxScrollY - 20)
 				);
 			npc.updateSprite(c);
+			npcs.add(npc);
 			foreground.add(npc);
 			colliders.add(npc);
 			characters.add(npc);
@@ -205,6 +217,9 @@ class CabinState extends BaseState
 		
 		super.update(elapsed);
 		
+		if (Calendar.day == 12 && cutsceneActive)
+			updateCrime(elapsed);
+		
 		//INTERACTABLES
 		if (tvTouch.overlaps(playerHitbox) && player.interacting)
 			tvBubble.play();
@@ -213,7 +228,7 @@ class CabinState extends BaseState
 			FlxG.switchState(new OutsideState());
 	}
 	
-	inline public function touchPresent(present:Present)
+	public function touchPresent(present:Present)
 	{
 		final day = present.curDay;
 		
@@ -247,7 +262,13 @@ class CabinState extends BaseState
 		present.animation.play("opened");
 		Calendar.saveOpenPresent(present.curDay);
 		FlxG.sound.play("assets/sounds/presentOpen.mp3", 1);
-		openSubState(new GallerySubstate(present.curDay));
+		
+		
+		var onClose:()->Void = null;
+		if (Calendar.day == 12 && present.curDay == 12 && crimeState == null)
+			onClose = startCrimeCutscene;
+		
+		openSubState(new GallerySubstate(present.curDay, onClose));
 		
 		var presCount:Int = 0;
 		for (i in 0...Calendar.openedPres.getLength())
@@ -262,4 +283,166 @@ class CabinState extends BaseState
 			Calendar.resetOpenedPresents();
 		}
 	}
+	
+	function initCrime()
+	{
+		var deadguy = foreground.getByName("deadguy");
+		deadguy.visible = false;
+		foreground.getByName("crime").visible = false;
+		foreground.getByName("knife").visible = false;
+		foreground.getByName("tree_13").visible = false;
+		crimeData = cast Json.parse(openfl.Assets.getText("assets/data/crimeData.json"));
+		var madnessNpc = npcs.members[11];
+		madnessNpc.x = deadguy.x;
+		madnessNpc.y = deadguy.y;
+		madnessNpc.immovable = true;
+		madnessNpc.active = false;
+	}
+	
+	function startCrimeCutscene():Void
+	{
+		thumbnail.alpha = 0;
+		crimeState = LightsOff;
+		cutsceneActive = true;
+		foreground.active = false;
+		cutsceneTimer = 0;
+	}
+	
+	function updateCrime(elapsed:Float):Void
+	{
+		var isStateStart = cutsceneTimer == 0;
+		cutsceneTimer += elapsed;
+		var oldState = crimeState;
+		switch(crimeState)
+		{
+			case null:
+			case LightsOff:
+				if (isStateStart)
+					FlxG.camera.fade(0.01, false);
+				checkForNextState(1.0);
+			case LightsOn:
+				if (isStateStart)
+				{
+					FlxG.camera.fade(0.1, true);
+					foreground.getByName("deadguy").visible = true;
+					foreground.getByName("knife").visible = true;
+					
+					// remove madness guy
+					npcs.members[11].kill();
+				}
+				checkForNextState(0.5);
+			case NpcLook:
+			
+				if (isStateStart)
+				{
+					// show popup alert icons
+					for (npc in npcs.members)
+					{
+						var emotion = npc.setEmotion(Puzzled);
+						foreground.add(emotion);
+						foreground.members.remove(emotion);
+						foreground.members.insert(foreground.members.indexOf(npc), emotion);
+					}
+				}
+				
+				if (FlxG.random.bool(10))
+					npcs.getRandom().facing ^= FlxObject.WALL;
+				
+				checkForNextState(1.0);
+			case PanToBody:
+				if(isStateStart)
+				{
+					var oldLerp = FlxG.camera.followLerp;
+					FlxG.camera.followLerp = 60 / FlxG.updateFramerate;
+					var target = foreground.getByName("deadguy");
+					FlxTween.tween(FlxG.camera, { zoom:2 }, 0.25);
+					FlxTween.tween
+						( camFollow
+						, { x:target.x + target.width / 2, y:target.y }
+						, 0.25
+						, { ease:FlxEase.quadInOut, onComplete:(_)->FlxG.camera.followLerp = oldLerp }
+						);
+				}
+				
+				checkForNextState(0.5);
+			case ShowBody:
+				if (isStateStart)
+				{
+					for (npc in npcs.members)
+					{
+						var emotion = npc.setEmotion(Alerted);
+						foreground.add(emotion);
+						foreground.members.remove(emotion);
+						foreground.members.insert(foreground.members.indexOf(npc), emotion);
+					}
+				}
+				checkForNextState(2.0);
+			case PanFromBody:
+				if (isStateStart)
+				{
+					var oldLerp = FlxG.camera.followLerp;
+					FlxG.camera.followLerp = 60 / FlxG.updateFramerate;
+					FlxTween.tween(FlxG.camera, { zoom:1 }, 0.5);
+					FlxTween.tween
+						( camFollow
+						, { x:player.x, y:player.y - camOffset }
+						, 0.5
+						, { ease:FlxEase.quadInOut, onComplete:(_)->FlxG.camera.followLerp = oldLerp }
+						);
+				}
+				checkForNextState(0.5);
+			case NpcJump:
+				
+				checkForNextState(0.5);
+			case Instructions:
+				if (isStateStart)
+				{
+					foreground.getByName("deadguy").visible = false;
+					foreground.getByName("crime").visible = true;
+					foreground.getByName("tree_13").visible = true;
+					foreground.getByName("tree_11").visible = false;
+					openSubState(new DialogSubstate(crimeData.instructions));
+					crimeState = Interrogation;
+				}
+			case Interrogation:
+				if (isStateStart)
+				{
+					foreground.active = true;
+					cutsceneActive = false;
+					thumbnail.alpha = 1;
+					for (i in 0...npcs.members.length)
+						addHoverTextTo(npcs.members[i], "talk", talkTo.bind(i));
+				}
+			case Accusation:
+		}
+		if (crimeState != oldState)
+			cutsceneTimer = 0;
+	}
+	
+	function talkTo(npcIndex:Int)
+	{
+		openSubState(new DialogSubstate(crimeData.messages[npcIndex]));
+	}
+	
+	inline function checkForNextState(limit:Float):Bool
+	{
+		var complete = cutsceneTimer > limit;
+		if (complete)
+			crimeState = CrimeState.createByIndex(crimeState.getIndex() + 1);
+		return complete;
+	}
+}
+
+enum CrimeState
+{
+	LightsOff;
+	LightsOn;
+	NpcLook;
+	PanToBody;
+	ShowBody;
+	PanFromBody;
+	NpcJump;//?
+	Instructions;
+	Interrogation;
+	Accusation;
 }

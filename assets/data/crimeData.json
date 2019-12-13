@@ -1,0 +1,19 @@
+{
+    "instructions":
+    { "title": "There's been a murder!"
+    , "body" :"Interrogate the witnesses\nto find the answer"
+    }
+,   "messages":
+    [ { "title":"Tankman"         , "body":"He looked like a skinny\nlittle @#*$ing nerd." }
+    , { "title":"Pico"            , "body":"It's always the punks with\nthe guns... er knife." }
+    , { "title":"Red Knight"      , "body":"I slash evil all day, I don't\nbother looking at evidence." }
+    , { "title":"Chutney"         , "body":"*Hanna Barbara noises*" }
+    , { "title":"Meatboy"         , "body":"What's the big deal?" }
+    , { "title":"Strawberry clock", "body":"The grey one had it coming,\nthe portal is mine!" }
+    , { "title":"Alien hominid"   , "body":"The guys in suits came\nin fast. Who even had\ntime with the body?" }
+    , { "title":"P-bot"           , "body":"Meatbag on meatbag\nviolence, what a shame." }
+    , { "title":"Dad"             , "body":"I know what you're\nthinking, but they were\nkilled with a knife." }
+    , { "title":"Salad Fingers"   , "body":"Hubert Cumberdale,\nyou've got such a\nnice pink hat now." }
+    , { "title":"Blockhead"       , "body":"the man in my head said\nhe saw the killer, he\nwasn't yellow at all!" }
+    ]
+}

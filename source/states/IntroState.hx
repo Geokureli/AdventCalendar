@@ -137,7 +137,7 @@ class IntroState extends flixel.FlxState
         {
             if (Calendar.today.notReady == true)
             {
-                msg.text = "Sorry, technical difficulties,\nplease try again soon.";
+                msg.text = "Today's content is almost done,\nplease try again soon.\n Sorry";
                 msg.screenCenter(XY);
             }
             else

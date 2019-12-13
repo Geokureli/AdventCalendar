@@ -7,7 +7,7 @@ import openfl.utils.Assets;
 
 class Calendar
 {
-    inline static var DEBUG_DAY:Int = 0;// 0 to disable debug feature
+    inline static var DEBUG_DAY:Int = 13;// 0 to disable debug feature
     static public var isDebugDay = DEBUG_DAY > 0;
     static public var day(default, null) = 24;
     static public var isAdvent(default, null) = false;
@@ -16,6 +16,7 @@ class Calendar
     static public var data(default, null):ReadOnlyArray<ContentData>;
     static public var today(get, never):ContentData;
     static public var openedPres(default, null) = new BitArray();
+    static public var seenMurder(default, null) = false;
     
     static var unveiledArtists(default, null) =
 	[ "geokureli"    // organizer/programmer
@@ -44,6 +45,8 @@ class Calendar
                 openedPres = FlxG.save.data.openedPres;
                 trace("loaded savefile: " + openedPres);
             }
+            
+            seenMurder = FlxG.save.data.seenMurder;
             
             trace("day: " + day);
             if (callback != null)
@@ -132,6 +135,12 @@ class Calendar
         trace("saved: " + openedPres);
         openedPres[day] = true;
         FlxG.save.data.openedPres = (openedPres:Int);
+        FlxG.save.flush();
+    }
+    
+    static public function saveSeenMurder()
+    {
+        FlxG.save.data.seenMurder = seenMurder = true;
         FlxG.save.flush();
     }
     

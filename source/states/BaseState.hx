@@ -1,6 +1,5 @@
 package states;
 
-import sprites.Prompt;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -18,7 +17,9 @@ import states.OgmoState;
 import sprites.Button;
 import sprites.InfoBox;
 import sprites.MedalPopup;
+import sprites.NPC;
 import sprites.Player;
+import sprites.Prompt;
 import sprites.Sprite;
 import sprites.TvBubble;
 
@@ -36,6 +37,7 @@ class BaseState extends OgmoState
 	
 	var colliders = new FlxGroup();
 	var characters = new FlxGroup();
+	var npcs = new FlxTypedGroup<NPC>();
 	var touchable = new FlxTypedGroup<FlxObject>();
 	var infoBoxes = new Map<FlxObject, InfoBox>();
 	
@@ -45,6 +47,8 @@ class BaseState extends OgmoState
 	var background:OgmoDecalLayer;
 	var medalAnim:MedalPopup;
 	var instrument:FlxButton;
+	var cutsceneActive = false;
+	var cutsceneTimer = 0.0;
 	
 	override public function create():Void 
 	{
@@ -135,7 +139,10 @@ class BaseState extends OgmoState
 	function addHoverTextTo(target:FlxObject, ?text:String, ?callback:Void->Void, hoverDis = 20)
 	{
 		touchable.add(target);
-		add(infoBoxes[target] = cast new InfoTextBox(text, callback, target.x + target.width / 2, target.y - hoverDis));
+		var box = new InfoTextBox(text, callback);
+		box.updateFollow(target);
+		box.hoverDis = hoverDis;
+		add(infoBoxes[target] = cast box);
 	}
 	
 	function initCamera()
@@ -155,8 +162,10 @@ class BaseState extends OgmoState
 	
 	override public function update(elapsed:Float):Void 
 	{
-		camFollow.setPosition(player.x, player.y - camOffset);
 		FlxG.watch.addMouse();
+		
+		if (!cutsceneActive)
+			camFollow.setPosition(player.x, player.y - camOffset);
 		
 		FlxG.collide(characters, colliders);
 		playerHitbox.setPosition(player.x - 3, player.y - 3);
@@ -164,7 +173,10 @@ class BaseState extends OgmoState
 		for (child in touchable.members)
 		{
 			if (infoBoxes.exists(child))
+			{
+				infoBoxes[child].updateFollow(child);
 				infoBoxes[child].alive = false;
+			}
 		}
 		
 		FlxG.overlap(playerHitbox, touchable,
