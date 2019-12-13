@@ -28,9 +28,7 @@ abstract BitArray(Int) from Int to Int
     @:arrayAccess
     inline public function arrayWrite(key:Int, value:Bool):Bool
     {
-        trace(this, toInt(value) << key);
         this = (this & ~(1 << key)) | (toInt(value) << key);
-        trace(this);
         return value;
     }
     public function toString():String

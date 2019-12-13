@@ -22,10 +22,11 @@ class DialogSubstate extends flixel.FlxSubState
 	var msg:Message;
 	var bg:FlxSliceSprite;
 	
-	public function new(msg:Message, ?onComplete:()->Void):Void
+	public function new(msg:Message, ?onComplete:()->Void, canSkip = false):Void
 	{
 		this.msg = msg;
 		this.onComplete = onComplete;
+		canExit = canSkip;
 		
 		super();
 	}
@@ -58,6 +59,8 @@ class DialogSubstate extends flixel.FlxSubState
 	
 	function showText(tween:FlxTween)
 	{
+		if (bg == null)
+			return;
 		
 		var body:AppearingText = null;
 		body = new AppearingText(msg.body);
@@ -77,14 +80,20 @@ class DialogSubstate extends flixel.FlxSubState
 		add(footer);
 		function showFooter()
 		{
-			footer.visible = true;
-			canExit = true;
+			if (bg != null)
+			{
+				footer.visible = true;
+				canExit = true;
+			}
 		}
 		
 		function showBody()
 		{
-			body.visible = true;
-			body.appear(0.75, 0.1, showFooter);
+			if (bg != null)
+			{
+				body.visible = true;
+				body.appear(0.75, 0.1, showFooter);
+			}
 		}
 		
 		var bodyAppearTime = 0.0;
@@ -110,7 +119,11 @@ class DialogSubstate extends flixel.FlxSubState
 		super.update(elapsed);
 		
 		if (canExit && FlxG.keys.pressed.ANY)
+		{
 			close();
+			if (onComplete != null)
+				onComplete();
+		}
 	}
 	
 	override function destroy()

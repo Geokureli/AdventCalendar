@@ -1,12 +1,20 @@
 {
     "instructions":
     { "title": "There's been a murder!"
-    , "body" :"Interrogate the witnesses\nto find the answer"
+    , "body" :"Interrogate the witnesses\nto find the killer!"
+    }
+,   "recap1":
+    { "title": "There's been a murder!"
+    , "body":"Grab the knife and\nfind the killer!"
+    }
+,   "recap2":
+    { "title": "There's been a murder!"
+    , "body":"Use the knife\non the killer!"
     }
 ,   "messages":
     [ { "title":"Tankman"         , "body":"He looked like a skinny\nlittle @#*$ing nerd." }
     , { "title":"Pico"            , "body":"It's always the punks with\nthe guns... er knife." }
-    , { "title":"Red Knight"      , "body":"I slash evil all day, I don't\nbother looking at evidence." }
+    , { "title":"Orange Knight"   , "body":"I slash evil all day, I don't\nbother looking at evidence." }
     , { "title":"Chutney"         , "body":"*Hanna Barbara noises*" }
     , { "title":"Meatboy"         , "body":"What's the big deal?" }
     , { "title":"Strawberry clock", "body":"The grey one had it coming,\nthe portal is mine!" }
@@ -16,4 +24,12 @@
     , { "title":"Salad Fingers"   , "body":"Hubert Cumberdale,\nyou've got such a\nnice pink hat now." }
     , { "title":"Blockhead"       , "body":"the man in my head said\nhe saw the killer, he\nwasn't yellow at all!" }
     ]
+, "accusation":
+    { "title": "Interrogation complete"
+    , "body": "The murderer is still\naround, grab the murder\nweapon and strike back!"
+    }
+, "victory":
+    { "title": "Congratulations!"
+    , "body": "Brandy was the killer\nall along!\nYou stabbed his face!"
+    }
 }

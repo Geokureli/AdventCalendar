@@ -1,5 +1,7 @@
 package states;
 
+import states.CabinState;
+import haxe.Json;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -14,6 +16,7 @@ import sprites.Snow;
 class OutsideState extends BaseState
 {
 	inline static public var MUSIC_MEDAL = 58544;
+	inline static public var KILLER_MEDAL = 58545;
 	
 	inline static var WIND = 1.8;
 	inline static var CLOUD_BOB_DIS = 50;
@@ -125,6 +128,17 @@ class OutsideState extends BaseState
 				flutePresent.animation.play("unopened");
 				addHoverTextTo(flutePresent, onFlutePresentOpen.bind(flutePresent));
 			}
+		}
+		
+		if (Calendar.day == 12 && Calendar.hasKnife)
+		{
+			var killer = foreground.getByName("killer");
+			killer.animation.add("idle", [0]);
+			killer.animation.add("bleed", [1,2,3]);
+			killer.animation.play("idle");
+			addHoverTextTo(killer, onKill);
+			colliders.add(killer);
+			killer.immovable = true;
 		}
 		
 		add(new Snow());
@@ -266,5 +280,14 @@ class OutsideState extends BaseState
 	{
 		if (Instrument.type != type)
 			Instrument.type = type;
+	}
+	
+	function onKill():Void
+	{
+		var data:CrimeData = cast Json.parse(openfl.Assets.getText("assets/data/crimeData.json"));
+		openSubState(new DialogSubstate(data.victory));
+		NGio.unlockMedal(KILLER_MEDAL);
+		Calendar.saveSolvedMurder();
+		foreground.getByName("killer").animation.play("bleed");
 	}
 }

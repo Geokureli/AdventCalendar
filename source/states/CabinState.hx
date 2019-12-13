@@ -1,5 +1,6 @@
 package states;
 
+import data.BitArray;
 import haxe.Json;
 import openfl.utils.Assets;
 
@@ -25,7 +26,14 @@ import sprites.NPC;
 import sprites.Present;
 
 typedef Message = { ?title:String, body:String }
-typedef CrimeData = { instructions:Message, messages:Array<Message> }
+typedef CrimeData = {
+	instructions:Message,
+	recap1:Message,
+	recap2:Message,
+	messages:Array<Message>,
+	accusation:Message,
+	victory:Message
+}
 
 class CabinState extends BaseState
 {
@@ -217,7 +225,7 @@ class CabinState extends BaseState
 		
 		super.update(elapsed);
 		
-		if (Calendar.day == 12 && cutsceneActive)
+		if (Calendar.day == 12 && crimeState != null)
 			updateCrime(elapsed);
 		
 		//INTERACTABLES
@@ -265,7 +273,7 @@ class CabinState extends BaseState
 		
 		
 		var onClose:()->Void = null;
-		if (Calendar.day == 12 && present.curDay == 12 && crimeState == null)
+		if (Calendar.day == 12 && present.curDay == 12 && crimeState == null && !Calendar.solvedMurder)
 			onClose = startCrimeCutscene;
 		
 		openSubState(new GallerySubstate(present.curDay, onClose));
@@ -286,17 +294,53 @@ class CabinState extends BaseState
 	
 	function initCrime()
 	{
-		var deadguy = foreground.getByName("deadguy");
-		deadguy.visible = false;
-		foreground.getByName("crime").visible = false;
-		foreground.getByName("knife").visible = false;
-		foreground.getByName("tree_13").visible = false;
 		crimeData = cast Json.parse(openfl.Assets.getText("assets/data/crimeData.json"));
-		var madnessNpc = npcs.members[11];
-		madnessNpc.x = deadguy.x;
-		madnessNpc.y = deadguy.y;
-		madnessNpc.immovable = true;
-		madnessNpc.active = false;
+		
+		if (Calendar.seenMurder)
+		{
+			npcs.members[11].kill();
+			foreground.getByName("tree_11").visible = false;
+			foreground.getByName("deadguy").visible = false;
+			
+			if (Calendar.solvedMurder)
+			{
+				foreground.getByName("knife").visible = false;
+			}
+			else if (Calendar.hasKnife)
+			{
+				if (!fromOutside)
+					openSubState(new DialogSubstate(crimeData.recap2));
+				crimeState = Accusation;
+				foreground.getByName("knife").visible = false;
+			}
+			else if (Calendar.interrogatedAll)
+			{
+				if (!fromOutside)
+					openSubState(new DialogSubstate(crimeData.recap1));
+				crimeState = PickUpKnife;
+			}
+			else
+			{
+				if (!fromOutside)
+					openSubState(new DialogSubstate(crimeData.instructions));
+				crimeState = Interrogation;
+			}
+		}
+		else
+		{
+			var deadguy = foreground.getByName("deadguy");
+			deadguy.visible = false;
+			foreground.getByName("crime").visible = false;
+			foreground.getByName("knife").visible = false;
+			foreground.getByName("tree_13").visible = false;
+			var tree = foreground.getByName("tree_11");
+			tree.setBottomHeight(10);
+			var madnessNpc = npcs.members[11];
+			madnessNpc.x = deadguy.x;
+			madnessNpc.y = deadguy.y;
+			madnessNpc.immovable = true;
+			madnessNpc.active = false;
+		}
 	}
 	
 	function startCrimeCutscene():Void
@@ -315,7 +359,6 @@ class CabinState extends BaseState
 		var oldState = crimeState;
 		switch(crimeState)
 		{
-			case null:
 			case LightsOff:
 				if (isStateStart)
 					FlxG.camera.fade(0.01, false);
@@ -348,7 +391,7 @@ class CabinState extends BaseState
 					}
 				}
 				
-				if (FlxG.random.bool(10))
+				if (FlxG.random.bool(20))
 					npcs.getRandom().facing ^= FlxObject.WALL;
 				
 				checkForNextState(1.0);
@@ -404,6 +447,7 @@ class CabinState extends BaseState
 			case Instructions:
 				if (isStateStart)
 				{
+					Calendar.saveSeenMurder();
 					foreground.getByName("deadguy").visible = false;
 					foreground.getByName("crime").visible = true;
 					foreground.getByName("tree_13").visible = true;
@@ -420,6 +464,18 @@ class CabinState extends BaseState
 					for (i in 0...npcs.members.length)
 						addHoverTextTo(npcs.members[i], "talk", talkTo.bind(i));
 				}
+				
+				if (Calendar.interrogatedAll)
+				{
+					crimeState = PickUpKnife;
+					cutsceneTimer = 0;
+				}
+			case PickUpKnife:
+				if (isStateStart)
+				{
+					openSubState(new DialogSubstate(crimeData.accusation));
+					addHoverText("knife", "knife", pickUpKnife);
+				}
 			case Accusation:
 		}
 		if (crimeState != oldState)
@@ -428,7 +484,23 @@ class CabinState extends BaseState
 	
 	function talkTo(npcIndex:Int)
 	{
-		openSubState(new DialogSubstate(crimeData.messages[npcIndex]));
+		openSubState(new DialogSubstate
+			( crimeData.messages[npcIndex]
+			, !Calendar.interrogated[npcIndex]
+			)
+		);
+		Calendar.saveInterrogated(npcIndex);
+	}
+	
+	function pickUpKnife()
+	{
+		var knife = foreground.getByName("knife");
+		remove(infoBoxes[knife]);
+		infoBoxes.remove(knife);
+		knife.kill();
+		Calendar.saveHasKnife();
+		crimeState = Accusation;
+		cutsceneTimer = 0;
 	}
 	
 	inline function checkForNextState(limit:Float):Bool
@@ -451,5 +523,6 @@ enum CrimeState
 	NpcJump;//?
 	Instructions;
 	Interrogation;
+	PickUpKnife;
 	Accusation;
 }

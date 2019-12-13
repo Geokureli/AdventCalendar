@@ -7,7 +7,7 @@ import openfl.utils.Assets;
 
 class Calendar
 {
-    inline static var DEBUG_DAY:Int = 13;// 0 to disable debug feature
+    inline static var DEBUG_DAY:Int = 0;// 0 to disable debug feature
     static public var isDebugDay = DEBUG_DAY > 0;
     static public var day(default, null) = 24;
     static public var isAdvent(default, null) = false;
@@ -17,6 +17,10 @@ class Calendar
     static public var today(get, never):ContentData;
     static public var openedPres(default, null) = new BitArray();
     static public var seenMurder(default, null) = false;
+    static public var interrogated(default, null) = new BitArray();
+    static public var interrogatedAll(get, never):Bool;
+    static public var hasKnife(default, null) = false;
+    static public var solvedMurder(default, null) = false;
     
     static var unveiledArtists(default, null) =
 	[ "geokureli"    // organizer/programmer
@@ -40,13 +44,19 @@ class Calendar
             parseUnveiledArtists();
             
             FlxG.save.bind("advent2019", "GeoKureli");
-            if (FlxG.save.data.openedPres != null && Std.is(FlxG.save.data.openedPres, Int))
+            if (Std.is(FlxG.save.data.openedPres, Int))
             {
                 openedPres = FlxG.save.data.openedPres;
                 trace("loaded savefile: " + openedPres);
             }
             
-            seenMurder = FlxG.save.data.seenMurder;
+            seenMurder = FlxG.save.data.seenMurder == true;
+            hasKnife = FlxG.save.data.hasKnife == true;
+            solvedMurder = FlxG.save.data.solvedMurder == true;
+            if (Std.is(FlxG.save.data.interrogated, Int))
+                interrogated = FlxG.save.data.interrogated;
+            else
+                interrogated = BitArray.fromString("11111111111");
             
             trace("day: " + day);
             if (callback != null)
@@ -141,6 +151,31 @@ class Calendar
     static public function saveSeenMurder()
     {
         FlxG.save.data.seenMurder = seenMurder = true;
+        FlxG.save.flush();
+    }
+    
+    static public function saveInterrogated(index:Int)
+    {
+        interrogated[index] = false;
+        FlxG.save.data.interrogated = interrogated;
+        FlxG.save.flush();
+        trace(interrogated);
+    }
+    
+    inline static function get_interrogatedAll():Bool
+    {
+        return (interrogated:Int) == 0;
+    }
+    
+    static public function saveHasKnife():Void
+    {
+        FlxG.save.data.hasKnife = hasKnife = true;
+        FlxG.save.flush();
+    }
+    
+    static public function saveSolvedMurder():Void
+    {
+        FlxG.save.data.solvedMurder = solvedMurder = true;
         FlxG.save.flush();
     }
     
