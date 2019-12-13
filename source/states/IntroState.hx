@@ -1,5 +1,6 @@
 package states;
 
+import openfl.Assets;
 import flixel.FlxG;
 import flixel.ui.FlxButton;
 import flixel.util.FlxTimer;
@@ -135,12 +136,33 @@ class IntroState extends flixel.FlxState
         
         if (waitTime <= 0 && complete)
         {
-            if (Calendar.today.notReady == true)
+            var allowPlay = true;
+            
+            var missing = [];
+            if (Calendar.today.tv == null)                    missing.push("tv");
+            if (Assets.exists(Calendar.today.getArtPath()))   missing.push("art");
+            if (Assets.exists(Calendar.today.getThumbPath())) missing.push("thumb");
+            if (Assets.exists(Calendar.today.getSongPath()))  missing.push("song");
+            if (!Assets.exists(Calendar.getPresentPath()))    missing.push("present");
+            if (!Assets.exists(Calendar.getMedalPath()))      missing.push("medal");
+            
+            if (Calendar.today.notReady == true || missing.length > 0)
             {
+                allowPlay = false;
                 msg.text = "Today's content is almost done,\nplease try again soon.\n Sorry";
+                if (Calendar.isDebugDay)
+                {
+                    allowPlay = waitTime < -1.0;
+                    
+                    var text = "Debug Missing:\n" + missing.join(", ");
+                    if (Calendar.today.notReady == true)
+                        text += "\n remove blocker";
+                    msg.text = text;
+                }
                 msg.screenCenter(XY);
             }
-            else
+            
+            if (allowPlay)
                 FlxG.switchState(new CabinState());
         }
     }

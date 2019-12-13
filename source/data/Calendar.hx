@@ -192,6 +192,16 @@ class Calendar
         isDebugDay = true;
         parseUnveiledArtists();
     }
+    
+    inline static public function getPresentPath(index = -1):String
+    {
+        return 'assets/images/presents/present_${index == -1 ? day + 1 : index + 1}.png';
+    }
+    
+    inline static public function getMedalPath(index = -1):String
+    {
+        return 'assets/images/presents/medal${index == -1 ? day + 1 : index + 1}.png';
+    }
 }
 
 typedef RawContentData =
@@ -222,12 +232,12 @@ abstract ContentData(RawContentData) from RawContentData
         return 'assets/images/artwork/${getFilename("jpg")}';
     }
     
-   inline public function getThumbPath():String
+    inline public function getThumbPath():String
     {
         return 'assets/images/thumbs/thumb-${getFilename("png")}';
     }
     
-   inline public function getSongPath():String
+    inline public function getSongPath():String
     {
         return 'assets/music/${this.song.artist.toLowerCase()}.mp3';
     }

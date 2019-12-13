@@ -82,7 +82,6 @@
     {
         "day":14,
         "author":"MixMuffin",
-        "notReady": true,
         "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
