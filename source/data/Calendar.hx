@@ -152,12 +152,13 @@ class Calendar
 
 typedef RawContentData =
 {
-	final author :String;
+    final author :String;
     final credit :Null<String>;
-	final fileExt:Null<String>;
-	final frames :Null<Int>;
-	final tv     :Null<String>;
-    final song   : { artist:String, key:String, ?id:Int, ?volume:Float }
+    final fileExt:Null<String>;
+    final frames :Null<Int>;
+    final tv     :Null<String>;
+    final song   : { artist:String, key:String, ?id:Int, ?volume:Float };
+    final notReady:Null<Bool>;
 }
 
 @:forward

@@ -134,6 +134,14 @@ class IntroState extends flixel.FlxState
         }
         
         if (waitTime <= 0 && complete)
-            FlxG.switchState(new CabinState());
+        {
+            if (Calendar.today.notReady == true)
+            {
+                msg.text = "Sorry, technical difficulties,\nplease try again soon.";
+                msg.screenCenter(XY);
+            }
+            else
+                FlxG.switchState(new CabinState());
+        }
     }
 }
