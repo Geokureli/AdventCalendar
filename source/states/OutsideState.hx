@@ -141,7 +141,9 @@ class OutsideState extends BaseState
 			if (Calendar.solvedMurder)
 				killer.animation.play("bleed");
 			else if (Calendar.hasKnife)
-				addHoverTextTo(killer, onKill);
+				addHoverTextTo(killer, "BrandyBuizel", onKill);
+			else
+				addHoverTextTo(killer, "BrandyBuizel");
 		}
 		
 		add(new Snow());
