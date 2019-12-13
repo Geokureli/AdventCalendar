@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.FlxSprite;
 import data.Calendar;
 import data.Instrument;
 import flixel.input.keyboard.FlxKey;
@@ -26,6 +27,8 @@ class Player extends Character
 	public var stepSoundType:String;
 	public var interacting = false;
 	public var wasInteracting = false;
+	public var knife(default, null):FlxSprite = null;
+	public var knifeTimer = 0.0;
 	
 	var C:Float = 0;
 	
@@ -36,6 +39,9 @@ class Player extends Character
 		this.curDay = curDay;
 		if (curDay != null)
 			updateSprite(curDay);
+		
+		if (Calendar.hasKnife)
+			giveKnife();
 	}
 	
 	private var jumpBoost:Int = 0;
@@ -62,6 +68,23 @@ class Player extends Character
 			
 			if (!moving)
 				jumpBoost = 0;
+		}
+		
+		if (interacting && knife != null)
+		{
+			knife.visible = true;
+			knife.animation.play("stab");
+			knifeTimer = 0.5;
+		}
+		
+		if (knifeTimer > 0)
+		{
+			knife.scale.x = (facing == FlxObject.RIGHT ? -1 : 1);
+			knife.x = x + (facing == FlxObject.RIGHT ? 4 : -10);
+			knife.y = y - 6;
+			knifeTimer -= elapsed;
+			if (knifeTimer <= 0)
+				knife.visible = false;
 		}
 		
 		// prevents a bug on gamepads
@@ -205,5 +228,13 @@ class Player extends Character
 		offset.y = (C * 1.3) + actualOffsetLOL;
 		
 		C *= speed;
+	}
+	
+	public function giveKnife()
+	{
+		knife = new FlxSprite();
+		knife.loadGraphic("assets/images/knifeAnim.png", true, 15, 2);
+		knife.animation.add("stab", [0,1,2,3], 20, false);
+		return knife;
 	}
 }

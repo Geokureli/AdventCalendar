@@ -5,11 +5,11 @@
     }
 ,   "recap1":
     { "title": "There's been a murder!"
-    , "body":"Grab the knife and\nfind the killer!"
+    , "body" :"Grab the knife and\nfind the killer!"
     }
-,   "recap2":
-    { "title": "There's been a murder!"
-    , "body":"Use the knife\non the killer!"
+,   "recap2" :
+    { "title": "Interrogation complete!"
+    , "body" :"Press SPACE in front of the\nkiller to stab them"
     }
 ,   "messages":
     [ { "title":"Tankman"         , "body":"He looked like a skinny\nlittle @#*$ing nerd." }
@@ -27,6 +27,10 @@
 , "accusation":
     { "title": "Interrogation complete"
     , "body": "The murderer is still\naround, grab the murder\nweapon and strike back!"
+    }
+, "stab":
+    { "title": "You got the knife!"
+    , "body" :"Press SPACE in front of the\nkiller to stab them"
     }
 , "victory":
     { "title": "Congratulations!"

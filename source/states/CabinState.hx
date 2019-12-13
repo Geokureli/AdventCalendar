@@ -28,11 +28,12 @@ import sprites.Present;
 typedef Message = { ?title:String, body:String }
 typedef CrimeData = {
 	instructions:Message,
-	recap1:Message,
-	recap2:Message,
-	messages:Array<Message>,
-	accusation:Message,
-	victory:Message
+	recap1      :Message,
+	recap2      :Message,
+	messages    :Array<Message>,
+	accusation  :Message,
+	stab        :Message,
+	victory     :Message
 }
 
 class CabinState extends BaseState
@@ -271,7 +272,6 @@ class CabinState extends BaseState
 		Calendar.saveOpenPresent(present.curDay);
 		FlxG.sound.play("assets/sounds/presentOpen.mp3", 1);
 		
-		
 		var onClose:()->Void = null;
 		if (Calendar.day == 12 && present.curDay == 12 && crimeState == null && !Calendar.solvedMurder)
 			onClose = startCrimeCutscene;
@@ -494,10 +494,12 @@ class CabinState extends BaseState
 	
 	function pickUpKnife()
 	{
+		openSubState(new DialogSubstate(crimeData.stab));
 		var knife = foreground.getByName("knife");
 		remove(infoBoxes[knife]);
 		infoBoxes.remove(knife);
 		knife.kill();
+		add(player.giveKnife());
 		Calendar.saveHasKnife();
 		crimeState = Accusation;
 		cutsceneTimer = 0;

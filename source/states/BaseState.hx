@@ -112,6 +112,8 @@ class BaseState extends OgmoState
 		
 		player.updateSprite(Calendar.day);
 		characters.add(player);
+		if (player.knife != null)
+			add(player.knife);
 		
 		add(playerHitbox = new FlxObject(0, 0, player.width + 6, player.height + 6));
 	}
