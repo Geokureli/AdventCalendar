@@ -73,7 +73,6 @@
         {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"},
         {"x": 140, "y": 70, "texture": "props/cabin/fire_ogmo.png"},
         {"x": 295, "y": 73, "texture": "props/cabin/arcade2_ogmo.png"},
-        {"x": 210, "y": -32, "texture": "props/cabin/tree_11.png"},
         {"x": 210, "y": -38, "texture": "props/cabin/tree_13.png"},
         {"x": 339, "y": 101, "texture": "props/cabin/crime.png"}
       ]

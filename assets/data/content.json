@@ -82,72 +82,63 @@
     {
         "day":14,
         "author":"MixMuffin",
+        "tv"    :"RIGHT NOW:\nA WHO-DONE-IT\nSO WHO DID IT...?",
         "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
         "day":15,
         "author":"ShiroGaia",
-        "notReady": true,
+        "tv"    :"ARE YOU AT RISK?\nKNIFING THE TV CAN\nSHORTEN LIFESPAN!",
         "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
         "day":16,
         "author":"Boomnm",
-        "notReady": true,
         "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
     },
     {
         "day":17,
         "author":"dogl",
-        "notReady": true,
         "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
     },
     {
         "day":18,
         "author":"IVOanimations",
-        "notReady": true,
         "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
     },
     {
         "day":19,
         "author":"Mimny",
-        "notReady": true,
         "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
     },
     {
         "day":20,
         "author":"RGPAnims",
-        "notReady": true,
         "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
     },
     {
         "day":21,
         "author":"Camuri",
-        "notReady": true,
         "song"  :{ "artist":"SplatterDash" }
     },
     {
         "day":22,
         "author":"Irri",
-        "notReady": true,
         "song"  :{ "artist":"SplatterDash" }
     },
     {
         "day":23,
         "author":"OniShaggy",
-        "notReady": true,
         "song"  :{ "artist":"SplatterDash" }
     },
     {
         "day":24,
         "author":"Chobiluck",
-        "notReady": true,
         "song"  :{ "artist":"SplatterDash" }
     },
     {
         "day":25,
         "author":"TheDyingSun",
-        "notReady": true,
         "song"  :{ "artist":"SplatterDash" }
     }
 ]
