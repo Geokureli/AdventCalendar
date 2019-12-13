@@ -338,10 +338,13 @@ class CabinState extends BaseState
 					// show popup alert icons
 					for (npc in npcs.members)
 					{
-						var emotion = npc.setEmotion(Puzzled);
-						foreground.add(emotion);
-						foreground.members.remove(emotion);
-						foreground.members.insert(foreground.members.indexOf(npc), emotion);
+						if (npc.alive)
+						{
+							var emotion = npc.setEmotion(Puzzled);
+							foreground.add(emotion);
+							foreground.members.remove(emotion);
+							foreground.members.insert(foreground.members.indexOf(npc), emotion);
+						}
 					}
 				}
 				
@@ -370,10 +373,14 @@ class CabinState extends BaseState
 				{
 					for (npc in npcs.members)
 					{
-						var emotion = npc.setEmotion(Alerted);
-						foreground.add(emotion);
-						foreground.members.remove(emotion);
-						foreground.members.insert(foreground.members.indexOf(npc), emotion);
+						
+						if (npc.alive)
+						{
+							var emotion = npc.setEmotion(Alerted);
+							foreground.add(emotion);
+							foreground.members.remove(emotion);
+							foreground.members.insert(foreground.members.indexOf(npc), emotion);
+						}
 					}
 				}
 				checkForNextState(2.0);
