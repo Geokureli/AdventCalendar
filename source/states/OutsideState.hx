@@ -130,15 +130,18 @@ class OutsideState extends BaseState
 			}
 		}
 		
-		if (Calendar.day == 12 && Calendar.hasKnife)
+		if (Calendar.day == 12)
 		{
 			var killer = foreground.getByName("killer");
 			killer.animation.add("idle", [0]);
-			killer.animation.add("bleed", [1,2,3]);
+			killer.animation.add("bleed", [1,2,3], 4);
 			killer.animation.play("idle");
-			addHoverTextTo(killer, onKill);
 			colliders.add(killer);
 			killer.immovable = true;
+			if (Calendar.solvedMurder)
+				killer.animation.play("bleed");
+			else if (Calendar.hasKnife)
+				addHoverTextTo(killer, onKill);
 		}
 		
 		add(new Snow());
