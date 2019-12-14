@@ -196,6 +196,11 @@ class BaseState extends OgmoState
 		foreground.sort(FlxSort.byY);
 		
 		super.update(elapsed);
+		
+		#if debug
+		if (FlxG.keys.justPressed.B)
+			FlxG.debugger.drawDebug = !FlxG.debugger.drawDebug;
+		#end
 	}
 	
 	function updateInstrument(type:InstrumentType):Void
