@@ -13,11 +13,13 @@ class Character extends Sprite
 {
 	private var speed:Float = 95;
 	private var actualOffsetLOL:Float = 12;
+	private var rightOffset:Float = 4;
+	private var leftOffset:Float = 8;
 	
 	override function set_facing(direction:Int):Int
 	{
-		if (facing != direction)
-			offset.x = direction == FlxObject.RIGHT ? 4 : 8;
+		// if (facing != direction)
+			offset.x = direction == FlxObject.RIGHT ? rightOffset : leftOffset;
 		
 		return super.set_facing(direction);
 	}
@@ -37,26 +39,33 @@ class Character extends Sprite
 		offset.y = height - 4;
 		width = 4;
 		height = 4;
-		offset.x = 4;
 		facing = FlxObject.LEFT;
 	}
 	
 	
 	public function updateSprite(day:Int):Void
 	{
-		if (day == 8)
+		if (day == 8) // Dec 9th: Daddy
 		{
 			loadGraphic(AssetPaths.Daddy__png, false, 24, 24);
 			actualOffsetLOL = 20;
 			width = 8;
 			height = 8;
 			offset.y += 9;
+			leftOffset = 12;
 		}
 		else
 		{
+			if (day == 14)// Dec 15th: Zach and Chris
+			{
+				width = 10;
+				leftOffset = 3;
+				rightOffset = 2;
+			}
 			// already should have loaded the sprite data i think
 			animation.frameIndex = day;
 		}
+		facing = facing;
 	}
 	
 	override public function update(elapsed:Float):Void 
