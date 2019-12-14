@@ -82,13 +82,12 @@
     {
         "day":14,
         "author":"MixMuffin",
-        "tv"    :"RIGHT NOW:\nA WHO-DONE-IT\nSO WHO DID IT...?",
+        "tv"    :"ARE YOU AT RISK?\nKNIFING THE TV CAN\nSHORTEN LIFESPAN!",
         "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
         "day":15,
         "author":"ShiroGaia",
-        "tv"    :"ARE YOU AT RISK?\nKNIFING THE TV CAN\nSHORTEN LIFESPAN!",
         "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
     },
     {
