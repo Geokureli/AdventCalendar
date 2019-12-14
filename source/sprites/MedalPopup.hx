@@ -9,6 +9,7 @@ import openfl.utils.Assets;
 import io.newgrounds.NG;
 import io.newgrounds.objects.Medal;
 
+import data.Calendar;
 import data.NGio;
 import states.OutsideState;
 
@@ -103,7 +104,7 @@ class MedalPopup extends flixel.group.FlxSpriteGroup
     
     function playDebugAnim():Void
     {
-        onMedalUnlock(NG.core.medals.get(TEST_MEDAL));
+        onMedalUnlock(NG.core.medals.get(MEDAL_0 + Calendar.day));
     }
     
     function playNextAnim():Void {
