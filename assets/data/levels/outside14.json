@@ -84,7 +84,8 @@
         {"x": 139, "y": 377, "texture": "snowSprite/HenryEYES.png"},
         {"x": 113, "y": 345, "texture": "snowSprite/MixMuffin.png"},
         {"x": 248, "y": 361, "texture": "snowSprite/ShiroGaia.png"},
-        {"x": 222, "y": 366, "texture": "snowSprite/Boomnm.png"}
+        {"x": 222, "y": 366, "texture": "snowSprite/Boomnm.png"},
+        {"x": 218, "y": 281, "texture": "snowSprite/RGPAnims.png"}
       ]
     },
     {
