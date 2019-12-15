@@ -31,13 +31,6 @@ class PianoSubstate extends flixel.FlxSubState
 		WhiteKey.createAll(this, onChange);
 	}
 	
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-		
-		Instrument.update(elapsed);
-	}
-	
 	function onChange(char:String, isPress:Bool):Void
 	{
 		if (isPress)

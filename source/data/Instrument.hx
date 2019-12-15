@@ -83,10 +83,6 @@ class Instrument
         return lastPressed;
     }
     
-    static public function update(elapsed):Void
-    {
-    }
-    
     inline static function set_type(value:Null<InstrumentType>)
     {
         switch (value)
