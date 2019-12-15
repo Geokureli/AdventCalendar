@@ -244,6 +244,16 @@ abstract ContentData(RawContentData) from RawContentData
         return 'assets/music/${this.song.artist.toLowerCase()}.mp3';
     }
     
+    inline public function getArtistSnowmanPath():String
+    {
+        return 'assets/images/snowSprite/${this.author}.png';
+    }
+    
+    inline public function getMusicianSnowmanPath():String
+    {
+        return 'assets/images/snowSprite/${this.song.artist}.png';
+    }
+    
     inline public function getFilename(ext = "jgp"):String
     {
         return this.author.toLowerCase() + "." + (this.fileExt == null ? ext : this.fileExt);
