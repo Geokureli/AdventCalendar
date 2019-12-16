@@ -260,6 +260,9 @@ class BaseState extends OgmoState
 	
 	function initDrumPiece(name:String, piece:OgmoDecal)
 	{
+		if (name == "flute" || name == "drums" || name == "glockenspiel")
+			return;// not a drum piece
+		
 		if (DrumKit.isPieceFound(cast name))
 			piece.kill();
 		else
