@@ -8,6 +8,7 @@ import flixel.text.FlxBitmapText;
 
 import data.APIStuff;
 import data.Calendar;
+import data.Instrument;
 import data.NGio;
 import sprites.Button;
 import sprites.Font;
@@ -166,7 +167,10 @@ class IntroState extends flixel.FlxState
             }
             
             if (allowPlay)
+            {
+                Instrument.setInitial();
                 FlxG.switchState(new CabinState());
+            }
         }
     }
 }

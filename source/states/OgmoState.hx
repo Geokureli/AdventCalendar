@@ -140,6 +140,21 @@ class OgmoDecalLayer extends OgmoObjectLayer<OgmoDecal>
 		return texture.substring(texture.lastIndexOf("/") + 1, texture.lastIndexOf("."))
 			.split("_ogmo").join("");
 	}
+	
+	public function getAllWithPrefix(prefix:String):Map<String, OgmoDecal>
+	{
+		var all:Map<String, OgmoDecal> = [];
+		for (child in members)
+		{
+			if (child.graphic != null && child.graphic.assetsKey.indexOf(prefix) != -1)
+			{
+				var name = child.graphic.assetsKey.split(prefix).pop();
+				name = name.substr(0, name.length - 4);//remove .png
+				all[name] = child;
+			}
+		}
+		return all;
+	}
 }
 
 typedef IOgmoEntity<T> = IOgmoObject<OgmoEntityData<T>, OgmoEntityLayer>;

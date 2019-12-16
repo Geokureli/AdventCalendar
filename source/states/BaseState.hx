@@ -12,6 +12,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 
 import data.Calendar;
+import data.DrumKit;
 import data.Instrument;
 import states.OgmoState;
 import sprites.Button;
@@ -65,6 +66,7 @@ class BaseState extends OgmoState
 		instrument.scrollFactor.set();
 		Instrument.onTypeChange.add(updateInstrument);
 		updateInstrument(Instrument.type);
+		initDrumKit();
 		
 		add(medalAnim = MedalPopup.getInstance());
 	}
@@ -243,6 +245,50 @@ class BaseState extends OgmoState
 			, null
 			, remove.bind(prompt)
 			);
+	}
+	
+	function initDrumKit()
+	{
+		if (Instrument.owns(Drums))
+		{
+			for (name=>piece in foreground.getAllWithPrefix("instruments/"))//FG
+				initDrumPiece(name, piece);
+			for (name=>piece in background.getAllWithPrefix("instruments/"))//BG
+				initDrumPiece(name, piece);
+		}
+	}
+	
+	function initDrumPiece(name:String, piece:OgmoDecal)
+	{
+		if (DrumKit.isPieceFound(cast name))
+			piece.kill();
+		else
+			addHoverTextTo(piece, toTitleCase(name), pickUpPiece.bind(piece, name));
+	}
+	
+	@:pure
+	inline function toTitleCase(str:String):String
+	{
+		return str.charAt(0).toUpperCase() + str.substr(1);
+	}
+	
+	function pickUpPiece(piece:OgmoDecal, name:String):Void
+	{
+		DrumKit.pickUpPiece(cast name);
+		piece.kill();
+		infoBoxes[piece].kill();
+		infoBoxes.remove(piece);
+		var pronoun = switch (cast name:DrumPiece)
+		{
+			case DrumPiece.bells | DrumPiece.bongo: "them";
+			default: "it";
+		}
+		openSubState(new DialogSubstate
+			( toTitleCase(name)
+			, 'You can play $pronoun with\nthe drumsticks'
+			, DrumKit.isAnyPieceFound()
+			)
+		);
 	}
 	
 	override function destroy()

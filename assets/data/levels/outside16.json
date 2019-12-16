@@ -61,7 +61,6 @@
         {"x": 343, "y": 341, "texture": "snowSprite/Cymbourine.png"},
         {"x": 363, "y": 248, "texture": "props/outside/snowFort.png"},
         {"x": 265, "y": 98, "texture": "props/outside/tree.png"},
-        {"x": 258, "y": 223, "texture": "props/instruments/bongo.png"},
         {"x": 293, "y": 291, "texture": "snowSprite/MintyEggs.png"},
         {"x": 375, "y": 334, "texture": "snowSprite/BrandyBuizel.png"},
         {"x": 329, "y": 264, "texture": "snowSprite/TheDyingSun.png"},
@@ -79,7 +78,6 @@
         {"x": 24, "y": 274, "texture": "snowSprite/Figburn.png"},
         {"x": 72, "y": 358, "texture": "props/instruments/hat.png"},
         {"x": 42, "y": 240, "texture": "presents/present_czyszy_ogmo.png"},
-        {"x": 149, "y": 307, "texture": "props/instruments/triangle.png"},
         {"x": 72, "y": 365, "texture": "snowSprite/Chdonga.png"},
         {"x": 94, "y": 255, "texture": "presents/present_colebob_ogmo.png"},
         {"x": 139, "y": 377, "texture": "snowSprite/HenryEYES.png"},
@@ -89,8 +87,6 @@
         {"x": 222, "y": 366, "texture": "snowSprite/Boomnm.png"},
         {"x": 218, "y": 281, "texture": "snowSprite/RGPAnims.png"},
         {"x": 189, "y": 281, "texture": "presents/present_carmet_ogmo.png"},
-        {"x": 264, "y": 289, "texture": "props/instruments/bells.png"},
-        {"x": 434, "y": 391, "texture": "props/instruments/clap.png"},
         {"x": 161, "y": 331, "texture": "snowSprite/MKMaffo.png"}
       ]
     },
@@ -114,7 +110,11 @@
         {"x": 45, "y": 142, "texture": "props/outside/gyrados_ogmo.png"},
         {"x": 275, "y": 156, "texture": "props/outside/campfire_ogmo.png"},
         {"x": 263, "y": 192, "texture": "props/outside/snow2.png"},
-        {"x": 224, "y": 309, "texture": "props/outside/snow.png"}
+        {"x": 224, "y": 309, "texture": "props/outside/snow.png"},
+        {"x": 258, "y": 223, "texture": "props/instruments/bongo.png"},
+        {"x": 149, "y": 307, "texture": "props/instruments/triangle.png"},
+        {"x": 264, "y": 289, "texture": "props/instruments/bells.png"},
+        {"x": 434, "y": 391, "texture": "props/instruments/clap.png"}
       ]
     }
   ]

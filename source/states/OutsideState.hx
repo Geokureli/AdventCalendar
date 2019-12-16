@@ -1,5 +1,6 @@
 package states;
 
+import data.DrumKit;
 import states.CabinState;
 import haxe.Json;
 import flixel.FlxG;
@@ -94,7 +95,7 @@ class OutsideState extends BaseState
 		
 		addInstrumentPresent("czyszy", Glockenspiel);
 		addInstrumentPresent("colebob", Flute);
-		addInstrumentPresent("carmet", Drums);
+		addInstrumentPresent("carmet", Drums, onPickUpDrumSticks);
 		// addInstrumentPresent("albegian", Drums);
 		
 		
@@ -190,7 +191,7 @@ class OutsideState extends BaseState
 	
 	// --- INSTRUMENTS
 	
-	function addInstrumentPresent(musician:String, type:InstrumentType):Void
+	function addInstrumentPresent(musician:String, type:InstrumentType, ?onOpen:()->Void):Void
 	{
 		var present = foreground.getByName("present_" + musician);
 		if (present != null)
@@ -207,7 +208,14 @@ class OutsideState extends BaseState
 			else
 			{
 				present.animation.play("unopened");
-				addHoverTextTo(present, onInstrumentPresentOpen.bind(present, type));
+				addHoverTextTo(present, ()->
+					{
+						onInstrumentPresentOpen(present, type);
+						
+						if (onOpen != null)
+							onOpen();
+					}
+				);
 			}
 		}
 	}
@@ -218,7 +226,7 @@ class OutsideState extends BaseState
 		remove(infoBoxes[present]);
 		infoBoxes.remove(present);
 		
-		Instrument.add(Glockenspiel);
+		Instrument.add(type);
 		NGio.unlockMedal(MUSIC_MEDAL);
 		
 		addInstrument(present, type);
@@ -241,6 +249,17 @@ class OutsideState extends BaseState
 	{
 		if (Instrument.type != type)
 			Instrument.type = type;
+	}
+	
+	function onPickUpDrumSticks():Void
+	{
+		initDrumKit();
+		openSubState(
+			new DialogSubstate
+				( "You got drumsticks!"
+				, "But is there anything\naround here to drum on?"
+				)
+		);
 	}
 	
 	// --- CRIME

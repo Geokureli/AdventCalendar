@@ -71,7 +71,6 @@ class CabinState extends BaseState
 			FlxG.sound.playMusic(Calendar.today.getSongPath(), 0);
 			var volume = Calendar.today.song.volume;
 			FlxG.sound.music.fadeIn(5, 0, volume == null ? 0.3 : volume);
-			Instrument.setInitial();
 		}
 		
 		initPresents();

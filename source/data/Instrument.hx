@@ -37,7 +37,7 @@ class Instrument
             owned.push(Flute);
             
         if (FlxG.save.data.hasDrums)
-            owned.push(Flute);
+            owned.push(Drums);
         
         if (FlxG.save.data.instrument != null)
             type = InstrumentType.createByIndex(FlxG.save.data.instrument);
