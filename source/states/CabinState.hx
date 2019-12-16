@@ -334,20 +334,20 @@ class CabinState extends BaseState
 			else if (Calendar.hasKnife)
 			{
 				if (!fromOutside)
-					openSubState(new DialogSubstate(crimeData.recap2));
+					openSubState(DialogSubstate.fromMessage(crimeData.recap2));
 				crimeState = Accusation;
 				foreground.getByName("knife").visible = false;
 			}
 			else if (Calendar.interrogatedAll)
 			{
 				if (!fromOutside)
-					openSubState(new DialogSubstate(crimeData.recap1));
+					openSubState(DialogSubstate.fromMessage(crimeData.recap1));
 				crimeState = PickUpKnife;
 			}
 			else
 			{
 				if (!fromOutside)
-					openSubState(new DialogSubstate(crimeData.instructions));
+					openSubState(DialogSubstate.fromMessage(crimeData.instructions));
 				crimeState = Interrogation;
 			}
 			
@@ -479,7 +479,7 @@ class CabinState extends BaseState
 					foreground.getByName("crime").visible = true;
 					foreground.getByName("tree_13").visible = true;
 					foreground.getByName("tree_11").visible = false;
-					openSubState(new DialogSubstate(crimeData.instructions));
+					openSubState(DialogSubstate.fromMessage(crimeData.instructions));
 					crimeState = Interrogation;
 				}
 			case Interrogation:
@@ -499,7 +499,7 @@ class CabinState extends BaseState
 			case PickUpKnife:
 				if (isStateStart)
 				{
-					openSubState(new DialogSubstate(crimeData.accusation));
+					openSubState(DialogSubstate.fromMessage(crimeData.accusation));
 					addHoverText("knife", "knife", pickUpKnife);
 				}
 			case Accusation:
@@ -516,7 +516,7 @@ class CabinState extends BaseState
 	
 	function talkTo(npcIndex:Int)
 	{
-		openSubState(new DialogSubstate
+		openSubState(DialogSubstate.fromMessage
 			( crimeData.messages[npcIndex]
 			, !Calendar.interrogated[npcIndex]
 			)
@@ -526,7 +526,7 @@ class CabinState extends BaseState
 	
 	function pickUpKnife()
 	{
-		openSubState(new DialogSubstate(crimeData.stab));
+		openSubState(DialogSubstate.fromMessage(crimeData.stab));
 		var knife = foreground.getByName("knife");
 		remove(infoBoxes[knife]);
 		infoBoxes.remove(knife);

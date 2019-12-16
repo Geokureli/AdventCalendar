@@ -267,6 +267,6 @@ class OutsideState extends BaseState
 		NGio.unlockMedal(KILLER_MEDAL);
 		Calendar.saveSolvedMurder();
 		foreground.getByName("killer").animation.play("bleed");
-		openSubState(new DialogSubstate(data.victory));
+		openSubState(DialogSubstate.fromMessage(data.victory));
 	}
 }
