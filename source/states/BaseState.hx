@@ -211,15 +211,17 @@ class BaseState extends OgmoState
 			case null:
 				instrument.visible = false;
 			case Glockenspiel:
-				instrument.loadGraphic("assets/images/props/outside/glockenspiel.png");
+				instrument.loadGraphic("assets/images/props/instruments/glockenspiel.png");
 			case Flute:
-				instrument.loadGraphic("assets/images/props/outside/flute.png");
+				instrument.loadGraphic("assets/images/props/instruments/flute.png");
+			case Drums:
+				instrument.loadGraphic("assets/images/props/instruments/drums.png");
 		}
 		
 		if (instrument.visible)
 		{
 			instrument.x = FlxG.width - instrument.width - 2;
-			instrument.y = instrument.height + 2;
+			instrument.y = 2;
 		}
 	}
 	

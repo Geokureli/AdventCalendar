@@ -23,15 +23,20 @@ class Instrument
     static var scale:Array<Int>;
     static var sustainMode:Bool;
     static var singleNoteMode:Bool;
+    static var volume:Float;
     static var currentNote:Null<Int> = null;
     static var activeNotes:Array<FlxSound> = [];
     
     static public function setInitial():Void
     {
+        DrumKit.setInitial();
         if (FlxG.save.data.hasGlock)
             owned.push(Glockenspiel);
         
         if (FlxG.save.data.hasFlute)
+            owned.push(Flute);
+            
+        if (FlxG.save.data.hasDrums)
             owned.push(Flute);
         
         if (FlxG.save.data.instrument != null)
@@ -52,24 +57,34 @@ class Instrument
         
         currentNote = note;
         
-        activeNotes[note] = FlxG.sound.play(soundPath + '${notes[root + note]}.mp3', 0.5);
+        var soundName = switch (type)
+        {
+            case Drums: DrumKit.getSoundName(note);
+            default: notes[root + note];
+        }
+        
+        if (soundName != null)
+            activeNotes[note] = FlxG.sound.play(soundPath + soundName + '.mp3', volume);
     }
     
     static public function release(note:Int):Void
     {
-        final sound = activeNotes[note];
-        activeNotes[note] = null;
-        
-        if (singleNoteMode && note == currentNote)
+        if (activeNotes[note] != null)
         {
-            currentNote = null;
-            var lastPressed = getLastPressed();
-            if (lastPressed != -1)
-                press(lastPressed);
+            final sound = activeNotes[note];
+            activeNotes[note] = null;
+            
+            if (singleNoteMode && note == currentNote)
+            {
+                currentNote = null;
+                var lastPressed = getLastPressed();
+                if (lastPressed != -1)
+                    press(lastPressed);
+            }
+            
+            if (sustainMode && sound != null)
+                sound.fadeOut(0.1, 0, (_)->sound.kill());
         }
-        
-        if (sustainMode && sound != null)
-            sound.fadeOut(0.1, 0, (_)->sound.kill());
     }
     
     inline static function getLastPressed():Int
@@ -85,17 +100,21 @@ class Instrument
     
     inline static function set_type(value:Null<InstrumentType>)
     {
+        sustainMode = false;
+        singleNoteMode = false;
+        volume = 0.5;
         switch (value)
         {
             case null:"";
             case Glockenspiel: 
                 soundPath = PATH + "glockenspiel/";
-                sustainMode = false;
-                singleNoteMode = false;
             case Flute:
                 soundPath = PATH + "flute/";
                 sustainMode = true;
                 singleNoteMode = true;
+            case Drums:
+                soundPath = PATH + "drums/";
+                volume = 1.0;
         }
         
         if (Instrument.type != value)
@@ -164,20 +183,17 @@ class Instrument
         }
     }
     
-    static public function addGlockenspiel()
+    static public function add(type:InstrumentType)
     {
-        owned.push(Glockenspiel);
-        FlxG.save.data.hasGlock = true;
+        owned.push(type);
+        switch(type)
+        {
+            case Glockenspiel: FlxG.save.data.hasGlock = true;
+            case Flute: FlxG.save.data.hasFlute = true;
+            case Drums: FlxG.save.data.hasDrums = true;
+        }
         FlxG.save.flush();
-        type = Glockenspiel;
-    }
-    
-    static public function addFlute()
-    {
-        owned.push(Flute);
-        FlxG.save.data.hasFlute = true;
-        FlxG.save.flush();
-        type = Flute;
+        Instrument.type = type;
     }
     
     static public function owns(type:InstrumentType)
@@ -196,4 +212,5 @@ enum InstrumentType
 {
     Glockenspiel;
     Flute;
+    Drums;
 }

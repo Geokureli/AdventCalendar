@@ -92,59 +92,14 @@ class OutsideState extends BaseState
 		
 		initSculptures();
 		
-		var glockPresent = foreground.getByName("present_czyszy");
-		if (glockPresent != null)
-		{
-			glockPresent.animation.add("unopened", [0], false);
-			glockPresent.animation.add("opened", [1], false);
-			glockPresent.immovable = true;
-			colliders.add(glockPresent);
-			if (Instrument.owns(Glockenspiel))
-			{
-				glockPresent.animation.play("opened");
-				var glockenspiel = addGlock(glockPresent);
-			}
-			else
-			{
-				glockPresent.animation.play("unopened");
-				addHoverTextTo(glockPresent, onGlockPresentOpen.bind(glockPresent));
-			}
-		}
+		addInstrumentPresent("czyszy", Glockenspiel);
+		addInstrumentPresent("colebob", Flute);
+		addInstrumentPresent("carmet", Drums);
+		// addInstrumentPresent("albegian", Drums);
 		
-		var flutePresent = foreground.getByName("present_colebob");
-		if (flutePresent != null)
-		{
-			flutePresent.animation.add("unopened", [0], false);
-			flutePresent.animation.add("opened", [1], false);
-			flutePresent.immovable = true;
-			colliders.add(flutePresent);
-			if (Instrument.owns(Flute))
-			{
-				flutePresent.animation.play("opened");
-				var flute = addFlute(flutePresent);
-			}
-			else
-			{
-				flutePresent.animation.play("unopened");
-				addHoverTextTo(flutePresent, onFlutePresentOpen.bind(flutePresent));
-			}
-		}
 		
 		if (Calendar.day == 12)
-		{
-			var killer = foreground.getByName("killer");
-			killer.animation.add("idle", [0]);
-			killer.animation.add("bleed", [1,2,3], 4);
-			killer.animation.play("idle");
-			colliders.add(killer);
-			killer.immovable = true;
-			if (Calendar.solvedMurder)
-				killer.animation.play("bleed");
-			else if (Calendar.hasKnife)
-				addHoverTextTo(killer, "BrandyBuizel", onKill);
-			else
-				addHoverTextTo(killer, "BrandyBuizel");
-		}
+			initCrime();
 		
 		add(new Snow());
 	}
@@ -233,58 +188,77 @@ class OutsideState extends BaseState
 			|| (obj.y < tree.y && obj.x > tree.x + 45 && obj.x + obj.width < tree.x + tree.width - 45);
 	}
 	
-	function onGlockPresentOpen(present:OgmoDecal):Void
+	// --- INSTRUMENTS
+	
+	function addInstrumentPresent(musician:String, type:InstrumentType):Void
+	{
+		var present = foreground.getByName("present_" + musician);
+		if (present != null)
+		{
+			present.animation.add("unopened", [0], false);
+			present.animation.add("opened", [1], false);
+			present.immovable = true;
+			colliders.add(present);
+			if (Instrument.owns(type))
+			{
+				present.animation.play("opened");
+				var instrument = addInstrument(present, type);
+			}
+			else
+			{
+				present.animation.play("unopened");
+				addHoverTextTo(present, onInstrumentPresentOpen.bind(present, type));
+			}
+		}
+	}
+	
+	function onInstrumentPresentOpen(present:OgmoDecal, type:InstrumentType):Void
 	{
 		present.animation.play("opened");
 		remove(infoBoxes[present]);
 		infoBoxes.remove(present);
 		
-		Instrument.addGlockenspiel();
+		Instrument.add(Glockenspiel);
 		NGio.unlockMedal(MUSIC_MEDAL);
 		
-		addGlock(present);
+		addInstrument(present, type);
 	}
 	
-	function onFlutePresentOpen(present:OgmoDecal):Void
+	function addInstrument(present:OgmoDecal, type:InstrumentType)
 	{
-		present.animation.play("opened");
-		remove(infoBoxes[present]);
-		infoBoxes.remove(present);
-		
-		Instrument.addFlute();
-		NGio.unlockMedal(MUSIC_MEDAL);
-		
-		addFlute(present);
-	}
-	
-	function addGlock(present:OgmoDecal):FlxSprite
-	{
-		var glockenspiel = new FlxSprite
+		var name = type.getName();
+		var instrument = new FlxSprite
 			( present.x + present.width / 2
 			, present.y + present.height
-			, "assets/images/props/outside/glockenspiel.png"
+			, 'assets/images/props/instruments/${name.toLowerCase()}.png'
 			);
-		background.add(glockenspiel);
-		addHoverTextTo(glockenspiel, "Glockenspiel", selectInstrument.bind(Glockenspiel));
-		return glockenspiel;
-	}
-	
-	function addFlute(present:OgmoDecal):FlxSprite
-	{
-		var flute = new FlxSprite
-			( present.x + present.width / 2
-			, present.y + present.height
-			, "assets/images/props/outside/flute.png"
-			);
-		background.add(flute);
-		addHoverTextTo(flute, "Flute", selectInstrument.bind(Flute));
-		return flute;
+		background.add(instrument);
+		addHoverTextTo(instrument, name, selectInstrument.bind(type));
+		return instrument;
 	}
 	
 	function selectInstrument(type:InstrumentType):Void
 	{
 		if (Instrument.type != type)
 			Instrument.type = type;
+	}
+	
+	// --- CRIME
+	
+	function initCrime():Void
+	{
+		var killer = foreground.getByName("killer");
+		killer.animation.add("idle", [0]);
+		killer.animation.add("bleed", [1,2,3], 4);
+		killer.animation.play("idle");
+		colliders.add(killer);
+		killer.immovable = true;
+		if (Calendar.solvedMurder)
+			killer.animation.play("bleed");
+		else if (Calendar.hasKnife)
+			addHoverTextTo(killer, "BrandyBuizel", onKill);
+		else
+			addHoverTextTo(killer, "BrandyBuizel");
 	}
 	
 	function onKill():Void
