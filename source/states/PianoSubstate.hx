@@ -1,9 +1,9 @@
 package states;
 
 import data.BitArray;
-import flixel.input.keyboard.FlxKey;
-import sprites.Button;
+import data.DrumKit;
 import data.Instrument;
+import sprites.Button;
 import sprites.Font;
 
 import openfl.geom.Rectangle;
@@ -11,6 +11,7 @@ import openfl.geom.Rectangle;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxColor;
 import flixel.ui.FlxBitmapTextButton;
 import flixel.ui.FlxButton;
@@ -135,6 +136,13 @@ class Key extends FlxBitmapTextButton
 		labelOffsets[0].y
 			= labelOffsets[1].y
 			= labelOffsets[2].y = height - label.height - LETTER_BUFFER;
+		
+		if (Instrument.type == Drums && !DrumKit.isKeyActive(char))
+		{
+			active = false;
+			update(FlxG.elapsed);
+			alpha = 0.5;
+		}
 	}
 	
 	override function update(elapsed:Float)

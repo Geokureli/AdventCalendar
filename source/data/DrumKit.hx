@@ -4,51 +4,51 @@ import flixel.FlxG;
 
 class DrumKit
 {
-static var sounds:Array<String> = 
-    [ "snare"     // E
-    , "clap"      // 4
-    , "tom"       // R
-    , "hat"       // 5
-    , "bongo_1"   // T
-    , "bongo_3"   // Y
-    , "bongo_2"   // 7
-    , "kick"      // U
-    , "bells"     // 8
-    , "tambourine"// I
-    , "triangle"  // 9
-    , "stick"     // O
-    , "crash"     // P
-    ];
-static var soundToPiece:Map<String, DrumPiece> = 
-    [ "snare"     => snare
-    , "clap"      => clap
-    , "tom"       => tom
-    , "hat"       => hat
-    , "bongo_1"   => bongo
-    , "bongo_3"   => bongo
-    , "bongo_2"   => bongo
-    , "kick"      => kick
-    , "bells"     => bells
-    , "tambourine"=> tambourine
-    , "triangle"  => triangle
-    // , "stick"     => null
-    , "crash"     => crash
-    ];
-
-
-
-static var pieces:Array<DrumPiece> = 
-    [ snare
-    , clap
-    , tom
-    , hat
-    , bongo
-    , kick
-    , bells
-    , tambourine
-    , triangle
-    , crash
-    ];
+    static var keys = ["E","4","R","5","T","Y","7","U","8","I","9","O","P"];
+    static var sounds:Array<String> = 
+        [ "snare"     // E
+        , "clap"      // 4
+        , "tom"       // R
+        , "hat"       // 5
+        , "bongo_1"   // T
+        , "bongo_3"   // Y
+        , "bongo_2"   // 7
+        , "kick"      // U
+        , "bells"     // 8
+        , "tambourine"// I
+        , "triangle"  // 9
+        , "stick"     // O
+        , "crash"     // P
+        ];
+    
+    static var soundToPiece:Map<String, DrumPiece> = 
+        [ "snare"     => snare
+        , "clap"      => clap
+        , "tom"       => tom
+        , "hat"       => hat
+        , "bongo_1"   => bongo
+        , "bongo_3"   => bongo
+        , "bongo_2"   => bongo
+        , "kick"      => kick
+        , "bells"     => bells
+        , "tambourine"=> tambourine
+        , "triangle"  => triangle
+        // , "stick"     => null
+        , "crash"     => crash
+        ];
+    
+    static var pieces:Array<DrumPiece> = 
+        [ snare
+        , clap
+        , tom
+        , hat
+        , bongo
+        , kick
+        , bells
+        , tambourine
+        , triangle
+        , crash
+        ];
     
     static var piecesFound:BitArray = new BitArray();
     
@@ -60,12 +60,6 @@ static var pieces:Array<DrumPiece> =
     static public function getSoundName(index:Int):Null<String>
     {
         var soundName = sounds[index];
-        var msg = 'name: $soundName';
-        if (soundToPiece.exists(soundName))
-            msg += '[exists] piece:${soundToPiece[soundName]}'
-                + 'index:${pieces.indexOf(soundToPiece[soundName])} '
-                + piecesFound.toString();
-        trace(msg);
         if (!soundToPiece.exists(soundName) || isPieceFound(soundToPiece[soundName]))
             return soundName;
         return null;
@@ -74,6 +68,12 @@ static var pieces:Array<DrumPiece> =
     inline static public function isPieceFound(piece:DrumPiece):Bool
     {
         return piecesFound[pieces.indexOf(piece)];
+    }
+    
+    inline static public function isKeyActive(key:String):Bool
+    {
+        var soundName = sounds[keys.indexOf(key)];
+        return !soundToPiece.exists(soundName) || isPieceFound(soundToPiece[soundName]);
     }
     
     inline static public function isAnyPieceFound():Bool
