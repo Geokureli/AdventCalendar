@@ -38,6 +38,8 @@ typedef CrimeData = {
 
 class CabinState extends BaseState
 {
+	inline static var TREE_FADE_TIME = 3.0;
+	
 	inline static var MEDAL_0 = 58519;
 	static inline var ADVENT_LINK:String = "https://www.newgrounds.com/portal/view/721061";
 	
@@ -52,6 +54,7 @@ class CabinState extends BaseState
 	var crimeState:Null<CrimeState> = null;
 	var crimeData:CrimeData;
 	var justOpenPresent = false;
+	var tree:OgmoDecal;
 	
 	override public function new (fromOutside = false)
 	{
@@ -88,10 +91,12 @@ class CabinState extends BaseState
 		add(thumbnail);
 		
 		var treeDay = foreground.getObjectNameIndex("tree_", Calendar.day + 1);
-		var tree:OgmoDecal = foreground.getByName("tree_" + treeDay);
+		tree = foreground.getByName("tree_" + treeDay);
 		if (tree != null)
+		{
 			tree.setBottomHeight(treeDay < 3 ? 8 : 10);
-		
+			tree.setMiddleWidth(25);
+		}
 		toOutside = props.getByName("toOutside");
 		if (fromOutside)
 		{
@@ -230,12 +235,24 @@ class CabinState extends BaseState
 		if (Calendar.day == 12 && crimeState != null)
 			updateCrime(elapsed);
 		
+		if (Calendar.day > 9 && isBehindTree(player))
+			tree.alpha -= elapsed / TREE_FADE_TIME;
+		else
+			tree.alpha += elapsed / TREE_FADE_TIME;
+		
 		//INTERACTABLES
 		if (tvTouch.overlaps(playerHitbox) && player.interacting)
 			tvBubble.play();
 		
 		if (player.overlaps(toOutside) #if debug || FlxG.keys.justPressed.C #end)
 			FlxG.switchState(new OutsideState());
+	}
+	
+	function isBehindTree(object:FlxObject):Bool
+	{
+		return object.y < tree.y
+			&& object.x + object.width / 2 > tree.x
+			&& object.x + object.width / 2 < tree.x + tree.width;
 	}
 	
 	public function touchPresent(present:Present)
