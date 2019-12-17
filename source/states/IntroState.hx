@@ -154,7 +154,7 @@ class IntroState extends flixel.FlxState
             {
                 allowPlay = false;
                 msg.text = "Today's content is almost done,\nplease try again soon.\n Sorry";
-                if (Calendar.isDebugDay)
+                if (Calendar.isDebugDay || NGio.isWhitelisted)
                 {
                     allowPlay = waitTime < -1.0;
                     
