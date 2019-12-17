@@ -28,7 +28,7 @@ class Character extends Sprite
 	{
 		super(X, Y);
 		
-		loadGraphic(AssetPaths.tankMan__png, true, 16, 16);
+		loadGraphic("assets/images/tankMan.png", true, 16, 16);
 		animation.frameIndex = 0;
 		
 		setFacingFlip(FlxObject.LEFT, false, false);
@@ -47,7 +47,7 @@ class Character extends Sprite
 	{
 		if (day == 8) // Dec 9th: Daddy
 		{
-			loadGraphic(AssetPaths.Daddy__png, false, 24, 24);
+			loadGraphic("assets/images/Daddy.png", false, 24, 24);
 			actualOffsetLOL = 20;
 			width = 8;
 			height = 8;

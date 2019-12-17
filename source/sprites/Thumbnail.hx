@@ -30,14 +30,14 @@ class Thumbnail extends Sprite
 		// igloo shit
 		if (newDay == -1)
 		{
-			loadGraphic(AssetPaths.thumb_tom__png);
+			loadGraphic("assets/images/thumbs/thumb-tom.png");
 			curThumb = -1;
 		}
 		
 		if (curThumb != newDay)
 		{
 			if (newDay > Calendar.data.length - 1)
-				loadGraphic(AssetPaths.thumbDefault__png);
+				loadGraphic("assets/images/thumbDefault.png");
 			else
 				loadGraphic(Calendar.data[newDay].getThumbPath());
 			

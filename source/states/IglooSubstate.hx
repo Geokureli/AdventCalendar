@@ -28,12 +28,12 @@ class IglooSubstate extends BaseState
 		
 		FlxG.camera.fade(FlxColor.BLACK, 1, true);
 		
-		var iglooBG:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.igloo_room__png);
+		// var iglooBG:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.igloo_room__png);
 		add(iglooBG);
 		
 		initCollision();
 		
-		menorah = new FlxSprite(106, 65).loadGraphic(AssetPaths.menorah__png);
+		// menorah = new FlxSprite(106, 65).loadGraphic(AssetPaths.menorah__png);
 		menorah.immovable = true;
 		_grpCollision.add(menorah);
 		
