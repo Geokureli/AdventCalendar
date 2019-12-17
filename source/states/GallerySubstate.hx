@@ -105,7 +105,7 @@ class GallerySubstate extends FlxSubState
 	private function openImage(day:Int):Void
 	{
 		curDay = day;
-		var data = Calendar.data[day];
+		var data = Calendar.data[day].art;
 		
 		curAnimPlaying = 0;
 		bigImage.visible = true;
@@ -116,7 +116,7 @@ class GallerySubstate extends FlxSubState
 			if (NGio.isNaughty)
 				bigPreview.loadGraphic('assets/images/artwork/naughty.jpg');
 			else
-				bigPreview.loadGraphic(data.getArtPath());
+				bigPreview.loadGraphic(data.getPath());
 			imageText.text = "Art by " + data.credit;
 		}
 		else
@@ -141,7 +141,7 @@ class GallerySubstate extends FlxSubState
 		}
 		
 		if (isAnimated)
-			bigPreview.loadGraphic(data.getArtPath(), isAnimated, horizSize, vertSize);
+			bigPreview.loadGraphic(data.getPath(), isAnimated, horizSize, vertSize);
 		
 		bigPreview.setGraphicSize(0, Std.int(FlxG.height));
 		bigPreview.updateHitbox();
@@ -170,12 +170,12 @@ class GallerySubstate extends FlxSubState
 			}
 		#end
 		
-		var data = Calendar.data[curDay];
+		var data = Calendar.data[curDay].art;
 		if (curDay >= 0)
 		{
 			imageText.text
 				= "Art by " + data.credit
-				+ "\n" + (FlxG.onMobile ? "Tap" : "Click") + " here to open " + data.author + "'s Newgrounds page";
+				+ "\n" + (FlxG.onMobile ? "Tap" : "Click") + " here to open " + data.artist + "'s Newgrounds page";
 		}
 		
 		if (FlxG.keys.justPressed.ENTER)
@@ -185,7 +185,7 @@ class GallerySubstate extends FlxSubState
 				case -1:
 					FlxG.openURL("https://tomfulp.newgrounds.com");
 				case _:
-					FlxG.openURL("https://" + data.author + ".newgrounds.com");
+					FlxG.openURL(data.getProfileLink());
 			}
 		}
 		

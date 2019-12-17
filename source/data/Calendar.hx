@@ -85,7 +85,7 @@ class Calendar
     {
         for (i in 0...data.length)
         {
-            var artist = data[i].author.toLowerCase();
+            var artist = data[i].art.artist.toLowerCase();
             if (whitelist.indexOf(artist) == -1)
                 whitelist.push(artist);
             
@@ -101,7 +101,7 @@ class Calendar
     {
         for (i in 0...day + 1)
         {
-            var artist = data[i].author.toLowerCase();
+            var artist = data[i].art.artist.toLowerCase();
             if (unveiledArtists.indexOf(artist) == -1)
                 unveiledArtists.push(artist);
             
@@ -206,56 +206,88 @@ class Calendar
     }
 }
 
+typedef RawCreationData =
+{ 
+    artist:String,
+    ?credit:String,
+    ?fileExt:String,
+    ?id:Int
+}
+
+typedef RawMusicData = RawCreationData &
+{ 
+    key:String,
+    ?volume:Float
+}
+
+typedef RawArtData = RawCreationData &
+{
+    ?frames :Int
+}
+
 typedef RawContentData =
 {
-    final author :String;
-    final credit :Null<String>;
-    final fileExt:Null<String>;
-    final frames :Null<Int>;
-    final tv     :Null<String>;
-    final song   : { artist:String, key:String, ?id:Int, ?volume:Float };
+    final art     :ArtData;
+    final song    :MusicData;
+    final tv      :Null<String>;
     final notReady:Null<Bool>;
+}
+
+@:forward
+abstract CreationData<T:RawCreationData>(T) from T
+{
+    public var credit(get, never):String;
+    inline function get_credit() return this.credit != null ? this.credit : this.artist;
+    
+    inline public function getProfileLink() return "https://" + this.artist + ".newgrounds.com";
+    
+    inline public function getFilename(defaultExt = "jgp"):String
+    {
+        return this.artist.toLowerCase() + "." + (this.fileExt == null ? defaultExt : this.fileExt);
+    }
+    
+    inline public function getSnowmanPath():String
+    {
+        return 'assets/images/snowSprite/${this.artist}.png';
+    }
+}
+
+@:forward
+abstract MusicData(CreationData<RawMusicData>) from RawMusicData
+{
+    inline public function getPath():String
+        return "assets/music/" + this.getFilename("mp3");
+}
+
+@:forward
+abstract ArtData(CreationData<RawArtData>) from RawArtData
+{
+    inline public function getPath():String
+        return "assets/images/artwork/" + this.getFilename("jpg");
+    
+    inline public function getThumbPath():String
+        return "assets/images/thumbs/thumb-" + this.getFilename("png");
 }
 
 @:forward
 abstract ContentData(RawContentData) from RawContentData
 {
-    public var credit(get, never):String;
-    inline function get_credit() return this.credit != null ? this.credit : this.author;
-    
     public var profileLink(get,never):String;
-    inline function get_profileLink() return "https://" + this.author + ".newgrounds.com";
+    inline function get_profileLink() return this.art.getProfileLink();
     
     public var musicProfileLink(get,never):String;
-    inline function get_musicProfileLink() return "https://" + this.song.artist + ".newgrounds.com";
+    inline function get_musicProfileLink() return this.song.getProfileLink();
     
-    inline public function getArtPath():String
-    {
-        return 'assets/images/artwork/${getFilename("jpg")}';
-    }
+    public var notReady(get, never):Bool;
+    inline function get_notReady() return this.notReady == true;
     
-    inline public function getThumbPath():String
-    {
-        return 'assets/images/thumbs/thumb-${getFilename("png")}';
-    }
+    inline public function getArtPath():String return this.art.getPath();
     
-    inline public function getSongPath():String
-    {
-        return 'assets/music/${this.song.artist.toLowerCase()}.mp3';
-    }
+    inline public function getThumbPath():String return this.art.getThumbPath();
     
-    inline public function getArtistSnowmanPath():String
-    {
-        return 'assets/images/snowSprite/${this.author}.png';
-    }
+    inline public function getSongPath():String return this.song.getPath();
     
-    inline public function getMusicianSnowmanPath():String
-    {
-        return 'assets/images/snowSprite/${this.song.artist}.png';
-    }
+    inline public function getArtistSnowmanPath():String return this.art.getSnowmanPath();
     
-    inline public function getFilename(ext = "jgp"):String
-    {
-        return this.author.toLowerCase() + "." + (this.fileExt == null ? ext : this.fileExt);
-    }
+    inline public function getMusicianSnowmanPath():String return this.song.getSnowmanPath();
 }

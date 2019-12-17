@@ -1,146 +1,144 @@
 [
     {
-        "day":1,
-        "author":"Cymbourine",
-        "tv"    :"UP NEXT: THE GRUNCH\nWHO SPENT CHRISTMAS\nON CRUNCH",
-        "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
+        "day" :1,
+        "art" :{ "artist":"Cymbourine" },
+        "song":{ "artist":"CzySzy", "id":895653, "key":"cMaj" },
+        "tv"  :"UP NEXT: THE GRUNCH\nWHO SPENT CHRISTMAS\nON CRUNCH"
     },
     {
-        "day":2,
-        "author":"MintyEggs",
-        "tv"    :"COMING UP: DOCTOR\nWHO KILLED SANTA\nCLAUS: XMAS SPECIAL",
-        "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
+        "day" :2,
+        "art" :{ "artist":"MintyEggs" },
+        "song":{ "artist":"CzySzy", "id":895653, "key":"cMaj" },
+        "tv"  :"COMING UP: DOCTOR\nWHO KILLED SANTA\nCLAUS: XMAS SPECIAL"
     },
     {
-        "day":3,
-        "author":"GallowJolt",
-        "tv"    :"TONIGHT: THE\nPOLARIZING EXPRESS\nFRIGHTENS CHILDREN",
-        "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
+        "day" :3,
+        "art" :{ "artist":"GallowJolt" },
+        "song":{ "artist":"CzySzy", "id":895653, "key":"cMaj" },
+        "tv"  :"TONIGHT: THE\nPOLARIZING EXPRESS\nFRIGHTENS CHILDREN"
     },
     {
-        "day":4,
-        "author":"MalikJack",
-        "credit":"MalikJack(PieSaus)",
-        "tv"    :"NEWS BULLETIN:\nMONSTER SHOWS UP AT\nTHE LAKE OF RAGE",
-        "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
+        "day" :4,
+        "art" :{ "artist":"MalikJack", "credit":"MalikJack(PieSaus)" },
+        "song":{ "artist":"CzySzy", "id":895653, "key":"cMaj" },
+        "tv"  :"NEWS BULLETIN:\nMONSTER SHOWS UP AT\nTHE LAKE OF RAGE"
     },
     {
-        "day":5,
-        "author":"MrShmoods",
-        "tv"    :"THIS JUST IN:\nTHE WEATHER OUTSIDE\nIS FRIGHTFUL",
-        "song"  :{ "artist":"CzySzy", "id":895653, "key":"cMaj" }
+        "day" :5,
+        "art" :{ "artist":"MrShmoods" },
+        "song":{ "artist":"CzySzy", "id":895653, "key":"cMaj" },
+        "tv"  :"THIS JUST IN:\nTHE WEATHER OUTSIDE\nIS FRIGHTFUL"
     },
     {
-        "day":6,
-        "author":"DanFromBavaria",
-        "tv"    :"BREAKING NEWS:\nREPORTS OF COAL FOR\nNAUGHTY CHILDREN",
-        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
+        "day" :6,
+        "art" :{ "artist":"DanFromBavaria" },
+        "song":{ "artist":"ColeBob", "id":896599, "key":"eMaj" },
+        "tv"  :"BREAKING NEWS:\nREPORTS OF COAL FOR\nNAUGHTY CHILDREN"
     },
     {
-        "day":7,
-        "author":"MKMaffo",
-        "tv"    :"PEOPLE EVERYWHERE\nENJOY PARTING GIFT\nFROM CYZSZY, OUTSIDE",
-        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
+        "day" :7,
+        "art" :{ "artist":"MKMaffo" },
+        "song":{ "artist":"ColeBob", "id":896599, "key":"eMaj" },
+        "tv"    :"PEOPLE EVERYWHERE\nENJOY PARTING GIFT\nFROM CYZSZY, OUTSIDE"
     },
     {
-        "day":8,
-        "author":"Snackers",
-        "tv"    :"EMERGENCY: RECALLING\nMANURE TAINTED WITH\nRADIOACTIVE WASTE",
-        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
+        "day" :8,
+        "art" :{ "artist":"Snackers" },
+        "song":{ "artist":"ColeBob", "id":896599, "key":"eMaj" },
+        "tv"  :"EMERGENCY: RECALLING\nMANURE TAINTED WITH\nRADIOACTIVE WASTE"
     },
     {
-        "day":9,
-        "author":"Figburn",
-        "tv"    :"SPECIAL UPDATE: NICK\nOUR LOCAL HORSE\nCELEBRATES BIRTHDAY!",
-        "song"  :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
+        "day" :9,
+        "art" :{ "artist":"Figburn" },
+        "song":{ "artist":"ColeBob", "id":896599, "key":"eMaj" },
+        "tv"  :"SPECIAL UPDATE: NICK\nOUR LOCAL HORSE\nCELEBRATES BIRTHDAY!"
     },
     {
-        "day":10,
-        "author" :"Chdonga",
-        "fileExt":"png",
-        "tv"     :"WEATHER UPDATE: LOOK\nOUTSIDE AND TAKE A\nWILD GUESS, WOULD YOU?",
-        "song"   :{ "artist":"ColeBob", "id":896599, "key":"eMaj" }
+        "day" :10,
+        "art"  :{ "artist":"Chdonga", "fileExt":"png" },
+        "song" :{ "artist":"ColeBob", "id":896599, "key":"eMaj" },
+        "tv"   :"WEATHER UPDATE: LOOK\nOUTSIDE AND TAKE A\nWILD GUESS, WOULD YOU?"
     },
     {
-        "day":11,
-        "author":"HenryEYES",
-        "tv"    :"SOURCES CONFIRM: TIM\nALLEN WILL REPRISE ROLE\nIN THE SANTA MAN 4",
-        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
+        "day" :11,
+        "art" :{ "artist":"HenryEYES" },
+        "song":{ "artist":"Carmet", "key":"gMaj", "volume":1 },
+        "tv"  :"SOURCES CONFIRM: TIM\nALLEN WILL REPRISE ROLE\nIN THE SANTA MAN 4"
     },
     {
-        "day":12,
-        "author":"Krinkels",
-        "tv"    :"EXTRA EXTRA: MUTANT\nTREE AT RAGE LAKE,\nBOOMERS BLAME PHONES",
-        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
+        "day" :12,
+        "art" :{ "artist":"Krinkels" },
+        "song":{ "artist":"Carmet", "key":"gMaj", "volume":1 },
+        "tv"  :"EXTRA EXTRA: MUTANT\nTREE AT RAGE LAKE,\nBOOMERS BLAME PHONES"
     },
     {
-        "day":13,
-        "author":"BrandyBuizel",
-        "tv"    :"RIGHT NOW:\nA WHO-DONE-IT\nSO WHO DID IT...?",
-        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
+        "day" :13,
+        "art" :{ "artist":"BrandyBuizel" },
+        "song":{ "artist":"Carmet", "key":"gMaj", "volume":1 },
+        "tv"  :"RIGHT NOW:\nA WHO-DONE-IT\nSO WHO DID IT...?"
     },
     {
-        "day":14,
-        "author":"MixMuffin",
-        "tv"    :"ARE YOU AT RISK?\nKNIFING THE TV CAN\nSHORTEN LIFESPAN!",
-        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
+        "day" :14,
+        "art" :{ "artist":"MixMuffin" },
+        "song":{ "artist":"Carmet", "key":"gMaj", "volume":1 },
+        "tv"  :"ARE YOU AT RISK?\nKNIFING THE TV CAN\nSHORTEN LIFESPAN!"
     },
     {
-        "day":15,
-        "author":"ShiroGaia",
-        "tv"    :"NEXT ON ADULT SWIM:\nZACH AND CHRIS GO DOOR\nTO DOOR CAROLING",
-        "song"  :{ "artist":"Carmet", "key":"gMaj", "volume":1 }
+        "day" :15,
+        "art" :{ "artist":"ShiroGaia" },
+        "song":{ "artist":"Carmet", "key":"gMaj", "volume":1 },
+        "tv"  :"NEXT ON ADULT SWIM:\nZACH AND CHRIS GO DOOR\nTO DOOR CAROLING"
     },
     {
-        "day":16,
-        "author":"Boomnm",
-		"tv"    :"MY WIFE LEFT ME\nCOME BACK LATER\nFOR FUNNY MESSAGES",
-        "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
+        "day" :16,
+        "art" :{ "artist":"Boomnm" },
+        "song":{ "artist":"AlbeGian", "key":"eMaj" },
+		"tv"  :"MY WIFE LEFT ME\nCOME BACK LATER\nFOR FUNNY MESSAGES"
     },
     {
-        "day":17,
-        "author":"IVOanimations",
-        "tv"    :"SCIENTISTS DISCOVER\nFUNDAMENTAL PARTICLES\nCALLED PIXELS",
-        "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
+        "day" :17,
+        "art" :{ "artist":"IVOanimations" },
+        "song":{ "artist":"AlbeGian", "key":"eMaj" },
+        "tv"  :"SCIENTISTS DISCOVER\nFUNDAMENTAL PARTICLES\nCALLED PIXELS"
     },
     {
-        "day":18,
-        "author":"dogl",
-        "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
+        "day" :18,
+        "art" :{ "artist":"dogl" },
+        "song":{ "artist":"AlbeGian", "key":"eMaj" }
     },
     {
-        "day":19,
-        "author":"Mimny",
-        "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
+        "day" :19,
+        "art" :{ "artist":"Mimny" },
+        "song":{ "artist":"AlbeGian", "key":"eMaj" }
     },
     {
-        "day":20,
-        "author":"RGPAnims",
-        "song"  :{ "artist":"AlbeGian", "key":"eMaj" }
+        "day" :20,
+        "art" :{ "artist":"RGPAnims" },
+        "song":{ "artist":"AlbeGian", "key":"eMaj" }
     },
     {
-        "day":21,
-        "author":"Camuri",
-        "song"  :{ "artist":"SplatterDash" }
+        "day" :21,
+        "art" :{ "artist":"Camuri" },
+        "song":{ "artist":"SplatterDash" }
     },
     {
-        "day":22,
-        "author":"Irri",
-        "song"  :{ "artist":"SplatterDash" }
+        "day" :22,
+        "art" :{ "artist":"Irri" },
+        "song":{ "artist":"SplatterDash" }
     },
     {
-        "day":23,
-        "author":"OniShaggy",
-        "song"  :{ "artist":"SplatterDash" }
+        "day" :23,
+        "art" :{ "artist":"OniShaggy" },
+        "song":{ "artist":"SplatterDash" }
     },
     {
-        "day":24,
-        "author":"Chobiluck",
-        "song"  :{ "artist":"SplatterDash" }
+        "day" :24,
+        "art" :{ "artist":"Chobiluck" },
+        "song":{ "artist":"SplatterDash" }
     },
     {
-        "day":25,
-        "author":"TheDyingSun",
-        "song"  :{ "artist":"SplatterDash" }
+        "day" :25,
+        "art" :{ "artist":"TheDyingSun" },
+        "song":{ "artist":"SplatterDash" }
     }
 ]
