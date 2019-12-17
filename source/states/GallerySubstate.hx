@@ -204,7 +204,7 @@ class GallerySubstate extends FlxSubState
 		}
 		#end
 		
-		if (FlxG.keys.anyJustPressed(["ESCAPE", "SPACE"]))
+		if (FlxG.keys.anyJustPressed([ESCAPE, SPACE, X]))
 			close();
 		
 		// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
