@@ -43,7 +43,7 @@
     },
     {
         "day" :8,
-        "art" :{ "artist":"Snackers" },
+        "art" :{ "artist":"Snackers", "id":"1105665", "link":"duncan-jones-in-a-very-merry-christmas.png" },
         "song":{ "artist":"ColeBob", "id":896599, "key":"eMaj" },
         "tv"  :"EMERGENCY: RECALLING\nMANURE TAINTED WITH\nRADIOACTIVE WASTE"
     },

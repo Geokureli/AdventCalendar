@@ -222,7 +222,8 @@ typedef RawMusicData = RawCreationData &
 
 typedef RawArtData = RawCreationData &
 {
-    ?frames :Int
+    ?frames:Int,
+    ?link:String
 }
 
 typedef RawContentData =
@@ -267,6 +268,14 @@ abstract ArtData(CreationData<RawArtData>) from RawArtData
     
     inline public function getThumbPath():String
         return "assets/images/thumbs/thumb-" + this.getFilename("png");
+    
+    public function getExternalPath():String
+    {
+        if (this.id == null || this.link == null)
+            return null;
+        
+        return "https://art.ngfiles.com/images/" + (Std.int(this.id / 1000) * 1000) + "/" + this.link;
+    }
 }
 
 @:forward
