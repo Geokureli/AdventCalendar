@@ -89,7 +89,8 @@
         {"x": 189, "y": 281, "texture": "presents/present_carmet_ogmo.png"},
         {"x": 161, "y": 331, "texture": "snowSprite/MKMaffo.png"},
         {"x": 281, "y": 399, "texture": "snowSprite/IVOanimations.png"},
-        {"x": 131, "y": 211, "texture": "snowSprite/Mimny.png"}
+        {"x": 131, "y": 211, "texture": "snowSprite/Mimny.png"},
+        {"x": 370, "y": 271, "texture": "snowSprite/Camuri_ogmo.png"}
       ]
     },
     {
