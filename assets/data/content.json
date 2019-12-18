@@ -104,7 +104,8 @@
     {
         "day" :18,
         "art" :{ "artist":"dogl" },
-        "song":{ "artist":"AlbeGian", "key":"eMaj" }
+        "song":{ "artist":"AlbeGian", "key":"eMaj" },
+        "tv"  :"JUST SO YOU KNOW\nTHERE'S GONNA BE A\nQUIZ ON THESE MESSAGES"
     },
     {
         "day" :19,
