@@ -24,13 +24,25 @@ class AlienSubstate extends FlxSubState
 {	
 	override public function create():Void 
 	{
-		
+		var blackShit:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackShit.scrollFactor.set();
+		blackShit.screenCenter();
+		add(blackShit);
+
+		trace('alien ayyy');
+		var bg:FlxSprite = new FlxSprite().loadGraphic("assets/images/minigame/night.png");
+		bg.scrollFactor.set();
+		bg.setGraphicSize(0, FlxG.height);
+		bg.updateHitbox();
+		bg.screenCenter();
+		add(bg);
+
 		super.create();
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
-		
+		keyboardControls();
 		super.update(elapsed);
 	}
 	
