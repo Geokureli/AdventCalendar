@@ -33,7 +33,7 @@ class TvBubble extends FlxSpriteGroup
     inline function get_text():FlxBitmapText return cast members[1];
     public var sorting:Sorting;
     
-    public function new (msg:String = null)
+    public function new (msg:String = "MESSAGE MISING")
     {
         super(14, 26);
         
