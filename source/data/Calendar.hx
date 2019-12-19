@@ -230,6 +230,7 @@ typedef RawContentData =
 {
     final art     :ArtData;
     final song    :MusicData;
+    final char    :String;
     final tv      :Null<String>;
     final notReady:Null<Bool>;
 }
