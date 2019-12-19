@@ -228,11 +228,11 @@ typedef RawArtData = RawCreationData &
 
 typedef RawContentData =
 {
-    final art     :ArtData;
-    final song    :MusicData;
-    final char    :String;
-    final tv      :Null<String>;
-    final notReady:Null<Bool>;
+    final art  :ArtData;
+    final song :MusicData;
+    final char :String;
+    final tv   :Null<String>;
+    final ready:Null<Bool>;
 }
 
 @:forward
@@ -288,8 +288,11 @@ abstract ContentData(RawContentData) from RawContentData
     public var musicProfileLink(get,never):String;
     inline function get_musicProfileLink() return this.song.getProfileLink();
     
+    public var ready(get, never):Bool;
+    inline function get_ready() return this.ready != false;
+    
     public var notReady(get, never):Bool;
-    inline function get_notReady() return this.notReady == true;
+    inline function get_notReady() return this.ready == false;
     
     inline public function getArtPath():String return this.art.getPath();
     
