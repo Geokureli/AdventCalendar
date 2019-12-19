@@ -136,7 +136,8 @@
         "day" :20,
         "art" :{ "artist":"RGPAnims", "fileExt":"png" },
         "song":{ "artist":"AlbeGian", "key":"eMaj" },
-        "char":"Hogstrong"
+        "char":"Hogstrong",
+        "tv"  :"Starbarians: wanted\non 120 systems for\ncoercion,\nextortion,\nextinctions,\ndistortions,\ndesertions,\nperversions,\nillegal insertions,\ninvasions of nations,\nspace tax evasion,\ncommotions,\nexplosions,\nand loitering"
     },
     {
         "day" :21,
