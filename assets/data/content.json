@@ -110,7 +110,8 @@
     {
         "day" :19,
         "art" :{ "artist":"Mimny" },
-        "song":{ "artist":"AlbeGian", "key":"eMaj" }
+        "song":{ "artist":"AlbeGian", "key":"eMaj" },
+        "tv"  :"WET BANDITS! ARE\nTHEY IN YOUR AREA?\nFIND OUT AT 11"
     },
     {
         "day" :20,
