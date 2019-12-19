@@ -134,7 +134,7 @@
     },
     {
         "day" :20,
-        "art" :{ "artist":"RGPAnims" },
+        "art" :{ "artist":"RGPAnims", "fileExt":"png" },
         "song":{ "artist":"AlbeGian", "key":"eMaj" },
         "char":"Hogstrong"
     },
