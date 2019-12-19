@@ -21,15 +21,18 @@ class Character extends Sprite
 	
 	override function set_facing(direction:Int):Int
 	{
-		if (facing != direction)
+		var isFlip = facing != direction;
+		super.set_facing(direction);
+		
+		if (isFlip)
 			updateFacingOffset();
 		
-		return super.set_facing(direction);
+		return direction;
 	}
 	
 	inline function updateFacingOffset():Void
 	{
-		offset.x = direction == FlxObject.RIGHT ? rightOffset : leftOffset;
+		offset.x = facing == FlxObject.RIGHT ? rightOffset : leftOffset;
 	}
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
