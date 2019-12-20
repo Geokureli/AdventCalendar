@@ -22,6 +22,8 @@ import flixel.input.gamepad.FlxGamepad;
  */
 class AlienSubstate extends FlxSubState 
 {	
+	private var chimney:FlxSprite;
+
 	override public function create():Void 
 	{
 		var blackShit:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -37,7 +39,19 @@ class AlienSubstate extends FlxSubState
 		bg.screenCenter();
 		add(bg);
 
+		chimney = new FlxSprite(0, FlxG.height - 20).loadGraphic("assets/images/minigame/chimney.png");
+		chimney.scrollFactor.set();
+		chimney.screenCenter(X);
+		add(chimney);
+
+		chimney.drag.x = 20;
+
 		super.create();
+	}
+
+	function spawnAliens():Void
+	{
+		
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -55,7 +69,7 @@ class AlienSubstate extends FlxSubState
 		// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
 		if (FlxG.keys.pressed.D)
 		{
-			
+			chimney.velocity.x = 10;
 		}
 		if (FlxG.keys.pressed.W)
 		{
@@ -63,7 +77,7 @@ class AlienSubstate extends FlxSubState
 		}	
 		if (FlxG.keys.pressed.A)
 		{
-			
+			chimney.velocity.x = 10;
 		}
 		if (FlxG.keys.pressed.S)
 		{
