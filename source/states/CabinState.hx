@@ -107,7 +107,7 @@ class CabinState extends BaseState
 		var tv:FlxSprite = foreground.getByName("tv");
 		tv.animation.curAnim.frameRate = 6;
 		tvBubble = cast props.getByName("TvBubble");
-		tvBubble.msg = Calendar.today.tv;
+		tvBubble.msg = Calendar.today.tv.toUpperCase();
 		tvTouch = new FlxObject(tv.x - 3, tv.y, tv.width + 6, tv.height + 3);
 		
 		var arcade = foreground.getByName("arcade");

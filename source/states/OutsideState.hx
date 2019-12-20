@@ -113,6 +113,14 @@ class OutsideState extends BaseState
 			{
 				var name = child.graphic.assetsKey.split("snowSprite/").pop();
 				name = name.substr(0, name.length - 4);
+				
+				var nameFound = Calendar.checkUnveiledArtist(name);
+				while(!nameFound && ~/\d$/.match(name))
+				{
+					name = name.substr(0, name.length - 1);
+					nameFound = Calendar.checkUnveiledArtist(name);
+				}
+				
 				if (Calendar.checkUnveiledArtist(name))
 				{
 					colliders.add(child);
