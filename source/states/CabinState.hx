@@ -162,6 +162,7 @@ class CabinState extends BaseState
 			foreground.add(npc);
 			colliders.add(npc);
 			characters.add(npc);
+			addHoverTextTo(npc, npc.name);
 		}
 	}
 	

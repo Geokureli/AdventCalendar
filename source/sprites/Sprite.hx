@@ -11,7 +11,6 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 class Sprite extends FlxSprite 
 {
 	public var curDay:Int = 0;
-	public var nameShit:String = "";
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
