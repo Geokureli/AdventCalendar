@@ -63,7 +63,7 @@ class TvBubble extends FlxSpriteGroup
         {
             visible = true;
             final numLines = msg.split("\n").length;
-            var timeScale = numLines > 3 ? numLines : 1;
+            var timeScale = numLines > 3 ? numLines * 0.75 : 1;
             var appearTime = APPEAR_TIME * timeScale;
             var totalTime = appearTime + HOLD_TIME;
             FlxTween.num(0, totalTime / appearTime, totalTime,
