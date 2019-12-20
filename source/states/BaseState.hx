@@ -218,7 +218,7 @@ class BaseState extends OgmoState
 				instrument.loadGraphic("assets/images/props/instruments/flute.png");
 			case Drums:
 				instrument.loadGraphic("assets/images/props/instruments/drums.png");
-			case Drums:
+			case Piano:
 				instrument.loadGraphic("assets/images/props/instruments/piano.png");
 		}
 		
