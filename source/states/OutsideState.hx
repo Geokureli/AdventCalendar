@@ -121,8 +121,15 @@ class OutsideState extends BaseState
 					nameFound = Calendar.checkUnveiledArtist(name);
 				}
 				
-				if (Calendar.checkUnveiledArtist(name))
+				if (nameFound)
 				{
+					if (name == "RGPAnims")
+					{
+						var height = child.height;
+						child.loadGraphic("assets/images/snowSprite/" + name + Math.min(Calendar.day + 1, 25) + ".png");
+						child.y -= child.height - height;
+						child.setBottomHeight(Std.int(child.height / 3));
+					}
 					colliders.add(child);
 					child.immovable = true;
 					child.setBottomHeight(Math.round(child.height / 2));
