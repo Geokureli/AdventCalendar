@@ -96,7 +96,7 @@ class OutsideState extends BaseState
 		addInstrumentPresent("czyszy", Glockenspiel);
 		addInstrumentPresent("colebob", Flute);
 		addInstrumentPresent("carmet", Drums, onPickUpDrumSticks);
-		// addInstrumentPresent("albegian", Drums);
+		// addInstrumentPresent("albegian", Piano);
 		
 		
 		if (Calendar.day == 12)
@@ -113,8 +113,27 @@ class OutsideState extends BaseState
 			{
 				var name = child.graphic.assetsKey.split("snowSprite/").pop();
 				name = name.substr(0, name.length - 4);
-				if (Calendar.checkUnveiledArtist(name))
+				
+				var nameFound = Calendar.checkUnveiledArtist(name);
+				while(!nameFound && ~/\d$/.match(name))
 				{
+					name = name.substr(0, name.length - 1);
+					nameFound = Calendar.checkUnveiledArtist(name);
+				}
+				
+				if (nameFound)
+				{
+					if (name == "RGPAnims")
+					{
+						var height = child.height;
+						child.loadGraphic("assets/images/snowSprite/" + name + Math.min(Calendar.day + 1, 25) + ".png");
+						child.y -= child.height - height;
+						child.setBottomHeight(Std.int(child.height / 3));
+					}
+					
+					if (name == "Camuri")
+						child.animation.curAnim.frameRate = 8;
+					
 					colliders.add(child);
 					child.immovable = true;
 					child.setBottomHeight(Math.round(child.height / 2));

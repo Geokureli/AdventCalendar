@@ -210,6 +210,7 @@ typedef RawCreationData =
 { 
     artist:String,
     ?credit:String,
+    ?statue:String,
     ?fileExt:String,
     ?id:Int
 }
@@ -222,15 +223,17 @@ typedef RawMusicData = RawCreationData &
 
 typedef RawArtData = RawCreationData &
 {
-    ?frames :Int
+    ?frames:Int,
+    ?link:String
 }
 
 typedef RawContentData =
 {
-    final art     :ArtData;
-    final song    :MusicData;
-    final tv      :Null<String>;
-    final notReady:Null<Bool>;
+    final art  :ArtData;
+    final song :MusicData;
+    final char :String;
+    final tv   :Null<String>;
+    final ready:Null<Bool>;
 }
 
 @:forward
@@ -238,6 +241,8 @@ abstract CreationData<T:RawCreationData>(T) from T
 {
     public var credit(get, never):String;
     inline function get_credit() return this.credit != null ? this.credit : this.artist;
+    public var statue(get, never):String;
+    inline function get_statue() return this.statue != null ? this.statue : this.artist;
     
     inline public function getProfileLink() return "https://" + this.artist + ".newgrounds.com";
     
@@ -248,7 +253,7 @@ abstract CreationData<T:RawCreationData>(T) from T
     
     inline public function getSnowmanPath():String
     {
-        return 'assets/images/snowSprite/${this.artist}.png';
+        return 'assets/images/snowSprite/${statue}.png';
     }
 }
 
@@ -267,6 +272,14 @@ abstract ArtData(CreationData<RawArtData>) from RawArtData
     
     inline public function getThumbPath():String
         return "assets/images/thumbs/thumb-" + this.getFilename("png");
+    
+    public function getExternalPath():String
+    {
+        if (this.id == null || this.link == null)
+            return null;
+        
+        return "https://art.ngfiles.com/images/" + (Std.int(this.id / 1000) * 1000) + "/" + this.link;
+    }
 }
 
 @:forward
@@ -278,8 +291,11 @@ abstract ContentData(RawContentData) from RawContentData
     public var musicProfileLink(get,never):String;
     inline function get_musicProfileLink() return this.song.getProfileLink();
     
+    public var ready(get, never):Bool;
+    inline function get_ready() return this.ready != false;
+    
     public var notReady(get, never):Bool;
-    inline function get_notReady() return this.notReady == true;
+    inline function get_notReady() return this.ready == false;
     
     inline public function getArtPath():String return this.art.getPath();
     

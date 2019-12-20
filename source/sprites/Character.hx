@@ -5,12 +5,16 @@ import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
+import data.Calendar;
+
 /**
  * ...
  * @author NInjaMuffin99
  */
 class Character extends Sprite 
 {
+	public var name(default, null):String;
+	
 	private var speed:Float = 95;
 	private var actualOffsetLOL:Float = 12;
 	private var rightOffset:Float = 4;
@@ -18,10 +22,18 @@ class Character extends Sprite
 	
 	override function set_facing(direction:Int):Int
 	{
-		// if (facing != direction)
-			offset.x = direction == FlxObject.RIGHT ? rightOffset : leftOffset;
+		var isFlip = facing != direction;
+		super.set_facing(direction);
 		
-		return super.set_facing(direction);
+		if (isFlip)
+			updateFacingOffset();
+		
+		return direction;
+	}
+	
+	inline function updateFacingOffset():Void
+	{
+		offset.x = facing == FlxObject.RIGHT ? rightOffset : leftOffset;
 	}
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
@@ -45,6 +57,8 @@ class Character extends Sprite
 	
 	public function updateSprite(day:Int):Void
 	{
+		name = Calendar.data[day].char;
+		
 		if (day == 8) // Dec 9th: Daddy
 		{
 			loadGraphic("assets/images/Daddy.png", false, 24, 24);
@@ -65,7 +79,7 @@ class Character extends Sprite
 			// already should have loaded the sprite data i think
 			animation.frameIndex = day;
 		}
-		facing = facing;
+		updateFacingOffset();
 	}
 	
 	override public function update(elapsed:Float):Void 

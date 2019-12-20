@@ -150,7 +150,7 @@ class IntroState extends flixel.FlxState
             if (!Assets.exists(Calendar.getPresentPath()))      missing.push("present");
             if (!Assets.exists(Calendar.getMedalPath()))        missing.push("medal");
             
-            if (Calendar.today.notReady == true || missing.length > 0)
+            if (Calendar.today.notReady || missing.length > 0)
             {
                 allowPlay = false;
                 msg.text = "Today's content is almost done,\nplease try again soon.\n Sorry";
@@ -159,7 +159,7 @@ class IntroState extends flixel.FlxState
                     allowPlay = waitTime < -1.0;
                     
                     var text = "Debug Missing:\n" + missing.join(", ");
-                    if (Calendar.today.notReady == true)
+                    if (Calendar.today.notReady)
                         text += "\n remove blocker";
                     msg.text = text;
                 }
