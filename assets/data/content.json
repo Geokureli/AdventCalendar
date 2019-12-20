@@ -134,7 +134,7 @@
     },
     {
         "day" :20,
-        "art" :{ "artist":"RGPAnims", "fileExt":"png" },
+        "art" :{ "artist":"RGPAnims", "fileExt":"png", "statue":"RGPAnims20" },
         "song":{ "artist":"AlbeGian", "key":"eMaj" },
         "char":"Hogstrong",
         "tv"  :"Starbarians: wanted\non 120 systems for\ncoercion,\nextortion,\nextinctions,\ndistortions,\ndesertions,\nperversions,\nillegal insertions,\ninvasions of nations,\nspace tax evasion,\ncommotions,\nexplosions,\nand loitering"
@@ -142,30 +142,30 @@
     {
         "day" :21,
         "art" :{ "artist":"Camuri" },
-        "song":{ "artist":"SplatterDash" },
+        "song":{ "artist":"SplatterDash", "key":"aSMaj" },
         "char":"Cpt. Tardigrade"
     },
     {
         "day" :22,
         "art" :{ "artist":"Irri" },
-        "song":{ "artist":"SplatterDash" },
+        "song":{ "artist":"SplatterDash", "key":"aSMaj" },
         "char":"Blue Knight"
     },
     {
         "day" :23,
         "art" :{ "artist":"OniShaggy" },
-        "song":{ "artist":"SplatterDash" }
+        "song":{ "artist":"SplatterDash", "key":"aSMaj" }
     },
     {
         "day" :24,
         "art" :{ "artist":"Chobiluck" },
-        "song":{ "artist":"SplatterDash" },
+        "song":{ "artist":"SplatterDash", "key":"aSMaj" },
         "char":"Glenda"
     },
     {
         "day" :25,
         "art" :{ "artist":"TheDyingSun" },
-        "song":{ "artist":"SplatterDash" },
+        "song":{ "artist":"SplatterDash", "key":"aSMaj" },
         "char":"Tom"
     }
 ]

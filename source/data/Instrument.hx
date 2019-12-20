@@ -35,9 +35,12 @@ class Instrument
         
         if (FlxG.save.data.hasFlute)
             owned.push(Flute);
-            
+        
         if (FlxG.save.data.hasDrums)
             owned.push(Drums);
+        
+        if (FlxG.save.data.hasPiano)
+            owned.push(Piano);
         
         if (FlxG.save.data.instrument != null)
             type = InstrumentType.createByIndex(FlxG.save.data.instrument);
@@ -115,6 +118,9 @@ class Instrument
             case Drums:
                 soundPath = PATH + "drums/";
                 volume = 1.0;
+            case Piano:
+                soundPath = PATH + "piano/";
+                sustainMode = true;
         }
         
         if (Instrument.type != value)
@@ -191,6 +197,7 @@ class Instrument
             case Glockenspiel: FlxG.save.data.hasGlock = true;
             case Flute: FlxG.save.data.hasFlute = true;
             case Drums: FlxG.save.data.hasDrums = true;
+            case Piano: FlxG.save.data.hasPiano = true;
         }
         FlxG.save.flush();
         Instrument.type = type;
@@ -213,4 +220,5 @@ enum InstrumentType
     Glockenspiel;
     Flute;
     Drums;
+    Piano;
 }

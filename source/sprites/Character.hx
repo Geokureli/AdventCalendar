@@ -13,11 +13,12 @@ import data.Calendar;
  */
 class Character extends Sprite 
 {
+	public var name(default, null):String;
+	
 	private var speed:Float = 95;
 	private var actualOffsetLOL:Float = 12;
 	private var rightOffset:Float = 4;
 	private var leftOffset:Float = 8;
-	private var name:String;
 	
 	override function set_facing(direction:Int):Int
 	{

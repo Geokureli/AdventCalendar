@@ -210,6 +210,7 @@ typedef RawCreationData =
 { 
     artist:String,
     ?credit:String,
+    ?statue:String,
     ?fileExt:String,
     ?id:Int
 }
@@ -240,6 +241,8 @@ abstract CreationData<T:RawCreationData>(T) from T
 {
     public var credit(get, never):String;
     inline function get_credit() return this.credit != null ? this.credit : this.artist;
+    public var statue(get, never):String;
+    inline function get_statue() return this.statue != null ? this.statue : this.artist;
     
     inline public function getProfileLink() return "https://" + this.artist + ".newgrounds.com";
     
@@ -250,7 +253,7 @@ abstract CreationData<T:RawCreationData>(T) from T
     
     inline public function getSnowmanPath():String
     {
-        return 'assets/images/snowSprite/${this.artist}.png';
+        return 'assets/images/snowSprite/${statue}.png';
     }
 }
 
