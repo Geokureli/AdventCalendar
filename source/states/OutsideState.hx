@@ -130,6 +130,10 @@ class OutsideState extends BaseState
 						child.y -= child.height - height;
 						child.setBottomHeight(Std.int(child.height / 3));
 					}
+					
+					if (name == "Camuri")
+						child.animation.curAnim.frameRate = 8;
+					
 					colliders.add(child);
 					child.immovable = true;
 					child.setBottomHeight(Math.round(child.height / 2));
