@@ -127,7 +127,6 @@ class OutsideState extends BaseState
 					{
 						var height = child.height;
 						child.loadGraphic("assets/images/snowSprite/" + name + Math.min(Calendar.day + 1, 25) + ".png");
-						child.y -= child.height - height;
 						child.setBottomHeight(Std.int(child.height / 3));
 					}
 					
