@@ -96,7 +96,7 @@ class OutsideState extends BaseState
 		addInstrumentPresent("czyszy", Glockenspiel);
 		addInstrumentPresent("colebob", Flute);
 		addInstrumentPresent("carmet", Drums, onPickUpDrumSticks);
-		// addInstrumentPresent("albegian", Piano);
+		addInstrumentPresent("albegian", Piano);
 		
 		
 		if (Calendar.day == 12)

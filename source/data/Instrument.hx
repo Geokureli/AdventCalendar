@@ -121,6 +121,7 @@ class Instrument
             case Piano:
                 soundPath = PATH + "piano/";
                 sustainMode = true;
+                volume = 1.0;
         }
         
         if (Instrument.type != value)
