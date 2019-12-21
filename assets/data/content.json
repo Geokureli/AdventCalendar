@@ -143,7 +143,8 @@
         "day" :21,
         "art" :{ "artist":"Camuri" },
         "song":{ "artist":"SplatterDash", "key":"aSMaj" },
-        "char":"Cpt. Tardigrade"
+        "char":"Cpt. Tardigrade",
+        "tv":"Next Time: Captain\ntardigrade fights the\nevil amoebalings!"
     },
     {
         "day" :22,
