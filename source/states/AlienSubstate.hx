@@ -1,5 +1,6 @@
 package states;
 
+import flixel.group.FlxGroup;
 import data.Calendar;
 import data.NGio;
 
@@ -15,6 +16,7 @@ import flixel.text.FlxText;
 import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 import flixel.input.gamepad.FlxGamepad;
+import sprites.Hominid;
 
 /**
  * ...
@@ -23,15 +25,22 @@ import flixel.input.gamepad.FlxGamepad;
 class AlienSubstate extends FlxSubState 
 {	
 	private var chimney:FlxSprite;
+	private var grpAliens:FlxSpriteGroup;
+	private var blackLeft:FlxSprite;
+	private var blackRight:FlxSprite;
 
 	override public function create():Void 
 	{
-		var blackShit:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		blackShit.scrollFactor.set();
-		blackShit.screenCenter();
-		add(blackShit);
 
-		trace('alien ayyy');
+		blackLeft = new FlxSprite().makeGraphic(175 - 95, FlxG.height, FlxColor.BLACK);
+		blackLeft.immovable = true;
+		blackLeft.scrollFactor.set();
+		blackLeft.elasticity = 0.9;
+
+		blackRight = new FlxSprite(335 - 95).makeGraphic(175, FlxG.height, FlxColor.BLACK);
+		blackRight.immovable = true;
+		blackRight.scrollFactor.set();
+
 		var bg:FlxSprite = new FlxSprite().loadGraphic("assets/images/minigame/night.png");
 		bg.scrollFactor.set();
 		bg.setGraphicSize(0, FlxG.height);
@@ -39,45 +48,71 @@ class AlienSubstate extends FlxSubState
 		bg.screenCenter();
 		add(bg);
 
+		grpAliens = new FlxSpriteGroup();
+		add(grpAliens);
+
 		chimney = new FlxSprite(0, FlxG.height - 20).loadGraphic("assets/images/minigame/chimney.png");
 		chimney.scrollFactor.set();
 		chimney.screenCenter(X);
+		chimney.elasticity = 0.5;
 		add(chimney);
 
-		chimney.drag.x = 20;
+		chimney.drag.x = 40;
+		chimney.maxVelocity.x = 350;
+
+		spawnAliens();
+
+
+		add(blackRight);
+		add(blackLeft);
 
 		super.create();
 	}
 
 	function spawnAliens():Void
 	{
-		
+		for (i in 0...FlxG.random.int(3, 8))
+		{
+			var alien:Hominid = new Hominid(FlxG.random.float(185, 300), 1);
+			alien.scrollFactor.set();
+			alien.acceleration.y = 10;
+			alien.velocity.y = 60;
+			grpAliens.add(alien);
+		}
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		keyboardControls();
+
+		FlxG.collide(chimney, blackRight);
+		FlxG.collide(chimney, blackLeft);
 		super.update(elapsed);
 	}
 	
+	private var chimSpeed:Float = 400;
 	
 	private function keyboardControls():Void
 	{		
 		if (FlxG.keys.anyJustPressed(["ESCAPE", "SPACE"]))
 			close();
 		
+		if (!FlxG.keys.anyPressed(["A", "D"]))
+		{
+			chimney.acceleration.x = 0;
+		}
 		// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
 		if (FlxG.keys.pressed.D)
 		{
-			chimney.velocity.x = 10;
+			chimney.acceleration.x = chimSpeed;
 		}
-		if (FlxG.keys.pressed.W)
+		if (FlxG.keys.justPressed.W)
 		{
-			
+			spawnAliens();
 		}	
 		if (FlxG.keys.pressed.A)
 		{
-			chimney.velocity.x = 10;
+			chimney.acceleration.x = -chimSpeed;
 		}
 		if (FlxG.keys.pressed.S)
 		{
