@@ -90,7 +90,8 @@
         {"x": 281, "y": 399, "texture": "snowSprite/IVOanimations.png"},
         {"x": 131, "y": 211, "texture": "snowSprite/Mimny.png"},
         {"x": 370, "y": 271, "texture": "snowSprite/Camuri_ogmo.png"},
-        {"x": 217, "y": 287, "texture": "snowSprite/RGPAnims20.png"}
+        {"x": 217, "y": 287, "texture": "snowSprite/RGPAnims20.png"},
+        {"x": 134, "y": 251, "texture": "snowSprite/SplatterDash.png"}
       ]
     },
     {
