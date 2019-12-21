@@ -120,7 +120,7 @@ class Instrument
                 volume = 1.0;
             case Piano:
                 soundPath = PATH + "piano/";
-                sustainMode = true;
+                // sustainMode = true;
                 volume = 1.0;
         }
         
