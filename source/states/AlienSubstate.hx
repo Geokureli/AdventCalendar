@@ -73,7 +73,7 @@ class AlienSubstate extends FlxSubState
 	{
 		for (i in 0...FlxG.random.int(3, 8))
 		{
-			var alien:Hominid = new Hominid(FlxG.random.float(185, 300), 1);
+			var alien:Hominid = new Hominid(FlxG.random.float(185, 300), FlxG.random.float(-200, -20));
 			alien.scrollFactor.set();
 			alien.acceleration.y = 10;
 			alien.velocity.y = 60;

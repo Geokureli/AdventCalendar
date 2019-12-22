@@ -9,6 +9,7 @@ class Hominid extends FlxSprite
         super(X, Y);
 
         loadGraphic("assets/images/minigame/alien.png", true, Std.int(144 / 3), 48);
-
+        animation.add("flyin", [0, 1, 2], 12);
+        animation.play("flyin");
     }
 }
