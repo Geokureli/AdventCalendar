@@ -150,7 +150,8 @@
         "day" :22,
         "art" :{ "artist":"Oddlem" },
         "song":{ "artist":"SplatterDash", "key":"aSMaj" },
-        "char":"Blue Knight"
+        "char":"Blue Knight",
+        "tv":"warning: Watching\ntv might make\nyou more stopid"
     },
     {
         "day" :23,
