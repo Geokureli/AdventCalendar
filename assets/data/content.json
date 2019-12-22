@@ -143,13 +143,15 @@
         "day" :21,
         "art" :{ "artist":"Camuri" },
         "song":{ "artist":"SplatterDash", "key":"aSMaj" },
-        "char":"Cpt. Tardigrade"
+        "char":"Cpt. Tardigrade",
+        "tv":"Next Time: Captain\ntardigrade fights the\nevil amoebalings!"
     },
     {
         "day" :22,
-        "art" :{ "artist":"Irri" },
+        "art" :{ "artist":"Oddlem" },
         "song":{ "artist":"SplatterDash", "key":"aSMaj" },
-        "char":"Blue Knight"
+        "char":"Blue Knight",
+        "tv":"warning: Watching\ntv might make\nyou more stopid"
     },
     {
         "day" :23,

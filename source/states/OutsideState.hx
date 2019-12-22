@@ -96,7 +96,7 @@ class OutsideState extends BaseState
 		addInstrumentPresent("czyszy", Glockenspiel);
 		addInstrumentPresent("colebob", Flute);
 		addInstrumentPresent("carmet", Drums, onPickUpDrumSticks);
-		// addInstrumentPresent("albegian", Piano);
+		addInstrumentPresent("albegian", Piano);
 		
 		
 		if (Calendar.day == 12)
@@ -127,7 +127,6 @@ class OutsideState extends BaseState
 					{
 						var height = child.height;
 						child.loadGraphic("assets/images/snowSprite/" + name + Math.min(Calendar.day + 1, 25) + ".png");
-						child.y -= child.height - height;
 						child.setBottomHeight(Std.int(child.height / 3));
 					}
 					
