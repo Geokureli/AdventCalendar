@@ -219,6 +219,9 @@ class CabinState extends BaseState
 	
 	override function update(elapsed:Float)
 	{
+		if (FlxG.keys.justPressed.U)
+			openSubState(new AlienSubstate());
+
 		var touchingPresent:Present;
 		FlxG.overlap(playerHitbox, presents,
 			(_, present)->

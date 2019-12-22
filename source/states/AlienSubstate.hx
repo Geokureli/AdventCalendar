@@ -28,6 +28,9 @@ class AlienSubstate extends FlxSubState
 	private var grpAliens:FlxSpriteGroup;
 	private var blackLeft:FlxSprite;
 	private var blackRight:FlxSprite;
+	private var grpHUD:FlxGroup;
+
+	private var curPlaying:Bool = false;
 
 	override public function create():Void 
 	{
@@ -60,7 +63,8 @@ class AlienSubstate extends FlxSubState
 		chimney.drag.x = 40;
 		chimney.maxVelocity.x = 350;
 
-		spawnAliens();
+		grpHUD = new FlxGroup();
+		add(grpHUD);
 
 
 		add(blackRight);
@@ -69,13 +73,19 @@ class AlienSubstate extends FlxSubState
 		super.create();
 	}
 
+	function startGame():Void
+	{
+		curPlaying = true;
+		spawnAliens();
+	}
+
 	function spawnAliens():Void
 	{
 		for (i in 0...FlxG.random.int(3, 8))
 		{
-			var alien:Hominid = new Hominid(FlxG.random.float(185, 300), FlxG.random.float(-200, -20));
+			var alien:Hominid = new Hominid(FlxG.random.float(185, 240), FlxG.random.float(-200, -20));
 			alien.scrollFactor.set();
-			alien.acceleration.y = 10;
+			alien.acceleration.y = 70;
 			alien.velocity.y = 60;
 			grpAliens.add(alien);
 		}
@@ -85,6 +95,8 @@ class AlienSubstate extends FlxSubState
 	{
 		keyboardControls();
 
+		grpHUD.visible = !curPlaying;
+
 		FlxG.collide(chimney, blackRight);
 		FlxG.collide(chimney, blackLeft);
 		super.update(elapsed);
@@ -93,8 +105,11 @@ class AlienSubstate extends FlxSubState
 	private var chimSpeed:Float = 400;
 	
 	private function keyboardControls():Void
-	{		
-		if (FlxG.keys.anyJustPressed(["ESCAPE", "SPACE"]))
+	{	
+		if (FlxG.keys.justPressed.SPACE && !curPlaying)
+			startGame();
+
+		if (FlxG.keys.anyJustPressed(["ESCAPE"]))
 			close();
 		
 		if (!FlxG.keys.anyPressed(["A", "D"]))
@@ -104,7 +119,8 @@ class AlienSubstate extends FlxSubState
 		// REPLACE THESE TO BE CLEANER LATER AND WITH MORE KEYS
 		if (FlxG.keys.pressed.D)
 		{
-			chimney.acceleration.x = chimSpeed;
+			if (curPlaying)
+				chimney.acceleration.x = chimSpeed;
 		}
 		if (FlxG.keys.justPressed.W)
 		{
@@ -112,7 +128,8 @@ class AlienSubstate extends FlxSubState
 		}	
 		if (FlxG.keys.pressed.A)
 		{
-			chimney.acceleration.x = -chimSpeed;
+			if (curPlaying)
+				chimney.acceleration.x = -chimSpeed;
 		}
 		if (FlxG.keys.pressed.S)
 		{
