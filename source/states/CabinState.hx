@@ -127,7 +127,7 @@ class CabinState extends BaseState
 			#end
 		}
 		
-		var neon = foreground.getByName("neon");
+		var neon = background.getByName("neon");
 		if (neon != null)
 			neon.animation.curAnim.frameRate = 2;
 		

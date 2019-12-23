@@ -92,7 +92,10 @@
         {"x": 370, "y": 271, "texture": "snowSprite/Camuri_ogmo.png"},
         {"x": 217, "y": 287, "texture": "snowSprite/RGPAnims20.png"},
         {"x": 134, "y": 251, "texture": "snowSprite/SplatterDash.png"},
-        {"x": 214, "y": 327, "texture": "presents/present_albegian_ogmo.png"}
+        {"x": 214, "y": 327, "texture": "presents/present_albegian_ogmo.png"},
+        {"x": 278, "y": 323, "texture": "snowSprite/Oddlem.png"},
+        {"x": 361, "y": 371, "texture": "snowSprite/Chobiluck.png"},
+        {"x": 131, "y": 282, "texture": "snowSprite/OniShaggy.png"}
       ]
     },
     {

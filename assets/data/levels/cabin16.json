@@ -69,8 +69,6 @@
         {"x": 351, "y": 75, "texture": "props/cabin/punchBowl.png"},
         {"x": 56, "y": 161, "texture": "props/cabin/stereo.png"},
         {"x": 324, "y": 73, "texture": "props/cabin/arcade_ogmo.png"},
-        {"x": 310, "y": 49, "texture": "props/cabin/neon_ogmo.png"},
-        {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"},
         {"x": 140, "y": 70, "texture": "props/cabin/fire_ogmo.png"},
         {"x": 210, "y": -30, "texture": "props/cabin/tree_16.png"},
         {"x": 295, "y": 73, "texture": "props/cabin/arcade2_ogmo.png"},
@@ -98,7 +96,9 @@
         {"x": 87, "y": 258, "texture": "props/instruments/tom.png"},
         {"x": 375, "y": 76, "texture": "props/instruments/crash.png"},
         {"x": 29, "y": 78, "texture": "props/instruments/kick.png"},
-        {"x": 209, "y": 127, "texture": "props/cabin/tree_16_pres.png"}
+        {"x": 209, "y": 127, "texture": "props/cabin/tree_16_pres.png"},
+        {"x": 310, "y": 49, "texture": "props/cabin/neon_ogmo.png"},
+        {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"}
       ]
     }
   ]

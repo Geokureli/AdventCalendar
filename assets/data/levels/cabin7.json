@@ -69,11 +69,9 @@
         {"x": 345, "y": 76, "texture": "props/cabin/punchBowl.png"},
         {"x": 56, "y": 161, "texture": "props/cabin/stereo.png"},
         {"x": 318, "y": 74, "texture": "props/cabin/arcade_ogmo.png"},
-        {"x": 304, "y": 50, "texture": "props/cabin/neon_ogmo.png"},
-        {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"},
-        {"x": 140, "y": 70, "texture": "props/cabin/fire_ogmo.png"},
         {"x": 177, "y": 105, "texture": "props/cabin/bags4.png"},
-        {"x": 213, "y": 95, "texture": "props/cabin/tree_7.png"}
+        {"x": 213, "y": 95, "texture": "props/cabin/tree_7.png"},
+        {"x": 140, "y": 70, "texture": "props/cabin/fire_ogmo.png"}
       ]
     },
     {
@@ -93,7 +91,9 @@
         {"x": 212, "y": 124, "texture": "props/cabin/rug_3.png"},
         {"x": 244, "y": 132, "texture": "props/cabin/bag.png"},
         {"x": 173, "y": 132, "texture": "props/cabin/bags3.png"},
-        {"x": 243, "y": 112, "texture": "props/cabin/bags2.png"}
+        {"x": 243, "y": 112, "texture": "props/cabin/bags2.png"},
+        {"x": 304, "y": 50, "texture": "props/cabin/neon_ogmo.png"},
+        {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"}
       ]
     }
   ]
