@@ -150,18 +150,20 @@
         "day" :22,
         "art" :{ "artist":"Oddlem" },
         "song":{ "artist":"SplatterDash", "key":"aSMaj" },
-        "char":"Blue Knight"
+        "char":"Blue Knight",
+        "tv":"Incomplete clickbait\nnews headlines are\nkilling millions of"
     },
     {
         "day" :23,
         "art" :{ "artist":"OniShaggy" },
-        "song":{ "artist":"SplatterDash", "key":"aSMaj" }
+        "song":{ "artist":"SplatterDash", "key":"aSMaj" },
+        "char":"Glenda",
+        "tv":"nakatomi tower\nattacked by\nGerman eco terrorist"
     },
     {
         "day" :24,
         "art" :{ "artist":"Chobiluck" },
-        "song":{ "artist":"SplatterDash", "key":"aSMaj" },
-        "char":"Glenda"
+        "song":{ "artist":"SplatterDash", "key":"aSMaj" }
     },
     {
         "day" :25,
