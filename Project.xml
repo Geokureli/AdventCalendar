@@ -32,7 +32,7 @@
 	<classpath name="source" />
 	
 	<assets path="assets/data"/>
-	<assets path="assets/images"/>
+	<assets path="assets/images" exclude="*/*.aseprite"/>
 	
 	<assets path="assets/music" include="*.mp3" />
 	<assets path="assets/sounds" include="*.mp3"/>
@@ -41,6 +41,8 @@
 
 	<haxelib name="flixel" />
 	<haxelib name="newgrounds" />
+	
+	<define name="BYPASS_LOGIN" if="debug" />
 	
 	
 	<!--In case you want to use the addons package-->
