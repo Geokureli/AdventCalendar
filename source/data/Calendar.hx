@@ -8,7 +8,7 @@ import openfl.utils.Assets;
 
 class Calendar
 {
-    inline static var DEBUG_DAY:Int = 0;// 0 to disable debug feature
+    inline static var DEBUG_DAY:Int = 25;// 0 to disable debug feature
     static public var isDebugDay = DEBUG_DAY > 0;
     static public var isPast(default, null) = false;
     static public var day(default, null) = 24;
@@ -19,6 +19,7 @@ class Calendar
     static public var data(default, null):ReadOnlyArray<ContentData>;
     static public var today(get, never):ContentData;
     static public var openedPres(default, null) = new BitArray();
+    static public var seenDays(default, null) = new BitArray();
     static public var seenMurder(default, null) = false;
     static public var interrogated(default, null) = new BitArray();
     static public var interrogatedAll(get, never):Bool;
@@ -53,6 +54,11 @@ class Calendar
                 trace("loaded savefile: " + openedPres);
             }
             
+            if (Std.is(FlxG.save.data.seenDays, Int))
+            {
+                seenDays = FlxG.save.data.seenDays;
+            }
+            
             seenMurder = FlxG.save.data.seenMurder == true;
             hasKnife = FlxG.save.data.hasKnife == true;
             solvedMurder = FlxG.save.data.solvedMurder == true;
@@ -80,6 +86,25 @@ class Calendar
             isAdvent = true;
             isDecember = true;
             initSaveAndEnd();
+        }
+    }
+    
+    static public function onMedalsRequested():Void
+    {
+        if (Std.is(FlxG.save.data.seenDays, Int))
+        {
+            seenDays = 0;
+            for (i in 0...25)
+                seenDays[i] = NGio.hasDayMedal(i);
+            // FlxG.save.data.
+        }
+        
+        if (FlxG.save.data.solvedMurder != true && NGio.hasMedal(OutsideState.KILLER_MEDAL))
+        {
+            FlxG.save.data.seenMurder = true;
+            FlxG.save.data.hasKnife = true;
+            FlxG.save.data.solvedMurder = true;
+            FlxG.save.flush();
         }
     }
     

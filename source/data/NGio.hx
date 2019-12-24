@@ -18,6 +18,8 @@ import states.OutsideState;
 
 class NGio
 {
+	inline static public var MEDAL_0 = 58519;
+	
 	static var naughty = 
 	[ "raritynyasha"
 	// , "brandybuizel"
@@ -134,6 +136,8 @@ class NGio
 			NGio.unlockMedal(OutsideState.KILLER_MEDAL);
 		if (FlxG.save.data.instrument != null)
 			NGio.unlockMedal(OutsideState.MUSIC_MEDAL);
+		
+		Calendar.onMedalsRequested();
 	}
 	
 	static public function unlockMedal(id:Int):Void
@@ -149,6 +153,15 @@ class NGio
 		}
 		else
 			trace('no medal unlocked, naughty:$isNaughty loggedIn:$isLoggedIn debugDay:${Calendar.isDebugDay}');
+	}
+	
+	static public function hasDayMedal(date:Int):Bool
+	{
+		return hasMedal(MEDAL_0 + date);
+	}
+	static public function hasMedal(id:Int):Bool
+	{
+		return isLoggedIn && NG.core.medals.get(id).unlocked;
 	}
 }
 

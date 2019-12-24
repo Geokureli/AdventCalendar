@@ -11,25 +11,36 @@ class Button extends FlxTypedButton<FlxSprite>
     {
         super(x, y, onClick);
         
+        this.statusAnimations[FlxButton.HIGHLIGHT] = "normal";
         setGraphic(graphic);
         
         if (labelGraphic != null)
-            label = new FlxSprite(labelGraphic);
+            setLabelGraphic(labelGraphic);
     }
     
-    inline function setGraphic(graphic):Void
+    inline public function setGraphic(graphic):Void
     {
         this.loadGraphic(graphic);
         this.loadGraphic(graphic, true, Std.int(this.width / 2), Std.int(this.height));
+    }
+    
+    inline public function setLabelGraphic(graphic):Void
+    {
+        if (this.label != null)
+            this.label.loadGraphic(graphic);
+        else
+            this.label = new FlxSprite(graphic);
     }
 }
 
 @:forward
 abstract IconButton(Button) to Button
 {
+    inline static public var GRAPHIC = "assets/images/ui/iconBtn.png";
+    
     inline public function new(x, y, ?icon:String, ?onClick)
     {
-        this = new Button(x, y, onClick, "assets/images/ui/iconBtn.png", icon);
+        this = new Button(x, y, onClick, GRAPHIC, icon);
     }
 }
 

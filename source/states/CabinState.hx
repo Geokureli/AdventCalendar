@@ -40,7 +40,6 @@ class CabinState extends BaseState
 {
 	inline static var TREE_FADE_TIME = 3.0;
 	
-	inline static var MEDAL_0 = 58519;
 	static inline var ADVENT_LINK:String = "https://www.newgrounds.com/portal/view/721061";
 	
 	static var presentPositions:Array<FlxPoint> = null;
@@ -319,7 +318,7 @@ class CabinState extends BaseState
 		trace('opened: ' + present.curDay);
 		
 		if (present.curDay == Calendar.day || Calendar.isChristmas)
-			NGio.unlockMedal(MEDAL_0 + Calendar.day);
+			NGio.unlockMedal(NGio.MEDAL_0 + Calendar.day);
 		
 		present.animation.play("opened");
 		Calendar.saveOpenPresent(present.curDay);
