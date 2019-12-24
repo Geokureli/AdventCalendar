@@ -86,3 +86,39 @@ abstract XmasFont(FlxBitmapFont) to FlxBitmapFont
         this = instance;
     }
 }
+
+@:forward
+abstract GravFont(FlxBitmapFont) to FlxBitmapFont
+{
+    static var instance:GravFont = null;
+    public function new ()
+    {
+        if (instance == null)
+        {
+            final chars = "1234567890";
+            final widths = [];
+            var bmd = openfl.Assets.getBitmapData('assets/images/ui/GravFont5.png');
+            var curWidth = 0;
+            var bottom = bmd.height - 1;
+            for (x in 0...bmd.width)
+            {
+                if (bmd.getPixel(x, bottom) == 0xfbf236)
+                {
+                    if (curWidth > 0)
+                        widths.push(curWidth + 1);
+                    curWidth = 0;
+                }
+                else
+                    curWidth++;
+            }
+            if (curWidth > 0)
+                widths.push(curWidth + 1);
+            
+            trace("Xmas widths:" + widths);
+            
+            @:privateAccess
+            instance = cast new Font(chars, widths, "assets/images/ui/GravFont5.png", bmd.height - 1, 4);
+        }
+        this = instance;
+    }
+}

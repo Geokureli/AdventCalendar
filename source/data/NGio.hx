@@ -39,6 +39,12 @@ class NGio
 	
 	static public function attemptAutoLogin(callback:Void->Void) {
 		
+		#if BYPASS_LOGIN
+		NG.create(APIStuff.APIID);
+		callback();
+		return;
+		#end
+		
 		if (isLoggedIn)
 		{
 			trace("already logged in");

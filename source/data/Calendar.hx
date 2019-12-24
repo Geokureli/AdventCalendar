@@ -8,9 +8,11 @@ import openfl.utils.Assets;
 
 class Calendar
 {
-    inline static var DEBUG_DAY:Int = 0;// 0 to disable debug feature
+    inline static var DEBUG_DAY:Int = 23;// 0 to disable debug feature
     static public var isDebugDay = DEBUG_DAY > 0;
+    static public var isPast(default, null) = false;
     static public var day(default, null) = 24;
+    static public var actualDay(default, null) = 24;
     static public var isAdvent(default, null) = false;
     static public var isDecember(default, null) = false;
     static public var isChristmas(default, null) = false;
@@ -74,7 +76,7 @@ class Calendar
         }
         else
         {
-            day = DEBUG_DAY - 1;
+            actualDay = day = DEBUG_DAY - 1;
             isAdvent = true;
             isDecember = true;
             initSaveAndEnd();
@@ -121,7 +123,7 @@ class Calendar
         if (date.getDate() < 26 && isDecember && date.getFullYear() == 2019)
         {
             isAdvent = true;
-            day = date.getDate() - 1;
+            actualDay = day = date.getDate() - 1;
         }
     }
     
@@ -193,6 +195,14 @@ class Calendar
         day++;
         isDebugDay = true;
         parseUnveiledArtists();
+    }
+    
+    static public function timeTravelTo(date:Int):Void
+    {
+        isDecember = true;
+        isPast = true;
+        day = date;
+        isChristmas = day+1 == 25;
     }
     
     inline static public function getPresentPath(index = -1):String

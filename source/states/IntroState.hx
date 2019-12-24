@@ -45,10 +45,14 @@ class IntroState extends flixel.FlxState
     function onAutoConnectResult():Void
     {
         timeout.cancel();
+        #if BYPASS_LOGIN
+        showMsgAndBegin("Login bypassed\nNot eligible for medals");
+        #else
         if (NGio.isLoggedIn)
             onLogin();
         else
             NGio.startManualSession(onManualConnectResult, onManualConnectPending);
+        #end
     }
     
     function onManualConnectPending(callback:(Bool)->Void)
@@ -96,7 +100,7 @@ class IntroState extends flixel.FlxState
             ()->
             {
                 complete = true;
-                if (debugFutureEnabled && NGio.isWhitelisted)
+                if (debugFutureEnabled && NGio.isWhitelisted && !Calendar.isChristmas)
                     enableTimeTravel();
             }
         );
