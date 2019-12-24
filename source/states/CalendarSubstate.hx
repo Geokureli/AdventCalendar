@@ -1,5 +1,6 @@
 package states;
 
+import flixel.tweens.FlxEase;
 import flixel.math.FlxRect;
 import sprites.Button;
 import sprites.Font;
@@ -38,6 +39,15 @@ class CalendarSubstate extends flixel.FlxSubState
                 var back = new BackButton(FlxG.width - 2, 2, calendar.startOutro.bind(close));
                 back.x -= back.width;
                 add(back);
+                
+                var up = new IconButton
+                    ( CalendarSprite.DATES_X + CalendarSprite.WEEK_WIDTH - 25
+                    , 2
+                    , "assets/images/ui/upIcon.png"
+                    , showPicture
+                    );
+                back.x -= back.width;
+                add(back);
             }
         );
     }
@@ -52,20 +62,30 @@ class CalendarSubstate extends flixel.FlxSubState
             }
         );
     }
+    
+    function showPicture():Void
+    {
+        
+    }
 }
 
 abstract CalendarSprite(FlxSpriteGroup) to FlxSpriteGroup
 {
     inline static var DURATION = 0.5;
     
-    inline static var WEEK = 7;
-    inline static var DAYS = 31;
-    inline static var DATE_WIDTH = 31;
-    inline static var DATE_HEIGHT = 23;
-    inline static var WEEK_WIDTH = WEEK * DATE_WIDTH + 1;
-    inline static var DATES_X = (320 - (DATE_WIDTH * WEEK + 1)) / 2;
-    inline static var DATES_Y = 60;
-    inline static var BUFFER = 3;
+    inline static public var GUTTER = 1;
+    inline static public var WEEK = 7;
+    inline static public var DAYS = 31;
+    inline static public var DATE_WIDTH = 31;
+    inline static public var DATE_HEIGHT = 23;
+    inline static public var WEEK_WIDTH = WEEK * DATE_WIDTH + GUTTER;
+    inline static public var DATES_X = (320 - (DATE_WIDTH * WEEK + GUTTER)) / 2;
+    inline static public var DATES_Y = 180 - BUFFER - DATE_HEIGHT * 5;
+    inline static public var BUFFER = 3;
+    
+    inline static var HEADER_HEIGHT = 24 + GUTTER;
+    inline static var PIC_HEIGHT = 180 - (DATES_Y - HEADER_HEIGHT);
+    inline static var BG_HEIGHT = 360 - DATES_Y;
     
     inline public function new (onDateChoose:(Int)->Void)
     {
@@ -75,20 +95,20 @@ abstract CalendarSprite(FlxSpriteGroup) to FlxSpriteGroup
             ( "assets/images/ui/calendar/nineslice.png"
             , new FlxRect(1,1,1,1)
             , WEEK_WIDTH + BUFFER * 2
-            , FlxG.height + 1
-            ); 
+            , BG_HEIGHT
+            );
         this.add(bg);
         bg.x = DATES_X - BUFFER;
-        bg.y = -1;
+        bg.y = 180 - BG_HEIGHT;
         
         for (i in 0...WEEK * 5)
         {
             final x = DATES_X + (i % WEEK) * DATE_WIDTH;
             final y = DATES_Y + Std.int(i / WEEK) * DATE_HEIGHT;
-            if (i + 1 <= DAYS)
+            if (i + 1 <= 25)
                 this.add(new DateButton(x, y, i + 1, onDateChoose.bind(i)));
             else
-                this.add(new DisabledDate(x, y, i - DAYS + 1));
+                this.add(new DisabledDate(x, y, i - 25 + 1));
         }
         
         var header = new FlxBitmapText(new XmasFont());
@@ -102,8 +122,17 @@ abstract CalendarSprite(FlxSpriteGroup) to FlxSpriteGroup
     
     public function startIntro(onComplete:()->Void):Void
     {
+        this.active = false;
         this.y = -320;
-        FlxTween.tween(this, { y:0 }, DURATION, { onComplete:(_)->onComplete() });
+        FlxTween.tween(this, { y:0 }, DURATION,
+            { onComplete:(_)->
+                {
+                    this.active = true;
+                    onComplete();
+                }
+            , ease: FlxEase.backOut
+            }
+        );
     }
     
     public function startOutro(onComplete:()->Void):Void
