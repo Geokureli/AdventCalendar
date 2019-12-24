@@ -127,6 +127,30 @@ class CabinState extends BaseState
 			#end
 		}
 		
+		background.safeSetAnimFrameRate("neon", 2);
+		foreground.safeSetAnimFrameRate("fire", 12);
+		var bigFlame = foreground.getByName("bigCandleFire");
+		if (bigFlame != null)
+		{
+			bigFlame.animation.curAnim.frameRate = 6;
+			bigFlame.y += 1000;
+			bigFlame.offset.y += 1000;
+		}
+		
+		var numFlames = Calendar.day - 21 + 1;
+		for (flame in foreground.getAllWithName("smallCandleFire"))
+		{
+			if (numFlames > 0)
+			{
+				flame.animation.curAnim.frameRate = 6;
+				flame.y += 1000;
+				flame.offset.y += 1000;
+				numFlames--;
+			}
+			else
+				flame.kill();
+		}
+		
 		var calendar = foreground.getByName("calendar");
 		if (Calendar.isPast || Calendar.day + 1 == 25 || Calendar.isDebugDay)
 		{
@@ -137,23 +161,6 @@ class CabinState extends BaseState
 		}
 		else
 			calendar.kill();
-		
-		var neon = background.getByName("neon");
-		if (neon != null)
-			neon.animation.curAnim.frameRate = 2;
-		
-		var fire = foreground.getByName("fire");
-		if (fire != null)
-			arcade.animation.curAnim.frameRate = 12;
-		
-		var numFlames = Calendar.day - 21 + 1;
-		for (flame in foreground.getAllWithName("smallCandleFire"))
-		{
-			if (numFlames > 0)
-				numFlames--;
-			else
-				flame.kill();
-		}
 		
 		//Music Credit
 		safeAddHoverText

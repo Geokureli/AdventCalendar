@@ -86,7 +86,24 @@ class OgmoObjectLayer<T:FlxBasic> extends FlxTypedGroup<T>
 	public var name:String;
 
 	var byName:Map<String, T> = new Map();
-
+	
+	inline public function setAnimFrameRate(name:String, frameRate):Null<FlxSprite>
+	{
+		var sprite = cast(getByName(name), FlxSprite);
+		sprite.animation.curAnim.frameRate = frameRate;
+		return sprite;
+	}
+	
+	inline public function safeSetAnimFrameRate(name:String, frameRate):Null<FlxSprite>
+	{
+		var sprite = getByName(name);
+		if (sprite == null && Std.is(sprite, FlxSprite))
+			(cast sprite:FlxSprite).animation.curAnim.frameRate = frameRate;
+		else
+			sprite = null;
+		return (cast sprite:FlxSprite);
+	}
+	
 	public function getByName(name:String):Null<T>
 	{
 		return cast byName[name];
