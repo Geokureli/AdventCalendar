@@ -42,7 +42,7 @@
 	<haxelib name="flixel" />
 	<haxelib name="newgrounds" />
 	
-	<!-- <define name="BYPASS_LOGIN" if="debug" /> -->
+	<define name="BYPASS_LOGIN" if="debug" />
 	
 	
 	<!--In case you want to use the addons package-->

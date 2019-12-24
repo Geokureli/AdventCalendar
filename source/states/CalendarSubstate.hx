@@ -282,8 +282,8 @@ abstract DateButton(FlxBitmapTextButton) to FlxBitmapTextButton
         //bg
         this.loadGraphic(GRAPHIC);
         this.loadGraphic(GRAPHIC, true, Std.int(this.width / 2), Std.int(this.height));
-        width --;
-        height--;
+        this.width --;
+        this.height--;
         
         //date
         final label = this.label;
