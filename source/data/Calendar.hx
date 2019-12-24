@@ -202,7 +202,6 @@ class Calendar
         isDecember = true;
         isPast = true;
         day = date;
-        isChristmas = day+1 == 25;
     }
     
     inline static public function getPresentPath(index = -1):String
