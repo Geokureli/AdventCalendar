@@ -164,6 +164,8 @@
         "day" :24,
         "art" :{ "artist":"Chobiluck" },
         "song":{ "artist":"SplatterDash", "key":"aSMaj" }
+		"char":"Pump AND Skid",
+        "tv":"IT'S THE SPOOK\nBEFORE CHRISTMAS!"
     },
     {
         "day" :25,
