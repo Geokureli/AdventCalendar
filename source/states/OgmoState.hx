@@ -270,7 +270,7 @@ typedef OgmoEntityData<T>
 = OgmoObjectData & {
 	name     :String,
 	id       :Int,
-	rotation :Float,
+	rotation :Null<Float>,
 	originX  :Int,
 	originY  :Int,
 	?width   :Int,
@@ -347,9 +347,9 @@ abstract OgmoValue(String) from String to String
 		return isEmpty ? null : (Std.parseInt("0x" + this.substr(1)) >> 8);
 	}
 
-	inline public function getInt  ():Int   return isEmpty ? null : Std.parseInt(this);
-	inline public function getFloat():Float return isEmpty ? null : Std.parseFloat(this);
-	inline public function getBool ():Bool  return isEmpty ? null : this == "true";
+	inline public function getInt  ():Null<Int>   return isEmpty ? null : Std.parseInt(this);
+	inline public function getFloat():Null<Float> return isEmpty ? null : Std.parseFloat(this);
+	inline public function getBool ():Null<Bool>  return isEmpty ? null : this == "true";
 }
 
 @:forward abstract OgmoInt(OgmoValue) from String to String
