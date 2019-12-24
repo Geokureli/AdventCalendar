@@ -66,7 +66,7 @@ class CabinState extends BaseState
 	{
 		super.create();
 		
-		if (Calendar.isAdvent && FlxG.sound.music == null)
+		if (FlxG.sound.music == null)
 		{
 			FlxG.sound.playMusic(Calendar.today.getSongPath(), 0);
 			var volume = Calendar.today.song.volume;
@@ -126,6 +126,17 @@ class CabinState extends BaseState
 			addHoverTextTo(arcade2, "Hominid Helpers", ()->openSubState(new AlienSubstate()));
 			#end
 		}
+		
+		var calendar = foreground.getByName("calendar");
+		if (Calendar.isPast || Calendar.day + 1 == 25 || Calendar.isDebugDay)
+		{
+			var label = "Calendar";
+			if (!Calendar.isPast && Calendar.day + 1 != 25)
+				label += "\n(debug)";
+			addHoverTextTo(calendar, label, ()->openSubState(new CalendarSubstate(onCalendarDateChange)));
+		}
+		else
+			calendar.kill();
 		
 		var neon = background.getByName("neon");
 		if (neon != null)
@@ -544,6 +555,12 @@ class CabinState extends BaseState
 		if (complete)
 			crimeState = CrimeState.createByIndex(crimeState.getIndex() + 1);
 		return complete;
+	}
+	
+	function onCalendarDateChange(date:Int)
+	{
+		Calendar.timeTravelTo(date);
+		FlxG.switchState(new CabinState());
 	}
 }
 
