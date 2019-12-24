@@ -146,6 +146,15 @@ class CabinState extends BaseState
 		if (fire != null)
 			arcade.animation.curAnim.frameRate = 12;
 		
+		var numFlames = Calendar.day - 21 + 1;
+		for (flame in foreground.getAllWithName("smallCandleFire"))
+		{
+			if (numFlames > 0)
+				numFlames--;
+			else
+				flame.kill();
+		}
+		
 		//Music Credit
 		safeAddHoverText
 			( "stereo"

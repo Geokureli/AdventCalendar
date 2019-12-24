@@ -155,6 +155,22 @@ class OgmoDecalLayer extends OgmoObjectLayer<OgmoDecal>
 		}
 		return all;
 	}
+	
+	public function getAllWithName(name:String):FlxTypedGroup<OgmoDecal>
+	{
+		var nameLength = name.length + 4;
+		var all = new FlxTypedGroup<OgmoDecal>();
+		for (child in members)
+		{
+			if (child.graphic != null)
+			{
+				final key = child.graphic.assetsKey;
+				if (key.lastIndexOf(name) != -1 && key.lastIndexOf(name) + nameLength == key.length)
+					all.add(child);
+			}
+		}
+		return all;
+	}
 }
 
 typedef IOgmoEntity<T> = IOgmoObject<OgmoEntityData<T>, OgmoEntityLayer>;
