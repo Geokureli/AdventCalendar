@@ -59,7 +59,7 @@ class Character extends Sprite
 	{
 		name = Calendar.data[day].char;
 		
-		if (day == 8) // Dec 9th: Daddy
+		if (day+1 == 9)
 		{
 			loadGraphic("assets/images/Daddy.png", false, 24, 24);
 			actualOffsetLOL = 20;
@@ -67,6 +67,16 @@ class Character extends Sprite
 			height = 8;
 			offset.y += 9;
 			leftOffset = 12;
+		}
+		else if (day+1 == 24)
+		{
+			loadGraphic("assets/images/pump_and_skid.png", true, 16, 16);
+			animation.add("anim", [0,1,2,3], 5);
+			animation.play("anim");
+			width = 10;
+			height = 4;
+			leftOffset = 3;
+			rightOffset = 2;
 		}
 		else
 		{
