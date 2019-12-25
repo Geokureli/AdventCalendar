@@ -268,6 +268,7 @@ typedef RawContentData =
     final char :String;
     final tv   :Null<String>;
     final ready:Null<Bool>;
+    final extras:Null<Array<ArtData>>;
 }
 
 @:forward

@@ -172,6 +172,12 @@
         "art" :{ "artist":"Sevi" },
         "song":{ "artist":"SplatterDash", "key":"aSMaj" },
         "char":"Tom",
-        "tv"  :"A very merry\nchristmas to all those\nwho joined us :)"
+        "tv"  :"A very merry\nchristmas to all those\nwho joined us :)",
+        "extras":
+        [
+            { "artist":"WDY25", "fileExt":"png" },
+            { "artist":"SnailPirate" },
+            { "artist":"ZetoSoul", "fileExt":"png" }
+        ]
     }
 ]

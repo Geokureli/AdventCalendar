@@ -23,7 +23,7 @@ import flixel.input.gamepad.FlxGamepad;
 class GallerySubstate extends FlxSubState 
 {
 	
-	private var picNum:Int;
+	private var data:ArtData;
 	private var curAnimPlaying:Int = 0;
 	private var imageText:FlxText;
 	private var infoBox:FlxSpriteButton;
@@ -32,12 +32,10 @@ class GallerySubstate extends FlxSubState
 	private var textBG:FlxSpriteButton;
 	private var onClose:Null<()->Void>;
 	
-	private var curDay:Int = 0;
-	
 	// GET TOUCH CONTROLS FOR EXITING GOING HERE
-	public function new(picNum:Int, ?onClose:()->Void) 
+	public function new(data, ?onClose:()->Void) 
 	{
-		this.picNum = picNum;
+		this.data = data;
 		this.onClose = onClose;
 		super();
 	}
@@ -61,7 +59,7 @@ class GallerySubstate extends FlxSubState
 		imageText.screenCenter(X);
 		
 		infoBox = new FlxSpriteButton(imageText.x - 2, imageText.y + 2, null, function(){
-			FlxG.openURL(Calendar.data[curDay].profileLink);
+			FlxG.openURL(data.getProfileLink());
 		});
 		infoBox.makeGraphic(Std.int(imageText.width) + 4, Std.int(imageText.height) + 4, FlxColor.BLACK);
 		infoBox.alpha = 0.5;
@@ -96,38 +94,23 @@ class GallerySubstate extends FlxSubState
 		
 		bigImage.visible = false;
 		
-		openImage(picNum);
+		openImage();
 		
 		super.create();
 	}
 	
 	
-	private function openImage(day:Int):Void
+	private function openImage():Void
 	{
-		curDay = day;
-		var data = Calendar.data[day].art;
-		
 		curAnimPlaying = 0;
 		bigImage.visible = true;
 		
 		// regular artwork
-		if (day >= 0)
-		{
-			if (NGio.isNaughty)
-				bigPreview.loadGraphic('assets/images/artwork/naughty.jpg');
-			else
-				bigPreview.loadGraphic(data.getPath());
-			imageText.text = "Art by " + data.credit;
-		}
+		if (NGio.isNaughty)
+			bigPreview.loadGraphic('assets/images/artwork/naughty.jpg');
 		else
-		{
-			switch(day)
-			{
-				case -1:
-					//bigPreview.loadGraphic(AssetPaths.tom__png);
-					imageText.text = "Tom Fulp, creator, founder, president, and CEO of Newgrounds.com";
-			}	
-		}
+			bigPreview.loadGraphic(data.getPath());
+		imageText.text = "Art by " + data.credit;
 		
 		
 		var isAnimated = false;
@@ -170,24 +153,12 @@ class GallerySubstate extends FlxSubState
 			}
 		#end
 		
-		var data = Calendar.data[curDay].art;
-		if (curDay >= 0)
-		{
-			imageText.text
-				= "Art by " + data.credit
-				+ "\n" + (FlxG.onMobile ? "Tap" : "Click") + " here to open " + data.artist + "'s Newgrounds page";
-		}
+		imageText.text
+			= "Art by " + data.credit
+			+ "\n" + (FlxG.onMobile ? "Tap" : "Click") + " here to open " + data.artist + "'s Newgrounds page";
 		
 		if (FlxG.keys.justPressed.ENTER)
-		{
-			switch(curDay)
-			{
-				case -1:
-					FlxG.openURL("https://tomfulp.newgrounds.com");
-				case _:
-					FlxG.openURL(data.getProfileLink());
-			}
-		}
+			FlxG.openURL(data.getProfileLink());
 		
 		dragControls();
 	}

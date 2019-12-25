@@ -1,5 +1,7 @@
 package states;
 
+import data.NGio;
+import data.BitArray;
 import data.Calendar;
 import flixel.ui.FlxButton;
 import flixel.group.FlxGroup;
@@ -107,6 +109,8 @@ class CalendarSprite extends FlxSpriteGroup
     inline static var PIC_WIDTH = WEEK_WIDTH;
     inline static var BG_HEIGHT = 360 - DATES_Y;
     
+    static var looked = new BitArray();
+    
     var header:FlxBitmapText;
     var picBg:FlxSprite;
     var pic:FlxSprite;
@@ -175,7 +179,7 @@ class CalendarSprite extends FlxSpriteGroup
             
             final date = i < start || i - start >= days ? 0 : ((i - start) % days) + 1;
             var dateSprite:FlxSprite;
-            if (index == 12 && date + 1 <= 25 && date > 0)
+            if (index == 12 && date <= 25 && date > 0)
                 dateSprite = new DateButton(x, y, date, onDateChoose.bind(i));
             else
                 dateSprite = new DisabledDate(x, y, date);
@@ -214,6 +218,27 @@ class CalendarSprite extends FlxSpriteGroup
         
         leftButton.visible = index > 0;
         rightButton.visible = index < monthData.length - 1;
+        
+        if (y != 0)
+            setPageLooked();
+    }
+    
+    function setPageLooked():Void
+    {
+        trace(y, looked);
+        if (!looked[curMonth])
+        {
+            looked[curMonth] = true;
+            var count = 0;
+            for (i in 0...looked.getLength())
+            {
+                if (looked[i])
+                    count++;
+            }
+            
+            if (count == 13)
+                NGio.unlockMedal(58548);
+        }
     }
     
     inline public function startIntro(onComplete:()->Void):Void
@@ -236,6 +261,7 @@ class CalendarSprite extends FlxSpriteGroup
     
     inline public function panUp(onComplete:()->Void):Void
     {
+        setPageLooked();
         FlxTween.tween
             ( this
             , { y:BG_HEIGHT - 180 }

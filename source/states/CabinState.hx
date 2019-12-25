@@ -44,6 +44,7 @@ class CabinState extends BaseState
 	static inline var ADVENT_LINK:String = "https://www.newgrounds.com/portal/view/721061";
 	
 	static var presentPositions:Array<FlxPoint> = null;
+	static var backupPresentPositions:Array<FlxPoint> = null;
 	
 	var tvTouch:FlxObject;
 	var tvBubble:TvBubble;
@@ -212,6 +213,7 @@ class CabinState extends BaseState
 		if(presentPositions == null)
 		{
 			presentPositions = [];
+			backupPresentPositions = [];
 			
 			var presentData:OgmoLevelData = cast Json.parse(Assets.getText("assets/data/levels/presents.json"));
 			if (presentData == null)
@@ -231,12 +233,16 @@ class CabinState extends BaseState
 			
 			presentPositions.resize(props.decals.length);
 			
+			
 			for (decal in props.decals)
 			{
 				if (decal.texture.indexOf("medal") != -1)
 				{
-					final medalNum = Std.parseInt(decal.texture.split("medal").pop().split(".").shift());
-					presentPositions[medalNum - 1] = new FlxPoint(decal.x, decal.y);
+					final medalSuffix = decal.texture.split("medal").pop().split(".").shift();
+					if (medalSuffix == "_backup")
+						backupPresentPositions.push(new FlxPoint(decal.x, decal.y));
+					else
+						presentPositions[Std.parseInt(medalSuffix) - 1] = new FlxPoint(decal.x, decal.y);
 				}
 			}
 		}
@@ -244,7 +250,12 @@ class CabinState extends BaseState
 		// put out a present for eadh day so far
 		for (i in 0...Calendar.day + 1)
 		{
-			var present:Present = new Present(presentPositions[i].x, presentPositions[i].y, i);
+			var present:Present = new Present
+				( presentPositions[i].x
+				, presentPositions[i].y
+				, i
+				, Calendar.data[i].art
+				);
 			if (Calendar.openedPres[i])
 				present.animation.play("opened");
 			
@@ -252,6 +263,24 @@ class CabinState extends BaseState
 			colliders.add(present);
 			characters.add(present);
 			foreground.add(present);
+		}
+		
+		if (Calendar.today.extras != null)
+		{
+			for (i in 0...Calendar.today.extras.length)
+			{
+				var present:Present = new Present
+					( backupPresentPositions[i].x
+					, backupPresentPositions[i].y
+					, "backup"
+					, Calendar.today.extras[i]
+					);
+				
+				presents.add(present);
+				colliders.add(present);
+				characters.add(present);
+				foreground.add(present);
+			}
 		}
 	}
 	
@@ -301,12 +330,10 @@ class CabinState extends BaseState
 	
 	public function touchPresent(present:Present)
 	{
-		final day = present.curDay;
-		
-		if (Calendar.openedPres[day])
+		if (present.animation.curAnim.name == "opened")
 		{
 			thumbnail.overlappin = true;
-			thumbnail.newThumb(day);
+			thumbnail.newThumb(present.data);
 			thumbnail.x = present.x + (present.width - thumbnail.width) / 2;
 			thumbnail.y = present.y - thumbnail.height - 8;
 		}
@@ -332,33 +359,33 @@ class CabinState extends BaseState
 	function openPresent(present:Present):Void
 	{
 		justOpenPresent = true;
-		trace('opened: ' + present.curDay);
-		
-		if (present.curDay == Calendar.day || Calendar.isChristmas)
-			NGio.unlockMedal(NGio.MEDAL_0 + Calendar.day);
+		trace('opened: ' + present.data.artist);
 		
 		present.animation.play("opened");
-		Calendar.saveOpenPresent(present.curDay);
 		FlxG.sound.play("assets/sounds/presentOpen.mp3", 1);
 		
 		var onClose:()->Void = null;
-		if (Calendar.day == 12 && present.curDay == 12 && crimeState == null && !Calendar.solvedMurder)
-			onClose = startCrimeCutscene;
-		
-		openSubState(new GallerySubstate(present.curDay, onClose));
-		
-		var presCount:Int = 0;
-		for (i in 0...Calendar.openedPres.getLength())
+		if (present.curDay != null)
 		{
-			if (Calendar.openedPres[i])
-				presCount += 1;
+			Calendar.saveOpenPresent(present.curDay);
+			if (present.curDay == null || present.curDay == Calendar.day || Calendar.isChristmas)
+				NGio.unlockMedal(NGio.MEDAL_0 + Calendar.day);
+			
+			if (Calendar.day == 12 && present.curDay == 12 && crimeState == null && !Calendar.solvedMurder)
+				onClose = startCrimeCutscene;
+				
+			var presCount:Int = 0;
+			for (i in 0...Calendar.openedPres.getLength())
+			{
+				if (Calendar.openedPres[i])
+					presCount += 1;
+			}
+			
+			if (presCount == 25)
+				onClose = triggerCutscene;
 		}
 		
-		if (presCount == 25)
-		{
-			triggerCutscene();
-			//Calendar.resetOpenedPresents();
-		}
+		openSubState(new GallerySubstate(present.data, onClose));
 	}
 	
 	function changeMusic():Void
@@ -596,12 +623,16 @@ class CabinState extends BaseState
 	
 	function onCalendarDateChange(date:Int)
 	{
+		NGio.unlockMedal(58547);
 		Calendar.timeTravelTo(date);
 		FlxG.switchState(new CabinState());
 	}
 	
 	function triggerCutscene()
 	{
+		foreground.active = false;
+		Calendar.resetOpenedPresents();
+		NGio.unlockMedal(58546);
 		FlxG.sound.music.stop();
 		
 		for (npc in npcs.members)

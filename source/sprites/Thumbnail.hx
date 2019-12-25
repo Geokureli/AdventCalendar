@@ -17,7 +17,7 @@ class Thumbnail extends Sprite
 	public var overlappin:Bool = false;
 	public var time = 0.0;
 	
-	var curThumb:Int = -1;
+	var curThumb:String = null;
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -25,23 +25,12 @@ class Thumbnail extends Sprite
 		visible = false;
 	}
 	
-	public function newThumb(newDay:Int):Void
+	public function newThumb(data:ArtData):Void
 	{
-		// igloo shit
-		if (newDay == -1)
+		if (curThumb != data.getThumbPath())
 		{
-			loadGraphic("assets/images/thumbs/thumb-tom.png");
-			curThumb = -1;
-		}
-		
-		if (curThumb != newDay)
-		{
-			if (newDay > Calendar.data.length - 1)
-				loadGraphic("assets/images/thumbDefault.png");
-			else
-				loadGraphic(Calendar.data[newDay].getThumbPath());
-			
-			curThumb = newDay;
+			curThumb = data.getThumbPath();
+			loadGraphic(curThumb);
 		}
 	}
 	
