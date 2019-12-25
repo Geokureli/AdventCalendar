@@ -91,12 +91,12 @@ class Calendar
     
     static public function onMedalsRequested():Void
     {
-        if (Std.is(FlxG.save.data.seenDays, Int))
+        if (FlxG.save.data.seenDays == 0 || FlxG.save.data.seenDays == null)
         {
             seenDays = 0;
             for (i in 0...25)
                 seenDays[i] = NGio.hasDayMedal(i);
-            // FlxG.save.data.
+            FlxG.save.data.seenDays = seenDays;
         }
         
         if (FlxG.save.data.solvedMurder != true && NGio.hasMedal(OutsideState.KILLER_MEDAL))
