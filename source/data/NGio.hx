@@ -27,9 +27,10 @@ class NGio
 	 , "malcolmsith"
 	];
 	
-	public static var isLoggedIn:Bool = false;
-	public static var scoreboardsLoaded:Bool = false;
-	public static var ngDate:Date;
+	public static var isLoggedIn(default, null):Bool = false;
+	public static var userName(default, null):String;
+	public static var scoreboardsLoaded(default, null):Bool = false;
+	public static var ngDate(default, null):Date;
 	public static var isNaughty(default, null) = false;
 	public static var isWhitelisted(default, null) = false;
 	public static var wouldBeNaughty(default, null) = false;
@@ -98,6 +99,7 @@ class NGio
 	static function onNGLogin():Void
 	{
 		isLoggedIn = true;
+		userName = NG.core.user.name;
 		wouldBeNaughty = isNaughty
 			= naughty.indexOf(NG.core.user.name.toLowerCase()) != -1;
 		trace ('logged in! user:${NG.core.user.name}, naughty:$isNaughty');

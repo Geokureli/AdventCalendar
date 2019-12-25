@@ -273,6 +273,11 @@ class CabinState extends BaseState
 		
 		if (player.overlaps(toOutside) #if debug || FlxG.keys.justPressed.C #end)
 			FlxG.switchState(new OutsideState());
+		
+		#if debug
+		if (FlxG.keys.justPressed.N)
+			FlxG.switchState(new CreditState());
+		#end
 	}
 	
 	function isBehindTree(object:FlxObject):Bool
