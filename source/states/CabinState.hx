@@ -20,6 +20,7 @@ import data.Calendar;
 import data.Instrument;
 import data.NGio;
 import states.OgmoState;
+import sprites.Fire;
 import sprites.Thumbnail;
 import sprites.TvBubble;
 import sprites.NPC;
@@ -287,7 +288,7 @@ class CabinState extends BaseState
 		
 		#if debug
 		if (FlxG.keys.justPressed.N)
-			FlxG.switchState(new CreditState());
+			triggerCutscene();
 		#end
 	}
 	
@@ -601,9 +602,37 @@ class CabinState extends BaseState
 	
 	function triggerCutscene()
 	{
+		FlxG.sound.music.stop();
 		
+		for (npc in npcs.members)
+		{
+			if (npc.alive)
+			{
+				var emotion = npc.setEmotion(Alerted);
+				foreground.add(emotion);
+				foreground.members.remove(emotion);
+				foreground.members.insert(foreground.members.indexOf(npc), emotion);
+			}
+		}
+		
+		var menorah = foreground.getByName("menorah");
+		setFire(menorah.x - 4, menorah.y - 40);
+		new FlxTimer().start(0.5, (_)->setFire(220, 113));
+		new FlxTimer().start(1.0, (_)->setFire(190, 100));
+		new FlxTimer().start(1.5, (_)->add(new Fire()));
+		new FlxTimer().start(2.0, (_)->FlxG.camera.fade(0xFFff0000, 3, false, FlxG.switchState.bind(new CreditState())));
+	}
+	
+	function setFire(x, y)
+	{
+		var fire = new FlxSprite(x, y);
+		fire.loadGraphic("assets/images/props/cabin/fire.png", true, 36, 24);
+		fire.animation.add("anim", [for (i in 0...18) i], 12);
+		fire.animation.play("anim");
+		add(fire);
 	}
 }
+
 
 enum CrimeState
 {
