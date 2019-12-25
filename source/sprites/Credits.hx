@@ -9,7 +9,7 @@ import flixel.group.FlxSpriteGroup;
 
 class Credits extends flixel.group.FlxSpriteGroup
 {
-    inline static var SPEED = 25;
+    var field:Text;
     public function new()
     {
         super();
@@ -21,10 +21,13 @@ class Credits extends flixel.group.FlxSpriteGroup
         text += "\n\n\n\n\n\n\n\n\nAnd a very special thanks to\n\n".toUpperCase()
             + (NGio.isLoggedIn ? NGio.userName : "Tom Fulp");
         
-        var field = new Text(text);
-        add(field);
+        add(field = new Text(text));
         field.y = FlxG.height + 50;
-        FlxTween.tween(field, { y:field.y - field.height - FlxG.height / 2 }, 51.0);
+    }
+    
+    public function start(duration:Float):Void
+    {
+        FlxTween.tween(field, { y:field.y - field.height - FlxG.height / 2 }, duration);
     }
     
     static var data:Map<String, Array<String>> = 
@@ -117,6 +120,7 @@ abstract Text(FlxBitmapText) to FlxBitmapText
         this = new FlxBitmapText(new NokiaFont16());
         this.alignment = CENTER;
         this.scrollFactor.set();
+        this.setBorderStyle(OUTLINE, 0, 2);
         reset(text);
     }
     
