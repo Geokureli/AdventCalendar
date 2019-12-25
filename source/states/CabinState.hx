@@ -161,6 +161,17 @@ class CabinState extends BaseState
 		else
 			calendar.kill();
 		
+		var jukebox = foreground.getByName("jukebox");
+		// if (Calendar.isPast || Calendar.day + 1 == 25 || Calendar.isDebugDay)
+		// {
+		// 	var label = "Switch Music";
+		// 	if (!Calendar.isPast && Calendar.day + 1 != 25)
+		// 		label += "\n(debug)";
+		// 	addHoverTextTo(jukebox, label, changeMusic);
+		// }
+		// else
+			jukebox.kill();
+		
 		//Music Credit
 		safeAddHoverText
 			( "stereo"
@@ -347,6 +358,11 @@ class CabinState extends BaseState
 			// triggerCutscene();
 			Calendar.resetOpenedPresents();
 		}
+	}
+	
+	function changeMusic():Void
+	{
+		
 	}
 	
 	function initCrime()

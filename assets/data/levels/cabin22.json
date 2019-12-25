@@ -83,7 +83,8 @@
         {"x": 164, "y": 102, "texture": "props/cabin/smallCandleFire_ogmo.png"},
         {"x": 167, "y": 102, "texture": "props/cabin/smallCandleFire_ogmo.png"},
         {"x": 170, "y": 102, "texture": "props/cabin/smallCandleFire_ogmo.png"},
-        {"x": 172, "y": 102, "texture": "props/cabin/smallCandleFire_ogmo.png"}
+        {"x": 172, "y": 102, "texture": "props/cabin/smallCandleFire_ogmo.png"},
+        {"x": 12, "y": 69, "texture": "props/cabin/jukebox.png"}
       ]
     },
     {
@@ -105,7 +106,7 @@
         {"x": 154, "y": 121, "texture": "props/instruments/tambourine.png"},
         {"x": 87, "y": 258, "texture": "props/instruments/tom.png"},
         {"x": 375, "y": 76, "texture": "props/instruments/crash.png"},
-        {"x": 29, "y": 78, "texture": "props/instruments/kick.png"},
+        {"x": 34, "y": 78, "texture": "props/instruments/kick.png"},
         {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"},
         {"x": 310, "y": 49, "texture": "props/cabin/neon_ogmo.png"}
       ]

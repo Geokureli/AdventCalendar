@@ -76,7 +76,8 @@
         {"x": 313, "y": 120, "texture": "props/cabin/knife.png"},
         {"x": 343, "y": 106, "texture": "props/cabin/deadguy.png"},
         {"x": 210, "y": -38, "texture": "props/cabin/tree_13.png"},
-        {"x": 95, "y": 62, "texture": "props/cabin/calendar.png"}
+        {"x": 95, "y": 62, "texture": "props/cabin/calendar.png"},
+        {"x": 12, "y": 69, "texture": "props/cabin/jukebox.png"}
       ]
     },
     {

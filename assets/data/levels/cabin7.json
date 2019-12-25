@@ -72,7 +72,8 @@
         {"x": 177, "y": 105, "texture": "props/cabin/bags4.png"},
         {"x": 213, "y": 95, "texture": "props/cabin/tree_7.png"},
         {"x": 140, "y": 70, "texture": "props/cabin/fire_ogmo.png"},
-        {"x": 95, "y": 62, "texture": "props/cabin/calendar.png"}
+        {"x": 95, "y": 62, "texture": "props/cabin/calendar.png"},
+        {"x": 12, "y": 69, "texture": "props/cabin/jukebox.png"}
       ]
     },
     {

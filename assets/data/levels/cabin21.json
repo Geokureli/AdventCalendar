@@ -74,7 +74,8 @@
         {"x": 140, "y": 70, "texture": "props/cabin/fire_ogmo.png"},
         {"x": 295, "y": 73, "texture": "props/cabin/arcade2_ogmo.png"},
         {"x": 324, "y": 73, "texture": "props/cabin/arcade_ogmo.png"},
-        {"x": 95, "y": 62, "texture": "props/cabin/calendar.png"}
+        {"x": 95, "y": 62, "texture": "props/cabin/calendar.png"},
+        {"x": 12, "y": 69, "texture": "props/cabin/jukebox.png"}
       ]
     },
     {
