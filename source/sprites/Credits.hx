@@ -14,7 +14,7 @@ class Credits extends flixel.group.FlxSpriteGroup
     {
         super();
         
-        var text = "TEST TEST";
+        var text = "";
         for (header=>names in data)
             text += header.toUpperCase() + "\n\n" + names.join("\n") + "\n\n\n";
         
