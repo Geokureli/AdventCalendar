@@ -23,11 +23,16 @@ class Credits extends flixel.group.FlxSpriteGroup
         
         add(field = new Text(text));
         field.y = FlxG.height + 50;
+        scrollFactor.set();
     }
     
-    public function start(duration:Float):Void
+    public function updateCrawl(time:Float, duration:Float):Void
     {
-        FlxTween.tween(field, { y:field.y - field.height - FlxG.height / 2 }, duration);
+        var start = FlxG.height + 50;
+        var end = start - field.height - FlxG.height / 2;
+        var dis = end - start;
+        if (field.y > start + dis * time / duration)
+            field.y = start + dis * time / duration;
     }
     
     static var data:Map<String, Array<String>> = 
@@ -119,7 +124,6 @@ abstract Text(FlxBitmapText) to FlxBitmapText
     {
         this = new FlxBitmapText(new NokiaFont16());
         this.alignment = CENTER;
-        this.scrollFactor.set();
         this.setBorderStyle(OUTLINE, 0, 2);
         reset(text);
     }
