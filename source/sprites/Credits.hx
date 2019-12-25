@@ -23,6 +23,7 @@ class Credits extends flixel.group.FlxSpriteGroup
         
         var field = new Text(text);
         add(field);
+        field.y = FlxG.height + 50;
         FlxTween.tween(field, { y:field.y - field.height - FlxG.height / 2 }, 51.0);
     }
     
@@ -123,6 +124,5 @@ abstract Text(FlxBitmapText) to FlxBitmapText
     {
         this.text = text;
         this.screenCenter(X);
-        this.y = FlxG.height + 24;
     }
 }
