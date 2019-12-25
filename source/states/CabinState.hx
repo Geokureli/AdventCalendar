@@ -355,8 +355,8 @@ class CabinState extends BaseState
 		
 		if (presCount == 25)
 		{
-			// triggerCutscene();
-			Calendar.resetOpenedPresents();
+			triggerCutscene();
+			//Calendar.resetOpenedPresents();
 		}
 	}
 	
@@ -597,6 +597,11 @@ class CabinState extends BaseState
 	{
 		Calendar.timeTravelTo(date);
 		FlxG.switchState(new CabinState());
+	}
+	
+	function triggerCutscene()
+	{
+		
 	}
 }
 

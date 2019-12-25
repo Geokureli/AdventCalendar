@@ -124,7 +124,7 @@ abstract Text(FlxBitmapText) to FlxBitmapText
     {
         this = new FlxBitmapText(new NokiaFont16());
         this.alignment = CENTER;
-        this.setBorderStyle(OUTLINE, 0, 2);
+        this.setBorderStyle(OUTLINE, 0xFF000000, 2);
         reset(text);
     }
     

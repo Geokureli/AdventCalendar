@@ -1,7 +1,6 @@
 package states;
 
 import flixel.util.FlxTimer;
-import sprites.Snow;
 import flixel.system.FlxSound;
 import flixel.util.FlxSort;
 import flixel.FlxG;
@@ -10,6 +9,8 @@ import flixel.FlxState;
 import flixel.group.FlxGroup;
 
 import sprites.Credits;
+import sprites.Heaven;
+import sprites.Snow;
 
 class CreditState extends FlxState
 {
@@ -50,8 +51,7 @@ class CreditState extends FlxState
             middle.x = middles.members[0].x;
         }
         
-        add(top = new FlxSprite("assets/images/props/heaven/tree_topper.png"));
-        top.x = bottom.x + (bottom.width - top.width) / 2;
+        add(top = new Heaven());
         top.visible = false;
         
         add(credits = new Credits());
@@ -67,8 +67,8 @@ class CreditState extends FlxState
         totalElapsed = sound.time / 1000;
         if (totalElapsed > duration || totalElapsed == 0)
         {
-            if (!finished)
-                new FlxTimer().start(5.0, (_)->{ FlxG.switchState(new HeavenState()); });
+            // if (!finished)
+            //     new FlxTimer().start(5.0, (_)->{ FlxG.switchState(new CabinState()); });
             return;
         }
         
@@ -89,7 +89,7 @@ class CreditState extends FlxState
         {
             bottomPiece.y = topPiece.y - bottomPiece.height;
             middles.members.push(middles.members.shift());
-            if (totalElapsed > duration - 15)
+            if (totalElapsed > duration - 20)
             {
                 top.visible = true;
                 topPiece = middles.members[middles.members.length - 1];
