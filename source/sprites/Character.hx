@@ -102,16 +102,19 @@ class Character extends Sprite
 			facing = FlxObject.LEFT;
 	}
 	
-	public function setEmotion(emotion:Emotion):FlxSprite
+	public function setEmotion(emotion:Emotion, keep = false):FlxSprite
 	{
 		var emotionSprite = new FlxSprite().loadGraphic(cast emotion);
 		
 		emotionSprite.x = x;
 		emotionSprite.y = y;
 		FlxTween.tween(emotionSprite, { y: y - frameHeight - 10}, 0.25, { ease:FlxEase.backOut });
-		FlxTween.tween(emotionSprite, { y: y - 10 }, 0.25,
-			{ ease:FlxEase.backIn, startDelay:1.25, onComplete:(_)->emotionSprite.kill() }
-		);
+		if (!keep)
+		{
+			FlxTween.tween(emotionSprite, { y: y - 10 }, 0.25,
+				{ ease:FlxEase.backIn, startDelay:1.25, onComplete:(_)->emotionSprite.kill() }
+			);
+		}
 		
 		return emotionSprite;
 	}
@@ -121,4 +124,5 @@ enum abstract Emotion(String) to String
 {
 	var Alerted = "assets/images/alerted.png";
 	var Puzzled = "assets/images/puzzled.png";
+	var Dead = "assets/images/props/heaven/halo.png";
 }

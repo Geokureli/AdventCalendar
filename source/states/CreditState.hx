@@ -22,7 +22,7 @@ class CreditState extends FlxState
     var curSpeed = 0.0;
     var totalElapsed = 0.0;
     var sound:FlxSound;
-    var top:FlxSprite;
+    var top:Heaven;
     var finished = false;
     
     override function create()
@@ -94,6 +94,7 @@ class CreditState extends FlxState
                 top.visible = true;
                 topPiece = middles.members[middles.members.length - 1];
                 top.y = topPiece.y - top.height + 12;
+                top.spawnNpcs();
             }
         }
     }
