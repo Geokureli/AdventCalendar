@@ -100,7 +100,7 @@ class IntroState extends flixel.FlxState
             ()->
             {
                 complete = true;
-                if (debugFutureEnabled && NGio.isWhitelisted && Calendar.isAdvent && !Calendar.isChristmas)
+                if (debugFutureEnabled && NGio.isWhitelisted && Calendar.isAdvent && Calendar.day != 24)
                     enableTimeTravel();
             }
         );
