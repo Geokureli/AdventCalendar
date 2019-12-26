@@ -189,6 +189,9 @@ class CalendarSprite extends FlxSpriteGroup
                 
                 if (date == 9)
                     addTag(NickBday);
+                
+                if (date == 13)
+                    addTag(Murder);
             }
         }
         
@@ -398,4 +401,5 @@ enum Tag
     Seen;
     Today;
     NickBday;
+    Murder;
 }
