@@ -125,22 +125,12 @@ class CalendarSprite extends FlxSpriteGroup
         super();
         this.onDateChoose = onDateChoose;
         
-        var bg = new FlxSliceSprite
-            ( "assets/images/ui/calendar/nineslice.png"
-            , new FlxRect(1,1,1,1)
-            , WEEK_WIDTH + BUFFER * 2
-            , BG_HEIGHT
-            );
+        var bg = new FlxSprite("assets/images/ui/calendar/back.png");
         this.add(bg);
         bg.x = DATES_X - BUFFER;
         bg.y = 180 - BG_HEIGHT;
         
-        picBg = new FlxSliceSprite
-            ( "assets/images/ui/calendar/nineslice_white.png"
-            , new FlxRect(1,1,1,1)
-            , PIC_WIDTH
-            , PIC_HEIGHT
-            );
+        picBg = new FlxSprite("assets/images/ui/calendar/pickBack.png");
         this.add(picBg);
         picBg.x = DATES_X;
         picBg.y = bg.y + BUFFER;
