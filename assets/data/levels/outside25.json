@@ -113,7 +113,7 @@
         {"x": 223, "y": 37, "texture": "props/outside/clouds2.png"},
         {"x": 166, "y": 110, "texture": "props/outside/mountains.png"},
         {"x": 211, "y": 148, "texture": "props/outside/snow1.png"},
-        {"x": 219, "y": 154, "texture": "props/outside/ground3.png"},
+        {"x": 219, "y": 151, "texture": "props/outside/ground3.png"},
         {"x": 73, "y": 156, "texture": "props/outside/shine_ogmo.png"},
         {"x": 45, "y": 142, "texture": "props/outside/gyrados_ogmo.png"},
         {"x": 275, "y": 156, "texture": "props/outside/campfire_ogmo.png"},
