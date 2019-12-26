@@ -76,7 +76,7 @@ class Credits extends flixel.group.FlxSpriteGroup
         , "Carmet"
         , "AlbeGian"
         , "SplatterDash"
-        , "SethSkoda"
+        , "RetroArcadeMonkey"
         ]
     , "Characters based on"=>
         [ "TomFulp"
