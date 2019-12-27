@@ -139,7 +139,7 @@ class CabinState extends BaseState
 			bigFlame.offset.y += 1000;
 		}
 		
-		var numFlames = Calendar.day - 21 + 1;
+		var numFlames = Calendar.hanukkahDay + 1;
 		for (flame in foreground.getAllWithName("smallCandleFire"))
 		{
 			if (numFlames > 0)

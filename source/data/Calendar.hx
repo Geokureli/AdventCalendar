@@ -12,6 +12,7 @@ class Calendar
     static public var isDebugDay = DEBUG_DAY > 0;
     static public var isPast(default, null) = false;
     static public var day(default, null) = 24;
+    static public var hanukkahDay(default, null) = 7;
     static public var isAdvent(default, null) = false;
     static public var isDecember(default, null) = false;
     static public var isChristmas(default, null) = false;
@@ -144,10 +145,14 @@ class Calendar
         isDecember = date.getMonth() == 11;
         isChristmas = date.getDate() == 25;
         
-        if (date.getDate() < 26 && isDecember && date.getFullYear() == 2019)
+        if (isDecember && date.getFullYear() == 2019)
         {
-            isAdvent = true;
-            day = date.getDate() - 1;
+            hanukkahDay = date.getDate() - 22;
+            if (date.getDate() < 26)
+            {
+                isAdvent = true;
+                day = date.getDate() - 1;
+            }
         }
     }
     
