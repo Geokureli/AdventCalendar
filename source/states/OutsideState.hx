@@ -126,8 +126,13 @@ class OutsideState extends BaseState
 					if (name == "RGPAnims")
 					{
 						var height = child.height;
-						child.loadGraphic("assets/images/snowSprite/" + name + Math.min(Calendar.day + 1, 25) + ".png");
-						child.setBottomHeight(Std.int(child.height / 3));
+						var suffix = Calendar.day == 24 ? "20" : Std.string(Calendar.day + 1);
+						var path = '/assets/images/snowSprite/RGPAnims$suffix.png';
+						if (openfl.Assets.exists(path))
+						{
+							child.loadGraphic(path);
+							child.setBottomHeight(Std.int(child.height / 3));
+						}
 					}
 					
 					if (name == "Camuri")
