@@ -69,11 +69,12 @@ class CabinState extends BaseState
 		
 		if (FlxG.sound.music == null)
 		{
-			FlxG.sound.playMusic(Calendar.today.getSongPath(), 0);
-			var volume = Calendar.today.song.volume;
-			FlxG.sound.music.fadeIn(5, 0, volume == null ? 0.3 : volume);
+			if (Calendar.isAdvent)
+				playSong();
+			else
+				playSong(FlxG.random.int(0, 25));
+				
 		}
-		
 		initPresents();
 	}
 	
@@ -164,14 +165,14 @@ class CabinState extends BaseState
 			calendar.kill();
 		
 		var jukebox = foreground.getByName("jukebox");
-		// if (Calendar.isPast || Calendar.day + 1 == 25 || Calendar.isDebugDay)
-		// {
-		// 	var label = "Switch Music";
-		// 	if (!Calendar.isPast && Calendar.day + 1 != 25)
-		// 		label += "\n(debug)";
-		// 	addHoverTextTo(jukebox, label, changeMusic);
-		// }
-		// else
+		if (Calendar.isPast || Calendar.day + 1 == 25 || Calendar.isDebugDay)
+		{
+			var label = "Switch Music";
+			if (!Calendar.isPast && Calendar.day + 1 != 25)
+				label += "\n(debug)";
+			addHoverTextTo(jukebox, label, changeMusic);
+		}
+		else
 			jukebox.kill();
 		
 		//Music Credit
@@ -390,7 +391,20 @@ class CabinState extends BaseState
 	
 	function changeMusic():Void
 	{
+		var day = ((FlxG.sound.music.ID + 1) % 5) * 5;
 		
+		playSong(day);
+	}
+	
+	inline function playSong(?day:Int)
+	{
+		if (day == null)
+			day = Calendar.day;
+		
+		FlxG.sound.playMusic(Calendar.data[day].getSongPath(), 0);
+		var volume = Calendar.today.song.volume;
+		FlxG.sound.music.fadeIn(5, 0, volume == null ? 0.3 : volume);
+		FlxG.sound.music.ID = Math.floor(day / 5);
 	}
 	
 	function initCrime()
