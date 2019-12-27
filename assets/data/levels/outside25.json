@@ -95,7 +95,8 @@
         {"x": 214, "y": 327, "texture": "presents/present_albegian_ogmo.png"},
         {"x": 278, "y": 323, "texture": "snowSprite/Oddlem.png"},
         {"x": 361, "y": 371, "texture": "snowSprite/Chobiluck.png"},
-        {"x": 131, "y": 282, "texture": "snowSprite/OniShaggy.png"}
+        {"x": 131, "y": 282, "texture": "snowSprite/OniShaggy.png"},
+        {"x": 420, "y": 325, "texture": "snowSprite/Sevi.png"}
       ]
     },
     {
