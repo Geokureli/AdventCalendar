@@ -24,7 +24,8 @@ class NGio
 	[ "raritynyasha"
 	// , "brandybuizel"
 	// , "geokureli"
-	 , "malcolmsith"
+	, "malcolmsith"
+	, "NeonSpider"
 	];
 	
 	public static var isLoggedIn(default, null):Bool = false;
