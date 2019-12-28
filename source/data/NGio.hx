@@ -135,14 +135,14 @@ class NGio
 	static function onMedalsRequested():Void
 	{
 		if (FlxG.save.data.solvedMurder == true)
-			NGio.unlockMedal(OutsideState.KILLER_MEDAL);
+			NGio.unlockMedal(OutsideState.KILLER_MEDAL, false);
 		if (FlxG.save.data.instrument != null)
-			NGio.unlockMedal(OutsideState.MUSIC_MEDAL);
+			NGio.unlockMedal(OutsideState.MUSIC_MEDAL, false);
 		
 		Calendar.onMedalsRequested();
 	}
 	
-	static public function unlockMedal(id:Int):Void
+	static public function unlockMedal(id:Int, showDebugUnlock = true):Void
 	{
 		if(!isNaughty && isLoggedIn && !Calendar.isDebugDay)
 		{
@@ -150,8 +150,10 @@ class NGio
 			var medal = NG.core.medals.get(id);
 			if (!medal.unlocked)
 				medal.sendUnlock();
-			else
-				trace("already unlocked");
+			else if (showDebugUnlock)
+				#if debug medal.onUnlock.dispatch();
+				#else trace("already unlocked");
+				#end
 		}
 		else
 			trace('no medal unlocked, naughty:$isNaughty loggedIn:$isLoggedIn debugDay:${Calendar.isDebugDay}');

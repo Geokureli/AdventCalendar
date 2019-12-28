@@ -11,6 +11,7 @@ class Calendar
     inline static var DEBUG_DAY:Int = 0;// 0 to disable debug feature
     static public var isDebugDay = DEBUG_DAY > 0;
     static public var isPast(default, null) = false;
+    static public var participatedInAdvent(default, null) = false;
     static public var day(default, null) = 24;
     static public var hanukkahDay(default, null) = 7;
     static public var isAdvent(default, null) = false;
@@ -91,21 +92,34 @@ class Calendar
     
     static public function onMedalsRequested():Void
     {
-        if (FlxG.save.data.seenDays == 0 || FlxG.save.data.seenDays == null)
+        var saveNow = FlxG.save.data.seenDays == null;
+        
+        for (i in 0...25)
         {
-            seenDays = 0;
-            for (i in 0...25)
-                seenDays[i] = NGio.hasDayMedal(i);
-            FlxG.save.data.seenDays = seenDays;
+            if (NGio.hasDayMedal(i))
+            {
+                participatedInAdvent = true;
+                if (!seenDays[i])
+                {
+                    seenDays[i] = true;
+                    saveNow = true;
+                }
+            }
         }
+        
+        if (saveNow)
+            FlxG.save.data.seenDays = (seenDays:Int);
         
         if (FlxG.save.data.solvedMurder != true && NGio.hasMedal(OutsideState.KILLER_MEDAL))
         {
             FlxG.save.data.seenMurder = true;
             FlxG.save.data.hasKnife = true;
             FlxG.save.data.solvedMurder = true;
-            FlxG.save.flush();
+            saveNow = true;
         }
+        
+        if (saveNow)
+            FlxG.save.flush();
     }
     
     static function parseWhitelist():Void
@@ -153,6 +167,13 @@ class Calendar
                 isAdvent = true;
                 day = date.getDate() - 1;
             }
+        }
+        
+        if (!seenDays[day])
+        {
+            seenDays[day] = true;
+            FlxG.save.data.seenDays = (seenDays:Int);
+            FlxG.save.flush();
         }
     }
     
@@ -219,6 +240,12 @@ class Calendar
         FlxG.save.flush();
     }
     
+    static public function allowDailyMedalUnlock(day:Int):Bool
+    {
+        return isChristmas
+            || ((isAdvent || participatedInAdvent) && day == Calendar.day);
+    }
+    
     static public function showDebugNextDay():Void
     {
         day++;
@@ -231,6 +258,13 @@ class Calendar
         isDecember = true;
         isPast = true;
         day = date;
+        
+        if (!seenDays[day])
+        {
+            seenDays[day] = true;
+            FlxG.save.data.seenDays = (seenDays:Int);
+            FlxG.save.flush();
+        }
     }
     
     inline static public function getPresentPath(index = -1):String

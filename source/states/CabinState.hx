@@ -369,7 +369,7 @@ class CabinState extends BaseState
 		if (present.curDay != null)
 		{
 			Calendar.saveOpenPresent(present.curDay);
-			if (present.curDay == null || present.curDay == Calendar.day || Calendar.isChristmas)
+			if (Calendar.allowDailyMedalUnlock(present.curDay))
 				NGio.unlockMedal(NGio.MEDAL_0 + Calendar.day);
 			
 			if (Calendar.day == 12 && present.curDay == 12 && crimeState == null && !Calendar.solvedMurder)
