@@ -93,7 +93,8 @@
         {"x": 366, "y": 163, "texture": "props/cabin/snowWind_ogmo.png"},
         {"x": 212, "y": 124, "texture": "props/cabin/rug_11.png"},
         {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"},
-        {"x": 310, "y": 49, "texture": "props/cabin/neon_ogmo.png"}
+        {"x": 310, "y": 49, "texture": "props/cabin/neon_ogmo.png"},
+        {"x": 342, "y": 106, "texture": "props/cabin/crimeOutline.png"}
       ]
     }
   ]

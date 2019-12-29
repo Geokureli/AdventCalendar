@@ -108,7 +108,8 @@
         {"x": 375, "y": 76, "texture": "props/instruments/crash.png"},
         {"x": 34, "y": 78, "texture": "props/instruments/kick.png"},
         {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"},
-        {"x": 310, "y": 49, "texture": "props/cabin/neon_ogmo.png"}
+        {"x": 310, "y": 49, "texture": "props/cabin/neon_ogmo.png"},
+        {"x": 342, "y": 106, "texture": "props/cabin/crimeOutline.png"}
       ]
     }
   ]

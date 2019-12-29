@@ -108,18 +108,10 @@ class Calendar
         }
         
         if (saveNow)
-            FlxG.save.data.seenDays = (seenDays:Int);
-        
-        if (FlxG.save.data.solvedMurder != true && NGio.hasMedal(OutsideState.KILLER_MEDAL))
         {
-            FlxG.save.data.seenMurder = true;
-            FlxG.save.data.hasKnife = true;
-            FlxG.save.data.solvedMurder = true;
-            saveNow = true;
-        }
-        
-        if (saveNow)
+            FlxG.save.data.seenDays = (seenDays:Int);
             FlxG.save.flush();
+        }
     }
     
     static function parseWhitelist():Void
@@ -208,12 +200,21 @@ class Calendar
         FlxG.save.flush();
     }
     
+    static public function resetMurder():Void
+    {
+        seenMurder = FlxG.save.data.seenMurder = false;
+        hasKnife = FlxG.save.data.hasKnife = false;
+        solvedMurder = FlxG.save.data.solvedMurder = false;
+        interrogated = FlxG.save.data.interrogated = BitArray.fromString("11111111111");
+        FlxG.save.flush();
+        openedPres[13-1] = false;
+    }
+    
     static public function saveInterrogated(index:Int)
     {
         interrogated[index] = false;
         FlxG.save.data.interrogated = interrogated;
         FlxG.save.flush();
-        trace(interrogated);
     }
     
     inline static function get_interrogatedAll():Bool

@@ -100,7 +100,8 @@
         {"x": 29, "y": 78, "texture": "props/instruments/kick.png"},
         {"x": 209, "y": 127, "texture": "props/cabin/tree_16_pres.png"},
         {"x": 310, "y": 49, "texture": "props/cabin/neon_ogmo.png"},
-        {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"}
+        {"x": 140, "y": 43, "texture": "props/cabin/fireplace.png"},
+        {"x": 342, "y": 106, "texture": "props/cabin/crimeOutline.png"}
       ]
     }
   ]

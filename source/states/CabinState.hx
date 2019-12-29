@@ -1,6 +1,5 @@
 package states;
 
-import data.BitArray;
 import haxe.Json;
 import openfl.utils.Assets;
 
@@ -16,6 +15,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
+import data.BitArray;
 import data.Calendar;
 import data.Instrument;
 import data.NGio;
@@ -25,6 +25,7 @@ import sprites.Thumbnail;
 import sprites.TvBubble;
 import sprites.NPC;
 import sprites.Present;
+import sprites.Prompt;
 
 typedef Message = { ?title:String, body:String }
 typedef CrimeData = {
@@ -441,6 +442,8 @@ class CabinState extends BaseState
 				crimeState = Interrogation;
 			}
 			
+			addHoverTextTo(background.getByName("crimeOutline"), "Reset Murder?", resetCrimePrompt);
+			
 			giveNpcCrimeDialog();
 		}
 		else
@@ -448,6 +451,7 @@ class CabinState extends BaseState
 			var deadguy = foreground.getByName("deadguy");
 			deadguy.visible = false;
 			foreground.getByName("crime").visible = false;
+			background.getByName("crimeOutline").visible = false;
 			foreground.getByName("knife").visible = false;
 			foreground.getByName("tree_13").visible = false;
 			var tree = foreground.getByName("tree_11");
@@ -458,6 +462,25 @@ class CabinState extends BaseState
 			madnessNpc.immovable = true;
 			madnessNpc.active = false;
 		}
+	}
+	
+	function resetCrimePrompt():Void
+	{
+		
+		var prompt = new Prompt();
+		add(prompt);
+		prompt.setup
+			( 'Reset murder?'
+			, resetCrime
+			, null
+			, remove.bind(prompt)
+			);
+	}
+	
+	function resetCrime():Void
+	{
+		Calendar.resetMurder();
+		FlxG.switchState(new CabinState());
 	}
 	
 	function startCrimeCutscene():Void
@@ -567,6 +590,7 @@ class CabinState extends BaseState
 					Calendar.saveSeenMurder();
 					foreground.getByName("deadguy").visible = false;
 					foreground.getByName("crime").visible = true;
+					background.getByName("crimeOutline").visible = true;
 					foreground.getByName("tree_13").visible = true;
 					foreground.getByName("tree_11").visible = false;
 					openSubState(DialogSubstate.fromMessage(crimeData.instructions));
