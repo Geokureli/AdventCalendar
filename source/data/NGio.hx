@@ -21,11 +21,11 @@ class NGio
 	inline static public var MEDAL_0 = 58519;
 	
 	static var naughty = 
-	[ "raritynyasha"
+	[ //"raritynyasha"
 	// , "brandybuizel"
 	// , "geokureli"
-	, "malcolmsith"
-	, "NeonSpider"
+	// , "malcolmsith"
+	// , "NeonSpider"
 	];
 	
 	public static var isLoggedIn(default, null):Bool = false;
