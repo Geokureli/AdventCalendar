@@ -21,7 +21,6 @@ import data.Instrument;
 import data.NGio;
 import states.OgmoState;
 import sprites.Fire;
-import sprites.Thumbnail;
 import sprites.TvBubble;
 import sprites.NPC;
 import sprites.Present;
@@ -51,11 +50,9 @@ class CabinState extends BaseState
 	var tvBubble:TvBubble;
 	var fromOutside = false;
 	var presents = new FlxTypedGroup<Present>();
-	var thumbnail = new Thumbnail();
 	var toOutside:FlxObject;
 	var crimeState:Null<CrimeState> = null;
 	var crimeData:CrimeData;
-	var justOpenPresent = false;
 	var tree:OgmoDecal;
 	
 	override public function new (fromOutside = false)
@@ -89,8 +86,6 @@ class CabinState extends BaseState
 	override function initEntities()
 	{
 		super.initEntities();
-		
-		add(thumbnail);
 		
 		var treeDay = foreground.getObjectNameIndex("tree_", Calendar.day + 1);
 		tree = foreground.getByName("tree_" + treeDay);
@@ -252,14 +247,14 @@ class CabinState extends BaseState
 		// put out a present for eadh day so far
 		for (i in 0...Calendar.day + 1)
 		{
-			var present:Present = new Present
+			var present = new Present
 				( presentPositions[i].x
 				, presentPositions[i].y
 				, i
-				, Calendar.data[i].art
+				, Calendar.openedPres[i]
 				);
-			if (Calendar.openedPres[i])
-				present.animation.play("opened");
+			
+			initArtPresent(present, Calendar.data[i].art, onPresentOpen.bind(present));
 			
 			presents.add(present);
 			colliders.add(present);
@@ -271,7 +266,7 @@ class CabinState extends BaseState
 		{
 			for (i in 0...Calendar.today.extras.length)
 			{
-				var present:Present = new Present
+				var present = createArtPresent
 					( backupPresentPositions[i].x
 					, backupPresentPositions[i].y
 					, "backup"
@@ -288,18 +283,6 @@ class CabinState extends BaseState
 	
 	override function update(elapsed:Float)
 	{
-		var touchingPresent:Present;
-		FlxG.overlap(playerHitbox, presents,
-			(_, present)->
-			{
-				if (touchingPresent == null)
-				{
-					touchingPresent = present;
-					touchPresent(present);
-				}
-			}
-		);
-		
 		super.update(elapsed);
 		
 		if (Calendar.day == 12 && crimeState != null)
@@ -330,43 +313,10 @@ class CabinState extends BaseState
 			&& object.x + object.width / 2 < tree.x + tree.width;
 	}
 	
-	public function touchPresent(present:Present)
+	function onPresentOpen(present:Present):Void
 	{
-		if (present.animation.curAnim.name == "opened")
-		{
-			thumbnail.overlappin = true;
-			thumbnail.newThumb(present.data);
-			thumbnail.x = present.x + (present.width - thumbnail.width) / 2;
-			thumbnail.y = present.y - thumbnail.height - 8;
-		}
+		// justOpenPresent = true;
 		
-		// prevent double open since multiple inputs can trigger
-		if (!justOpenPresent)
-		{
-			if (player.interacting)
-				openPresent(present);
-			else if (FlxG.onMobile)
-			{
-				for (touch in FlxG.touches.justStarted())
-				{
-					if (touch.overlaps(present) || touch.overlaps(thumbnail))
-						openPresent(present);
-				}
-			}
-		}
-		else
-			justOpenPresent = false;
-	}
-	
-	function openPresent(present:Present):Void
-	{
-		justOpenPresent = true;
-		trace('opened: ' + present.data.artist);
-		
-		present.animation.play("opened");
-		FlxG.sound.play("assets/sounds/presentOpen.mp3", 1);
-		
-		var onClose:()->Void = null;
 		if (present.curDay != null)
 		{
 			Calendar.saveOpenPresent(present.curDay);
@@ -374,7 +324,7 @@ class CabinState extends BaseState
 				NGio.unlockMedal(NGio.MEDAL_0 + Calendar.day);
 			
 			if (Calendar.day == 12 && present.curDay == 12 && crimeState == null && !Calendar.solvedMurder)
-				onClose = startCrimeCutscene;
+				startCrimeCutscene();
 				
 			var presCount:Int = 0;
 			for (i in 0...Calendar.openedPres.getLength())
@@ -384,10 +334,8 @@ class CabinState extends BaseState
 			}
 			
 			if (presCount == 25)
-				onClose = triggerCutscene;
+				triggerCutscene();
 		}
-		
-		openSubState(new GallerySubstate(present.data, onClose));
 	}
 	
 	function changeMusic():Void
@@ -485,7 +433,6 @@ class CabinState extends BaseState
 	
 	function startCrimeCutscene():Void
 	{
-		thumbnail.alpha = 0;
 		crimeState = LightsOff;
 		cutsceneActive = true;
 		foreground.active = false;
@@ -601,7 +548,6 @@ class CabinState extends BaseState
 				{
 					foreground.active = true;
 					cutsceneActive = false;
-					thumbnail.alpha = 1;
 					giveNpcCrimeDialog();
 				}
 				

@@ -46,7 +46,7 @@ class GallerySubstate extends FlxSubState
 		
 		bigImage = new FlxSpriteGroup();
 		bigPreview = new FlxSprite();
-		bigPreview.antialiasing = true;
+		bigPreview.antialiasing = data.antiAlias;
 		bigImage.add(bigPreview);
 		bigImage.scrollFactor.set();
 		

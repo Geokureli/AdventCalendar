@@ -1,5 +1,6 @@
 package states;
 
+import sprites.Present;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -142,11 +143,55 @@ class BaseState extends OgmoState
 	
 	function addHoverTextTo(target:FlxObject, ?text:String, ?callback:Void->Void, hoverDis = 20)
 	{
+		addHoverTo(target, cast new InfoTextBox(text, callback), hoverDis);
+	}
+	
+	inline function addThumbnailTo(target:FlxObject, ?asset, ?callback:Void->Void)
+	{
+		var thumbnail:FlxSprite = null;
+		if (asset != null)
+		{
+			thumbnail = new FlxSprite(0, 0, asset);
+			thumbnail.x = -thumbnail.width / 2;
+			thumbnail.y = -thumbnail.height - 8;
+			//hoverDis += Std.int(thumbnail.height);
+		}
+		
+		return addHoverTo
+			( target
+			, new InfoBox(thumbnail, callback)
+			, 0
+			);
+	}
+	
+	inline function initArtPresent(present:Present, data:ArtData, ?callback:()->Void)
+	{
+		var box = addThumbnailTo(present, data.getThumbPath(), openArtPresent.bind(present, data, callback));
+		box.sprite.visible = present.opened;
+	}
+	
+	inline function createArtPresent(x, y, ?suffix:String, ?day:Int, data:ArtData, opened = false, ?callback:()->Void)
+	{
+		var present = new Present(x, y, suffix, day, opened);
+		initArtPresent(present, data, callback);
+		return present;
+	}
+	
+	function openArtPresent(present:Present, data:ArtData, ?callback:()->Void):Void
+	{
+		present.open();
+		FlxG.sound.play("assets/sounds/presentOpen.mp3", 1);
+		openSubState(new GallerySubstate(data, callback));
+		infoBoxes[present].sprite.visible = true;
+	}
+	
+	inline function addHoverTo(target:FlxObject, box:InfoBox, hoverDis = 20)
+	{
 		touchable.add(target);
-		var box = new InfoTextBox(text, callback);
 		box.updateFollow(target);
 		box.hoverDis = hoverDis;
 		add(infoBoxes[target] = cast box);
+		return box;
 	}
 	
 	function initCamera()

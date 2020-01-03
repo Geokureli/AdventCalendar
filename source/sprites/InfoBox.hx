@@ -12,7 +12,7 @@ import flixel.text.FlxText;
 
 typedef InfoBox = TypedInfoBox<FlxSprite>;
 
-class TypedInfoBox<T:FlxSprite> extends FlxSpriteGroup
+class TypedInfoBox<T:FlxSprite> extends FlxTypedSpriteGroup<T>
 {
     inline static var BUFFER = 2;
     inline static var BOB_DIS = 4;
@@ -24,9 +24,12 @@ class TypedInfoBox<T:FlxSprite> extends FlxSpriteGroup
     public var introTime = 0.0;
     public var hoverDis = 20;
     
+    public var sprite(get, never):T;
+    inline function get_sprite() return members[0];
+    
     public function new (?sprite:T, ?callback:Void->Void, x = 0.0, y = 0.0)
     {
-        super();
+        super(0, 0, 1);
         this.callback = callback;
         
         this.x = x;

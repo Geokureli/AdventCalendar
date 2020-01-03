@@ -297,6 +297,7 @@ typedef RawMusicData = RawCreationData &
 typedef RawArtData = RawCreationData &
 {
     ?frames:Int,
+    ?antiAlias:Bool,
     ?link:String
 }
 

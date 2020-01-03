@@ -1,7 +1,5 @@
 package states;
 
-import data.DrumKit;
-import states.CabinState;
 import haxe.Json;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -9,10 +7,14 @@ import flixel.FlxSprite;
 import flixel.math.FlxMath;
 
 import data.Calendar;
+import data.DrumKit;
 import data.Instrument;
 import data.NGio;
-import states.OgmoState;
+import sprites.Present;
 import sprites.Snow;
+import states.CabinState;
+import states.GallerySubstate;
+import states.OgmoState;
 
 class OutsideState extends BaseState
 {
@@ -98,6 +100,7 @@ class OutsideState extends BaseState
 		addInstrumentPresent("carmet", Drums, onPickUpDrumSticks);
 		addInstrumentPresent("albegian", Piano);
 		
+		addArtPresent("NickConter", false);
 		
 		if (Calendar.day == 12)
 			initCrime();
@@ -212,25 +215,41 @@ class OutsideState extends BaseState
 			|| (obj.y < tree.y && obj.x > tree.x + 45 && obj.x + obj.width < tree.x + tree.width - 45);
 	}
 	
+	inline function addPresent(artist:String, opened = false, ?onOpen:()->Void):Present
+	{
+		var present:Present = cast foreground.getByName("present_" + artist);
+		if (present != null)
+		{
+			present.setup(opened);
+			present.immovable = true;
+			colliders.add(present);
+			if (onOpen == null)
+				addHoverTextTo(present, onOpen);
+		}
+		return present;
+	}
+	
+	function addArtPresent(artist:String, opened = false, ?onOpen:()->Void):Void
+	{
+		initArtPresent
+			( addPresent(artist.toLowerCase(), opened)
+			, { artist:artist, antiAlias:false, fileExt:"png" }
+			, onOpen
+			);
+	}
+	
 	// --- INSTRUMENTS
 	
 	function addInstrumentPresent(musician:String, type:InstrumentType, ?onOpen:()->Void):Void
 	{
-		var present = foreground.getByName("present_" + musician);
+		var opened = Instrument.owns(type);
+		var present = addPresent(musician, opened);
 		if (present != null)
 		{
-			present.animation.add("unopened", [0], false);
-			present.animation.add("opened", [1], false);
-			present.immovable = true;
-			colliders.add(present);
-			if (Instrument.owns(type))
-			{
-				present.animation.play("opened");
-				var instrument = addInstrument(present, type);
-			}
+			if (opened)
+				addInstrument(present, type);
 			else
 			{
-				present.animation.play("unopened");
 				addHoverTextTo(present, ()->
 					{
 						onInstrumentPresentOpen(present, type);
@@ -243,9 +262,9 @@ class OutsideState extends BaseState
 		}
 	}
 	
-	function onInstrumentPresentOpen(present:OgmoDecal, type:InstrumentType):Void
+	function onInstrumentPresentOpen(present:Present, type:InstrumentType):Void
 	{
-		present.animation.play("opened");
+		present.open();
 		remove(infoBoxes[present]);
 		infoBoxes.remove(present);
 		
@@ -255,7 +274,7 @@ class OutsideState extends BaseState
 		addInstrument(present, type);
 	}
 	
-	function addInstrument(present:OgmoDecal, type:InstrumentType)
+	function addInstrument(present:Present, type:InstrumentType)
 	{
 		var name = type.getName();
 		var instrument = new FlxSprite
