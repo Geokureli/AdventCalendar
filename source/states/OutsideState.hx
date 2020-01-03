@@ -100,7 +100,7 @@ class OutsideState extends BaseState
 		addInstrumentPresent("carmet", Drums, onPickUpDrumSticks);
 		addInstrumentPresent("albegian", Piano);
 		
-		addArtPresent("NickConter", false);
+		addArtPresent("NickConter", 30);
 		
 		if (Calendar.day == 12)
 			initCrime();
@@ -229,10 +229,12 @@ class OutsideState extends BaseState
 		return present;
 	}
 	
-	function addArtPresent(artist:String, opened = false, ?onOpen:()->Void):Void
+	function addArtPresent(artist:String, saveIndex:Int, ?onOpen:()->Void):Void
 	{
+		var present = addPresent(artist.toLowerCase(), Calendar.openedPres[saveIndex]);
+		present.ID = saveIndex;
 		initArtPresent
-			( addPresent(artist.toLowerCase(), opened)
+			( present
 			, { artist:artist, antiAlias:false, fileExt:"png" }
 			, onOpen
 			);

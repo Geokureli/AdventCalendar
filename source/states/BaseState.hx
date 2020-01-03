@@ -172,10 +172,14 @@ class BaseState extends OgmoState
 		box.sprite.visible = present.opened;
 	}
 	
-	inline function createArtPresent(x, y, ?suffix:String, ?day:Int, data:ArtData, opened = false, ?callback:()->Void)
+	inline function createArtPresent(x, y, ?suffix:String, ?day:Int, data:ArtData, ?opened:Bool, ?callback:()->Void)
 	{
-		var present = new Present(x, y, suffix, day, opened);
+		if (opened == null && day != null)
+			opened = Calendar.openedPres[day];
+		
+		var present = new Present(x, y, suffix, day, opened == true);
 		initArtPresent(present, data, callback);
+		
 		return present;
 	}
 	
@@ -185,6 +189,8 @@ class BaseState extends OgmoState
 		FlxG.sound.play("assets/sounds/presentOpen.mp3", 1);
 		openSubState(new GallerySubstate(data, callback));
 		infoBoxes[present].sprite.visible = true;
+		
+		Calendar.saveOpenPresent(present.saveIndex);
 	}
 	
 	inline function addHoverTo(target:FlxObject, box:InfoBox, hoverDis = 20)

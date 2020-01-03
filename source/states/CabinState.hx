@@ -270,6 +270,7 @@ class CabinState extends BaseState
 					( backupPresentPositions[i].x
 					, backupPresentPositions[i].y
 					, "backup"
+					, 25 + i
 					, Calendar.today.extras[i]
 					);
 				
@@ -317,13 +318,12 @@ class CabinState extends BaseState
 	{
 		// justOpenPresent = true;
 		
-		if (present.curDay != null)
+		if (present.isDaily)
 		{
-			Calendar.saveOpenPresent(present.curDay);
-			if (Calendar.allowDailyMedalUnlock(present.curDay))
+			if (Calendar.allowDailyMedalUnlock(present.day))
 				NGio.unlockMedal(NGio.MEDAL_0 + Calendar.day);
 			
-			if (Calendar.day == 12 && present.curDay == 12 && crimeState == null && !Calendar.solvedMurder)
+			if (Calendar.day == 12 && present.day == 12 && crimeState == null && !Calendar.solvedMurder)
 				startCrimeCutscene();
 				
 			var presCount:Int = 0;
