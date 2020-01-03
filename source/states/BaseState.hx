@@ -42,6 +42,7 @@ class BaseState extends OgmoState
 	var npcs = new FlxTypedGroup<NPC>();
 	var touchable = new FlxTypedGroup<FlxObject>();
 	var infoBoxes = new Map<FlxObject, InfoBox>();
+	var infoBoxGroup = new FlxTypedGroup<InfoBox>();
 	
 	var geom:FlxTilemap;
 	var props:OgmoEntityLayer;
@@ -69,6 +70,7 @@ class BaseState extends OgmoState
 		updateInstrument(Instrument.type);
 		initDrumKit();
 		
+		add(infoBoxGroup);
 		add(medalAnim = MedalPopup.getInstance());
 	}
 	
@@ -190,7 +192,7 @@ class BaseState extends OgmoState
 		touchable.add(target);
 		box.updateFollow(target);
 		box.hoverDis = hoverDis;
-		add(infoBoxes[target] = cast box);
+		infoBoxGroup.add(infoBoxes[target] = cast box);
 		return box;
 	}
 	

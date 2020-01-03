@@ -437,6 +437,7 @@ class CabinState extends BaseState
 		cutsceneActive = true;
 		foreground.active = false;
 		cutsceneTimer = 0;
+		infoBoxGroup.visible = false;
 	}
 	
 	function updateCrime(elapsed:Float):Void
@@ -546,6 +547,7 @@ class CabinState extends BaseState
 			case Interrogation:
 				if (isStateStart)
 				{
+					infoBoxGroup.visible = true;
 					foreground.active = true;
 					cutsceneActive = false;
 					giveNpcCrimeDialog();
