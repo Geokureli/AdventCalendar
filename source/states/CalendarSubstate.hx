@@ -290,13 +290,13 @@ class CalendarSprite extends FlxSpriteGroup
         ];
 }
 
-abstract DateButton(FlxBitmapTextButton) to FlxBitmapTextButton
+abstract DateButton(FlxTypedButton<DateNum>) to FlxTypedButton<DateNum>
 {
     inline static var GRAPHIC = "assets/images/ui/calendar/dateBtn.png";
     
     inline public function new(x, y, date:Int, onClick)
     {
-        this = new FlxBitmapTextButton(x, y, Std.string(date), onClick);
+        this = new FlxTypedButton(x, y, onClick);
         
         //bg
         this.loadGraphic(GRAPHIC);
@@ -305,18 +305,19 @@ abstract DateButton(FlxBitmapTextButton) to FlxBitmapTextButton
         this.height--;
         
         //date
-        final label = this.label;
-        label.color = 0xFF222034;
-        label.useTextColor = false;
-        label.font = new GravFont();
+        final label = this.label = new DateNum(0, 0, date);
         this.labelOffsets[0].x
             = this.labelOffsets[1].x
             = this.labelOffsets[2].x
-            = 31 - label.width;
+            = 31 - label.width - 1;
         this.labelOffsets[0].y
             = this.labelOffsets[1].y
             = this.labelOffsets[2].y
             = 2;
+        this.labelAlphas[0]
+            = this.labelAlphas[1]
+            = this.labelAlphas[2]
+            = 1;
     }
 }
 
@@ -330,12 +331,8 @@ abstract DisabledDate(FlxSpriteGroup) to FlxSprite
         this.add(new FlxSprite(0, 0, GRAPHIC));
         if (date != 0)
         {
-            var text = new FlxBitmapText(new GravFont());
-            text.text = Std.string(date);
-            text.color = 0xFF222034;
-            text.useTextColor = false;
-            text.x = 31 - text.width;
-            text.y = 2;
+            var text = new DateNum(31 - 1, 2, date);
+            text.x -= text.width;
             this.add(text);
         }
         this.x = x;
@@ -392,6 +389,18 @@ abstract TagSprite(FlxSprite) to FlxSprite
         this = new FlxSprite(x, y);
         this.loadGraphic("assets/images/ui/calendar/dateArt.png", true, 32, 24);
         this.animation.add("frame", [tag.getIndex()]);
+        this.animation.play("frame");
+    }
+}
+
+@:forward
+abstract DateNum(FlxSprite) to FlxSprite
+{
+    inline public function new(x, y, date:Int)
+    {
+        this = new FlxSprite(x, y);
+        this.loadGraphic("assets/images/ui/calendar/numbers.png", true, 10, 5);
+        this.animation.add("frame", [date - 1]);
         this.animation.play("frame");
     }
 }
