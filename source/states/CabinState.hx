@@ -266,13 +266,15 @@ class CabinState extends BaseState
 		{
 			for (i in 0...Calendar.today.extras.length)
 			{
-				var present = createArtPresent
+				var present = new Present
 					( backupPresentPositions[i].x
 					, backupPresentPositions[i].y
 					, "backup"
 					, 25 + i
-					, Calendar.today.extras[i]
+					, Calendar.openedPres[i]
 					);
+				
+				initArtPresent(present, Calendar.today.extras[i], onPresentOpen.bind(present));
 				
 				presents.add(present);
 				colliders.add(present);
@@ -325,17 +327,16 @@ class CabinState extends BaseState
 			
 			if (Calendar.day == 12 && present.day == 12 && crimeState == null && !Calendar.solvedMurder)
 				startCrimeCutscene();
-				
-			var presCount:Int = 0;
-			for (i in 0...Calendar.openedPres.getLength())
-			{
-				if (Calendar.openedPres[i])
-					presCount += 1;
-			}
 			
-			if (presCount == 25)
-				triggerCutscene();
 		}
+		
+		var presCount:Int = 0;
+		while (Calendar.openedPres[presCount])
+			presCount++;
+		
+		trace(Calendar.openedPres.toString(), presCount);
+		if (presCount == 29)
+			triggerCutscene();
 	}
 	
 	function changeMusic():Void
