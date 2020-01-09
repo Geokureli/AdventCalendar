@@ -95,13 +95,19 @@ class CabinState extends BaseState
 			tree.setMiddleWidth(25);
 		}
 		toOutside = props.getByName("toOutside");
+		
 		if (fromOutside)
 		{
 			player.x = toOutside.x - player.width - 5;
 			player.y = toOutside.y + toOutside.height / 2;
 			player.facing = FlxObject.LEFT;
 		}
-		
+		else
+		{
+			var sprite = player.showControls();
+			if (sprite != null)
+				add(sprite);
+		}
 		var tv:FlxSprite = foreground.getByName("tv");
 		tv.animation.curAnim.frameRate = 6;
 		tvBubble = cast props.getByName("TvBubble");

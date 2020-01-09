@@ -11,6 +11,7 @@ import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxVector;
 import flixel.math.FlxVelocity;
+import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
 import flixel.input.gamepad.FlxGamepad;
 
@@ -20,6 +21,13 @@ import flixel.input.gamepad.FlxGamepad;
  */
 class Player extends Character 
 {
+	inline static var POP_DELAY_TIME = 2.0;
+	inline static var POP_IN_OUT_TIME = 0.25;
+	inline static var POP_IN_TIME = POP_DELAY_TIME + POP_IN_OUT_TIME;
+	inline static var POP_HOLD_TIME = 3.0;
+	inline static var POP_EXIT_TIME = POP_IN_TIME + POP_HOLD_TIME;
+	inline static var POP_TOTAL_TIME = POP_EXIT_TIME + POP_IN_OUT_TIME;
+	
 	static var musicKeys:Array<Array<FlxKey>>
 		//  whole        whole        half whole         whole         whole        half
 		= [[E], [FOUR], [R], [FIVE], [T], [Y], [SEVEN], [U], [EIGHT], [I], [NINE], [O], [P]];
@@ -28,7 +36,9 @@ class Player extends Character
 	public var interacting = false;
 	public var wasInteracting = false;
 	public var knife(default, null):FlxSprite = null;
-	public var knifeTimer = 0.0;
+	public var knifeTimer(default, null) = 0.0;
+	public var controls(default, null):FlxSprite = null;
+	public var controlsTimer(default, null) = 0.0;
 	
 	var C:Float = 0;
 	
@@ -87,6 +97,9 @@ class Player extends Character
 				knife.visible = false;
 		}
 		
+		if (controls != null && controlsTimer < POP_TOTAL_TIME)
+			updateControlPop(elapsed);
+		
 		// prevents a bug on gamepads
 		if (wasInteracting && interacting)
 			interacting = false;
@@ -105,6 +118,29 @@ class Player extends Character
 				if (FlxG.keys.anyJustPressed(musicKeys[i]))
 					Instrument.press(i);
 			}
+		}
+	}
+	
+	inline function updateControlPop(elapsed:Float):Void
+	{
+		controls.x = x + (width - controls.width) / 2;
+		controls.y = y - height / 2;
+		
+		var t = 0.0;
+		if (controlsTimer > POP_EXIT_TIME)
+			t = FlxEase.backOut(1 - (controlsTimer - POP_EXIT_TIME) / POP_IN_OUT_TIME);
+		else if (controlsTimer > POP_IN_TIME)
+			t = 1;
+		else if (controlsTimer > POP_DELAY_TIME)
+			t = FlxEase.backOut((controlsTimer - POP_DELAY_TIME) / POP_IN_OUT_TIME);
+		
+		controls.scale.set(t, t);
+		
+		controlsTimer += elapsed;
+		if (controlsTimer > POP_TOTAL_TIME)
+		{
+			controls.kill();
+			controls = null;
 		}
 	}
 	
@@ -226,6 +262,20 @@ class Player extends Character
 		offset.y = (C * 1.3) + actualOffsetLOL;
 		
 		C *= speed;
+	}
+	
+	public function showControls():Null<FlxSprite>
+	{
+		if (FlxG.onMobile)
+			return null;
+		
+		controls = new FlxSprite();
+		controls.loadGraphic("assets/images/ui/ftue_arrow_keys.png", true, 31, 19);
+		controls.animation.add("anim", [0,1,0,2,0,3,0,4], 4);
+		controls.animation.play("anim");
+		controls.offset.y = controls.height + height;
+		controls.scale.set();
+		return controls;
 	}
 	
 	public function giveKnife()
