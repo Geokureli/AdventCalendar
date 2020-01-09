@@ -154,7 +154,6 @@ class MedalPopup extends flixel.group.FlxSpriteGroup
                 medal.scale.x = rect.width / medal.frameWidth;
                 medal.scale.y = rect.height / medal.frameHeight;
                 medal.updateHitbox();
-                trace(Lib.getTimer() + ' frame:${anim.curFrame} visible:${medal.visible}');
             }
         }
         
