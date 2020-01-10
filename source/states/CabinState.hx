@@ -342,7 +342,7 @@ class CabinState extends BaseState
 			presCount++;
 		
 		trace(Calendar.openedPres.toString(), presCount);
-		if (presCount == 29)
+		if (presCount >= 29)
 			triggerCutscene();
 	}
 	
