@@ -1,5 +1,6 @@
 package states;
 
+import sprites.InfoBox;
 import haxe.Json;
 import openfl.utils.Assets;
 
@@ -361,6 +362,12 @@ class CabinState extends BaseState
 		var volume = Calendar.today.song.volume;
 		FlxG.sound.music.fadeIn(5, 0, volume == null ? 0.3 : volume);
 		FlxG.sound.music.ID = Math.floor(day / 5);
+		
+		safeAddHoverText
+			( "stereo"
+			, "Music by " + Calendar.data[day].song.artist
+			, openUrl.bind(Calendar.data[day].musicProfileLink)
+			);
 	}
 	
 	function initCrime()

@@ -195,11 +195,24 @@ class BaseState extends OgmoState
 	
 	inline function addHoverTo(target:FlxObject, box:InfoBox, hoverDis = 20)
 	{
+		inline removeHoverFrom(target);
+		
 		touchable.add(target);
 		box.updateFollow(target);
 		box.hoverDis = hoverDis;
 		infoBoxGroup.add(infoBoxes[target] = cast box);
 		return box;
+	}
+	
+	function removeHoverFrom(target:FlxObject)
+	{
+		if (infoBoxes.exists(target))
+		{
+			var box = infoBoxes[target];
+			infoBoxes.remove(target);
+			touchable.remove(target);
+			infoBoxGroup.remove(box);
+		}
 	}
 	
 	function initCamera()
