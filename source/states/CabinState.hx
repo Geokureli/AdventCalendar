@@ -1,5 +1,6 @@
 package states;
 
+import sprites.InfoBox;
 import haxe.Json;
 import openfl.utils.Assets;
 
@@ -95,13 +96,19 @@ class CabinState extends BaseState
 			tree.setMiddleWidth(25);
 		}
 		toOutside = props.getByName("toOutside");
+		
 		if (fromOutside)
 		{
 			player.x = toOutside.x - player.width - 5;
 			player.y = toOutside.y + toOutside.height / 2;
 			player.facing = FlxObject.LEFT;
 		}
-		
+		else
+		{
+			var sprite = player.showControls();
+			if (sprite != null)
+				add(sprite);
+		}
 		var tv:FlxSprite = foreground.getByName("tv");
 		tv.animation.curAnim.frameRate = 6;
 		tvBubble = cast props.getByName("TvBubble");
@@ -266,13 +273,15 @@ class CabinState extends BaseState
 		{
 			for (i in 0...Calendar.today.extras.length)
 			{
-				var present = createArtPresent
+				var present = new Present
 					( backupPresentPositions[i].x
 					, backupPresentPositions[i].y
 					, "backup"
 					, 25 + i
-					, Calendar.today.extras[i]
+					, Calendar.openedPres[i]
 					);
+				
+				initArtPresent(present, Calendar.today.extras[i], onPresentOpen.bind(present));
 				
 				presents.add(present);
 				colliders.add(present);
@@ -325,17 +334,16 @@ class CabinState extends BaseState
 			
 			if (Calendar.day == 12 && present.day == 12 && crimeState == null && !Calendar.solvedMurder)
 				startCrimeCutscene();
-				
-			var presCount:Int = 0;
-			for (i in 0...Calendar.openedPres.getLength())
-			{
-				if (Calendar.openedPres[i])
-					presCount += 1;
-			}
 			
-			if (presCount == 25)
-				triggerCutscene();
 		}
+		
+		var presCount:Int = 0;
+		while (Calendar.openedPres[presCount])
+			presCount++;
+		
+		trace(Calendar.openedPres.toString(), presCount);
+		if (presCount >= 29)
+			triggerCutscene();
 	}
 	
 	function changeMusic():Void
@@ -354,6 +362,12 @@ class CabinState extends BaseState
 		var volume = Calendar.today.song.volume;
 		FlxG.sound.music.fadeIn(5, 0, volume == null ? 0.3 : volume);
 		FlxG.sound.music.ID = Math.floor(day / 5);
+		
+		safeAddHoverText
+			( "stereo"
+			, "Music by " + Calendar.data[day].song.artist
+			, openUrl.bind(Calendar.data[day].musicProfileLink)
+			);
 	}
 	
 	function initCrime()

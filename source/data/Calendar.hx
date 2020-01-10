@@ -188,8 +188,8 @@ class Calendar
     
     static public function saveOpenPresent(day:Int)
     {
-        trace("saved: " + openedPres);
         openedPres[day] = true;
+        trace("saved: " + openedPres);
         FlxG.save.data.openedPres = (openedPres:Int);
         FlxG.save.flush();
     }
