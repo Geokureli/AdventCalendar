@@ -65,7 +65,7 @@ class TypedInfoBox<T:FlxSprite> extends FlxTypedSpriteGroup<T>
     
     public function updateFollow(target:FlxObject):Void
     {
-        x = target.x + target.width / 2;
+        x = Math.max(width / 2, target.x + target.width / 2);
         y = target.y - hoverDis;
     }
 }
