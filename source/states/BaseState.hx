@@ -236,11 +236,13 @@ class BaseState extends OgmoState
 			}
 		}
 		
+		var onlyTouched:FlxObject = null;
 		FlxG.overlap(playerHitbox, touchable,
 			(_, touched)->
 			{
-				if (infoBoxes.exists(touched))
+				if (onlyTouched == null && infoBoxes.exists(touched))
 				{
+					onlyTouched = touched;
 					infoBoxes[touched].alive = true;
 					if (player.interacting)
 						infoBoxes[touched].interact();
