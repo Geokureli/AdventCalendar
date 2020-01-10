@@ -15,5 +15,6 @@ class Main extends openfl.display.Sprite
 		stage.addEventListener(MouseEvent.MOUSE_WHEEL, (e)->e.preventDefault());
 		
 		flixel.FlxG.sound.muteKeys = [M, ZERO];
+		flixel.FlxG.mouse.useSystemCursor = true;
 	}
 }
